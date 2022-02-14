@@ -1,7 +1,7 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Text, Button, Alert } from 'react-native'
 
-function App() {
+const App = () => {
   const showAlert = () =>
     Alert.alert('Alert', 'Personal Credential Manager', [
       { text: 'Cancel' },

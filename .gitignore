@@ -58,3 +58,8 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+# Enabling this option can dramatically improve ESLint's running time 
+# by ensuring that only changed files are linted.
+# https://eslint.org/docs/user-guide/command-line-interface#caching
+.eslintcache
