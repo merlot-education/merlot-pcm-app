@@ -31,5 +31,12 @@ module.exports = {
     'no-use-before-define': 'off',
     'import/extensions': ['error', 'never'],
     'import/no-unresolved': 0,
+    'react/function-component-definition': [
+      2,
+      {
+        namedComponents: 'arrow-function',
+        unnamedComponents: 'arrow-function',
+      },
+    ],
   },
 }
