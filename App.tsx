@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet, Text, Button, Alert } from 'react-native'
+import SplashScreen from 'react-native-splash-screen'
 
 const App = () => {
+  useEffect(() => {
+    // Hide the native splash / loading screen so that our
+    // RN version can be displayed.
+    SplashScreen.hide()
+  }, [])
+
   const showAlert = () =>
     Alert.alert('Alert', 'Personal Credential Manager', [
       { text: 'Cancel' },
