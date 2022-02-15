@@ -59,13 +59,10 @@ buck-out/
 # CocoaPods
 /ios/Pods/
 
-<<<<<<< HEAD
 # dotenv environment variables file
 .env
 .env.test
-=======
 # Enabling this option can dramatically improve ESLint's running time 
 # by ensuring that only changed files are linted.
 # https://eslint.org/docs/user-guide/command-line-interface#caching
 .eslintcache
->>>>>>> aa89851c05cb1d8c484b21d7ce56e9331ad40db7
