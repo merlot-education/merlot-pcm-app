@@ -3,14 +3,13 @@ import React from 'react'
 
 import Terms from '../screens/Terms'
 
-
 const onboardingStack = () => {
   const Stack = createStackNavigator()
 
   return (
-    <Stack.Navigator initialRouteName={'Terms'} screenOptions={{  headerShown: false }}>
+    <Stack.Navigator initialRouteName="Terms">
       <Stack.Screen
-        name={"Terms"}
+        name="Terms"
         options={() => ({
           title: 'Terms & Conditions',
           headerShown: true,
@@ -24,8 +23,6 @@ const onboardingStack = () => {
 }
 
 const RootStack: React.FC = () => {
- 
-
   return onboardingStack()
 }
 
