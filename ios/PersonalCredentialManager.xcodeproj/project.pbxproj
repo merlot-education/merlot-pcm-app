@@ -30,6 +30,7 @@
 		00E356EE1AD99517003FC87E /* PersonalCredentialManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonalCredentialManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* PersonalCredentialManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalCredentialManagerTests.m; sourceTree = "<group>"; };
+		03B2BF05DABF47D5860D21AA /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		091A1491DF75DD968A5150E9 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* PersonalCredentialManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalCredentialManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PersonalCredentialManager/AppDelegate.h; sourceTree = "<group>"; };
@@ -37,13 +38,28 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = PersonalCredentialManager/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PersonalCredentialManager/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PersonalCredentialManager/main.m; sourceTree = "<group>"; };
+		186C1DA476994FEBB2A0FB48 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
+		1C10BC92F9394E6486AF27F0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		218161BE833B396A7D0D9676 /* Pods-PersonalCredentialManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager.release.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager/Pods-PersonalCredentialManager.release.xcconfig"; sourceTree = "<group>"; };
+		22925182963E43AABAFC6DE1 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		275E4CE3DED9814301FB39F2 /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager-PersonalCredentialManagerTests/Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3CF1B5970F764466AA5B532C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		42E4200B2E44481BAB5535A4 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		56C06A0D868D49B28D5EE2DB /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		6BAF557C60F43AF1409B3217 /* Pods-PersonalCredentialManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager.debug.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager/Pods-PersonalCredentialManager.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PersonalCredentialManager/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A20DE76CC5794D40B00346D9 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		A5C166FA0D85174C2810EFC4 /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager-PersonalCredentialManagerTests/Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig"; sourceTree = "<group>"; };
+		A78E245B6B044A8193B781D6 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		B472E6D57FD947A8A95A3D9A /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		B490EA60295A4303AC328F11 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		B511E1FF35794D8384EEB91B /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		BA90FEF376154B83B2B914CF /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		C1ED828338A44A30836FBA4C /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		D3FD2AA880404D3FBE7B5654 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		DC50D12952522A41C0E258DC /* libPods-PersonalCredentialManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EDCB2B460766460B81E66726 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +122,29 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		50EEF0ED1A1541FF830C1A70 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B472E6D57FD947A8A95A3D9A /* AntDesign.ttf */,
+				03B2BF05DABF47D5860D21AA /* Entypo.ttf */,
+				A78E245B6B044A8193B781D6 /* EvilIcons.ttf */,
+				C1ED828338A44A30836FBA4C /* Feather.ttf */,
+				BA90FEF376154B83B2B914CF /* FontAwesome.ttf */,
+				A20DE76CC5794D40B00346D9 /* FontAwesome5_Brands.ttf */,
+				B511E1FF35794D8384EEB91B /* FontAwesome5_Regular.ttf */,
+				EDCB2B460766460B81E66726 /* FontAwesome5_Solid.ttf */,
+				D3FD2AA880404D3FBE7B5654 /* Fontisto.ttf */,
+				42E4200B2E44481BAB5535A4 /* Foundation.ttf */,
+				22925182963E43AABAFC6DE1 /* Ionicons.ttf */,
+				1C10BC92F9394E6486AF27F0 /* MaterialCommunityIcons.ttf */,
+				56C06A0D868D49B28D5EE2DB /* MaterialIcons.ttf */,
+				186C1DA476994FEBB2A0FB48 /* Octicons.ttf */,
+				B490EA60295A4303AC328F11 /* SimpleLineIcons.ttf */,
+				3CF1B5970F764466AA5B532C /* Zocial.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +161,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BA7B73213AD49CDDCAAC1EB6 /* Pods */,
+				50EEF0ED1A1541FF830C1A70 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
