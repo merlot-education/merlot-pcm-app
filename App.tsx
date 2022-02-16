@@ -1,16 +1,13 @@
-import { default as React, useEffect } from 'react'
-// import SplashScreen from 'react-native-splash-screen'
-
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
 import RootStack from './App/navigators/RootStack'
 
 const App = () => {
-  // useEffect(() => {
-  //   // Hide the native splash / loading screen so that our
-  //   // RN version can be displayed.
-  //   SplashScreen.hide()
-  // }, [])
-
-  return <RootStack />
+  return (
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  )
 }
 
 export default App
