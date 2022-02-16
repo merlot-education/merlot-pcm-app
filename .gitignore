@@ -57,7 +57,8 @@ buck-out/
 *.jsbundle
 
 # CocoaPods
-/ios/Pods/
+ios/Pods/*
+!ios/Pods/Frameworks
 
 # Enabling this option can dramatically improve ESLint's running time 
 # by ensuring that only changed files are linted.

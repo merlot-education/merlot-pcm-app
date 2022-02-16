@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
-import RootStack from './src/navigators/RootStack'
 import { Colors } from './src/theme/theme'
+import RootStack from './src/navigators/RootStack'
 
 const navigationTheme = {
   dark: false,
