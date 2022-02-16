@@ -171,12 +171,11 @@ android {
         }
     }
 
-  flavorDimensions "default"
-  productFlavors {
-    production {}
-    development {}
-  }
-
+    flavorDimensions "default"
+    productFlavors {
+        production {}
+        development {}
+    }
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -231,10 +230,10 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
  project.ext.envConfigFiles = [
-   productiondebug: ".env.production",
-   productionrelease: ".env.production",
-   developmentrelease: ".env.development",
-   developmentdebug: ".env.development",
+   productionDebug: ".env.production",
+   productionRelease: ".env.production",
+   developmentRelease: ".env.development",
+   developmentDebug: ".env.development",
  ]
 
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
