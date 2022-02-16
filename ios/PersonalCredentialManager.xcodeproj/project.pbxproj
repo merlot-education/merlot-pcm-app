@@ -14,6 +14,8 @@
 		2E37625A2FEB309252476BF6 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 091A1491DF75DD968A5150E9 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		DC33090B1DF45ECB1D2860CA /* libPods-PersonalCredentialManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC50D12952522A41C0E258DC /* libPods-PersonalCredentialManager.a */; };
+		FE5B187A27BB9E9700E39BA4 /* Indy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B187927BB9E9700E39BA4 /* Indy.framework */; platformFilter = ios; };
+		FE5B187B27BB9E9800E39BA4 /* Indy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B187927BB9E9700E39BA4 /* Indy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +27,20 @@
 			remoteInfo = PersonalCredentialManager;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FE5B187C27BB9E9800E39BA4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FE5B187B27BB9E9800E39BA4 /* Indy.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* PersonalCredentialManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonalCredentialManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +75,7 @@
 		D3FD2AA880404D3FBE7B5654 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		DC50D12952522A41C0E258DC /* libPods-PersonalCredentialManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FE5B187927BB9E9700E39BA4 /* Indy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Indy.framework; path = Pods/Frameworks/Indy.framework; sourceTree = "<group>"; };
 		EDCB2B460766460B81E66726 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE5B187A27BB9E9700E39BA4 /* Indy.framework in Frameworks */,
 				DC33090B1DF45ECB1D2860CA /* libPods-PersonalCredentialManager.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +133,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FE5B187927BB9E9700E39BA4 /* Indy.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				DC50D12952522A41C0E258DC /* libPods-PersonalCredentialManager.a */,
 				091A1491DF75DD968A5150E9 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */,
@@ -224,6 +243,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				14103119D159444DD75EFFF3 /* [CP] Embed Pods Frameworks */,
 				316F665B19D635C8687B68BC /* [CP] Copy Pods Resources */,
+				FE5B187C27BB9E9800E39BA4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -524,7 +544,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Frameworks",
+				);
 				INFOPLIST_FILE = PersonalCredentialManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -550,6 +575,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Frameworks",
+				);
 				INFOPLIST_FILE = PersonalCredentialManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
