@@ -1,17 +1,21 @@
 import React from 'react'
-import { SafeAreaView, StyleSheet, Text, Button, Alert } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import { HighlightTextBox, Label, Title } from './src/components'
+import { TextTheme } from './src/theme/theme'
 
 const App = () => {
-  const showAlert = () =>
-    Alert.alert('Alert', 'Personal Credential Manager', [
-      { text: 'Cancel' },
-      { text: 'OK' },
-    ])
-
   return (
     <SafeAreaView style={styles.container}>
-      <Text>Personal Credential Manager</Text>
-      <Button title="Show Alert" onPress={showAlert} />
+      <Label title="Title" subtitle="subtitle" label="label" />
+      <HighlightTextBox>HighlightTextBox</HighlightTextBox>
+      <Title>title</Title>
+      <Title style={TextTheme.headingOne}>title</Title>
+      <Title style={TextTheme.headingTwo}>title</Title>
+      <Title style={TextTheme.headingThree}>title</Title>
+      <Title style={TextTheme.headingFour}>title</Title>
+      <Title style={TextTheme.caption}>title</Title>
+      <Title style={TextTheme.label}>title</Title>
+      <Title style={TextTheme.normal}>title</Title>
     </SafeAreaView>
   )
 }
@@ -19,8 +23,10 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 10,
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    backgroundColor: 'black',
   },
 })
 

@@ -7,6 +7,7 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
     'prettier',
+    'prettier/react',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:import/typescript',
@@ -36,6 +37,15 @@ module.exports = {
       {
         namedComponents: 'arrow-function',
         unnamedComponents: 'arrow-function',
+      },
+    ],
+    'react/prop-types': 'off', // Since we do not use prop-types
+    'react/require-default-props': 'off', // Since we do not use prop-types
+    'react/jsx-closing-bracket-location': [
+      2,
+      {
+        nonEmpty: 'after-props',
+        selfClosing: 'tag-aligned',
       },
     ],
   },
