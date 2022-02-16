@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
-import { SafeAreaView, StyleSheet, Text, Button, Alert } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
+import RootStack from './App/navigators/RootStack'
 
 const App = () => {
   useEffect(() => {
@@ -9,26 +10,11 @@ const App = () => {
     SplashScreen.hide()
   }, [])
 
-  const showAlert = () =>
-    Alert.alert('Alert', 'Personal Credential Manager', [
-      { text: 'Cancel' },
-      { text: 'OK' },
-    ])
-
   return (
-    <SafeAreaView style={styles.container}>
-      <Text>Personal Credential Manager</Text>
-      <Button title="Show Alert" onPress={showAlert} />
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
 
 export default App
