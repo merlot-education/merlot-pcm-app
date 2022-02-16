@@ -1,33 +1,20 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
-import { HighlightTextBox, Label, Title } from './src/components'
-import { TextTheme } from './src/theme/theme'
+import React, { useEffect } from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import SplashScreen from 'react-native-splash-screen'
+import RootStack from './App/navigators/RootStack'
 
 const App = () => {
+  useEffect(() => {
+    // Hide the native splash / loading screen so that our
+    // RN version can be displayed.
+    SplashScreen.hide()
+  }, [])
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Label title="Title" subtitle="subtitle" label="label" />
-      <HighlightTextBox>HighlightTextBox</HighlightTextBox>
-      <Title>title</Title>
-      <Title style={TextTheme.headingOne}>title</Title>
-      <Title style={TextTheme.headingTwo}>title</Title>
-      <Title style={TextTheme.headingThree}>title</Title>
-      <Title style={TextTheme.headingFour}>title</Title>
-      <Title style={TextTheme.caption}>title</Title>
-      <Title style={TextTheme.label}>title</Title>
-      <Title style={TextTheme.normal}>title</Title>
-    </SafeAreaView>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    // alignItems: 'center',
-    // justifyContent: 'center',
-    backgroundColor: 'black',
-  },
-})
 
 export default App
