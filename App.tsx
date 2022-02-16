@@ -1,5 +1,7 @@
 import React from 'react'
 import { SafeAreaView, StyleSheet, Text, Button, Alert } from 'react-native'
+import Config from "react-native-config";
+
 
 const App = () => {
   const showAlert = () =>
@@ -7,7 +9,7 @@ const App = () => {
       { text: 'Cancel' },
       { text: 'OK' },
     ])
-
+console.log('Config.API_URL;', Config.API_URL)
   return (
     <SafeAreaView style={styles.container}>
       <Text>Personal Credential Manager</Text>
