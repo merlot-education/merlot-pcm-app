@@ -48,5 +48,6 @@ module.exports = {
         selfClosing: 'tag-aligned',
       },
     ],
+    'no-shadow': 'off',
   },
 }

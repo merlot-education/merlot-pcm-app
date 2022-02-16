@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native'
+
 type BaseColor = Record<string, string>
 
 interface FontAttributes {
@@ -242,3 +244,54 @@ export const TextTheme: TextTheme = {
     color: Colors.text,
   },
 }
+
+export const Buttons = StyleSheet.create({
+  primary: {
+    padding: 16,
+    borderRadius: 4,
+    backgroundColor: Colors.primary,
+  },
+  primaryDisabled: {
+    padding: 16,
+    borderRadius: 4,
+    backgroundColor: Colors.darkGreenHeavyTransparent,
+  },
+  primaryText: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
+    color: Colors.white,
+    textAlign: 'center',
+  },
+  primaryTextDisabled: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
+    color: Colors.white,
+    textAlign: 'center',
+  },
+  secondary: {
+    padding: 16,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.primary,
+    backgroundColor: Colors.white,
+  },
+  secondaryDisabled: {
+    padding: 16,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: Colors.darkGreenLightTransparent,
+    backgroundColor: Colors.white,
+  },
+  secondaryText: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    textAlign: 'center',
+  },
+  secondaryTextDisabled: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
+    color: Colors.darkGreenLightTransparent,
+    textAlign: 'center',
+  },
+})
