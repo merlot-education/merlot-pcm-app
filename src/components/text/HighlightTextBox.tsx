@@ -35,8 +35,7 @@ const HighlightTextBox: React.FC<TextBoxProps> = ({ children }) => {
         style={[
           style.headerText,
           { paddingTop: offset, paddingBottom: offset },
-        ]}
-      >
+        ]}>
         {children}
       </Text>
     </View>
