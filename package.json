@@ -13,6 +13,7 @@
   "dependencies": {
     "@aries-framework/core": "^0.1.0",
     "@aries-framework/react-native": "^0.1.0",
+    "@react-native-async-storage/async-storage": "^1.16.1",
     "@react-navigation/core": "^6.1.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",

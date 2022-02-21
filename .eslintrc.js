@@ -49,5 +49,6 @@ module.exports = {
       },
     ],
     'no-shadow': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 }
