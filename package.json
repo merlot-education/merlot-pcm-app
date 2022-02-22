@@ -19,13 +19,14 @@
     "indy-sdk-react-native": "^0.1.20",
     "react": "17.0.2",
     "react-native": "0.66.4",
+    "react-native-app-intro-slider": "^4.0.4",
     "react-native-fs": "^2.18.0",
-    "react-native-get-random-values": "^1.7.2",
-    "react-native-vector-icons": "^9.1.0",
-    "react-native-splash-screen": "^3.3.0",
     "react-native-gesture-handler": "2.1.1",
+    "react-native-get-random-values": "^1.7.2",
     "react-native-safe-area-context": "^3.3.2",
-    "react-native-screens": "^3.11.1"
+    "react-native-screens": "^3.11.1",
+    "react-native-splash-screen": "^3.3.0",
+    "react-native-vector-icons": "^9.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
