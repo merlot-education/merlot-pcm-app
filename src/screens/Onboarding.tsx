@@ -11,14 +11,14 @@ const slides = [
     key: 1,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    // image: require('./assets/1.jpg'),
+    image: require('../assets/1.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Title 2',
     text: 'Other cool stuff',
-    // image: require('./assets/2.jpg'),
+    image: require('../assets/2.png'),
     backgroundColor: '#febe29',
   },
   {
