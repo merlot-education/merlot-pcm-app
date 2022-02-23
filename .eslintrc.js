@@ -59,5 +59,7 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-return-assign': 'off',
     'react/no-array-index-key': 'off',
+    'global-require': 'off',
+    'react/jsx-no-undef': 'off',
   },
 }
