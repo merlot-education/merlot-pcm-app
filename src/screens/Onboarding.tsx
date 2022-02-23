@@ -1,21 +1,24 @@
-import React from 'react'
-import { SafeAreaView, StyleSheet, View } from 'react-native'
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/no-unstable-nested-components */
+
+import { useNavigation } from '@react-navigation/native'
+import React, { useState } from 'react'
+import { StyleSheet, View, Text } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 const slides = [
   {
     key: 1,
     title: 'Title 1',
     text: 'Description.\nSay something cool',
-    image: require('../assets/1.png'),
+    // image: require('./assets/1.jpg'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Title 2',
     text: 'Other cool stuff',
-    image: require('../assets/2.png'),
+    // image: require('./assets/2.jpg'),
     backgroundColor: '#febe29',
   },
   {
@@ -26,22 +29,27 @@ const slides = [
     backgroundColor: '#22bcb5',
   },
 ]
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.background,
-    margin: 20,
-  },
-})
+
 const Onboarding: React.FC = () => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.slide}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Image source={item.image} />
-        <Text style={styles.text}>{item.text}</Text>
+  const [showRealApp, setShowRealApp] = useState(false)
+  const navigation = useNavigation()
+  const _renderItem = ({ item }) => {
+    return (
+      <View>
+        <Text>{item.title}</Text>
+        {/* <Image source={item.image} /> */}
+        <Text>{item.text}</Text>
       </View>
-      <AppIntroSlider data={slides} />
-    </SafeAreaView>
+    )
+  }
+  const _onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    navigation.navigate('Terms')
+    setShowRealApp(true)
+  }
+  return (
+    <AppIntroSlider renderItem={_renderItem} data={slides} onDone={_onDone} />
   )
 }
 export default Onboarding
