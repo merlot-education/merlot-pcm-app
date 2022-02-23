@@ -60,6 +60,9 @@ buck-out/
 ios/Pods/*
 !ios/Pods/Frameworks
 
+# dotenv environment variables file
+.env.production
+
 # Enabling this option can dramatically improve ESLint's running time 
 # by ensuring that only changed files are linted.
 # https://eslint.org/docs/user-guide/command-line-interface#caching
