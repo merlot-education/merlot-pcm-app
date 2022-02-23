@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { useNavigation } from '@react-navigation/core'
 import { HighlightTextBox } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
@@ -29,6 +30,7 @@ const styles = StyleSheet.create({
 
 const Terms: React.FC = () => {
   const [checked, setChecked] = useState(false)
+  const nav = useNavigation()
 
   return (
     <SafeAreaView style={styles.container}>
@@ -68,6 +70,7 @@ const Terms: React.FC = () => {
             <Button
               title="Continue"
               accessibilityLabel="Continue"
+              onPress={() => nav.navigate('PinCreate')}
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />
