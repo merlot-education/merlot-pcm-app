@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import SplashScreen from 'react-native-splash-screen'
 import {
   Agent,
   MediatorPickupStrategy,
@@ -58,7 +57,6 @@ const App = () => {
   useEffect(() => {
     // Hide the native splash / loading screen so that our
     // RN version can be displayed.
-    SplashScreen.hide()
     initAgent()
   }, [])
 

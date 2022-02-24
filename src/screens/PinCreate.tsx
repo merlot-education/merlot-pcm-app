@@ -7,6 +7,10 @@ import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 
+interface PinCreateProps {
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 const style = StyleSheet.create({
   container: {
     backgroundColor: Colors.background,
@@ -14,7 +18,7 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC = () => {
+const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
 
@@ -25,7 +29,7 @@ const PinCreate: React.FC = () => {
       await Keychain.setGenericPassword(description, passcode, {
         service: 'passcode',
       })
-      Alert.alert('Pins created successfully')
+      Alert.alert('Pin created successfully')
     } catch (e) {
       Alert.alert(e)
     }
@@ -38,7 +42,7 @@ const PinCreate: React.FC = () => {
       Alert.alert('Pins entered do not match')
     } else {
       passcodeCreate(x)
-      // setAuthenticated(true)
+      setAuthenticated(true)
     }
   }
 

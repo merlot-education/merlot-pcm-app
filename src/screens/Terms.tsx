@@ -7,6 +7,7 @@ import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../components/text/InfoTextBox'
 import { Colors, TextTheme } from '../theme/theme'
+import { Screens } from '../utils/constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -70,7 +71,7 @@ const Terms: React.FC = () => {
             <Button
               title="Continue"
               accessibilityLabel="Continue"
-              onPress={() => nav.navigate('PinCreate')}
+              onPress={() => nav.navigate(Screens.CreatePin)}
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />
