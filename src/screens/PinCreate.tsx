@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Alert, Keyboard, StyleSheet } from 'react-native'
+import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import * as Keychain from 'react-native-keychain'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import ReactNativeBiometrics from 'react-native-biometrics'
 
 import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
@@ -15,6 +16,9 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: Colors.background,
     margin: 20,
+  },
+  btnContainer: {
+    marginTop: 20,
   },
 })
 
@@ -39,13 +43,39 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
     if (x.length < 6 || y.length < 6) {
       Alert.alert('Pin must be 6 digits in length')
     } else if (x !== y) {
-      Alert.alert('Pins entered do not match')
+      Alert.alert('Pin entered do not match')
     } else {
       passcodeCreate(x)
       setAuthenticated(true)
     }
   }
+  const biometricEnable = () => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+        ReactNativeBiometrics.simplePrompt({
+          promptMessage: 'Confirm fingerprint',
+        })
+          .then(resultObject => {
+            const { success } = resultObject
 
+            if (success) {
+              ReactNativeBiometrics.createKeys().then(() => {
+                setAuthenticated(true)
+                Alert.alert('fingerprint register successfully ')
+              })
+            } else {
+              Alert.alert('User cancelled biometric prompt')
+            }
+          })
+          .catch(() => {
+            Alert.alert('Biometrics failed')
+          })
+      } else {
+        Alert.alert('Biometrics not supported')
+      }
+    })
+  }
   return (
     <SafeAreaView style={[style.container]}>
       <TextInput
@@ -87,6 +117,14 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
           confirmEntry(pin, pinTwo)
         }}
       />
+      <View style={style.btnContainer}>
+        <Button
+          title="Biometric"
+          accessibilityLabel="Biometric"
+          buttonType={ButtonType.Primary}
+          onPress={biometricEnable}
+        />
+      </View>
     </SafeAreaView>
   )
 }
