@@ -49,17 +49,12 @@ const Terms: React.FC = () => {
           <View style={styles.topSpacer}>
             <Button
               title={t('Global.Continue')}
-              accessibilityLabel="Continue"
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />
           </View>
           <View style={styles.topSpacer}>
-            <Button
-              title={t('Global.Back')}
-              accessibilityLabel="Back"
-              buttonType={ButtonType.Secondary}
-            />
+            <Button title={t('Global.Back')} buttonType={ButtonType.Ghost} />
           </View>
         </View>
       </ScrollView>
