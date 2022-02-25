@@ -1,0 +1,42 @@
+// prettier-ignore
+const translation = {
+  "Global": {
+    "EnterPin": "Pin eingeben",
+    "6DigitPin": "6-stellige Pin",
+    "Submit": "Senden",
+    "NoneYet!": "Noch keine!",
+    "Cancel": "Abbrechen",
+    "Confirm": "Bestätigen Sie",
+    "Accept": "Akzeptieren",
+    "Reject": "Ablehnen",
+    "Share": "Teilen",
+    "Decline": "Ablehnen",
+    "Back": "Zurück",
+    "Next": "Weiter",
+    "Continue": "Weiter",
+    "Info": "Informationen",
+    "Failure": "Scheitern",
+    "Success": "Erfolg",
+    "SomethingWentWrong": "Etwas ging schief",
+    "Done": "Erledigt",
+    "Skip": "Überspringen",
+    "View": "Ansicht",
+    "Home": "Startseite",
+    "ErrorCode": "Fehlercode",
+    "Okay": "Okay"
+  },
+  "Language": {
+    "English": "Englisch",
+    "French": "Französisch",
+    "German": "Deutsch"
+  },
+  "Terms": {
+    "AcceptTerms": "Bitte stimmen Sie den nachstehenden Bedingungen zu, bevor Sie diese Anwendung nutzen.",
+    "TermsAndConditions": "Diese Bedingungen legen die Rechte und Pflichten aller Nutzer in Bezug auf die Nutzung des Dienstes fest. Ihr Zugang zu und Ihre Nutzung des Dienstes setzt voraus, dass Sie diese Bedingungen akzeptieren und einhalten. Diese Allgemeinen Geschäftsbedingungen gelten für alle Besucher, Benutzer und andere, die auf den Dienst zugreifen oder ihn nutzen.",
+    "Attestation": "Ich habe die Bedingungen gelesen, verstanden und akzeptiere sie."
+  },
+  "Settings": { 
+    "Language": "Sprache",     
+  },
+}
+export default translation
