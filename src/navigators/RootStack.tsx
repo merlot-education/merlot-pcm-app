@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React, { useState } from 'react'
 
-import { Screens } from '../utils/constants'
+import Screens from '../utils/constants'
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
 import Splash from '../screens/Splash'
@@ -20,7 +20,8 @@ const RootStack: React.FC = () => {
     return (
       <Stack.Navigator
         initialRouteName={Screens.Splash}
-        screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+        screenOptions={{ ...defaultStackOptions, headerShown: false }}
+      >
         <Stack.Screen name={Screens.Home} component={Home} />
       </Stack.Navigator>
     )
@@ -32,7 +33,8 @@ const RootStack: React.FC = () => {
     return (
       <Stack.Navigator
         initialRouteName={Screens.Splash}
-        screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+        screenOptions={{ ...defaultStackOptions, headerShown: false }}
+      >
         <Stack.Screen name={Screens.Splash} component={Splash} />
         <Stack.Screen
           name={Screens.Terms}

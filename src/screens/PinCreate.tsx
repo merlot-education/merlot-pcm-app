@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Alert, Keyboard, StyleSheet, View } from 'react-native'
-import * as Keychain from 'react-native-keychain'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
@@ -33,9 +32,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
     const passcode = JSON.stringify(pin)
     const description = t('PinCreate.UserAuthenticationPin')
     try {
-      // await Keychain.setGenericPassword(description, passcode, {
-      //   service: 'passcode',
-      // })
       setValueKeychain(description, passcode, {
         service: 'passcode',
       })
