@@ -3,8 +3,9 @@ import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import * as Keychain from 'react-native-keychain'
 import SplashScreen from 'react-native-splash-screen'
-import { Screens } from '../utils/constants'
+import Screens from '../utils/constants'
 import { Colors } from '../theme/theme'
+import { getValueKeychain } from '../utils/keychain'
 
 const styles = StyleSheet.create({
   container: {
@@ -19,7 +20,10 @@ const Splash: React.FC = () => {
   const nav = useNavigation()
 
   const checkStack = async () => {
-    const keychainEntry = await Keychain.getGenericPassword({
+    // const keychainEntry = await Keychain.getGenericPassword({
+    //   service: 'passcode',
+    // })
+    const keychainEntry = await getValueKeychain({
       service: 'passcode',
     })
     if (keychainEntry) {

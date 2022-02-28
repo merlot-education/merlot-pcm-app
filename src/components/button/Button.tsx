@@ -1,57 +1,38 @@
 import React from 'react'
-import { Text, TouchableOpacity } from 'react-native'
+import { ViewStyle } from 'react-native'
 
-import { Buttons, heavyOpacity } from '../../theme/theme'
+import { Button as AntButton } from '@ant-design/react-native'
 
 export enum ButtonType {
-  Primary,
-  Secondary,
+  Primary = 'primary',
+  Warning = 'warning',
+  Ghost = 'ghost',
 }
 
 interface ButtonProps {
   title: string
   buttonType: ButtonType
-  accessibilityLabel?: string
   onPress?: () => void
   disabled?: boolean
+  buttonStyle?: ViewStyle
 }
 
 const Button: React.FC<ButtonProps> = ({
   title,
-  buttonType,
-  accessibilityLabel,
+  buttonType = ButtonType.Primary,
+  buttonStyle,
   onPress,
   disabled = false,
 }) => {
-  const accessible = !!(accessibilityLabel && accessibilityLabel !== '')
-
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      accessible={accessible}
-      accessibilityLabel={accessibilityLabel}
-      style={[
-        buttonType === ButtonType.Primary ? Buttons.primary : Buttons.secondary,
-        disabled &&
-          (buttonType === ButtonType.Primary
-            ? Buttons.primaryDisabled
-            : Buttons.secondaryDisabled),
-      ]}
+    <AntButton
+      type={buttonType}
+      style={buttonStyle}
       disabled={disabled}
-      activeOpacity={heavyOpacity}>
-      <Text
-        style={[
-          buttonType === ButtonType.Primary
-            ? Buttons.primaryText
-            : Buttons.secondaryText,
-          disabled &&
-            (buttonType === ButtonType.Primary
-              ? Buttons.primaryTextDisabled
-              : Buttons.secondaryTextDisabled),
-        ]}>
-        {title}
-      </Text>
-    </TouchableOpacity>
+      onPress={onPress}
+    >
+      {title}
+    </AntButton>
   )
 }
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Alert, Keyboard, SafeAreaView, StyleSheet } from 'react-native'
 import * as Keychain from 'react-native-keychain'
-
+import { useTranslation } from 'react-i18next'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Colors } from '../theme/theme'
+import { getValueKeychain } from '../utils/keychain'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,25 +20,29 @@ const style = StyleSheet.create({
 
 const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
   const [pin, setPin] = useState('')
+  const { t } = useTranslation()
 
   const checkPin = async (pin: string) => {
-    const keychainEntry = await Keychain.getGenericPassword({
+    // const keychainEntry = await Keychain.getGenericPassword({
+    //   service: 'passcode',
+    // })
+    const keychainEntry = await getValueKeychain({
       service: 'passcode',
     })
     if (keychainEntry && JSON.stringify(pin) === keychainEntry.password) {
       setAuthenticated(true)
     } else {
-      Alert.alert('Incorrect Pin')
+      Alert.alert(t('PinEnter.IncorrectPin'))
     }
   }
 
   return (
     <SafeAreaView style={[style.container]}>
       <TextInput
-        label="Enter Pin"
+        label={t('Global.EnterPin')}
         accessible
-        accessibilityLabel="Enter Pin"
-        placeholder="6 Digit Pin"
+        accessibilityLabel={t('Global.EnterPin')}
+        placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
         autoFocus
         maxLength={6}
@@ -52,9 +57,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
         }}
       />
       <Button
-        title="Submit"
+        title={t('Global.Submit')}
         buttonType={ButtonType.Primary}
-        accessibilityLabel="Submit"
         onPress={() => {
           Keyboard.dismiss()
           checkPin(pin)
