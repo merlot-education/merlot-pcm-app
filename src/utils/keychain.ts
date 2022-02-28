@@ -1,11 +1,15 @@
 import * as Keychain from 'react-native-keychain'
 
-const setValueKeychain = async (username: string, password: string) => {
-  await Keychain.setGenericPassword(username, password)
+const setValueKeychain = async (
+  username: string,
+  password: string,
+  service: any,
+) => {
+  await Keychain.setGenericPassword(username, password, service)
 }
 
-const getValueKeychain = async () => {
-  const credentials = await Keychain.getGenericPassword()
+const getValueKeychain = async (service: any) => {
+  const credentials = await Keychain.getGenericPassword(service)
   return credentials
 }
 

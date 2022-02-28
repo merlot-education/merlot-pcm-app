@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { Colors, TextTheme } from '../theme/theme'
 
 const styles = StyleSheet.create({
@@ -14,10 +15,11 @@ const styles = StyleSheet.create({
 })
 
 const Home: React.FC = () => {
+  const { t } = useTranslation()
   return (
     <View style={[styles.container]}>
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        You are login successfully
+        {t('Home.LoginMsg')}
       </Text>
     </View>
   )
