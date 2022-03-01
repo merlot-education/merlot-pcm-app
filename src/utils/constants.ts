@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-export enum Screens {
+enum Screens {
   Onboarding = 'Onboarding',
   Terms = 'Terms',
   CreatePin = 'Create 6-Digit Pin',
@@ -7,3 +6,4 @@ export enum Screens {
   EnterPin = 'Enter Pin',
   Home = 'Home',
 }
+export default Screens

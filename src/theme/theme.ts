@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Theme } from '@ant-design/react-native/lib/style'
 
 type BaseColor = Record<string, string>
 
@@ -245,53 +245,17 @@ export const TextTheme: TextTheme = {
   },
 }
 
-export const Buttons = StyleSheet.create({
-  primary: {
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: Colors.primary,
-  },
-  primaryDisabled: {
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: Colors.darkGreenHeavyTransparent,
-  },
-  primaryText: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.white,
-    textAlign: 'center',
-  },
-  primaryTextDisabled: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.white,
-    textAlign: 'center',
-  },
-  secondary: {
-    padding: 16,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    backgroundColor: Colors.white,
-  },
-  secondaryDisabled: {
-    padding: 16,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: Colors.darkGreenLightTransparent,
-    backgroundColor: Colors.white,
-  },
-  secondaryText: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    textAlign: 'center',
-  },
-  secondaryTextDisabled: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.darkGreenLightTransparent,
-    textAlign: 'center',
-  },
-})
+export const customTheme: Partial<Theme> = {
+  brand_primary: Colors.primary,
+  brand_primary_tap: Colors.primary,
+
+  // button
+  primary_button_fill: Colors.primary,
+  primary_button_fill_tap: Colors.primary,
+
+  ghost_button_color: Colors.primary,
+  ghost_button_fill_tap: Colors.primary,
+
+  // input_font_size
+  border_color_base: BaseColors.black,
+}
