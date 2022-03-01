@@ -1,10 +1,11 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
-import * as Keychain from 'react-native-keychain'
 import SplashScreen from 'react-native-splash-screen'
+import ReactNativeBiometrics from 'react-native-biometrics'
 import Screens from '../utils/constants'
 import { Colors } from '../theme/theme'
+import { getValueKeychain } from '../utils/keychain'
 
 const styles = StyleSheet.create({
   container: {
@@ -19,12 +20,18 @@ const Splash: React.FC = () => {
   const nav = useNavigation()
 
   const checkStack = async () => {
-    const keychainEntry = await Keychain.getGenericPassword({
+    const keychainEntry = await getValueKeychain({
       service: 'passcode',
+    })
+    ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
+      const { keysExist } = resultObject
+      if (keysExist) {
+        nav.navigate(Screens.EnterPin, { biometric: true })
+      }
     })
     if (keychainEntry) {
       SplashScreen.hide()
-      nav.navigate(Screens.EnterPin)
+      nav.navigate(Screens.EnterPin, { biometric: false })
     } else {
       SplashScreen.hide()
       nav.navigate(Screens.Terms)

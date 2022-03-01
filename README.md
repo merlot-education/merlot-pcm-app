@@ -21,7 +21,7 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
 1. React Native Setup:
    - React Native installation instructions are documented [here](https://reactnative.dev/docs/environment-setup).
    - (iOS) Install [Cocoa Pods](https://cocoapods.org/)
-2. Clone the Bifold repo and install its dependencies:
+2. Clone the PCM repo and install its dependencies:
    ```sh
    git clone https://code.vereign.com/gaiax/pcm/app/-/tree/develop
    cd APP
@@ -34,7 +34,7 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
      pod install
      ```
    - In the /ios directory, open the project workspace file in Xcode.
-     Once the project is open, navigate to the project's Signing & Capabilities tab and apply your personal Apple Developer Account or your organization's team to target AriesBifold and target AriesBifoldTests.
+     Once the project is open, navigate to the project's Signing & Capabilities tab and apply your personal Apple Developer Account or your organization's team to target PCM 
    - Adjust the bundle identifier if needed.
 
 ## Configure
@@ -46,15 +46,18 @@ In the root directory add an `.env.development` file containing:
 - Launch the metro bundler:
   ```sh
   npm run start
+  yarn start
   ```
 - Open a second terminal and run:
   - (Android)
     ```sh
-    npm run android
+    npm run android:dev
+    yarn android:dev
     ```
   - (iOS)
     ```sh
-    npm run ios
+    npm run ios:dev
+    yarn ios:dev
     ```
   - (iOS) Via Xcode:
     Choose your physical iOS device as the destination. Click the "Play" button to Build and Run.
@@ -65,7 +68,7 @@ In the root directory add an `.env.development` file containing:
 
 #### Mediator
 
-In order to use PCM, you must have a mediator to use with the app. Bifold is configured to use 'Implicit' mediation and requires a mediator that supports the [coordinate-mediation protocol](https://github.com/hyperledger/aries-rfcs/tree/main/features/0211-route-coordination).
+In order to use PCM, you must have a mediator to use with the app. PCM is configured to use 'Implicit' mediation and requires a mediator that supports the [coordinate-mediation protocol](https://github.com/hyperledger/aries-rfcs/tree/main/features/0211-route-coordination).
 Bifold by default utilizes the [Indicio Public Mediator](https://indicio-tech.github.io/mediator/), which utilizes ACA-Py. For running your own ACA-Py mediator more details can be found [here](https://github.com/hyperledger/aries-cloudagent-python/blob/main/Mediation.md).
 
 ## Troubleshooting
@@ -105,6 +108,3 @@ In your second terminal, you can now run:
 npm run android
 ```
 
-## License
-
-[Apache License Version 2.0](./LICENSE)

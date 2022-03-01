@@ -21,7 +21,8 @@ const AuthenticateStack: React.FC<AuthenticateStackProps> = ({
         ...defaultStackOptions,
         presentation: 'transparentModal',
         headerShown: false,
-      }}>
+      }}
+    >
       <Stack.Screen
         name="Enter Pin"
         component={PinEnter}
