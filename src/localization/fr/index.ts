@@ -44,6 +44,20 @@ const translation = {
     "ReenterPin": "Rentrer le code PIN",
     "Create": "Créer"
   },
+  "Biometric": {
+    "Biometric": "Biométrique",
+    "BiometricConfirm": "Confirmer l'empreinte digitale",
+    "BiometricSuccess": "Enregistrement d'empreintes digitales réussi",
+    "BiometricFailed": "Échec de la biométrie",
+    "BiometricCancle": "Invite biométrique annulée par l'utilisateur",
+    "BiometricNotSupport": "Biométrie non prise en charge",
+  },
+  "Home": {
+    "LoginMsg": "Vous êtes connecté avec succès",
+  },
+  "PinEnter": {
+    "IncorrectPin": "Broche incorrecte",    
+  }, 
   "Settings": {
     "Language": "Langue"
   }
