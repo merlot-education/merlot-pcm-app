@@ -34,21 +34,21 @@ const slides = [
     key: 1,
     title: 'Title 1',
     text: 'Description.\nLorem ipsum',
-    image: require('../assets/1.png'),
+    // image: require('../assets/1.png'),
     backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Title 2',
     text: 'Description 2 ./n Lorem ipsum',
-    image: require('../assets/2.png'),
+    // image: require('../assets/2.png'),
     backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Title 3',
     text: "I'm already out of descriptions\n\nLorem ipsum ",
-    image: require('../assets/3.png'),
+    // image: require('../assets/3.png'),
     backgroundColor: '#22bcb5',
   },
 ]
@@ -56,7 +56,7 @@ const slides = [
 const Onboarding: React.FC = () => {
   const [showRealApp, setShowRealApp] = useState(false)
   const navigation = useNavigation()
-  const _renderItem = ({ item }) => {
+  const renderItem = ({ item }) => {
     return (
       <SafeAreaView style={styles.container}>
         <Text style={styles.bodyText}>{item.title}</Text>
@@ -66,14 +66,14 @@ const Onboarding: React.FC = () => {
       </SafeAreaView>
     )
   }
-  const _onDone = () => {
+  const onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
     navigation.navigate('Terms')
     setShowRealApp(true)
   }
   return (
-    <AppIntroSlider renderItem={_renderItem} data={slides} onDone={_onDone} />
+    <AppIntroSlider renderItem={renderItem} data={slides} onDone={onDone} />
   )
 }
 export default Onboarding
