@@ -35,6 +35,15 @@ const translation = {
     "TermsAndConditions": "Les présentes conditions générales définissent les droits et obligations de tous les utilisateurs concernant l'utilisation du service. Votre accès au service et son utilisation sont conditionnés par votre acceptation et votre respect des présentes conditions générales. Ces conditions générales s'appliquent à tous les visiteurs, utilisateurs et autres personnes qui accèdent ou utilisent le service.",
     "Attestation": "J'ai lu, compris et accepté les termes et conditions."
   },
+  "PinCreate": {
+    "UserAuthenticationPin": "NIP d'authentification de l'utilisateur",
+    "PinMustBe6DigitsInLength": "La broche doit comporter 6 chiffres",
+    "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",    
+    "PinsSuccess": "Épingle créée avec succès",    
+    "6DigitPin": "Broche à 6 chiffres",
+    "ReenterPin": "Rentrer le code PIN",
+    "Create": "Créer"
+  },
   "Settings": {
     "Language": "Langue"
   }

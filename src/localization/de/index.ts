@@ -35,6 +35,15 @@ const translation = {
     "TermsAndConditions": "Diese Bedingungen legen die Rechte und Pflichten aller Nutzer in Bezug auf die Nutzung des Dienstes fest. Ihr Zugang zu und Ihre Nutzung des Dienstes setzt voraus, dass Sie diese Bedingungen akzeptieren und einhalten. Diese Allgemeinen Geschäftsbedingungen gelten für alle Besucher, Benutzer und andere, die auf den Dienst zugreifen oder ihn nutzen.",
     "Attestation": "Ich habe die Bedingungen gelesen, verstanden und akzeptiere sie."
   },
+  "PinCreate": {
+    "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
+    "PinMustBe6DigitsInLength": "Die PIN muss 6 Ziffern lang sein",
+    "PinsEnteredDoNotMatch": "Die eingegebenen Pins stimmen nicht überein", 
+    "PinsSuccess": "Pin erfolgreich erstellt",    
+    "6DigitPin": "6-stellige PIN",
+    "ReenterPin": "PIN erneut eingeben",
+    "Create": "Schaffen"
+  },
   "Settings": { 
     "Language": "Sprache",     
   },

@@ -35,6 +35,15 @@ const translation = {
     "TermsAndConditions": "These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service. Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.",
     "Attestation": "I have read, understand and accept the terms and conditions.",
   },
+  "PinCreate": {
+    "UserAuthenticationPin": "User authentication pin",
+    "PinMustBe6DigitsInLength": "Pin must be 6 digits in length",
+    "PinsEnteredDoNotMatch": "Pins entered do not match", 
+    "PinsSuccess": "Pin created successfully",    
+    "6DigitPin": "6 Digit Pin",
+    "ReenterPin": "Re-Enter Pin",
+    "Create": "Create"
+  },
   "Settings": { 
     "Language": "Language",     
   },
