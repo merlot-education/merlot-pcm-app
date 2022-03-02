@@ -10,6 +10,7 @@ import Button, { ButtonType } from '../components/button/Button'
 
 interface PinCreateProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  initAgent: (email: string, pin: string) => void
 }
 
 const style = StyleSheet.create({
@@ -22,11 +23,19 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
+const PinCreate: React.FC<PinCreateProps> = ({
+  setAuthenticated,
+  initAgent,
+}) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
 
   const { t } = useTranslation()
+
+  const startAgent = async (email: string, pin: string) => {
+    await initAgent(email, pin)
+    setAuthenticated(true)
+  }
 
   const passcodeCreate = async (pin: string) => {
     const passcode = JSON.stringify(pin)
@@ -35,7 +44,12 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
       setValueKeychain(description, passcode, {
         service: 'passcode',
       })
-      Alert.alert(t('PinCreate.PinsSuccess'))
+
+      // Change email here
+
+      Alert.alert(t('PinCreate.PinsSuccess'), '', [
+        { text: 'Ok', onPress: () => startAgent('abc@gmail.com', passcode) },
+      ])
     } catch (e) {
       Alert.alert(e)
     }
@@ -48,7 +62,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
       Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
     } else {
       passcodeCreate(x)
-      setAuthenticated(true)
     }
   }
   const biometricEnable = () => {

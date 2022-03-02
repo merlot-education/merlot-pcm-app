@@ -5,5 +5,7 @@ enum Screens {
   Splash = 'Splash',
   EnterPin = 'Enter Pin',
   Home = 'Home',
+  Connect = 'Connect',
+  ListContacts = 'ListContacts',
 }
 export default Screens

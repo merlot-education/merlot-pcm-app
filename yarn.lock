@@ -60,6 +60,11 @@
     tsyringe "^4.5.0"
     uuid "^8.3.2"
 
+"@aries-framework/react-hooks@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@aries-framework/react-hooks/-/react-hooks-0.2.0.tgz#371dfcbad523527fa88a439331a1f71019cb5767"
+  integrity sha512-husiwP3hlBCpuaQ6z87r4mRPbC1owGUn/VxmlHUk+iLKkXr6t5Djx1/dwl/OrPp5MBPPU2iGfy8GiT3vGBCUEA==
+
 "@aries-framework/react-native@^0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@aries-framework/react-native/-/react-native-0.1.0.tgz"

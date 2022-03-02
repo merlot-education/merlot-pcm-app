@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useAgent } from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
 import { Colors, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
@@ -20,28 +21,40 @@ const styles = StyleSheet.create({
   },
 })
 
-const Home: React.FC = () => {
+const Connect: React.FC = () => {
+  const { agent } = useAgent()
   const { t } = useTranslation()
   const nav = useNavigation()
 
-  const nextPage = () => {
-    nav.navigate(Screens.Connect)
+  const connectWithOrganization = async () => {
+    // Add invitation here for now
+    const url = ''
+    const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
+      url,
+      {
+        autoAcceptConnection: true,
+      },
+    )
+    if (!connectionRecord?.id) {
+      throw new Error(t('Scan.ConnectionNotFound'))
+    }
+    nav.navigate(Screens.ListContacts)
   }
 
   return (
     <View style={[styles.container]}>
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        {t('Home.LoginMsg')}
+        Accept connection to connect
       </Text>
 
       <View style={styles.spacer} />
       <Button
         title={t('Global.Continue')}
         buttonType={ButtonType.Primary}
-        onPress={nextPage}
+        onPress={connectWithOrganization}
       />
     </View>
   )
 }
 
-export default Home
+export default Connect

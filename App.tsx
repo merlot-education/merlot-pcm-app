@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import {
-  Agent,
-  MediatorPickupStrategy,
-  AutoAcceptCredential,
-  ConsoleLogger,
-  LogLevel,
-  WsOutboundTransport,
-  HttpOutboundTransport,
-} from '@aries-framework/core'
-import { agentDependencies } from '@aries-framework/react-native'
-import Config from 'react-native-config'
-import md5 from 'md5'
+import { Agent } from '@aries-framework/core'
 import { Provider as AntDesignProvider } from '@ant-design/react-native'
+import SplashScreen from 'react-native-splash-screen'
+import AgentProvider from '@aries-framework/react-hooks'
 import { Colors, customTheme } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
-import indyLedgers from './configs/ledgers/indy'
 import { initStoredLanguage } from './src/localization'
 
 const navigationTheme = {
@@ -32,49 +22,26 @@ const navigationTheme = {
 
 const App = () => {
   const [agent, setAgent] = useState<Agent | undefined>(undefined)
-  let encodedVal
-  const convertMD5 = () => {
-    encodedVal = md5('abc@gmail.com')
-  }
 
   initStoredLanguage()
 
-  const initAgent = async () => {
-    convertMD5()
-    const newAgent = new Agent(
-      {
-        label: 'New Wallet',
-        mediatorConnectionsInvite: Config.MEDIATOR_URL,
-        mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: 'abc@gmail.com', key: '123' },
-        autoAcceptConnections: true,
-        publicDidSeed: encodedVal,
-        autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
-        logger: new ConsoleLogger(LogLevel.trace),
-        indyLedgers,
-      },
-      agentDependencies,
-    )
-
-    const wsTransport = new WsOutboundTransport()
-    const httpTransport = new HttpOutboundTransport()
-
-    newAgent.registerOutboundTransport(wsTransport)
-    newAgent.registerOutboundTransport(httpTransport)
-
-    await newAgent.initialize()
-    setAgent(newAgent)
+  const setupAgent = (agent: Agent) => {
+    setAgent(agent)
   }
+
   useEffect(() => {
     // Hide the native splash / loading screen so that our
     // RN version can be displayed.
+    SplashScreen.hide()
   }, [])
 
   return (
     <AntDesignProvider theme={customTheme}>
-      <NavigationContainer theme={navigationTheme}>
-        <RootStack />
-      </NavigationContainer>
+      <AgentProvider agent={agent}>
+        <NavigationContainer theme={navigationTheme}>
+          <RootStack setAgent={setupAgent} />
+        </NavigationContainer>
+      </AgentProvider>
     </AntDesignProvider>
   )
 }

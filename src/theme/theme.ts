@@ -259,3 +259,11 @@ export const customTheme: Partial<Theme> = {
   // input_font_size
   border_color_base: BaseColors.black,
 }
+
+interface ContactTheme {
+  background: string
+}
+
+export const ContactTheme: ContactTheme = {
+  background: Colors.shadow,
+}
