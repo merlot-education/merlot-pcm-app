@@ -44,6 +44,17 @@ const translation = {
     "ReenterPin": "PIN erneut eingeben",
     "Create": "Schaffen"
   },
+  "Biometric": {
+    "Biometric": "Biometrisch",
+    "BiometricConfirm": "Confirm fingerprint",
+    "BiometricSuccess": "Fingerabdruck bestätigen",
+    "BiometricFailed": "Biometrie fehlgeschlagen",
+    "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
+    "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
+  },
+  "Home": {
+    "LoginMsg": "You are login successfullySie haben sich erfolgreich angemeldet",
+  },
   "Settings": { 
     "Language": "Sprache",     
   },

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
-import SplashScreen from 'react-native-splash-screen'
 import {
   Agent,
   MediatorPickupStrategy,
@@ -13,7 +12,6 @@ import {
 import { agentDependencies } from '@aries-framework/react-native'
 import Config from 'react-native-config'
 import md5 from 'md5'
-import { Colors } from './src/theme/theme'
 import { Provider as AntDesignProvider } from '@ant-design/react-native'
 import { Colors, customTheme } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
@@ -70,7 +68,6 @@ const App = () => {
   useEffect(() => {
     // Hide the native splash / loading screen so that our
     // RN version can be displayed.
-    SplashScreen.hide()
   }, [])
 
   return (

@@ -7,6 +7,7 @@ import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../components/text/InfoTextBox'
 import { Colors, TextTheme } from '../theme/theme'
+import Screens from '../utils/constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -51,9 +52,9 @@ const Terms: React.FC = () => {
           <View style={styles.topSpacer}>
             <Button
               title={t('Global.Continue')}
+              onPress={() => nav.navigate(Screens.CreatePin)}
               disabled={!checked}
               buttonType={ButtonType.Primary}
-              onPress={() => nav.navigate('PinCreate')}
             />
           </View>
           <View style={styles.topSpacer}>

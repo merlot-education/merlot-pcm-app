@@ -255,4 +255,7 @@ export const customTheme: Partial<Theme> = {
 
   ghost_button_color: Colors.primary,
   ghost_button_fill_tap: Colors.primary,
+
+  // input_font_size
+  border_color_base: BaseColors.black,
 }

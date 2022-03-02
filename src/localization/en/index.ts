@@ -44,6 +44,20 @@ const translation = {
     "ReenterPin": "Re-Enter Pin",
     "Create": "Create"
   },
+  "Biometric": {
+    "Biometric": "Biometric",
+    "BiometricConfirm": "Confirm fingerprint",
+    "BiometricSuccess": "Fingerprint register successfully",
+    "BiometricFailed": "Biometrics failed",
+    "BiometricCancle": "User cancelled biometric prompt",
+    "BiometricNotSupport": "Biometrics not supported",
+  },
+  "Home": {
+    "LoginMsg": "You are login successfully",
+  },
+  "PinEnter": {
+    "IncorrectPin": "Incorrect Pin",    
+  }, 
   "Settings": { 
     "Language": "Language",     
   },

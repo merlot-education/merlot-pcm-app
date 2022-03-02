@@ -1,20 +1,28 @@
 import React, { useState } from 'react'
-import { Alert, Keyboard, StyleSheet } from 'react-native'
+import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import { setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 
+interface PinCreateProps {
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 const style = StyleSheet.create({
   container: {
     backgroundColor: Colors.background,
     margin: 20,
   },
+  btnContainer: {
+    marginTop: 20,
+  },
 })
 
-const PinCreate: React.FC = () => {
+const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
 
@@ -40,8 +48,35 @@ const PinCreate: React.FC = () => {
       Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
     } else {
       passcodeCreate(x)
-      // setAuthenticated(true)
+      setAuthenticated(true)
     }
+  }
+  const biometricEnable = () => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+        ReactNativeBiometrics.simplePrompt({
+          promptMessage: t('Biometric.BiometricConfirm'),
+        })
+          .then(resultObject => {
+            const { success } = resultObject
+
+            if (success) {
+              ReactNativeBiometrics.createKeys().then(() => {
+                setAuthenticated(true)
+                Alert.alert(t('Biometric.BiometricSuccess'))
+              })
+            } else {
+              Alert.alert(t('Biometric.BiometricCancle'))
+            }
+          })
+          .catch(() => {
+            Alert.alert(t('Biometric.BiometricFailed'))
+          })
+      } else {
+        Alert.alert(t('Biometric.BiometricNotSupport'))
+      }
+    })
   }
   return (
     <SafeAreaView style={[style.container]}>
@@ -53,8 +88,7 @@ const PinCreate: React.FC = () => {
         accessibilityLabel={t('Global.EnterPin')}
         maxLength={6}
         autoFocus
-        keyboardType="numeric"
-        secureTextEntry
+        type="numeric"
         value={pin}
         onChangeText={setPin}
       />
@@ -65,8 +99,7 @@ const PinCreate: React.FC = () => {
         placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
         maxLength={6}
-        keyboardType="numeric"
-        secureTextEntry
+        type="numeric"
         value={pinTwo}
         onChangeText={(text: string) => {
           setPinTwo(text)
@@ -83,6 +116,13 @@ const PinCreate: React.FC = () => {
           confirmEntry(pin, pinTwo)
         }}
       />
+      <View style={style.btnContainer}>
+        <Button
+          title={t('Biometric.Biometric')}
+          buttonType={ButtonType.Primary}
+          onPress={biometricEnable}
+        />
+      </View>
     </SafeAreaView>
   )
 }
