@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
 import Terms from '../screens/Terms'
+import PinCreate from '../screens/PinCreate'
 
 const onboardingStack = () => {
   const Stack = createStackNavigator()
@@ -17,6 +18,16 @@ const onboardingStack = () => {
           rightLeft: () => false,
         })}
         component={Terms}
+      />
+      <Stack.Screen
+        name="PinCreate"
+        options={() => ({
+          title: 'Pin Create',
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+        component={PinCreate}
       />
     </Stack.Navigator>
   )

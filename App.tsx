@@ -14,8 +14,11 @@ import { agentDependencies } from '@aries-framework/react-native'
 import Config from 'react-native-config'
 import md5 from 'md5'
 import { Colors } from './src/theme/theme'
+import { Provider as AntDesignProvider } from '@ant-design/react-native'
+import { Colors, customTheme } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
 import indyLedgers from './configs/ledgers/indy'
+import { initStoredLanguage } from './src/localization'
 
 const navigationTheme = {
   dark: false,
@@ -35,6 +38,9 @@ const App = () => {
   const convertMD5 = () => {
     encodedVal = md5('abc@gmail.com')
   }
+
+  initStoredLanguage()
+
   const initAgent = async () => {
     convertMD5()
     const newAgent = new Agent(
@@ -65,13 +71,14 @@ const App = () => {
     // Hide the native splash / loading screen so that our
     // RN version can be displayed.
     SplashScreen.hide()
-    initAgent()
-  })
+  }, [])
 
   return (
-    <NavigationContainer theme={navigationTheme}>
-      <RootStack />
-    </NavigationContainer>
+    <AntDesignProvider theme={customTheme}>
+      <NavigationContainer theme={navigationTheme}>
+        <RootStack />
+      </NavigationContainer>
+    </AntDesignProvider>
   )
 }
 
