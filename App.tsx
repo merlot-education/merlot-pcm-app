@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import SplashScreen from 'react-native-splash-screen'
@@ -15,8 +13,6 @@ import {
 import { agentDependencies } from '@aries-framework/react-native'
 import Config from 'react-native-config'
 import md5 from 'md5'
-import Mailer from 'react-native-mail'
-import { Alert } from 'react-native'
 import { Colors } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
 import indyLedgers from './configs/ledgers/indy'
@@ -39,7 +35,6 @@ const App = () => {
   const convertMD5 = () => {
     encodedVal = md5('abc@gmail.com')
   }
-
   const initAgent = async () => {
     convertMD5()
     const newAgent = new Agent(
@@ -71,7 +66,7 @@ const App = () => {
     // RN version can be displayed.
     SplashScreen.hide()
     initAgent()
-  }, [])
+  })
 
   return (
     <NavigationContainer theme={navigationTheme}>
