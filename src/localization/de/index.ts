@@ -23,7 +23,8 @@ const translation = {
     "View": "Ansicht",
     "Home": "Startseite",
     "ErrorCode": "Fehlercode",
-    "Okay": "Okay"
+    "Okay": "Okay",
+    "Email": "E-Mail eingeben"
   },
   "Language": {
     "English": "Englisch",
@@ -34,6 +35,11 @@ const translation = {
     "AcceptTerms": "Bitte stimmen Sie den nachstehenden Bedingungen zu, bevor Sie diese Anwendung nutzen.",
     "TermsAndConditions": "Diese Bedingungen legen die Rechte und Pflichten aller Nutzer in Bezug auf die Nutzung des Dienstes fest. Ihr Zugang zu und Ihre Nutzung des Dienstes setzt voraus, dass Sie diese Bedingungen akzeptieren und einhalten. Diese Allgemeinen Geschäftsbedingungen gelten für alle Besucher, Benutzer und andere, die auf den Dienst zugreifen oder ihn nutzen.",
     "Attestation": "Ich habe die Bedingungen gelesen, verstanden und akzeptiere sie."
+  },
+  "Registration":{
+    "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
+    "EnterEmail": 'Bitte E-Mail eingeben',
+    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen"
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",

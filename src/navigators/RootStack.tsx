@@ -2,6 +2,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React, { useState } from 'react'
 
 import Screens from '../utils/constants'
+import Registration from '../screens/Registration'
+import VerifyOtp from '../screens/VerifyOtp'
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
 import Splash from '../screens/Splash'
@@ -47,6 +49,8 @@ const RootStack: React.FC = () => {
           })}
           component={Terms}
         />
+        <Stack.Screen name={Screens.Registration} component={Registration} />
+        <Stack.Screen name={Screens.VerifyOtp} component={VerifyOtp} />
         <Stack.Screen name={Screens.CreatePin}>
           {props => (
             <PinCreate {...props} setAuthenticated={setAuthenticated} />
