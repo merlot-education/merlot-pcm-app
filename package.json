@@ -24,6 +24,7 @@
     "@react-navigation/core": "^6.1.1",
     "@react-navigation/native": "^6.0.8",
     "@react-navigation/stack": "^6.1.1",
+    "axios": "^0.26.0",
     "fbjs": "^3.0.4",
     "i18next": "^21.6.11",
     "indy-sdk-react-native": "^0.1.20",
