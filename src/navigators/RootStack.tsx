@@ -25,6 +25,7 @@ import defaultStackOptions from './defaultStackOptions'
 import indyLedgers from '../../configs/ledgers/indy'
 import Connect from '../screens/Connect'
 import ListContacts from '../screens/ListContacts'
+import Consent from '../screens/Consent'
 
 interface Props {
   setAgent: (agent: Agent) => void
@@ -71,6 +72,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       >
         <Stack.Screen name={Screens.Home} component={Home} />
         <Stack.Screen name={Screens.Connect} component={Connect} />
+        <Stack.Screen name={Screens.Consent} component={Consent} />
         <Stack.Screen name={Screens.ListContacts} component={ListContacts} />
       </Stack.Navigator>
     )

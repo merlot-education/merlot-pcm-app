@@ -20,30 +20,28 @@ const styles = StyleSheet.create({
   },
 })
 
-const Home: React.FC = () => {
+const Consent: React.FC = () => {
   const { t } = useTranslation()
   const nav = useNavigation()
 
   const nextPage = () => {
-    nav.navigate(Screens.Connect)
+    nav.navigate(Screens.ListContacts)
   }
 
   return (
     <View style={[styles.container]}>
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        {t('Home.LoginMsg')}
-      </Text>
-      <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        Click Continue to connect with AISBL
+        Do you want to show connections
       </Text>
       <View style={styles.spacer} />
       <Button
-        title={t('Global.Continue')}
+        title={t('Global.Yes')}
         buttonType={ButtonType.Primary}
         onPress={nextPage}
       />
+      <Button title={t('Global.No')} buttonType={ButtonType.Primary} />
     </View>
   )
 }
 
-export default Home
+export default Consent
