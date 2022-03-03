@@ -33,9 +33,6 @@ const Home: React.FC = () => {
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
         {t('Home.LoginMsg')}
       </Text>
-      <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        Click Continue to connect with AISBL
-      </Text>
       <View style={styles.spacer} />
       <Button
         title={t('Global.Continue')}

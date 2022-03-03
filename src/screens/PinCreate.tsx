@@ -3,10 +3,12 @@ import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
+import md5 from 'md5'
 import { setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
+import * as api from '../api'
 
 interface PinCreateProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
@@ -32,9 +34,17 @@ const PinCreate: React.FC<PinCreateProps> = ({
 
   const { t } = useTranslation()
 
+  const sendSeedHash = async (userEmail: string) => {
+    const genratedSeedHash = md5(userEmail)
+    const seedHashResponse = await api.default.auth.sendSeedHash({
+      email: userEmail,
+      seedHash: genratedSeedHash,
+    })
+  }
   const startAgent = async (email: string, pin: string) => {
     await initAgent(email, pin)
     setAuthenticated(true)
+    sendSeedHash(email)
   }
 
   const passcodeCreate = async (pin: string) => {
