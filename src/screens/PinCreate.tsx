@@ -40,11 +40,14 @@ const PinCreate: React.FC<PinCreateProps> = ({
       email: userEmail,
       seedHash: genratedSeedHash,
     })
+    if (seedHashResponse.data != null) {
+      // seed sent via email
+    }
   }
   const startAgent = async (email: string, pin: string) => {
     await initAgent(email, pin)
+    await sendSeedHash(email)
     setAuthenticated(true)
-    sendSeedHash(email)
   }
 
   const passcodeCreate = async (pin: string) => {

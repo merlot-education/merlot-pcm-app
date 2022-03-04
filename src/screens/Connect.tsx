@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import { Alert, BackHandler, StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useAgent } from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
@@ -27,16 +27,23 @@ const Connect: React.FC = () => {
   const { agent } = useAgent()
   const { t } = useTranslation()
   const nav = useNavigation()
+  // let url = ''
 
   const getConnectionInvitationUrl = async () => {
     const connectionInvitationUrlResponse =
       await api.default.config.connectionInvitation({
-        autoAcceptConnection: false,
+        autoAcceptConnection: true,
       })
+    if (connectionInvitationUrlResponse.data != null) {
+      console.log(connectionInvitationUrlResponse.data)
+      const url = connectionInvitationUrlResponse.data.invitationUrl
+      await connectWithOrganization(url)
+    }
   }
-  const connectWithOrganization = async () => {
+  const connectWithOrganization = async (url: string) => {
     // Add invitation here for now
-    const url = ''
+    console.log('invitaionurl')
+    console.log(url)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,
       {
@@ -62,13 +69,13 @@ const Connect: React.FC = () => {
       <Button
         title={t('Yes')}
         buttonType={ButtonType.Primary}
-        onPress={connectWithOrganization}
+        onPress={getConnectionInvitationUrl}
       />
       <View style={styles.spacer} />
       <Button
         title={t('No')}
         buttonType={ButtonType.Primary}
-        onPress={showAlert}
+        onPress={() => BackHandler.exitApp()}
       />
     </View>
   )

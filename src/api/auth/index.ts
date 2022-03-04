@@ -8,7 +8,7 @@ const auth = (instance: AxiosInstance) => {
       return instance.post('auth/register', body, config)
     },
     sendSeedHash(body: SeedHashRequest, config = {}) {
-      return instance.post('/v1/notification/sendSeed')
+      return instance.post('/v1/notification/sendSeed', body, config)
     },
   }
 }
