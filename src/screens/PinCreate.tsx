@@ -173,7 +173,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
         }}
       />
       <Button
-        title={t('PinCreate.Create')}
+        title="Setup PIN"
         buttonType={ButtonType.Primary}
         onPress={() => {
           Keyboard.dismiss()
@@ -183,7 +183,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
       <View style={style.btnContainer}>
         {biometricSensorAvailable && (
           <Button
-            title={t('Biometric.Biometric')}
+            title="Setup Biometric"
             buttonType={ButtonType.Primary}
             onPress={biometricEnable}
           />
@@ -192,7 +192,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
 
       <View style={style.btnContainer}>
         <Button
-          title={t('Global.Submit')}
+          title="Create Wallet"
           buttonType={ButtonType.Primary}
           onPress={onSubmit}
         />

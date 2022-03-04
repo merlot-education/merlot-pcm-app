@@ -1,8 +1,8 @@
 // prettier-ignore
 const translation = {
   "Global": {
-    "EnterPin": "Enter Pin",
-    "6DigitPin": "6 Digit Pin",
+    "EnterPin": "Enter PIN",
+    "6DigitPin": "6 Digit PIN",
     "Submit": "Submit",
     "NoneYet!": "None yet!",
     "Cancel": "Cancel",
@@ -26,7 +26,7 @@ const translation = {
     "Okay": "Okay",
     "Email": "Enter Email",
     "Verify": 'Verify',
-    "Otp": 'Enter Otp',
+    "Otp": 'Enter OTP',
   },
   "Language": {
     "English": "English",
@@ -42,15 +42,15 @@ const translation = {
     "UserAuthenticationEmail": "User authentication email",
     "EnterEmail": 'Please enter email',
     "ValidEmail": "Please enter valid email",
-    'ResendOtp': 'Resend Otp'
+    'ResendOtp': 'Resend OTP'
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
-    "PinMustBe6DigitsInLength": "Pin must be 6 digits in length",
+    "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
     "PinsEnteredDoNotMatch": "Pins entered do not match", 
-    "PinsSuccess": "Pin created successfully",    
-    "6DigitPin": "6 Digit Pin",
-    "ReenterPin": "Re-Enter Pin",
+    "PinsSuccess": "PIN created successfully",    
+    "6DigitPin": "6 Digit PIN",
+    "ReenterPin": "Re-Enter PIN",
     "Create": "Create"
   },
   "Biometric": {
@@ -60,13 +60,13 @@ const translation = {
     "BiometricFailed": "Biometrics failed",
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
-    "RegisterPinandBiometric": 'Register Pin and Biometric'
+    "RegisterPinandBiometric": 'Register PIN and Biometric'
   },
   "Home": {
     "LoginMsg": "You are login successfully",
   },
   "PinEnter": {
-    "IncorrectPin": "Incorrect Pin",    
+    "IncorrectPin": "Incorrect PIN",    
   }, 
   "Settings": { 
     "Language": "Language",     

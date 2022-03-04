@@ -31,7 +31,8 @@ const Home: React.FC = () => {
   return (
     <View style={[styles.container]}>
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        {t('Home.LoginMsg')}
+        {/* {t('Home.LoginMsg')} */}
+        Your wallet is created successfully.
       </Text>
       <View style={styles.spacer} />
       <Button

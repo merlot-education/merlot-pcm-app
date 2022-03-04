@@ -70,7 +70,7 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
       <TextInput
         label={t('Global.Email')}
         placeholder={t('Global.Email')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={Colors.primary}
         accessible
         accessibilityLabel={t('Global.Email')}
         autoFocus

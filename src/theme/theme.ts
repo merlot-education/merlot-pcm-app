@@ -75,7 +75,7 @@ export const zeroOpacity = 0.0
 export const borderWidth = 2
 
 const BrandColors: BrandColors = {
-  primary: '#42803E',
+  primary: '#03028A',
   highlight: '#FCBA19',
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
@@ -190,13 +190,14 @@ interface TextBoxTheme {
 
 export const Colors: ColorTheme = {
   accent: BaseColors.yellow,
-  background: BaseColors.black,
+  // background: BaseColors.black,
+  background: '#FFF',
   backgroundLight: BaseColors.lightGreen,
   borderLight: BaseColors.mediumGreen,
-  primary: BaseColors.darkGreen,
+  primary: BrandColors.primary,
   primaryActive: BaseColors.darkGreenHeavyTransparent,
-  shadow: BaseColors.darkGrey,
-  text: BaseColors.white,
+  shadow: BaseColors.lightGrey,
+  text: BrandColors.primary,
   ...BaseColors,
   ...StatusColors,
 }
@@ -246,15 +247,15 @@ export const TextTheme: TextTheme = {
 }
 
 export const customTheme: Partial<Theme> = {
-  brand_primary: Colors.primary,
-  brand_primary_tap: Colors.primary,
+  brand_primary: BrandColors.primary,
+  brand_primary_tap: BrandColors.primary,
 
   // button
-  primary_button_fill: Colors.primary,
-  primary_button_fill_tap: Colors.primary,
+  primary_button_fill: BrandColors.primary,
+  primary_button_fill_tap: BrandColors.primary,
 
-  ghost_button_color: Colors.primary,
-  ghost_button_fill_tap: Colors.primary,
+  ghost_button_color: BrandColors.primary,
+  ghost_button_fill_tap: BrandColors.primary,
 
   // input_font_size
   border_color_base: BaseColors.black,

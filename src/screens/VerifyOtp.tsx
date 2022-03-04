@@ -93,7 +93,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         setLoading(false)
       } else {
         setLoading(false)
-        Alert.alert('Invalid Otp')
+        Alert.alert('Invalid OTP')
       }
     }
   }

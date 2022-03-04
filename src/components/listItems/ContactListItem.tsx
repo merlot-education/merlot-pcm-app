@@ -28,7 +28,7 @@ const ContactListItem: React.FC<Props> = ({ contact }) => {
   return (
     <View key={contact.id} style={styles.container}>
       <Title>{contact?.alias || contact?.invitation?.label}</Title>
-      <Text>{contact.did}</Text>
+      <Text>DID : {contact.did}</Text>
       <Text style={styles.date}>
         {contact.createdAt.toLocaleDateString('en-CA', dateFormatOptions)}
       </Text>
