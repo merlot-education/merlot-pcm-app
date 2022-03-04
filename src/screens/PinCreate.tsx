@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next'
 import md5 from 'md5'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
-import { TextInput } from '../components'
+import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
 
@@ -35,6 +35,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
     useState(false)
   const [successPin, setSuccessPin] = useState(false)
   const [successBiometric, setSuccessBiometric] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const { t } = useTranslation()
 
@@ -52,6 +53,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
     await initAgent(email, pin)
     await sendSeedHash(email)
     setAuthenticated(true)
+    setLoading(false)
   }
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -80,6 +82,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
           onPress: () => startAgent(keychainEntry.password, passcode),
         },
       ])
+      setLoading(true)
       setSuccessPin(true)
     } catch (e) {
       Alert.alert(e)
@@ -134,6 +137,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
   }
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
