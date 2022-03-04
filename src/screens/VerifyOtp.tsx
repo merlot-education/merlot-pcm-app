@@ -3,7 +3,7 @@ import { Alert, Keyboard, StyleSheet, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { Colors, TextTheme } from '../theme/theme'
-import { TextInput } from '../components'
+import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import Screens from '../utils/constants'
 import * as api from '../api'
@@ -34,6 +34,7 @@ let resendOtpTimerInterval
 
 const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   const [otp, setOtp] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const { t } = useTranslation()
 
@@ -84,10 +85,12 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         contact: route.params.email,
         otp: parseInt(otpCode, 10),
       }
+      setLoading(true)
       const res = await api.default.auth.otp(params)
       if (res?.data) {
         navigation.navigate(Screens.CreatePin)
         Alert.alert(res?.message)
+        setLoading(false)
       } else {
         Alert.alert('Invalid Otp')
       }
@@ -95,6 +98,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   }
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.Otp')}
         placeholder={t('Global.Otp')}
