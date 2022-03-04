@@ -76,6 +76,8 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
         autoFocus
         value={email}
         onChangeText={setEmail}
+        type="email-address"
+        autoCapitalize="none"
       />
       <Button
         title={t('Global.Submit')}
