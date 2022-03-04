@@ -78,7 +78,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   }
 
   const confirmEntry = async (otpCode: string) => {
-    if (otpCode.length < 4) {
+    if (otpCode.length < 6) {
       Alert.alert(t('Registration.EnterEmail'))
     } else {
       const params = {
@@ -92,6 +92,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         Alert.alert(res?.message)
         setLoading(false)
       } else {
+        setLoading(false)
         Alert.alert('Invalid Otp')
       }
     }
@@ -105,7 +106,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         placeholderTextColor={Colors.lightGrey}
         accessible
         accessibilityLabel={t('Global.Otp')}
-        maxLength={4}
+        maxLength={6}
         autoFocus
         type="numeric"
         value={otp}

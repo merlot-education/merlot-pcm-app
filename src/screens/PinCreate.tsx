@@ -36,6 +36,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
   const [successPin, setSuccessPin] = useState(false)
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
 
   const { t } = useTranslation()
 
@@ -50,10 +51,13 @@ const PinCreate: React.FC<PinCreateProps> = ({
     }
   }
   const startAgent = async (email: string, pin: string) => {
+    setLoading(true)
     await initAgent(email, pin)
     await sendSeedHash(email)
-    setAuthenticated(true)
+    // setTimeout(() => {
     setLoading(false)
+    setAuthenticated(true)
+    // }, 10000)
   }
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -64,8 +68,8 @@ const PinCreate: React.FC<PinCreateProps> = ({
     })
   })
 
-  const passcodeCreate = async (pin: string) => {
-    const passcode = JSON.stringify(pin)
+  const passcodeCreate = async (passcode: string) => {
+    // const passcode = JSON.stringify(pin)
     const description = t('PinCreate.UserAuthenticationPin')
     try {
       setValueKeychain(description, passcode, {
@@ -76,13 +80,14 @@ const PinCreate: React.FC<PinCreateProps> = ({
       const keychainEntry = await getValueKeychain({
         service: 'email',
       })
+      setEmail(keychainEntry.password)
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
         {
           text: 'Ok',
-          onPress: () => startAgent(keychainEntry.password, passcode),
+          // onPress: () =>
+          //   startAgent(JSON.parse(keychainEntry).password, passcode),
         },
       ])
-      setLoading(true)
       setSuccessPin(true)
     } catch (e) {
       Alert.alert(e)
@@ -126,9 +131,10 @@ const PinCreate: React.FC<PinCreateProps> = ({
     })
   }
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     if (successPin && successBiometric) {
-      setAuthenticated(true)
+      // setAuthenticated(true)
+      await startAgent(email, pin)
     } else if (successPin && !biometricSensorAvailable) {
       setAuthenticated(true)
     } else {

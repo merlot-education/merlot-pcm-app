@@ -1,5 +1,5 @@
 import React from 'react'
-import { Alert, BackHandler, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useAgent } from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
@@ -27,7 +27,6 @@ const Connect: React.FC = () => {
   const { agent } = useAgent()
   const { t } = useTranslation()
   const nav = useNavigation()
-  // let url = ''
 
   const getConnectionInvitationUrl = async () => {
     const connectionInvitationUrlResponse =
@@ -35,15 +34,11 @@ const Connect: React.FC = () => {
         autoAcceptConnection: true,
       })
     if (connectionInvitationUrlResponse.data != null) {
-      console.log(connectionInvitationUrlResponse.data)
       const url = connectionInvitationUrlResponse.data.invitationUrl
       await connectWithOrganization(url)
     }
   }
   const connectWithOrganization = async (url: string) => {
-    // Add invitation here for now
-    console.log('invitaionurl')
-    console.log(url)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,
       {
@@ -54,9 +49,6 @@ const Connect: React.FC = () => {
       // throw new Error(t('Scan.ConnectionNotFound'))
     }
     nav.navigate(Screens.ListContacts)
-  }
-  const showAlert = async () => {
-    Alert.alert(t(''))
   }
 
   return (
