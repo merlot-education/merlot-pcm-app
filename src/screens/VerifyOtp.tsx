@@ -65,9 +65,15 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     }
   })
 
-  const onResendOtpButtonPress = () => {
+  const onResendOtpButtonPress = async () => {
     setResendButtonDisabledTime(RESEND_OTP_TIME_LIMIT)
     startResendOtpTimer()
+    const { email } = route.params
+    const res = await api.default.auth.register({ email })
+    if (res?.data) {
+      navigation.navigate(Screens.VerifyOtp, { email })
+      Alert.alert(res?.message)
+    }
   }
 
   const confirmEntry = async (otpCode: string) => {
