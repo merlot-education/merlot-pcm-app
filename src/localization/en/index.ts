@@ -60,6 +60,7 @@ const translation = {
     "BiometricFailed": "Biometrics failed",
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
+    "RegisterPinandBiometric": 'Register Pin and Biometric'
   },
   "Home": {
     "LoginMsg": "You are login successfully",

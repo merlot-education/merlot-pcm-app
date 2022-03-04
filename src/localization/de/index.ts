@@ -57,6 +57,7 @@ const translation = {
     "BiometricFailed": "Biometrie fehlgeschlagen",
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
+    "RegisterPinandBiometric": 'PIN und Biometrie registrieren'
   },
   "Home": {
     "LoginMsg": "You are login successfullySie haben sich erfolgreich angemeldet",

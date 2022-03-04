@@ -7,6 +7,7 @@ import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import Screens from '../utils/constants'
+import * as api from '../api'
 
 interface PinCreateProps {
   navigation: any
@@ -27,11 +28,11 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
 
   const { t } = useTranslation()
 
-  const passcodeCreate = async (pin: string) => {
-    const passcode = JSON.stringify(pin)
+  const emailCreate = async (emailId: string) => {
+    const email = JSON.stringify(emailId)
     const description = t('Registration.UserAuthenticationEmail')
     try {
-      setValueKeychain(description, passcode, {
+      setValueKeychain(description, email, {
         service: 'email',
       })
     } catch (e) {
@@ -45,11 +46,15 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
     )
   }
 
-  const confirmEntry = (email: string) => {
-    if (email.length > 4) {
+  const confirmEntry = async (email: string) => {
+    if (email.length > 0) {
       if (validateEmail(email)) {
-        passcodeCreate(email)
-        navigation.navigate(Screens.VerifyOtp)
+        emailCreate(email)
+        const res = await api.default.auth.register({ email })
+        if (res?.data) {
+          navigation.navigate(Screens.VerifyOtp, { email })
+          Alert.alert(res?.message)
+        }
       } else {
         Alert.alert(t('Registration.ValidEmail'))
       }

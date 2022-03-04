@@ -6,9 +6,11 @@ import { Colors, TextTheme } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import Screens from '../utils/constants'
+import * as api from '../api'
 
 interface VerifyOtpProps {
   navigation: any
+  route: any
 }
 
 const style = StyleSheet.create({
@@ -26,11 +28,11 @@ const style = StyleSheet.create({
   },
 })
 
-const RESEND_OTP_TIME_LIMIT = 60 // 60 secs
+const RESEND_OTP_TIME_LIMIT = 30 // 30 secs
 
 let resendOtpTimerInterval
 
-const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation }) => {
+const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   const [otp, setOtp] = useState('')
 
   const { t } = useTranslation()
@@ -63,11 +65,26 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation }) => {
     }
   })
 
-  const confirmEntry = (otp: string) => {
-    if (otp.length < 4) {
+  const onResendOtpButtonPress = () => {
+    setResendButtonDisabledTime(RESEND_OTP_TIME_LIMIT)
+    startResendOtpTimer()
+  }
+
+  const confirmEntry = async (otpCode: string) => {
+    if (otpCode.length < 4) {
       Alert.alert(t('Registration.EnterEmail'))
     } else {
-      navigation.navigate(Screens.CreatePin)
+      const params = {
+        contact: route.params.email,
+        otp: parseInt(otpCode, 10),
+      }
+      const res = await api.default.auth.otp(params)
+      if (res?.data) {
+        navigation.navigate(Screens.CreatePin)
+        Alert.alert(res?.message)
+      } else {
+        Alert.alert('Invalid Otp')
+      }
     }
   }
   return (
@@ -87,7 +104,10 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation }) => {
       <Text
         style={[style.bodyText, style.verticalSpacer]}
       >{`00.${resendButtonDisabledTime}`}</Text>
-      <Text style={[style.bodyText, style.verticalSpacer]}>
+      <Text
+        style={[style.bodyText, style.verticalSpacer]}
+        onPress={onResendOtpButtonPress}
+      >
         {t('Registration.ResendOtp')}
       </Text>
       <Button

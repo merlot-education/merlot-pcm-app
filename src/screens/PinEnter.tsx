@@ -9,7 +9,6 @@ import { getValueKeychain } from '../utils/keychain'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  route: any
 }
 
 const style = StyleSheet.create({
@@ -22,7 +21,7 @@ const style = StyleSheet.create({
   },
 })
 
-const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated, route }) => {
+const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
   const [pin, setPin] = useState('')
   const { t } = useTranslation()
   const checkPin = async (pin: string) => {
@@ -62,44 +61,39 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated, route }) => {
 
   return (
     <SafeAreaView style={[style.container]}>
-      {!route?.params ? (
-        <>
-          <TextInput
-            label={t('Global.EnterPin')}
-            accessible
-            accessibilityLabel={t('Global.EnterPin')}
-            placeholder={t('Global.6DigitPin')}
-            placeholderTextColor={Colors.lightGrey}
-            autoFocus
-            maxLength={6}
-            type="numeric"
-            secureTextEntry
-            value={pin}
-            onChangeText={(pin: string) => {
-              setPin(pin.replace(/[^0-9]/g, ''))
-              if (pin.length === 6) {
-                Keyboard.dismiss()
-              }
-            }}
-          />
-          <Button
-            title={t('Global.Submit')}
-            buttonType={ButtonType.Primary}
-            onPress={() => {
-              Keyboard.dismiss()
-              checkPin(pin)
-            }}
-          />
-        </>
-      ) : (
-        <View style={style.btnContainer}>
-          <Button
-            title={t('Biometric.Biometric')}
-            buttonType={ButtonType.Primary}
-            onPress={biometricEnable}
-          />
-        </View>
-      )}
+      <TextInput
+        label={t('Global.EnterPin')}
+        accessible
+        accessibilityLabel={t('Global.EnterPin')}
+        placeholder={t('Global.6DigitPin')}
+        placeholderTextColor={Colors.lightGrey}
+        autoFocus
+        maxLength={6}
+        type="numeric"
+        secureTextEntry
+        value={pin}
+        onChangeText={(pin: string) => {
+          setPin(pin.replace(/[^0-9]/g, ''))
+          if (pin.length === 6) {
+            Keyboard.dismiss()
+          }
+        }}
+      />
+      <Button
+        title={t('Global.Submit')}
+        buttonType={ButtonType.Primary}
+        onPress={() => {
+          Keyboard.dismiss()
+          checkPin(pin)
+        }}
+      />
+      <View style={style.btnContainer}>
+        <Button
+          title={t('Biometric.Biometric')}
+          buttonType={ButtonType.Primary}
+          onPress={biometricEnable}
+        />
+      </View>
     </SafeAreaView>
   )
 }

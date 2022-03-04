@@ -57,6 +57,7 @@ const translation = {
     "BiometricFailed": "Échec de la biométrie",
     "BiometricCancle": "Invite biométrique annulée par l'utilisateur",
     "BiometricNotSupport": "Biométrie non prise en charge",
+    "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
   },
   "Home": {
     "LoginMsg": "Vous êtes connecté avec succès",
