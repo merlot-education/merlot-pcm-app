@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/core'
@@ -52,7 +52,7 @@ const Terms: React.FC = () => {
           <View style={styles.topSpacer}>
             <Button
               title={t('Global.Continue')}
-              onPress={() => nav.navigate(Screens.CreatePin)}
+              onPress={() => nav.navigate(Screens.Registration)}
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />

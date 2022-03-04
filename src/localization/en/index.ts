@@ -23,7 +23,10 @@ const translation = {
     "View": "View",
     "Home": "Home",
     "ErrorCode": "Error Code",
-    "Okay": "Okay"
+    "Okay": "Okay",
+    "Email": "Enter Email",
+    "Verify": 'Verify',
+    "Otp": 'Enter Otp',
   },
   "Language": {
     "English": "English",
@@ -34,6 +37,12 @@ const translation = {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
     "TermsAndConditions": "These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service. Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.",
     "Attestation": "I have read, understand and accept the terms and conditions.",
+  },
+  "Registration":{
+    "UserAuthenticationEmail": "User authentication email",
+    "EnterEmail": 'Please enter email',
+    "ValidEmail": "Please enter valid email",
+    'ResendOtp': 'Resend Otp'
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
@@ -51,6 +60,7 @@ const translation = {
     "BiometricFailed": "Biometrics failed",
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
+    "RegisterPinandBiometric": 'Register Pin and Biometric'
   },
   "Home": {
     "LoginMsg": "You are login successfully",

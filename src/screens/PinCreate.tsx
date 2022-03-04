@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import md5 from 'md5'
-import { setValueKeychain } from '../utils/keychain'
+import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
@@ -31,6 +31,10 @@ const PinCreate: React.FC<PinCreateProps> = ({
 }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
+  const [biometricSensorAvailable, setBiometricSensorAvailable] =
+    useState(false)
+  const [successPin, setSuccessPin] = useState(false)
+  const [successBiometric, setSuccessBiometric] = useState(false)
 
   const { t } = useTranslation()
 
@@ -49,6 +53,14 @@ const PinCreate: React.FC<PinCreateProps> = ({
     await sendSeedHash(email)
     setAuthenticated(true)
   }
+  useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+        setBiometricSensorAvailable(true)
+      }
+    })
+  })
 
   const passcodeCreate = async (pin: string) => {
     const passcode = JSON.stringify(pin)
@@ -59,10 +71,16 @@ const PinCreate: React.FC<PinCreateProps> = ({
       })
 
       // Change email here
-
+      const keychainEntry = await getValueKeychain({
+        service: 'email',
+      })
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
-        { text: 'Ok', onPress: () => startAgent('abc@gmail.com', passcode) },
+        {
+          text: 'Ok',
+          onPress: () => startAgent(keychainEntry.password, passcode),
+        },
       ])
+      setSuccessPin(true)
     } catch (e) {
       Alert.alert(e)
     }
@@ -89,7 +107,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
 
             if (success) {
               ReactNativeBiometrics.createKeys().then(() => {
-                setAuthenticated(true)
+                setSuccessBiometric(true)
                 Alert.alert(t('Biometric.BiometricSuccess'))
               })
             } else {
@@ -103,6 +121,16 @@ const PinCreate: React.FC<PinCreateProps> = ({
         Alert.alert(t('Biometric.BiometricNotSupport'))
       }
     })
+  }
+
+  const onSubmit = () => {
+    if (successPin && successBiometric) {
+      setAuthenticated(true)
+    } else if (successPin && !biometricSensorAvailable) {
+      setAuthenticated(true)
+    } else {
+      Alert.alert(t('Biometric.RegisterPinandBiometric'))
+    }
   }
   return (
     <SafeAreaView style={[style.container]}>
@@ -143,10 +171,20 @@ const PinCreate: React.FC<PinCreateProps> = ({
         }}
       />
       <View style={style.btnContainer}>
+        {biometricSensorAvailable && (
+          <Button
+            title={t('Biometric.Biometric')}
+            buttonType={ButtonType.Primary}
+            onPress={biometricEnable}
+          />
+        )}
+      </View>
+
+      <View style={style.btnContainer}>
         <Button
-          title={t('Biometric.Biometric')}
+          title={t('Global.Submit')}
           buttonType={ButtonType.Primary}
-          onPress={biometricEnable}
+          onPress={onSubmit}
         />
       </View>
     </SafeAreaView>
