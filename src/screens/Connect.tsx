@@ -72,11 +72,7 @@ const Connect: React.FC = () => {
         onPress={getConnectionInvitationUrl}
       />
       <View style={styles.spacer} />
-      <Button
-        title={t('No')}
-        buttonType={ButtonType.Primary}
-        onPress={() => BackHandler.exitApp()}
-      />
+      <Button title={t('No')} buttonType={ButtonType.Primary} />
     </View>
   )
 }
