@@ -20,12 +20,15 @@ const styles = StyleSheet.create({
   },
 })
 
-const Home: React.FC = () => {
+interface HomeProps {
+  navigation: any
+}
+
+const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { t } = useTranslation()
-  const nav = useNavigation()
 
   const nextPage = () => {
-    nav.navigate(Screens.Connect)
+    navigation.navigate(Screens.Connect)
   }
 
   return (

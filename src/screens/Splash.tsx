@@ -26,6 +26,7 @@ const Splash: React.FC = () => {
     ReactNativeBiometrics.biometricKeysExist().then(resultObject => {
       const { keysExist } = resultObject
       if (keysExist) {
+        SplashScreen.hide()
         nav.navigate(Screens.EnterPin, { biometric: true })
       }
     })

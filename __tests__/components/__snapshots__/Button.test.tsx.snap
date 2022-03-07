@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button Component Primary renders correctly 1`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "justifyContent": "center",
+      },
+      Object {
+        "height": 47,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+      },
+      Object {
+        "backgroundColor": "#108ee9",
+        "borderColor": "#108ee9",
+      },
+      false,
+      false,
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+          },
+          Object {
+            "color": "#ffffff",
+          },
+          false,
+          false,
+        ]
+      }
+    >
+      Hello Primary
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`Button Component Secondary renders correctly 1`] = `
+<View
+  accessibilityState={
+    Object {
+      "disabled": false,
+    }
+  }
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "borderRadius": 5,
+        "borderWidth": 1,
+        "justifyContent": "center",
+      },
+      Object {
+        "height": 47,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+      },
+      Object {
+        "backgroundColor": "#108ee9",
+        "borderColor": "#108ee9",
+      },
+      false,
+      false,
+      undefined,
+      undefined,
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+          },
+          Object {
+            "color": "#ffffff",
+          },
+          false,
+          false,
+        ]
+      }
+    >
+      Hello Secondary
+    </Text>
+  </View>
+</View>
+`;
