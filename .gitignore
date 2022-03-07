@@ -67,3 +67,12 @@ ios/Pods/*
 # by ensuring that only changed files are linted.
 # https://eslint.org/docs/user-guide/command-line-interface#caching
 .eslintcache
+
+# Android bundle files (generated when bundling app)
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/res/drawable-hdpi/
+android/app/src/main/res/drawable-mdpi/
+android/app/src/main/res/drawable-xhdpi/
+android/app/src/main/res/drawable-xxhdpi/
+android/app/src/main/res/drawable-xxxhdpi/
+android/app/src/main/res/raw/
