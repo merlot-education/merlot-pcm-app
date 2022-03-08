@@ -152,7 +152,8 @@ const PinCreate: React.FC<PinCreateProps> = ({
         accessibilityLabel={t('Global.EnterPin')}
         maxLength={6}
         autoFocus
-        type="numeric"
+        secureTextEntry
+        keyboardType="number-pad"
         value={pin}
         onChangeText={setPin}
       />
@@ -163,7 +164,8 @@ const PinCreate: React.FC<PinCreateProps> = ({
         placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
         maxLength={6}
-        type="numeric"
+        secureTextEntry
+        keyboardType="number-pad"
         value={pinTwo}
         onChangeText={(text: string) => {
           setPinTwo(text)

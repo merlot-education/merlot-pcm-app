@@ -108,7 +108,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         accessibilityLabel={t('Global.Otp')}
         maxLength={6}
         autoFocus
-        type="numeric"
+        keyboardType="number-pad"
         value={otp}
         onChangeText={setOtp}
       />

@@ -190,8 +190,7 @@ interface TextBoxTheme {
 
 export const Colors: ColorTheme = {
   accent: BaseColors.yellow,
-  // background: BaseColors.black,
-  background: '#FFF',
+  background: GrayscaleColors.white,
   backgroundLight: BaseColors.lightGreen,
   borderLight: BaseColors.mediumGreen,
   primary: BrandColors.primary,
