@@ -5,7 +5,7 @@ exports[`Registration Screen Renders correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#FFF",
+        "backgroundColor": "#FFFFFF",
         "margin": 20,
       },
     ]
@@ -52,74 +52,34 @@ exports[`Registration Screen Renders correctly 1`] = `
     >
       Global.Email
     </Text>
-    <View
+    <TextInput
+      accessibilityLabel="Global.Email"
+      accessible={true}
+      autoCapitalize="none"
+      autoFocus={true}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      placeholder="Global.Email"
+      placeholderTextColor="#03028A"
+      selectionColor="#03028A"
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "borderBottomColor": "#dddddd",
-            "borderBottomWidth": 0.5,
-            "flexDirection": "row",
-            "height": 44.5,
-            "marginBottom": 0,
-            "marginLeft": 15,
-            "marginTop": 0,
-            "paddingRight": 15,
+            "backgroundColor": "#FFFFFF",
+            "borderColor": undefined,
+            "borderRadius": 4,
+            "borderWidth": 2,
+            "color": "#03028A",
+            "fontSize": 16,
+            "padding": 10,
           },
-          Object {
-            "borderBottomWidth": 0.5,
-          },
+          false,
         ]
       }
-    >
-      <TextInput
-        accessibilityLabel="Global.Email"
-        accessible={true}
-        autoCapitalize="none"
-        autoFocus={true}
-        clearButtonMode="never"
-        editable={true}
-        keyboardType="email-address"
-        labelPosition="left"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onChangeText={[Function]}
-        onFocus={[Function]}
-        placeholder="Global.Email"
-        placeholderTextColor="#03028A"
-        secureTextEntry={false}
-        selectionColor="#03028A"
-        style={
-          Array [
-            Object {
-              "height": 35,
-            },
-            Object {
-              "backgroundColor": "transparent",
-              "color": "#000000",
-              "flex": 1,
-              "fontSize": 17,
-            },
-            null,
-            Object {},
-            Array [
-              Object {
-                "backgroundColor": "#FFF",
-                "borderRadius": 4,
-                "borderWidth": 2,
-                "color": "#03028A",
-                "fontSize": 16,
-                "padding": 10,
-              },
-              false,
-            ],
-          ]
-        }
-        textAlign="left"
-        underlineColorAndroid="transparent"
-        value=""
-      />
-    </View>
+      type="email-address"
+      value=""
+    />
   </View>
   <View
     accessibilityState={

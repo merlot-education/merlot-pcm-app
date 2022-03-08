@@ -5,7 +5,7 @@ exports[`Home Screen Renders correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#FFF",
+        "backgroundColor": "#FFFFFF",
         "margin": 20,
       },
     ]

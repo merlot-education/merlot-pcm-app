@@ -20,65 +20,24 @@ exports[`TextInput Component TextInput renders correctly 1`] = `
   >
     TextInput Component
   </Text>
-  <View
+  <TextInput
+    onBlur={[Function]}
+    onFocus={[Function]}
+    selectionColor="#03028A"
     style={
       Array [
         Object {
-          "alignItems": "center",
-          "borderBottomColor": "#dddddd",
-          "borderBottomWidth": 0.5,
-          "flexDirection": "row",
-          "height": 44.5,
-          "marginBottom": 0,
-          "marginLeft": 15,
-          "marginTop": 0,
-          "paddingRight": 15,
+          "backgroundColor": "#FFFFFF",
+          "borderColor": undefined,
+          "borderRadius": 4,
+          "borderWidth": 2,
+          "color": "#03028A",
+          "fontSize": 16,
+          "padding": 10,
         },
-        Object {
-          "borderBottomWidth": 0.5,
-        },
+        false,
       ]
     }
-  >
-    <TextInput
-      clearButtonMode="never"
-      editable={true}
-      keyboardType="default"
-      labelPosition="left"
-      onBlur={[Function]}
-      onChange={[Function]}
-      onFocus={[Function]}
-      secureTextEntry={false}
-      selectionColor="#03028A"
-      style={
-        Array [
-          Object {
-            "height": 35,
-          },
-          Object {
-            "backgroundColor": "transparent",
-            "color": "#000000",
-            "flex": 1,
-            "fontSize": 17,
-          },
-          null,
-          Object {},
-          Array [
-            Object {
-              "backgroundColor": "#FFF",
-              "borderRadius": 4,
-              "borderWidth": 2,
-              "color": "#03028A",
-              "fontSize": 16,
-              "padding": 10,
-            },
-            false,
-          ],
-        ]
-      }
-      textAlign="left"
-      underlineColorAndroid="transparent"
-    />
-  </View>
+  />
 </View>
 `;

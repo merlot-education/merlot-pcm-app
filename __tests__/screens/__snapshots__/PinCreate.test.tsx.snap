@@ -5,7 +5,7 @@ exports[`PinCreate Screen PinCreate correctly 1`] = `
   style={
     Array [
       Object {
-        "backgroundColor": "#FFF",
+        "backgroundColor": "#FFFFFF",
         "margin": 20,
       },
     ]
@@ -52,74 +52,35 @@ exports[`PinCreate Screen PinCreate correctly 1`] = `
     >
       Global.EnterPin
     </Text>
-    <View
+    <TextInput
+      accessibilityLabel="Global.EnterPin"
+      accessible={true}
+      autoFocus={true}
+      keyboardType="number-pad"
+      maxLength={6}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      placeholder="Global.6DigitPin"
+      placeholderTextColor="#D3D3D3"
+      secureTextEntry={true}
+      selectionColor="#03028A"
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "borderBottomColor": "#dddddd",
-            "borderBottomWidth": 0.5,
-            "flexDirection": "row",
-            "height": 44.5,
-            "marginBottom": 0,
-            "marginLeft": 15,
-            "marginTop": 0,
-            "paddingRight": 15,
+            "backgroundColor": "#FFFFFF",
+            "borderColor": undefined,
+            "borderRadius": 4,
+            "borderWidth": 2,
+            "color": "#03028A",
+            "fontSize": 16,
+            "padding": 10,
           },
-          Object {
-            "borderBottomWidth": 0.5,
-          },
+          false,
         ]
       }
-    >
-      <TextInput
-        accessibilityLabel="Global.EnterPin"
-        accessible={true}
-        autoFocus={true}
-        clearButtonMode="never"
-        editable={true}
-        keyboardType="numeric"
-        labelPosition="left"
-        maxLength={6}
-        onBlur={[Function]}
-        onChange={[Function]}
-        onChangeText={[Function]}
-        onFocus={[Function]}
-        placeholder="Global.6DigitPin"
-        placeholderTextColor="#D3D3D3"
-        secureTextEntry={false}
-        selectionColor="#03028A"
-        style={
-          Array [
-            Object {
-              "height": 35,
-            },
-            Object {
-              "backgroundColor": "transparent",
-              "color": "#000000",
-              "flex": 1,
-              "fontSize": 17,
-            },
-            null,
-            Object {},
-            Array [
-              Object {
-                "backgroundColor": "#FFF",
-                "borderRadius": 4,
-                "borderWidth": 2,
-                "color": "#03028A",
-                "fontSize": 16,
-                "padding": 10,
-              },
-              false,
-            ],
-          ]
-        }
-        textAlign="left"
-        underlineColorAndroid="transparent"
-        value=""
-      />
-    </View>
+      value=""
+    />
   </View>
   <View
     style={
@@ -140,73 +101,34 @@ exports[`PinCreate Screen PinCreate correctly 1`] = `
     >
       PinCreate.ReenterPin
     </Text>
-    <View
+    <TextInput
+      accessibilityLabel="PinCreate.ReenterPin"
+      accessible={true}
+      keyboardType="number-pad"
+      maxLength={6}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      placeholder="Global.6DigitPin"
+      placeholderTextColor="#D3D3D3"
+      secureTextEntry={true}
+      selectionColor="#03028A"
       style={
         Array [
           Object {
-            "alignItems": "center",
-            "borderBottomColor": "#dddddd",
-            "borderBottomWidth": 0.5,
-            "flexDirection": "row",
-            "height": 44.5,
-            "marginBottom": 0,
-            "marginLeft": 15,
-            "marginTop": 0,
-            "paddingRight": 15,
+            "backgroundColor": "#FFFFFF",
+            "borderColor": undefined,
+            "borderRadius": 4,
+            "borderWidth": 2,
+            "color": "#03028A",
+            "fontSize": 16,
+            "padding": 10,
           },
-          Object {
-            "borderBottomWidth": 0.5,
-          },
+          false,
         ]
       }
-    >
-      <TextInput
-        accessibilityLabel="PinCreate.ReenterPin"
-        accessible={true}
-        clearButtonMode="never"
-        editable={true}
-        keyboardType="numeric"
-        labelPosition="left"
-        maxLength={6}
-        onBlur={[Function]}
-        onChange={[Function]}
-        onChangeText={[Function]}
-        onFocus={[Function]}
-        placeholder="Global.6DigitPin"
-        placeholderTextColor="#D3D3D3"
-        secureTextEntry={false}
-        selectionColor="#03028A"
-        style={
-          Array [
-            Object {
-              "height": 35,
-            },
-            Object {
-              "backgroundColor": "transparent",
-              "color": "#000000",
-              "flex": 1,
-              "fontSize": 17,
-            },
-            null,
-            Object {},
-            Array [
-              Object {
-                "backgroundColor": "#FFF",
-                "borderRadius": 4,
-                "borderWidth": 2,
-                "color": "#03028A",
-                "fontSize": 16,
-                "padding": 10,
-              },
-              false,
-            ],
-          ]
-        }
-        textAlign="left"
-        underlineColorAndroid="transparent"
-        value=""
-      />
-    </View>
+      value=""
+    />
   </View>
   <View
     accessibilityState={
