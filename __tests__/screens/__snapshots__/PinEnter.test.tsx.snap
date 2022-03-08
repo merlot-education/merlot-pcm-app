@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PinEnter Screen PinEnter correctly 1`] = `
+<RCTSafeAreaView
+  emulateUnlessSupported={true}
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFF",
+        "margin": 20,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "marginVertical": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#03028A",
+          "fontSize": 14,
+          "fontWeight": "bold",
+          "marginBottom": 3,
+        }
+      }
+    >
+      Global.EnterPin
+    </Text>
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderBottomColor": "#dddddd",
+            "borderBottomWidth": 0.5,
+            "flexDirection": "row",
+            "height": 44.5,
+            "marginBottom": 0,
+            "marginLeft": 15,
+            "marginTop": 0,
+            "paddingRight": 15,
+          },
+          Object {
+            "borderBottomWidth": 0.5,
+          },
+        ]
+      }
+    >
+      <TextInput
+        accessibilityLabel="Global.EnterPin"
+        accessible={true}
+        autoFocus={true}
+        clearButtonMode="never"
+        editable={true}
+        keyboardType="numeric"
+        labelPosition="left"
+        maxLength={6}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onChangeText={[Function]}
+        onFocus={[Function]}
+        placeholder="Global.6DigitPin"
+        placeholderTextColor="#D3D3D3"
+        secureTextEntry={false}
+        selectionColor="#03028A"
+        style={
+          Array [
+            Object {
+              "height": 35,
+            },
+            Object {
+              "backgroundColor": "transparent",
+              "color": "#000000",
+              "flex": 1,
+              "fontSize": 17,
+            },
+            null,
+            Object {},
+            Array [
+              Object {
+                "backgroundColor": "#FFF",
+                "borderRadius": 4,
+                "borderWidth": 2,
+                "color": "#03028A",
+                "fontSize": 16,
+                "padding": 10,
+              },
+              false,
+            ],
+          ]
+        }
+        textAlign="left"
+        underlineColorAndroid="transparent"
+        value=""
+      />
+    </View>
+  </View>
+  <View
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 5,
+          "borderWidth": 1,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 47,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+        },
+        Object {
+          "backgroundColor": "#108ee9",
+          "borderColor": "#108ee9",
+        },
+        false,
+        false,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 18,
+            },
+            Object {
+              "color": "#ffffff",
+            },
+            false,
+            false,
+          ]
+        }
+      >
+        Global.Submit
+      </Text>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "marginTop": 20,
+      }
+    }
+  />
+</RCTSafeAreaView>
+`;

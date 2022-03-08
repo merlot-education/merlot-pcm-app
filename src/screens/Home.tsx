@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/core'
 import { Colors, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
 import Screens from '../utils/constants'

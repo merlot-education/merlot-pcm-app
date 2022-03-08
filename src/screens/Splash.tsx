@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/core'
 import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
@@ -16,9 +15,11 @@ const styles = StyleSheet.create({
   },
 })
 
-const Splash: React.FC = () => {
-  const nav = useNavigation()
+interface SplashProps {
+  navigation: any
+}
 
+const Splash: React.FC<SplashProps> = ({ navigation }) => {
   const checkStack = async () => {
     const keychainEntry = await getValueKeychain({
       service: 'passcode',
@@ -27,15 +28,15 @@ const Splash: React.FC = () => {
       const { keysExist } = resultObject
       if (keysExist) {
         SplashScreen.hide()
-        nav.navigate(Screens.EnterPin, { biometric: true })
+        navigation.navigate(Screens.EnterPin, { biometric: true })
       }
     })
     if (keychainEntry) {
       SplashScreen.hide()
-      nav.navigate(Screens.EnterPin, { biometric: false })
+      navigation.navigate(Screens.EnterPin, { biometric: false })
     } else {
       SplashScreen.hide()
-      nav.navigate(Screens.Terms)
+      navigation.navigate(Screens.Terms)
     }
   }
 
