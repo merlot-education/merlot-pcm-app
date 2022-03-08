@@ -1,8 +1,8 @@
 // prettier-ignore
 const translation = {
   "Global": {
-    "EnterPin": "Enter Pin",
-    "6DigitPin": "6 Digit Pin",
+    "EnterPin": "Enter PIN",
+    "6DigitPin": "6 Digit PIN",
     "Submit": "Submit",
     "NoneYet!": "None yet!",
     "Cancel": "Cancel",
@@ -23,7 +23,10 @@ const translation = {
     "View": "View",
     "Home": "Home",
     "ErrorCode": "Error Code",
-    "Okay": "Okay"
+    "Okay": "Okay",
+    "Email": "Enter Email",
+    "Verify": 'Verify',
+    "Otp": 'Enter OTP',
   },
   "Language": {
     "English": "English",
@@ -35,13 +38,19 @@ const translation = {
     "TermsAndConditions": "These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service. Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.",
     "Attestation": "I have read, understand and accept the terms and conditions.",
   },
+  "Registration":{
+    "UserAuthenticationEmail": "User authentication email",
+    "EnterEmail": 'Please enter email',
+    "ValidEmail": "Please enter valid email",
+    'ResendOtp': 'Resend OTP'
+  },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
-    "PinMustBe6DigitsInLength": "Pin must be 6 digits in length",
+    "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
     "PinsEnteredDoNotMatch": "Pins entered do not match", 
-    "PinsSuccess": "Pin created successfully",    
-    "6DigitPin": "6 Digit Pin",
-    "ReenterPin": "Re-Enter Pin",
+    "PinsSuccess": "PIN created successfully",    
+    "6DigitPin": "6 Digit PIN",
+    "ReenterPin": "Re-Enter PIN",
     "Create": "Create"
   },
   "Biometric": {
@@ -51,12 +60,13 @@ const translation = {
     "BiometricFailed": "Biometrics failed",
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
+    "RegisterPinandBiometric": 'Register PIN and Biometric'
   },
   "Home": {
     "LoginMsg": "You are login successfully",
   },
   "PinEnter": {
-    "IncorrectPin": "Incorrect Pin",    
+    "IncorrectPin": "Incorrect PIN",    
   }, 
   "Settings": { 
     "Language": "Language",     

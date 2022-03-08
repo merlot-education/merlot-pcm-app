@@ -23,12 +23,18 @@ const translation = {
     "View": "Voir",
     "Home": "Accueil",
     "ErrorCode": "Code d'erreur",
-    "Okay": "Okay"
+    "Okay": "Okay",
+    "Email": "Entrez votre e-mail"
   },
   "Language": {
     "English": "Anglais",
     "French": "Français",
     "German": "Allemand"
+  },
+  "Registration":{
+    "UserAuthenticationEmail": "Courriel d'authentification de l'utilisateur",
+    "EnterEmail": 'Veuillez saisir un e-mail',
+    "ValidEmail": "Veuillez saisir une adresse e-mail valide"
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
@@ -51,6 +57,7 @@ const translation = {
     "BiometricFailed": "Échec de la biométrie",
     "BiometricCancle": "Invite biométrique annulée par l'utilisateur",
     "BiometricNotSupport": "Biométrie non prise en charge",
+    "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
   },
   "Home": {
     "LoginMsg": "Vous êtes connecté avec succès",

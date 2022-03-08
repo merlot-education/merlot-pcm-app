@@ -1,4 +1,4 @@
-import * as Keychain from 'react-native-keychain'
+import Keychain from 'react-native-keychain'
 
 const setValueKeychain = async (
   username: string,

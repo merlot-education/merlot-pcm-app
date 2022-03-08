@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
-import { setValueKeychain } from '../utils/keychain'
+import md5 from 'md5'
+import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
-import { TextInput } from '../components'
+import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
+import * as api from '../api'
 
 interface PinCreateProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  initAgent: (email: string, pin: string) => void
 }
 
 const style = StyleSheet.create({
@@ -22,20 +25,70 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
+const PinCreate: React.FC<PinCreateProps> = ({
+  setAuthenticated,
+  initAgent,
+}) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
+  const [biometricSensorAvailable, setBiometricSensorAvailable] =
+    useState(false)
+  const [successPin, setSuccessPin] = useState(false)
+  const [successBiometric, setSuccessBiometric] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('')
 
   const { t } = useTranslation()
 
-  const passcodeCreate = async (pin: string) => {
-    const passcode = JSON.stringify(pin)
+  const sendSeedHash = async (userEmail: string) => {
+    const genratedSeedHash = md5(userEmail)
+    const seedHashResponse = await api.default.auth.sendSeedHash({
+      email: userEmail,
+      seedHash: genratedSeedHash,
+    })
+    if (seedHashResponse.data != null) {
+      // seed sent via email
+    }
+  }
+  const startAgent = async (email: string, pin: string) => {
+    setLoading(true)
+    await initAgent(email, pin)
+    await sendSeedHash(email)
+    // setTimeout(() => {
+    setLoading(false)
+    setAuthenticated(true)
+    // }, 10000)
+  }
+  useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+        setBiometricSensorAvailable(true)
+      }
+    })
+  })
+
+  const passcodeCreate = async (passcode: string) => {
+    // const passcode = JSON.stringify(pin)
     const description = t('PinCreate.UserAuthenticationPin')
     try {
       setValueKeychain(description, passcode, {
         service: 'passcode',
       })
-      Alert.alert(t('PinCreate.PinsSuccess'))
+
+      // Change email here
+      const keychainEntry = await getValueKeychain({
+        service: 'email',
+      })
+      setEmail(keychainEntry.password)
+      Alert.alert(t('PinCreate.PinsSuccess'), '', [
+        {
+          text: 'Ok',
+          // onPress: () =>
+          //   startAgent(JSON.parse(keychainEntry).password, passcode),
+        },
+      ])
+      setSuccessPin(true)
     } catch (e) {
       Alert.alert(e)
     }
@@ -48,7 +101,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
       Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
     } else {
       passcodeCreate(x)
-      setAuthenticated(true)
     }
   }
   const biometricEnable = () => {
@@ -63,7 +115,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
 
             if (success) {
               ReactNativeBiometrics.createKeys().then(() => {
-                setAuthenticated(true)
+                setSuccessBiometric(true)
                 Alert.alert(t('Biometric.BiometricSuccess'))
               })
             } else {
@@ -78,8 +130,20 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
       }
     })
   }
+
+  const onSubmit = async () => {
+    if (successPin && successBiometric) {
+      // setAuthenticated(true)
+      await startAgent(email, pin)
+    } else if (successPin && !biometricSensorAvailable) {
+      setAuthenticated(true)
+    } else {
+      Alert.alert(t('Biometric.RegisterPinandBiometric'))
+    }
+  }
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
@@ -88,7 +152,8 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
         accessibilityLabel={t('Global.EnterPin')}
         maxLength={6}
         autoFocus
-        type="numeric"
+        secureTextEntry
+        keyboardType="number-pad"
         value={pin}
         onChangeText={setPin}
       />
@@ -99,7 +164,8 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
         placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
         maxLength={6}
-        type="numeric"
+        secureTextEntry
+        keyboardType="number-pad"
         value={pinTwo}
         onChangeText={(text: string) => {
           setPinTwo(text)
@@ -109,7 +175,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
         }}
       />
       <Button
-        title={t('PinCreate.Create')}
+        title="Setup PIN"
         buttonType={ButtonType.Primary}
         onPress={() => {
           Keyboard.dismiss()
@@ -117,10 +183,20 @@ const PinCreate: React.FC<PinCreateProps> = ({ setAuthenticated }) => {
         }}
       />
       <View style={style.btnContainer}>
+        {biometricSensorAvailable && (
+          <Button
+            title="Setup Biometric"
+            buttonType={ButtonType.Primary}
+            onPress={biometricEnable}
+          />
+        )}
+      </View>
+
+      <View style={style.btnContainer}>
         <Button
-          title={t('Biometric.Biometric')}
+          title="Create Wallet"
           buttonType={ButtonType.Primary}
-          onPress={biometricEnable}
+          onPress={onSubmit}
         />
       </View>
     </SafeAreaView>

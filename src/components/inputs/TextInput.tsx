@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
-import { InputItem } from '@ant-design/react-native'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput as RNTextInput,
+  TextInputProps,
+} from 'react-native'
 
-import { InputItemProps } from '@ant-design/react-native/lib/input-item'
 import { Colors, TextTheme, borderRadius } from '../../theme/theme'
 
-interface Props extends InputItemProps {
+interface Props extends TextInputProps {
   label: string
 }
 
@@ -24,21 +28,22 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
     color: Colors.text,
     borderWidth: 2,
+    borderColor: Colors.borderLight,
   },
 })
 
-const TextInput: React.FC<Props> = ({ label, ...InputItemProps }) => {
+const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
   const [focused, setFocused] = useState(false)
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <InputItem
+      <RNTextInput
         style={[styles.textInput, focused && { borderColor: Colors.primary }]}
         selectionColor={Colors.primary}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
-        {...InputItemProps}
+        {...textInputProps}
       />
     </View>
   )
