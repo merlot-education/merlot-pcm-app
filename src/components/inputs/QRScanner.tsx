@@ -13,7 +13,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import QRScannerClose from '../misc/QRScannerClose'
 import QRScannerTorch from '../misc/QRScannerTorch'
-import { QrCodeScanError } from '../../types/error'
+import QrCodeScanError from '../../types/error'
 
 interface Props {
   handleCodeScan: (event: BarCodeReadEvent) => Promise<void>

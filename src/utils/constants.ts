@@ -10,5 +10,6 @@ enum Screens {
   Connect = 'Connect',
   Consent = 'Consent',
   ListContacts = 'ListContacts',
+  Scan = 'Scan',
 }
 export default Screens

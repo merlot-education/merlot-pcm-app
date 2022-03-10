@@ -27,6 +27,7 @@ import defaultStackOptions from './defaultStackOptions'
 import indyLedgers from '../../configs/ledgers/indy'
 import Connect from '../screens/Connect'
 import ListContacts from '../screens/ListContacts'
+import Scan from '../screens/Scan'
 import * as api from '../api'
 
 interface Props {
@@ -73,6 +74,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         screenOptions={{ ...defaultStackOptions, headerShown: false }}
       >
         <Stack.Screen name={Screens.Home} component={Home} />
+        <Stack.Screen name={Screens.Scan} component={Scan} />
         <Stack.Screen name={Screens.Connect} component={Connect} />
         <Stack.Screen name={Screens.ListContacts} component={ListContacts} />
       </Stack.Navigator>
