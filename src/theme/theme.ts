@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { Theme } from '@ant-design/react-native/lib/style'
 
 type BaseColor = Record<string, string>
 
@@ -75,7 +75,7 @@ export const zeroOpacity = 0.0
 export const borderWidth = 2
 
 const BrandColors: BrandColors = {
-  primary: '#42803E',
+  primary: '#03028A',
   highlight: '#FCBA19',
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
@@ -190,13 +190,13 @@ interface TextBoxTheme {
 
 export const Colors: ColorTheme = {
   accent: BaseColors.yellow,
-  background: BaseColors.black,
+  background: GrayscaleColors.white,
   backgroundLight: BaseColors.lightGreen,
   borderLight: BaseColors.mediumGreen,
-  primary: BaseColors.darkGreen,
+  primary: BrandColors.primary,
   primaryActive: BaseColors.darkGreenHeavyTransparent,
-  shadow: BaseColors.darkGrey,
-  text: BaseColors.white,
+  shadow: BaseColors.lightGrey,
+  text: BrandColors.primary,
   ...BaseColors,
   ...StatusColors,
 }
@@ -245,53 +245,25 @@ export const TextTheme: TextTheme = {
   },
 }
 
-export const Buttons = StyleSheet.create({
-  primary: {
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: Colors.primary,
-  },
-  primaryDisabled: {
-    padding: 16,
-    borderRadius: 4,
-    backgroundColor: Colors.darkGreenHeavyTransparent,
-  },
-  primaryText: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.white,
-    textAlign: 'center',
-  },
-  primaryTextDisabled: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.white,
-    textAlign: 'center',
-  },
-  secondary: {
-    padding: 16,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: Colors.primary,
-    backgroundColor: Colors.white,
-  },
-  secondaryDisabled: {
-    padding: 16,
-    borderRadius: 4,
-    borderWidth: 2,
-    borderColor: Colors.darkGreenLightTransparent,
-    backgroundColor: Colors.white,
-  },
-  secondaryText: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.primary,
-    textAlign: 'center',
-  },
-  secondaryTextDisabled: {
-    ...TextTheme.normal,
-    fontWeight: 'bold',
-    color: Colors.darkGreenLightTransparent,
-    textAlign: 'center',
-  },
-})
+export const customTheme: Partial<Theme> = {
+  brand_primary: BrandColors.primary,
+  brand_primary_tap: BrandColors.primary,
+
+  // button
+  primary_button_fill: BrandColors.primary,
+  primary_button_fill_tap: BrandColors.primary,
+
+  ghost_button_color: BrandColors.primary,
+  ghost_button_fill_tap: BrandColors.primary,
+
+  // input_font_size
+  border_color_base: BaseColors.black,
+}
+
+interface ContactTheme {
+  background: string
+}
+
+export const ContactTheme: ContactTheme = {
+  background: Colors.shadow,
+}

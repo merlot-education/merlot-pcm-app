@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Registration Screen Renders correctly 1`] = `
+<RNCSafeAreaView
+  style={
+    Array [
+      Object {
+        "backgroundColor": "#FFFFFF",
+        "margin": 20,
+      },
+    ]
+  }
+>
+  <Modal
+    animationType="none"
+    hardwareAccelerated={false}
+    transparent={true}
+    visible={false}
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(52, 52, 52, 0.8)",
+          "flex": 1,
+          "justifyContent": "space-around",
+        }
+      }
+    >
+      <ActivityIndicator
+        color="#03028A"
+        size="small"
+      />
+    </View>
+  </Modal>
+  <View
+    style={
+      Object {
+        "marginVertical": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#03028A",
+          "fontSize": 14,
+          "fontWeight": "bold",
+          "marginBottom": 3,
+        }
+      }
+    >
+      Global.Email
+    </Text>
+    <TextInput
+      accessibilityLabel="Global.Email"
+      accessible={true}
+      autoCapitalize="none"
+      autoFocus={true}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      placeholder="Global.Email"
+      placeholderTextColor="#03028A"
+      selectionColor="#03028A"
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#FFFFFF",
+            "borderColor": undefined,
+            "borderRadius": 4,
+            "borderWidth": 2,
+            "color": "#03028A",
+            "fontSize": 16,
+            "padding": 10,
+          },
+          false,
+        ]
+      }
+      type="email-address"
+      value=""
+    />
+  </View>
+  <View
+    accessibilityState={
+      Object {
+        "disabled": false,
+      }
+    }
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 5,
+          "borderWidth": 1,
+          "justifyContent": "center",
+        },
+        Object {
+          "height": 47,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+        },
+        Object {
+          "backgroundColor": "#108ee9",
+          "borderColor": "#108ee9",
+        },
+        false,
+        false,
+        undefined,
+        undefined,
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 18,
+            },
+            Object {
+              "color": "#ffffff",
+            },
+            false,
+            false,
+          ]
+        }
+      >
+        Global.Submit
+      </Text>
+    </View>
+  </View>
+</RNCSafeAreaView>
+`;

@@ -41,13 +41,6 @@ module.exports = {
     ],
     'react/prop-types': 'off', // Since we do not use prop-types
     'react/require-default-props': 'off', // Since we do not use prop-types
-    'react/jsx-closing-bracket-location': [
-      2,
-      {
-        nonEmpty: 'after-props',
-        selfClosing: 'tag-aligned',
-      },
-    ],
     'no-shadow': 'off',
     'react/jsx-props-no-spreading': 'off',
     'no-underscore-dangle': 'off',
@@ -59,5 +52,6 @@ module.exports = {
     'no-unused-expressions': 'off',
     'no-return-assign': 'off',
     'react/no-array-index-key': 'off',
+    'react/self-closing-comp': 'error',
   },
 }

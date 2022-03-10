@@ -39,7 +39,8 @@ const CheckBoxRow: React.FC<Props> = ({
         style={style.container}
         accessible={accessible}
         accessibilityLabel={accessibilityLabel}
-        onPress={onPress}>
+        onPress={onPress}
+      >
         {checked ? (
           <Icon name="check-box" size={36} color={Colors.primary} />
         ) : (
