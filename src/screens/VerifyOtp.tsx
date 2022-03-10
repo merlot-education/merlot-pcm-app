@@ -88,7 +88,12 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       setLoading(true)
       const res = await api.default.auth.otp(params)
       if (res?.data) {
-        navigation.navigate(Screens.CreatePin)
+        const { forgotPin } = route.params
+        if (forgotPin) {
+          navigation.navigate(Screens.CreatePin, { forgotPin: true })
+        } else {
+          navigation.navigate(Screens.CreatePin, { forgotPin: false })
+        }
         Alert.alert(res?.message)
         setLoading(false)
       } else {

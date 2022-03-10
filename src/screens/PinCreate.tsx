@@ -13,6 +13,7 @@ import * as api from '../api'
 interface PinCreateProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, pin: string) => void
+  route
 }
 
 const style = StyleSheet.create({
@@ -28,6 +29,7 @@ const style = StyleSheet.create({
 const PinCreate: React.FC<PinCreateProps> = ({
   setAuthenticated,
   initAgent,
+  route,
 }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
@@ -37,7 +39,7 @@ const PinCreate: React.FC<PinCreateProps> = ({
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
-
+  const { forgotPin } = route.params
   const { t } = useTranslation()
 
   const sendSeedHash = async (userEmail: string) => {
@@ -69,7 +71,6 @@ const PinCreate: React.FC<PinCreateProps> = ({
   })
 
   const passcodeCreate = async (passcode: string) => {
-    // const passcode = JSON.stringify(pin)
     const description = t('PinCreate.UserAuthenticationPin')
     try {
       setValueKeychain(description, passcode, {
@@ -182,23 +183,26 @@ const PinCreate: React.FC<PinCreateProps> = ({
           confirmEntry(pin, pinTwo)
         }}
       />
-      <View style={style.btnContainer}>
-        {biometricSensorAvailable && (
-          <Button
-            title="Setup Biometric"
-            buttonType={ButtonType.Primary}
-            onPress={biometricEnable}
-          />
-        )}
-      </View>
-
-      <View style={style.btnContainer}>
-        <Button
-          title="Create Wallet"
-          buttonType={ButtonType.Primary}
-          onPress={onSubmit}
-        />
-      </View>
+      {!forgotPin && (
+        <>
+          <View style={style.btnContainer}>
+            {biometricSensorAvailable && (
+              <Button
+                title="Setup Biometric"
+                buttonType={ButtonType.Primary}
+                onPress={biometricEnable}
+              />
+            )}
+          </View>
+          <View style={style.btnContainer}>
+            <Button
+              title="Create Wallet"
+              buttonType={ButtonType.Primary}
+              onPress={onSubmit}
+            />
+          </View>
+        </>
+      )}
     </SafeAreaView>
   )
 }

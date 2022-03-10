@@ -24,7 +24,8 @@ const translation = {
     "Home": "Startseite",
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
-    "Email": "E-Mail eingeben"
+    "Email": "E-Mail eingeben",
+    "ForgotPin": 'PIN vergessen'
   },
   "Language": {
     "English": "Englisch",

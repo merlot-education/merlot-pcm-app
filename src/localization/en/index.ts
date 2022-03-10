@@ -27,6 +27,7 @@ const translation = {
     "Email": "Enter Email",
     "Verify": 'Verify',
     "Otp": 'Enter OTP',
+    "ForgotPin": 'Forgot Pin'
   },
   "Language": {
     "English": "English",
