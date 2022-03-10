@@ -67,6 +67,13 @@ const translation = {
   }, 
   "Settings": {
     "Language": "Langue"
+  },
+  "TabStack": {
+    "Home": "Home",
+    "Connections": "Contacts",
+    "Scan": "Scan",
+    "Credentials": "Credentials",
+    "Settings": "Settings",
   }
 }
 export default translation
