@@ -7,7 +7,7 @@ import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../components/text/InfoTextBox'
 import { Colors, TextTheme } from '../theme/theme'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 
 const styles = StyleSheet.create({
   container: {

@@ -6,7 +6,7 @@ import { setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 import * as api from '../api'
 
 interface PinCreateProps {
@@ -47,6 +47,7 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
     )
   }
   const confirmEntry = async (email: string) => {
+    navigation.navigate(Screens.CreatePin)
     if (email.length > 0) {
       if (validateEmail(email)) {
         emailCreate(email)
@@ -76,7 +77,7 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
         autoFocus
         value={email}
         onChangeText={setEmail}
-        type="email-address"
+        keyboardType="email-address"
         autoCapitalize="none"
       />
       <Button

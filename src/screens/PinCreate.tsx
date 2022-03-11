@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import md5 from 'md5'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
+import { LocalStorageKeys } from '../constants'
 
 interface PinCreateProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
@@ -54,11 +56,14 @@ const PinCreate: React.FC<PinCreateProps> = ({
     setLoading(true)
     await initAgent(email, pin)
     await sendSeedHash(email)
-    // setTimeout(() => {
+    await storeStack('success')
     setLoading(false)
     setAuthenticated(true)
-    // }, 10000)
   }
+  const storeStack = async (language: string) => {
+    await AsyncStorage.setItem(LocalStorageKeys.StackManage, language)
+  }
+
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
       const { available, biometryType } = resultObject
@@ -84,8 +89,6 @@ const PinCreate: React.FC<PinCreateProps> = ({
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
         {
           text: 'Ok',
-          // onPress: () =>
-          //   startAgent(JSON.parse(keychainEntry).password, passcode),
         },
       ])
       setSuccessPin(true)
@@ -133,10 +136,9 @@ const PinCreate: React.FC<PinCreateProps> = ({
 
   const onSubmit = async () => {
     if (successPin && successBiometric) {
-      // setAuthenticated(true)
       await startAgent(email, pin)
     } else if (successPin && !biometricSensorAvailable) {
-      setAuthenticated(true)
+      await startAgent(email, pin)
     } else {
       Alert.alert(t('Biometric.RegisterPinandBiometric'))
     }

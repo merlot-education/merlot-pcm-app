@@ -23,31 +23,6 @@ const style = StyleSheet.create({
 
 const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
   const [pin, setPin] = useState('')
-  const [biometricFailed, setBiometricFailed] = useState(false)
-  const [biometricSensorAvailable, setBiometricSensorAvailable] =
-    useState(false)
-
-  useEffect(() => {
-    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-      const { available, biometryType } = resultObject
-      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-        setBiometricSensorAvailable(true)
-      } else {
-        setBiometricFailed(true)
-      }
-    })
-  })
-  const { t } = useTranslation()
-  const checkPin = async (pin: string) => {
-    const keychainEntry = await getValueKeychain({
-      service: 'passcode',
-    })
-    if (keychainEntry && pin === keychainEntry.password) {
-      setAuthenticated(true)
-    } else {
-      Alert.alert(t('PinEnter.IncorrectPin'))
-    }
-  }
 
   const biometricEnable = () => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -66,56 +41,61 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
           })
           .catch(() => {
             Alert.alert(t('Biometric.BiometricFailed'))
-            setBiometricFailed(true)
           })
       } else {
         Alert.alert(t('Biometric.BiometricNotSupport'))
-        setBiometricFailed(true)
       }
     })
   }
 
+  useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+        biometricEnable()
+      }
+    })
+  })
+
+  const { t } = useTranslation()
+  const checkPin = async (pin: string) => {
+    const keychainEntry = await getValueKeychain({
+      service: 'passcode',
+    })
+    if (keychainEntry && pin === keychainEntry.password) {
+      setAuthenticated(true)
+    } else {
+      Alert.alert(t('PinEnter.IncorrectPin'))
+    }
+  }
+
   return (
     <SafeAreaView style={[style.container]}>
-      {biometricFailed && (
-        <>
-          <TextInput
-            label={t('Global.EnterPin')}
-            accessible
-            accessibilityLabel={t('Global.EnterPin')}
-            placeholder={t('Global.6DigitPin')}
-            placeholderTextColor={Colors.lightGrey}
-            autoFocus
-            maxLength={6}
-            keyboardType="numeric"
-            secureTextEntry
-            value={pin}
-            onChangeText={(pin: string) => {
-              setPin(pin.replace(/[^0-9]/g, ''))
-              if (pin.length === 6) {
-                Keyboard.dismiss()
-              }
-            }}
-          />
-          <Button
-            title={t('Global.Submit')}
-            buttonType={ButtonType.Primary}
-            onPress={() => {
-              Keyboard.dismiss()
-              checkPin(pin)
-            }}
-          />
-        </>
-      )}
-      <View style={style.btnContainer}>
-        {biometricSensorAvailable && !biometricFailed && (
-          <Button
-            title={t('Biometric.Biometric')}
-            buttonType={ButtonType.Primary}
-            onPress={biometricEnable}
-          />
-        )}
-      </View>
+      <TextInput
+        label={t('Global.EnterPin')}
+        accessible
+        accessibilityLabel={t('Global.EnterPin')}
+        placeholder={t('Global.6DigitPin')}
+        placeholderTextColor={Colors.lightGrey}
+        maxLength={6}
+        keyboardType="numeric"
+        secureTextEntry
+        value={pin}
+        onChangeText={(pin: string) => {
+          setPin(pin.replace(/[^0-9]/g, ''))
+          if (pin.length === 6) {
+            Keyboard.dismiss()
+          }
+        }}
+      />
+      <Button
+        title={t('Global.Submit')}
+        buttonType={ButtonType.Primary}
+        onPress={() => {
+          Keyboard.dismiss()
+          checkPin(pin)
+        }}
+      />
     </SafeAreaView>
   )
 }
