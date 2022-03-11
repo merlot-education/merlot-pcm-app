@@ -13,7 +13,6 @@ import {
 import md5 from 'md5'
 import Config from 'react-native-config'
 import { agentDependencies } from '@aries-framework/react-native'
-import Screens from '../utils/constants'
 import Registration from '../screens/Registration'
 import VerifyOtp from '../screens/VerifyOtp'
 import PinCreate from '../screens/PinCreate'
@@ -27,7 +26,8 @@ import defaultStackOptions from './defaultStackOptions'
 import indyLedgers from '../../configs/ledgers/indy'
 import Connect from '../screens/Connect'
 import ListContacts from '../screens/ListContacts'
-import * as api from '../api'
+import TabStack from './TabStack'
+import { Screens, Stacks } from '../types/navigators'
 
 interface Props {
   setAgent: (agent: Agent) => void
@@ -37,7 +37,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
 
   const initAgent = async (email: string, walletPin: string) => {
-    const emailHash = md5(email)
+    const emailHash = String(md5(email))
     const newAgent = new Agent(
       {
         label: email, // added email as label
@@ -72,6 +72,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         initialRouteName={Screens.Splash}
         screenOptions={{ ...defaultStackOptions, headerShown: false }}
       >
+        <Stack.Screen name={Stacks.TabStack} component={TabStack} />
         <Stack.Screen name={Screens.Home} component={Home} />
         <Stack.Screen name={Screens.Connect} component={Connect} />
         <Stack.Screen name={Screens.ListContacts} component={ListContacts} />

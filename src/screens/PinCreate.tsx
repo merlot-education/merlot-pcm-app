@@ -56,10 +56,8 @@ const PinCreate: React.FC<PinCreateProps> = ({
     setLoading(true)
     await initAgent(email, pin)
     await sendSeedHash(email)
-    // setTimeout(() => {
     setLoading(false)
     setAuthenticated(true)
-    // }, 10000)
   }
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -85,8 +83,6 @@ const PinCreate: React.FC<PinCreateProps> = ({
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
         {
           text: 'Ok',
-          // onPress: () =>
-          //   startAgent(JSON.parse(keychainEntry).password, passcode),
         },
       ])
       setSuccessPin(true)
@@ -134,10 +130,9 @@ const PinCreate: React.FC<PinCreateProps> = ({
 
   const onSubmit = async () => {
     if (successPin && successBiometric) {
-      // setAuthenticated(true)
       await startAgent(email, pin)
     } else if (successPin && !biometricSensorAvailable) {
-      setAuthenticated(true)
+      await startAgent(email, pin)
     } else {
       Alert.alert(t('Biometric.RegisterPinandBiometric'))
     }
