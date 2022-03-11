@@ -11,5 +11,6 @@ enum Screens {
   Consent = 'Consent',
   ListContacts = 'ListContacts',
   Scan = 'Scan',
+  ConnectionInvitation = 'Connection Invitation',
 }
 export default Screens

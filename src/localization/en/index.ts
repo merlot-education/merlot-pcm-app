@@ -76,5 +76,8 @@ const translation = {
     "WeNeedYourPermissionToUseYourCamera": "We need your permission to use your camera",
     "Ok": "Ok",
   },
+  "ConnectionInvitation":{
+    "ConsentMessage":"You have received connection invitation from the organization you have recently scanned code for,Do you want to accept the invitation?"
+  }
 }
 export default translation

@@ -4,13 +4,30 @@ import { useTranslation } from 'react-i18next'
 import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
 import Toast from 'react-native-toast-message'
 import { parseUrl } from 'query-string'
-import { Agent, ConnectionState } from '@aries-framework/core'
+import {
+  Agent,
+  AutoAcceptCredential,
+  ConsoleLogger,
+  HttpOutboundTransport,
+  LogLevel,
+  MediatorPickupStrategy,
+  WsOutboundTransport,
+  AutoAcceptProof,
+  ConnectionState,
+} from '@aries-framework/core'
+import md5 from 'md5'
+import Config from 'react-native-config'
+import { agentDependencies } from '@aries-framework/react-native'
 import type { BarCodeReadEvent } from 'react-native-camera'
 import { Alert, StyleSheet, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { t } from 'i18next'
+import indyLedgers from '../../configs/ledgers/indy'
 import QRScanner from '../components/inputs/QRScanner'
-import { HomeStackParams } from '../types/navigators'
+import {
+  ConnectionInvitationStackParams,
+  HomeStackParams,
+} from '../types/navigators'
 import QrCodeScanError from '../types/error'
 import { Colors, TextTheme } from '../theme/theme'
 import Screens from '../utils/constants'
@@ -34,9 +51,10 @@ interface ScanProps {
 }
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {
-  const { agent } = useAgent()
+  // const { agent } = useAgent()
   const { t } = useTranslation()
   const [showBox, setShowBox] = useState(true)
+  const [agent, setAgent] = useState<Agent | undefined>(undefined)
   const nav = useNavigation()
 
   const [qrCodeScanError, setQrCodeScanError] =
@@ -61,7 +79,9 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         {
           text: 'Yes',
           onPress: async () => {
-            await handleInvitation(url)
+            nav.navigate(Screens.ConnectionInvitation, {
+              connectionInvitationURL: url,
+            })
           },
         },
         // The "No" button
@@ -133,13 +153,12 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
   const handleCodeScan = async (event: BarCodeReadEvent) => {
     setQrCodeScanError(null)
-
     try {
       const url = event.data
       if (isRedirecton(url)) {
         await handleRedirection(url, agent)
       } else {
-        showConfirmDialog(url)
+        nav.navigate(Screens.ConnectionInvitation)
       }
 
       // TODO: Change to a full screen modal

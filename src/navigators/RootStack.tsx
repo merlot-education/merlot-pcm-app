@@ -29,6 +29,7 @@ import Connect from '../screens/Connect'
 import ListContacts from '../screens/ListContacts'
 import Scan from '../screens/Scan'
 import * as api from '../api'
+import ConnectionInvitation from '../screens/ConnectionInvitation'
 
 interface Props {
   setAgent: (agent: Agent) => void
@@ -38,15 +39,15 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
 
   const initAgent = async (email: string, walletPin: string) => {
-    const emailHash = md5(email)
+    // const emailHash = md5(email)
     const newAgent = new Agent(
       {
-        label: email, // added email as label
+        label: 'email', // added email as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: email, key: walletPin },
+        walletConfig: { id: 'email', key: walletPin },
         autoAcceptConnections: true,
-        publicDidSeed: emailHash,
+        // publicDidSeed: emailHash,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
         autoAcceptProofs: AutoAcceptProof.ContentApproved,
         logger: new ConsoleLogger(LogLevel.trace),
@@ -76,6 +77,10 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         <Stack.Screen name={Screens.Home} component={Home} />
         <Stack.Screen name={Screens.Scan} component={Scan} />
         <Stack.Screen name={Screens.Connect} component={Connect} />
+        <Stack.Screen
+          name={Screens.ConnectionInvitation}
+          component={ConnectionInvitation}
+        />
         <Stack.Screen name={Screens.ListContacts} component={ListContacts} />
       </Stack.Navigator>
     )
@@ -99,9 +104,16 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
             headerLeft: () => false,
             rightLeft: () => false,
           })}
-          component={Terms}
+          component={Scan}
         />
-        <Stack.Screen name={Screens.Registration} component={Registration} />
+        <Stack.Screen name={Screens.Scan} component={Scan} />
+        <Stack.Screen name={Screens.Connect} component={Connect} />
+        <Stack.Screen
+          name={Screens.ConnectionInvitation}
+          component={ConnectionInvitation}
+        />
+        <Stack.Screen name={Screens.ListContacts} component={ListContacts} />
+        {/* <Stack.Screen name={Screens.Registration} component={Registration} />
         <Stack.Screen name={Screens.VerifyOtp} component={VerifyOtp} />
         <Stack.Screen name={Screens.CreatePin}>
           {props => (
@@ -114,7 +126,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         </Stack.Screen>
         <Stack.Screen name={Screens.EnterPin}>
           {props => <PinEnter {...props} setAuthenticated={setAuthenticated} />}
-        </Stack.Screen>
+        </Stack.Screen> */}
       </Stack.Navigator>
     )
   }
