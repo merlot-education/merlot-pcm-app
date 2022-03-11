@@ -77,7 +77,13 @@ const translation = {
     "Ok": "Ok",
   },
   "ConnectionInvitation":{
-    "ConsentMessage":"You have received connection invitation from the organization you have recently scanned code for,Do you want to accept the invitation?"
+    "ConsentMessage":"You have received connection invitation from the organization you have recently scanned code for,Do you want to accept the invitation?"},
+  "TabStack": {
+    "Home": "Home",
+    "Connections": "Contacts",
+    "Scan": "Scan",
+    "Credentials": "Credentials",
+    "Settings": "Settings",
   }
 }
 export default translation

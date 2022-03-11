@@ -5,7 +5,7 @@ import { useAgent } from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
 import { Colors, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 import * as api from '../api'
 
 const styles = StyleSheet.create({

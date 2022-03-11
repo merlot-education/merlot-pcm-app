@@ -53,5 +53,6 @@ module.exports = {
     'no-return-assign': 'off',
     'react/no-array-index-key': 'off',
     'react/self-closing-comp': 'error',
+    'react/no-unstable-nested-components': 'off',
   },
 }
