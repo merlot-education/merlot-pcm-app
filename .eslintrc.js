@@ -44,5 +44,6 @@ module.exports = {
     'no-shadow': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/self-closing-comp': 'error',
+    'react/no-unstable-nested-components': 'off',
   },
 }

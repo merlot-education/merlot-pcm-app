@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import ReactNativeBiometrics from 'react-native-biometrics'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 import { Colors } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
 

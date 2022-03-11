@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { Colors, TextTheme } from '../theme/theme'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 import * as api from '../api'
 
 interface VerifyOtpProps {
