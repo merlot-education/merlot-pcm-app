@@ -24,6 +24,7 @@ const style = StyleSheet.create({
 const ChangePin: React.FC<PinCreateProps> = () => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
+  const [pinThree, setPinThree] = useState('')
   const { t } = useTranslation()
 
   const passcodeCreate = async (passcode: string) => {
@@ -43,12 +44,14 @@ const ChangePin: React.FC<PinCreateProps> = () => {
     }
   }
 
-  const confirmEntry = async (x: string, y: string) => {
+  const confirmEntry = async (x: string, y: string, z: string) => {
     const keychainEntry = await getValueKeychain({
       service: 'passcode',
     })
     if (x.length < 6 || y.length < 6) {
       Alert.alert(t('PinCreate.PinMustBe6DigitsInLength'))
+    } else if (y !== z) {
+      Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
     } else if (keychainEntry.password !== x) {
       Alert.alert(t('PinCreate.ValidOldPin'))
     } else {
@@ -72,9 +75,9 @@ const ChangePin: React.FC<PinCreateProps> = () => {
         onChangeText={setPin}
       />
       <TextInput
-        label={t('Global.EnterPin')}
+        label={t('Global.EnterNewPin')}
         accessible
-        accessibilityLabel={t('Global.EnterPin')}
+        accessibilityLabel={t('Global.EnterNewPin')}
         placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
         maxLength={6}
@@ -83,6 +86,20 @@ const ChangePin: React.FC<PinCreateProps> = () => {
         value={pinTwo}
         onChangeText={(text: string) => {
           setPinTwo(text)
+        }}
+      />
+      <TextInput
+        label={t('PinCreate.ReenterNewPin')}
+        accessible
+        accessibilityLabel={t('PinCreate.ReenterNewPin')}
+        placeholder={t('Global.6DigitPin')}
+        placeholderTextColor={Colors.lightGrey}
+        maxLength={6}
+        secureTextEntry
+        keyboardType="number-pad"
+        value={pinThree}
+        onChangeText={(text: string) => {
+          setPinThree(text)
           if (text.length === 6) {
             Keyboard.dismiss()
           }
@@ -93,7 +110,7 @@ const ChangePin: React.FC<PinCreateProps> = () => {
         buttonType={ButtonType.Primary}
         onPress={() => {
           Keyboard.dismiss()
-          confirmEntry(pin, pinTwo)
+          confirmEntry(pin, pinTwo, pinThree)
         }}
       />
     </SafeAreaView>

@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Enter PIN",
+    "EnterNewPin": "Enter New PIN",
     "6DigitPin": "6 Digit PIN",
     "Submit": "Submit",
     "NoneYet!": "None yet!",
@@ -54,6 +55,7 @@ const translation = {
     "PinsSuccess": "PIN created successfully",    
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
+    "ReenterNewPin": "Re-Enter New PIN",
     "Create": "Create",
     "ValidOldPin": "Please enter valid old PIN",
   },

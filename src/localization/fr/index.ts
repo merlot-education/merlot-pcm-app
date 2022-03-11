@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Entrer le code PIN",
+    "EnterNewPin": "Entrez le nouveau NIP",
     "6DigitPin": "Pin à 6 chiffres",
     "Submit": "Soumettre",
     "NoneYet!": "Pas encore !",
@@ -50,7 +51,7 @@ const translation = {
     "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",    
     "PinsSuccess": "Épingle créée avec succès",    
     "6DigitPin": "Broche à 6 chiffres",
-    "ReenterPin": "Rentrer le code PIN",
+    "ReenterPin": "Locataire le code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
   },
