@@ -1,4 +1,4 @@
-import { Colors } from '../theme/theme'
+import { ColorPallet, Colors } from '../theme/theme'
 
 export default {
   headerStyle: {
@@ -7,6 +7,6 @@ export default {
     shadowOpacity: 0,
     borderBottomWidth: 0,
   },
-  headerTintColor: Colors.text,
+  headerTintColor: ColorPallet.grayscale.white,
   headerBackTitleVisible: false,
 }

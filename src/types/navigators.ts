@@ -14,7 +14,16 @@ export enum Screens {
   ListContacts = 'ListContacts',
   Scan = 'Scan',
   ChangePin = 'ChangePin',
+  Credentials = 'Credentials',
+  Contacts = 'Contacts',
   Settings = 'Settings',
+}
+
+export type MainStackParams = {
+  TabStack: undefined
+  Home: undefined
+  Connect: undefined
+  ListContacts: undefined
 }
 
 export type AuthenticateStackParams = {
@@ -42,7 +51,7 @@ export type ScanStackParams = {
   Scan: undefined
 }
 
-export type SettingsStackParams = {
+export type SettingStackParams = {
   Settings: undefined
   Language: undefined
 }

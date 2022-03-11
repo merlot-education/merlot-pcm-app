@@ -4,11 +4,12 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import ListContacts from '../screens/ListContacts'
-import SettingStack from './SettingStack'
-
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
+import ContactStack from './ContactStack'
+import CredentialStack from './CredentialStack'
+import HomeStack from './HomeStack'
+import SettingStack from './SettingStack'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 
@@ -111,7 +112,7 @@ const TabStack: React.FC = () => {
       >
         <MainTabNavigator.Screen
           name={TabStacks.HomeStack}
-          component={ListContacts}
+          component={HomeStack}
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
@@ -128,7 +129,7 @@ const TabStack: React.FC = () => {
         />
         <MainTabNavigator.Screen
           name={TabStacks.ContactStack}
-          component={ListContacts}
+          component={ContactStack}
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
@@ -166,7 +167,7 @@ const TabStack: React.FC = () => {
         </MainTabNavigator.Screen>
         <MainTabNavigator.Screen
           name={TabStacks.CredentialStack}
-          component={ListContacts}
+          component={CredentialStack}
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
