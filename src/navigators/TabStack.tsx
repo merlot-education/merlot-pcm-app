@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ListContacts from '../screens/ListContacts'
+import SettingStack from './SettingStack'
 
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
@@ -185,7 +186,7 @@ const TabStack: React.FC = () => {
         />
         <MainTabNavigator.Screen
           name={TabStacks.SettingsStack}
-          component={ListContacts}
+          component={SettingStack}
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon

@@ -13,6 +13,8 @@ export enum Screens {
   Consent = 'Consent',
   ListContacts = 'ListContacts',
   Scan = 'Scan',
+  ChangePin = 'ChangePin',
+  Settings = 'Settings',
 }
 
 export type AuthenticateStackParams = {

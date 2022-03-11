@@ -25,7 +25,9 @@ const translation = {
     "ErrorCode": "Code d'erreur",
     "Okay": "Okay",
     "Email": "Entrez votre e-mail",
-    "ForgotPin": 'Épingle oubliée'
+    "ForgotPin": 'Épingle oubliée',  
+    "ChangePin": 'Changer dépingle',
+    "OldPin": 'Saisir lancien code PIN'
   },
   "Language": {
     "English": "Anglais",
@@ -49,7 +51,8 @@ const translation = {
     "PinsSuccess": "Épingle créée avec succès",    
     "6DigitPin": "Broche à 6 chiffres",
     "ReenterPin": "Rentrer le code PIN",
-    "Create": "Créer"
+    "Create": "Créer",
+    "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
   },
   "Biometric": {
     "Biometric": "Biométrique",

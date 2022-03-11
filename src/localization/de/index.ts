@@ -25,7 +25,9 @@ const translation = {
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
     "Email": "E-Mail eingeben",
-    "ForgotPin": 'PIN vergessen'
+    "ForgotPin": 'PIN vergessen',
+    "ChangePin": 'PIN ändern',
+    "OldPin": 'Alte PIN eingeben'
   },
   "Language": {
     "English": "Englisch",
@@ -49,7 +51,8 @@ const translation = {
     "PinsSuccess": "Pin erfolgreich erstellt",    
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
-    "Create": "Schaffen"
+    "Create": "Schaffen",
+    "ValidOldPin": "Bitte gültige alte PIN eingeben",
   },
   "Biometric": {
     "Biometric": "Biometrisch",

@@ -13,7 +13,7 @@ import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Colors, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
