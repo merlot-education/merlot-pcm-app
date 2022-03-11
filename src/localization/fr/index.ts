@@ -69,11 +69,11 @@ const translation = {
     "Language": "Langue"
   },
   "TabStack": {
-    "Home": "Home",
+    "Home": "Maison",
     "Connections": "Contacts",
-    "Scan": "Scan",
-    "Credentials": "Credentials",
-    "Settings": "Settings",
+    "Scan": "Analyse",
+    "Credentials": "Identifiants",
+    "Settings": "Réglages",
   }
 }
 export default translation
