@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Pin eingeben",
+    "EnterNewPin": "Neue PIN eingeben",
     "6DigitPin": "6-stellige Pin",
     "Submit": "Senden",
     "NoneYet!": "Noch keine!",
@@ -25,7 +26,9 @@ const translation = {
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
     "Email": "E-Mail eingeben",
-    "ForgotPin": 'PIN vergessen'
+    "ForgotPin": 'PIN vergessen',
+    "ChangePin": 'PIN ändern',
+    "OldPin": 'Alte PIN eingeben'
   },
   "Language": {
     "English": "Englisch",
@@ -49,7 +52,9 @@ const translation = {
     "PinsSuccess": "Pin erfolgreich erstellt",    
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
-    "Create": "Schaffen"
+    "ReenterNewPin": "Neue PIN erneut eingeben",
+    "Create": "Schaffen",
+    "ValidOldPin": "Bitte gültige alte PIN eingeben",
   },
   "Biometric": {
     "Biometric": "Biometrisch",
