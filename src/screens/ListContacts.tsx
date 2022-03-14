@@ -1,5 +1,4 @@
 import type { ConnectionRecord } from '@aries-framework/core'
-import filter from 'lodash.filter'
 import { useConnections } from '@aries-framework/react-hooks'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
