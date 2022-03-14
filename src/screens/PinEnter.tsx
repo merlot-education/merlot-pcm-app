@@ -92,7 +92,7 @@ const PinEnter: React.FC<PinEnterProps> = ({
       setLoginAttemtsFailed(loginAttemtsFailed + 1)
       if (loginAttemtsFailed === 5) {
         Alert.alert(t('Registration.RegisterAgain'))
-        navigation.navigate(Screens.Registration)
+        navigation.navigate(Screens.VerifyOtp)
         await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)
       }
     }
