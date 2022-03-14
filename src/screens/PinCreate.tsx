@@ -4,12 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import md5 from 'md5'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useNavigation } from '@react-navigation/core'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
+import { LocalStorageKeys } from '../constants'
 import { Screens } from '../types/navigators'
 
 interface PinCreateProps {
@@ -52,8 +54,12 @@ const PinCreate: React.FC<PinCreateProps> = ({ initAgent }) => {
     setLoading(true)
     await initAgent(email, pin)
     await sendSeedHash(email)
+    await storeOnboardingCompleteStage()
     setLoading(false)
     nav.navigate(Screens.GaiaxConsent)
+  }
+  const storeOnboardingCompleteStage = async () => {
+    await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
   }
 
   useEffect(() => {

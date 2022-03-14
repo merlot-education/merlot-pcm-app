@@ -2,6 +2,7 @@ export const defaultLanguage = 'en'
 
 export enum LocalStorageKeys {
   Language = 'language',
+  OnboardingCompleteStage = 'onboardingCompleteStage',
 }
 
 export const dateFormatOptions: {
