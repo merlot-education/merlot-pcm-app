@@ -1,14 +1,13 @@
+import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, TouchableOpacity, View, Text } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-
+import { StyleSheet, View } from 'react-native'
+import { getVersion, getBuildNumber } from 'react-native-device-info'
 import { borderRadius, Colors, TextTheme } from '../theme/theme'
-import { Screens } from '../types/navigators'
+import { Screens, SettingStackParams } from '../types/navigators'
+import { SettingListItem, Text } from '../components'
 
-interface Props {
-  navigation: any
-}
+type SettingsProps = StackScreenProps<SettingStackParams>
 
 const styles = StyleSheet.create({
   container: {
@@ -22,12 +21,12 @@ const styles = StyleSheet.create({
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
-    color: Colors.white,
+    color: Colors.primary,
   },
   rowGroup: {
     borderRadius: borderRadius * 2,
-    backgroundColor: Colors.primary,
-    marginBottom: 16,
+    backgroundColor: Colors.primaryLight,
+    marginBottom: 10,
   },
   row: {
     flexDirection: 'row',
@@ -37,19 +36,28 @@ const styles = StyleSheet.create({
   },
 })
 
-const Settings: React.FC<Props> = ({ navigation }) => {
+const Settings: React.FC<SettingsProps> = ({ navigation }) => {
   const { t } = useTranslation()
 
   return (
     <View style={styles.container}>
+      <Text style={styles.groupHeader}>{t('Settings.AppPreferences')}</Text>
+      <SettingListItem
+        title={t('Settings.ChangePin')}
+        onPress={() => navigation.navigate(Screens.ChangePin)}
+      />
+      <SettingListItem
+        title={t('Settings.Language')}
+        onPress={() => navigation.navigate(Screens.Language)}
+      />
+      <Text style={styles.groupHeader}>{t('Settings.AboutApp')}</Text>
       <View style={styles.rowGroup}>
-        <TouchableOpacity
-          style={styles.row}
-          onPress={() => navigation.navigate(Screens.ChangePin)}
-        >
-          <Text style={styles.bodyText}>{t('Global.ChangePin')}</Text>
-          <Icon name="chevron-right" size={25} color={Colors.white} />
-        </TouchableOpacity>
+        <View style={styles.row}>
+          <Text style={styles.bodyText}>{t('Settings.Version')}</Text>
+          <Text
+            style={styles.bodyText}
+          >{`${getVersion()}-${getBuildNumber()}`}</Text>
+        </View>
       </View>
     </View>
   )
