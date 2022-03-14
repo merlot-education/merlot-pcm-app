@@ -7,8 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Label } from '../components'
 import { ButtonType } from '../components/button/Button'
 import { Colors, TextTheme } from '../theme/theme'
-import Screens from '../utils/constants'
-import { ConnectionInvitationStackParams } from '../types/navigators'
+import { ConnectionInvitationStackParams, Screens } from '../types/navigators'
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +28,7 @@ interface ConnectionProps {
     ConnectionInvitationStackParams,
     'Connection Invitation URL'
   >
-  route: RouteProp<ConnectionInvitationStackParams, 'Connection Invitation URL'>
+  route: any
 }
 
 const ConnectionInvitation: React.FC<ConnectionProps> = ({
@@ -42,19 +41,18 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
   const handleAcceptPress = async (): Promise<void> => {
     // TODO: Change to a full screen modal
     // displayPendingMessage()
-    const connectionURL = route?.params?.connectionInvitationURL
+    const { url } = route.params
     console.log('****Connection URL****')
-    console.log(connectionURL)
+    console.log(url)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
-      connectionURL,
+      url,
       {
         autoAcceptConnection: true,
       },
     )
     if (!connectionRecord?.id) {
-      throw new Error(t('Scan.ConnectionNotFound'))
+      // throw new Error(t('Scan.ConnectionNotFound'))
     }
-    setConnectionId(connectionRecord.id)
     nav.navigate(Screens.ListContacts)
   }
 

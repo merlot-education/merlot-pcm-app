@@ -16,6 +16,7 @@ export enum Screens {
   Credentials = 'Credentials',
   Contacts = 'Contacts',
   Settings = 'Settings',
+  ConnectionInvitation = 'ConnectionInvitation',
 }
 
 export type MainStackParams = {

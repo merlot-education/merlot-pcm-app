@@ -27,7 +27,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { t } = useTranslation()
 
   const nextPage = () => {
-    navigation.navigate(Screens.Scan)
+    navigation.navigate(Screens.ConnectionInvitation)
   }
 
   return (

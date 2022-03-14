@@ -27,10 +27,10 @@ import QRScanner from '../components/inputs/QRScanner'
 import {
   ConnectionInvitationStackParams,
   HomeStackParams,
+  Screens,
 } from '../types/navigators'
 import QrCodeScanError from '../types/error'
 import { Colors, TextTheme } from '../theme/theme'
-import Screens from '../utils/constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -158,13 +158,13 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
       if (isRedirecton(url)) {
         await handleRedirection(url, agent)
       } else {
-        nav.navigate(Screens.ConnectionInvitation)
+        nav.navigate(Screens.ConnectionInvitation, { url })
       }
 
       // TODO: Change to a full screen modal
       //   displaySuccessMessage()
 
-      navigation.navigate('Home')
+      // navigation.navigate('Home')
     } catch (e: unknown) {
       const error = new QrCodeScanError(t('Scan.InvalidQrCode'), event.data)
       setQrCodeScanError(error)
