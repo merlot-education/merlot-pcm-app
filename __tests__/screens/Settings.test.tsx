@@ -10,7 +10,7 @@ jest.mock('react-native-device-info', () => {
   }
 })
 
-describe('Home Screen', () => {
+describe('Settings Screen', () => {
   it('Renders correctly', () => {
     const tree = create(<Settings />).toJSON()
 
