@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Keyboard, SafeAreaView, StyleSheet, View } from 'react-native'
+import { Alert, Keyboard, SafeAreaView, StyleSheet } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { TextInput } from '../components'
@@ -23,28 +23,7 @@ const style = StyleSheet.create({
 
 const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
   const [pin, setPin] = useState('')
-  const [biometricSensorAvailable, setBiometricSensorAvailable] =
-    useState(false)
-
-  useEffect(() => {
-    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-      const { available, biometryType } = resultObject
-      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-        setBiometricSensorAvailable(true)
-      }
-    })
-  })
-  const { t } = useTranslation()
-  const checkPin = async (pin: string) => {
-    const keychainEntry = await getValueKeychain({
-      service: 'passcode',
-    })
-    if (keychainEntry && pin === keychainEntry.password) {
-      setAuthenticated(true)
-    } else {
-      Alert.alert(t('PinEnter.IncorrectPin'))
-    }
-  }
+  const [biometricFailed, setBiometricFailed] = useState(false)
 
   const biometricEnable = () => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -59,15 +38,42 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
               setAuthenticated(true)
             } else {
               Alert.alert(t('Biometric.BiometricCancle'))
+              setBiometricFailed(true)
             }
           })
           .catch(() => {
             Alert.alert(t('Biometric.BiometricFailed'))
+            setBiometricFailed(true)
           })
       } else {
         Alert.alert(t('Biometric.BiometricNotSupport'))
       }
     })
+  }
+
+  useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (
+        available &&
+        biometryType === ReactNativeBiometrics.Biometrics &&
+        !biometricFailed
+      ) {
+        biometricEnable()
+      }
+    })
+  })
+
+  const { t } = useTranslation()
+  const checkPin = async (pin: string) => {
+    const keychainEntry = await getValueKeychain({
+      service: 'passcode',
+    })
+    if (keychainEntry && pin === keychainEntry.password) {
+      setAuthenticated(true)
+    } else {
+      Alert.alert(t('PinEnter.IncorrectPin'))
+    }
   }
 
   return (
@@ -78,9 +84,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
         accessibilityLabel={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
-        autoFocus
         maxLength={6}
-        type="numeric"
+        keyboardType="numeric"
         secureTextEntry
         value={pin}
         onChangeText={(pin: string) => {
@@ -98,15 +103,6 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
           checkPin(pin)
         }}
       />
-      <View style={style.btnContainer}>
-        {biometricSensorAvailable && (
-          <Button
-            title={t('Biometric.Biometric')}
-            buttonType={ButtonType.Primary}
-            onPress={biometricEnable}
-          />
-        )}
-      </View>
     </SafeAreaView>
   )
 }
