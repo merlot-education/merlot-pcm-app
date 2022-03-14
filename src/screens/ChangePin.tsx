@@ -44,18 +44,22 @@ const ChangePin: React.FC<PinCreateProps> = () => {
     }
   }
 
-  const confirmEntry = async (x: string, y: string, z: string) => {
+  const confirmEntry = async (
+    oldPin: string,
+    newPin: string,
+    reEnterNewPin: string,
+  ) => {
     const keychainEntry = await getValueKeychain({
       service: 'passcode',
     })
-    if (x.length < 6 || y.length < 6) {
+    if (oldPin.length < 6 || newPin.length < 6) {
       Alert.alert(t('PinCreate.PinMustBe6DigitsInLength'))
-    } else if (y !== z) {
+    } else if (newPin !== reEnterNewPin) {
       Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
-    } else if (keychainEntry.password !== x) {
+    } else if (keychainEntry.password !== oldPin) {
       Alert.alert(t('PinCreate.ValidOldPin'))
     } else {
-      passcodeCreate(y)
+      passcodeCreate(newPin)
     }
   }
 

@@ -17,6 +17,8 @@ export enum Screens {
   Credentials = 'Credentials',
   Contacts = 'Contacts',
   Settings = 'Settings',
+  GaiaxConsent = 'GaiaxConsent',
+  DefaultConnection = 'DefaultConnection',
 }
 
 export type MainStackParams = {

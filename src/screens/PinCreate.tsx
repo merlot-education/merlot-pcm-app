@@ -3,17 +3,18 @@ import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
-import md5 from 'md5'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/core'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import * as api from '../api'
+import { LocalStorageKeys } from '../constants'
+import { Screens } from '../types/navigators'
 
 interface PinCreateProps {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, pin: string) => void
-  route
+  route: any
 }
 
 const style = StyleSheet.create({
@@ -26,11 +27,7 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC<PinCreateProps> = ({
-  setAuthenticated,
-  initAgent,
-  route,
-}) => {
+const PinCreate: React.FC<PinCreateProps> = ({ initAgent, route }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -41,24 +38,19 @@ const PinCreate: React.FC<PinCreateProps> = ({
   const [email, setEmail] = useState('')
   const { forgotPin } = route.params
   const { t } = useTranslation()
+  const nav = useNavigation()
 
-  const sendSeedHash = async (userEmail: string) => {
-    const genratedSeedHash = md5(userEmail)
-    const seedHashResponse = await api.default.auth.sendSeedHash({
-      email: userEmail,
-      seedHash: genratedSeedHash,
-    })
-    if (seedHashResponse.data != null) {
-      // seed sent via email
-    }
-  }
   const startAgent = async (email: string, pin: string) => {
     setLoading(true)
     await initAgent(email, pin)
-    await sendSeedHash(email)
+    await storeOnboardingCompleteStage()
     setLoading(false)
-    setAuthenticated(true)
+    nav.navigate(Screens.GaiaxConsent)
   }
+  const storeOnboardingCompleteStage = async () => {
+    await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
+  }
+
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
       const { available, biometryType } = resultObject
