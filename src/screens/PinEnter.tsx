@@ -2,13 +2,17 @@ import React, { useState, useEffect } from 'react'
 import { Alert, Keyboard, SafeAreaView, StyleSheet, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Colors } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
+import { LocalStorageKeys } from '../constants'
+import { Screens } from '../types/navigators'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  navigation: any
 }
 
 const style = StyleSheet.create({
@@ -21,30 +25,13 @@ const style = StyleSheet.create({
   },
 })
 
-const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
+const PinEnter: React.FC<PinEnterProps> = ({
+  setAuthenticated,
+  navigation,
+}) => {
   const [pin, setPin] = useState('')
-  const [biometricSensorAvailable, setBiometricSensorAvailable] =
-    useState(false)
-
-  useEffect(() => {
-    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-      const { available, biometryType } = resultObject
-      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-        setBiometricSensorAvailable(true)
-      }
-    })
-  })
-  const { t } = useTranslation()
-  const checkPin = async (pin: string) => {
-    const keychainEntry = await getValueKeychain({
-      service: 'passcode',
-    })
-    if (keychainEntry && pin === keychainEntry.password) {
-      setAuthenticated(true)
-    } else {
-      Alert.alert(t('PinEnter.IncorrectPin'))
-    }
-  }
+  const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
+  const [biometricFailed, setBiometricFailed] = useState(false)
 
   const biometricEnable = () => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -59,15 +46,48 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
               setAuthenticated(true)
             } else {
               Alert.alert(t('Biometric.BiometricCancle'))
+              setBiometricFailed(true)
             }
           })
           .catch(() => {
             Alert.alert(t('Biometric.BiometricFailed'))
+            setBiometricFailed(true)
           })
       } else {
         Alert.alert(t('Biometric.BiometricNotSupport'))
       }
     })
+  }
+
+  useEffect(() => {
+    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
+      const { available, biometryType } = resultObject
+      if (
+        available &&
+        biometryType === ReactNativeBiometrics.Biometrics &&
+        !biometricFailed
+      ) {
+        biometricEnable()
+      }
+    })
+  })
+
+  const { t } = useTranslation()
+  const checkPin = async (pin: string) => {
+    const keychainEntry = await getValueKeychain({
+      service: 'passcode',
+    })
+    if (keychainEntry && pin === keychainEntry.password) {
+      setAuthenticated(true)
+    } else {
+      Alert.alert(t('PinEnter.IncorrectPin'))
+      setLoginAttemtsFailed(loginAttemtsFailed + 1)
+      if (loginAttemtsFailed === 5) {
+        Alert.alert(t('Registration.RegisterAgain'))
+        navigation.navigate(Screens.Registration)
+        await AsyncStorage.removeItem(LocalStorageKeys.StackManage)
+      }
+    }
   }
 
   return (
@@ -78,9 +98,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
         accessibilityLabel={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
         placeholderTextColor={Colors.lightGrey}
-        autoFocus
         maxLength={6}
-        type="numeric"
+        keyboardType="numeric"
         secureTextEntry
         value={pin}
         onChangeText={(pin: string) => {
@@ -98,15 +117,6 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
           checkPin(pin)
         }}
       />
-      <View style={style.btnContainer}>
-        {biometricSensorAvailable && (
-          <Button
-            title={t('Biometric.Biometric')}
-            buttonType={ButtonType.Primary}
-            onPress={biometricEnable}
-          />
-        )}
-      </View>
     </SafeAreaView>
   )
 }

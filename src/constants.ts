@@ -2,6 +2,7 @@ export const defaultLanguage = 'en'
 
 export enum LocalStorageKeys {
   Language = 'language',
+  StackManage = 'stackManage',
 }
 
 export const dateFormatOptions: {

@@ -34,7 +34,8 @@ const translation = {
   "Registration":{
     "UserAuthenticationEmail": "Courriel d'authentification de l'utilisateur",
     "EnterEmail": 'Veuillez saisir un e-mail',
-    "ValidEmail": "Veuillez saisir une adresse e-mail valide"
+    "ValidEmail": "Veuillez saisir une adresse e-mail valide",
+    "RegisterAgain": "Vous devez vous inscrire à nouveau" 
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",

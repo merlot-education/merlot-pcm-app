@@ -42,7 +42,8 @@ const translation = {
     "UserAuthenticationEmail": "User authentication email",
     "EnterEmail": 'Please enter email',
     "ValidEmail": "Please enter valid email",
-    'ResendOtp': 'Resend OTP'
+    'ResendOtp': 'Resend OTP',
+    "RegisterAgain": "You have to register again" 
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
@@ -51,7 +52,7 @@ const translation = {
     "PinsSuccess": "PIN created successfully",    
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
-    "Create": "Create"
+    "Create": "Create",
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -66,7 +67,7 @@ const translation = {
     "LoginMsg": "You are login successfully",
   },
   "PinEnter": {
-    "IncorrectPin": "Incorrect PIN",    
+    "IncorrectPin": "Incorrect PIN", 
   }, 
   "Settings": { 
     "Language": "Language",     
