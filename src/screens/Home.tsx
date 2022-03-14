@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { Colors, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
-import Screens from '../utils/constants'
+import { Screens } from '../types/navigators'
 
 const styles = StyleSheet.create({
   container: {
@@ -27,7 +27,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { t } = useTranslation()
 
   const nextPage = () => {
-    navigation.navigate(Screens.Scan)
+    navigation.navigate(Screens.ConnectionInvitation)
   }
 
   return (

@@ -71,7 +71,13 @@ const translation = {
   "QRScanner": {
     "PermissionToUseCamera": "Autorisation d'utiliser la caméra",
     "WeNeedYourPermissionToUseYourCamera": "Nous avons besoin de votre permission pour utiliser votre appareil photo",
-    "Ok": "D'accord",
+    "Ok": "D'accord"},
+  "TabStack": {
+    "Home": "Maison",
+    "Connections": "Contacts",
+    "Scan": "Analyse",
+    "Credentials": "Identifiants",
+    "Settings": "Réglages",
   }
 }
 export default translation

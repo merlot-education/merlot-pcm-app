@@ -70,5 +70,12 @@ const translation = {
     "WeNeedYourPermissionToUseYourCamera": "Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
     "Ok": "Ok",
   },
+  "TabStack": {
+    "Home": "Zuhause",
+    "Connections": "Kontakte",
+    "Scan": "Scan",
+    "Credentials": "Referenzen",
+    "Settings": "Einstellungen",
+  }
 }
 export default translation
