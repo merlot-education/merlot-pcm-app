@@ -71,6 +71,13 @@ const translation = {
     "Scan": "Scan",
     "Credentials": "Referenzen",
     "Settings": "Einstellungen",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Verbindung nicht gefunden",
+    "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
   }
 }
 export default translation

@@ -74,6 +74,13 @@ const translation = {
     "Scan": "Analyse",
     "Credentials": "Identifiants",
     "Settings": "Réglages",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Connexion introuvable",
+    "ConnectWith": "Voulez-vous vous connecter avec AISBL ?",
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Votre portefeuille est créé avec succès"
   }
 }
 export default translation

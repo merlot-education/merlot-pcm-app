@@ -4,14 +4,15 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import md5 from 'md5'
+import { useNavigation } from '@react-navigation/core'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
+import { Screens } from '../types/navigators'
 
 interface PinCreateProps {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, pin: string) => void
 }
 
@@ -25,10 +26,7 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC<PinCreateProps> = ({
-  setAuthenticated,
-  initAgent,
-}) => {
+const PinCreate: React.FC<PinCreateProps> = ({ initAgent }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -37,8 +35,8 @@ const PinCreate: React.FC<PinCreateProps> = ({
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
-
   const { t } = useTranslation()
+  const nav = useNavigation()
 
   const sendSeedHash = async (userEmail: string) => {
     const genratedSeedHash = md5(userEmail)
@@ -55,8 +53,9 @@ const PinCreate: React.FC<PinCreateProps> = ({
     await initAgent(email, pin)
     await sendSeedHash(email)
     setLoading(false)
-    setAuthenticated(true)
+    nav.navigate(Screens.GaiaxConsent)
   }
+
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
       const { available, biometryType } = resultObject
