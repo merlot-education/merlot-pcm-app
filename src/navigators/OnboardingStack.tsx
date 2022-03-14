@@ -1,5 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
+import DefaultConnection from '../screens/DefaultConnection'
+import GaiaxConsent from '../screens/GaiaxConsent'
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
 import Registration from '../screens/Registration'
@@ -43,16 +45,16 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen name={Screens.Registration} component={Registration} />
       <Stack.Screen name={Screens.VerifyOtp} component={VerifyOtp} />
       <Stack.Screen name={Screens.CreatePin}>
-        {props => (
-          <PinCreate
-            {...props}
-            setAuthenticated={setAuthenticated}
-            initAgent={initAgent}
-          />
-        )}
+        {props => <PinCreate {...props} initAgent={initAgent} />}
       </Stack.Screen>
       <Stack.Screen name={Screens.EnterPin}>
         {props => <PinEnter {...props} setAuthenticated={setAuthenticated} />}
+      </Stack.Screen>
+      <Stack.Screen name={Screens.GaiaxConsent} component={GaiaxConsent} />
+      <Stack.Screen name={Screens.DefaultConnection}>
+        {props => (
+          <DefaultConnection {...props} setAuthenticated={setAuthenticated} />
+        )}
       </Stack.Screen>
     </Stack.Navigator>
   )

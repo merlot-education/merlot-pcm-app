@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Entrer le code PIN",
+    "EnterNewPin": "Entrez le nouveau NIP",
     "6DigitPin": "Pin à 6 chiffres",
     "Submit": "Soumettre",
     "NoneYet!": "Pas encore !",
@@ -24,7 +25,10 @@ const translation = {
     "Home": "Accueil",
     "ErrorCode": "Code d'erreur",
     "Okay": "Okay",
-    "Email": "Entrez votre e-mail"
+    "Email": "Entrez votre e-mail",
+    "ForgotPin": 'Épingle oubliée',  
+    "ChangePin": 'Changer dépingle',
+    "OldPin": 'Saisir lancien code PIN'
   },
   "Language": {
     "English": "Anglais",
@@ -48,8 +52,9 @@ const translation = {
     "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",    
     "PinsSuccess": "Épingle créée avec succès",    
     "6DigitPin": "Broche à 6 chiffres",
-    "ReenterPin": "Rentrer le code PIN",
-    "Create": "Créer"
+    "ReenterPin": "Locataire le code PIN",
+    "Create": "Créer",
+    "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
   },
   "Biometric": {
     "Biometric": "Biométrique",
@@ -75,6 +80,13 @@ const translation = {
     "Scan": "Analyse",
     "Credentials": "Identifiants",
     "Settings": "Réglages",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Connexion introuvable",
+    "ConnectWith": "Voulez-vous vous connecter avec AISBL ?",
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Votre portefeuille est créé avec succès"
   }
 }
 export default translation

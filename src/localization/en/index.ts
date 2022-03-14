@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Enter PIN",
+    "EnterNewPin": "Enter New PIN",
     "6DigitPin": "6 Digit PIN",
     "Submit": "Submit",
     "NoneYet!": "None yet!",
@@ -27,6 +28,9 @@ const translation = {
     "Email": "Enter Email",
     "Verify": 'Verify',
     "Otp": 'Enter OTP',
+    "ForgotPin": 'Forgot Pin',
+    "ChangePin": 'Change Pin',
+    "OldPin": 'Enter Old Pin'
   },
   "Language": {
     "English": "English",
@@ -52,7 +56,9 @@ const translation = {
     "PinsSuccess": "PIN created successfully",    
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
+    "ReenterNewPin": "Re-Enter New PIN",
     "Create": "Create",
+    "ValidOldPin": "Please enter valid old PIN",
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -78,6 +84,13 @@ const translation = {
     "Scan": "Scan",
     "Credentials": "Credentials",
     "Settings": "Settings",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Connection not found",
+    "ConnectWith": "Do you want to connect with AISBL ?",
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Your wallet is created successfully."
   }
 }
 export default translation

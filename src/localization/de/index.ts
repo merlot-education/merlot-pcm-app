@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Pin eingeben",
+    "EnterNewPin": "Neue PIN eingeben",
     "6DigitPin": "6-stellige Pin",
     "Submit": "Senden",
     "NoneYet!": "Noch keine!",
@@ -24,7 +25,10 @@ const translation = {
     "Home": "Startseite",
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
-    "Email": "E-Mail eingeben"
+    "Email": "E-Mail eingeben",
+    "ForgotPin": 'PIN vergessen',
+    "ChangePin": 'PIN ändern',
+    "OldPin": 'Alte PIN eingeben'
   },
   "Language": {
     "English": "Englisch",
@@ -49,7 +53,9 @@ const translation = {
     "PinsSuccess": "Pin erfolgreich erstellt",    
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
-    "Create": "Schaffen"
+    "ReenterNewPin": "Neue PIN erneut eingeben",
+    "Create": "Schaffen",
+    "ValidOldPin": "Bitte gültige alte PIN eingeben",
   },
   "Biometric": {
     "Biometric": "Biometrisch",
@@ -72,6 +78,13 @@ const translation = {
     "Scan": "Scan",
     "Credentials": "Referenzen",
     "Settings": "Einstellungen",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Verbindung nicht gefunden",
+    "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
   }
 }
 export default translation

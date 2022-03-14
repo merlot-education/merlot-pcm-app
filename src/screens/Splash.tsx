@@ -21,8 +21,10 @@ interface SplashProps {
 
 const Splash: React.FC<SplashProps> = ({ navigation }) => {
   const checkStack = async () => {
-    const mangeStack = await AsyncStorage.getItem(LocalStorageKeys.StackManage)
-    if (mangeStack === 'success') {
+    const onboardingCompleteStage = await AsyncStorage.getItem(
+      LocalStorageKeys.OnboardingCompleteStage,
+    )
+    if (onboardingCompleteStage === 'true') {
       SplashScreen.hide()
       navigation.navigate(Screens.EnterPin)
     } else {
