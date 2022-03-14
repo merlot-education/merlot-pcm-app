@@ -11,6 +11,7 @@ import * as api from '../api'
 
 interface PinCreateProps {
   navigation: any
+  route: any
 }
 
 const style = StyleSheet.create({
@@ -23,7 +24,7 @@ const style = StyleSheet.create({
   },
 })
 
-const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
+const Registration: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -53,7 +54,12 @@ const Registration: React.FC<PinCreateProps> = ({ navigation }) => {
         setLoading(true)
         const res = await api.default.auth.register({ email })
         if (res?.data) {
-          navigation.navigate(Screens.VerifyOtp, { email })
+          const { forgotPin } = route.params
+          if (forgotPin) {
+            navigation.navigate(Screens.VerifyOtp, { email, forgotPin: true })
+          } else {
+            navigation.navigate(Screens.VerifyOtp, { email, forgotPin: false })
+          }
           Alert.alert(res?.message)
           setLoading(false)
         }

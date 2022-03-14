@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Keyboard, SafeAreaView, StyleSheet } from 'react-native'
+import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import { Colors } from '../theme/theme'
+import { Colors, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
+import { Screens } from '../types/navigators'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  navigation: any
 }
 
 const style = StyleSheet.create({
@@ -19,9 +21,20 @@ const style = StyleSheet.create({
   btnContainer: {
     marginTop: 20,
   },
+  bodyText: {
+    ...TextTheme.normal,
+    flexShrink: 1,
+  },
+  verticalSpacer: {
+    marginVertical: 20,
+    textAlign: 'center',
+  },
 })
 
-const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
+const PinEnter: React.FC<PinEnterProps> = ({
+  setAuthenticated,
+  navigation,
+}) => {
   const [pin, setPin] = useState('')
   const [biometricFailed, setBiometricFailed] = useState(false)
 
@@ -47,6 +60,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
           })
       } else {
         Alert.alert(t('Biometric.BiometricNotSupport'))
+        setBiometricFailed(true)
       }
     })
   }
@@ -95,6 +109,14 @@ const PinEnter: React.FC<PinEnterProps> = ({ setAuthenticated }) => {
           }
         }}
       />
+      <Text
+        style={[style.bodyText, style.verticalSpacer]}
+        onPress={() =>
+          navigation.navigate(Screens.Registration, { forgotPin: true })
+        }
+      >
+        {t('Global.ForgotPin')}
+      </Text>
       <Button
         title={t('Global.Submit')}
         buttonType={ButtonType.Primary}

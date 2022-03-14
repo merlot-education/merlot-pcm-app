@@ -52,7 +52,9 @@ const Terms: React.FC = () => {
           <View style={styles.topSpacer}>
             <Button
               title={t('Global.Continue')}
-              onPress={() => nav.navigate(Screens.Registration)}
+              onPress={() =>
+                nav.navigate(Screens.Registration, { forgotPin: false })
+              }
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />
