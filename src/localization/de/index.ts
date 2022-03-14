@@ -43,7 +43,8 @@ const translation = {
   "Registration":{
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
-    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen"
+    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
+    "RegisterAgain": "Sie müssen sich erneut registrieren" 
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",

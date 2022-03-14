@@ -46,7 +46,8 @@ const translation = {
     "UserAuthenticationEmail": "User authentication email",
     "EnterEmail": 'Please enter email',
     "ValidEmail": "Please enter valid email",
-    'ResendOtp': 'Resend OTP'
+    'ResendOtp': 'Resend OTP',
+    "RegisterAgain": "You have to register again" 
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
@@ -72,7 +73,7 @@ const translation = {
     "LoginMsg": "You are login successfully",
   },
   "PinEnter": {
-    "IncorrectPin": "Incorrect PIN",    
+    "IncorrectPin": "Incorrect PIN", 
   }, 
   "Settings": { 
     "Language": "Language",     

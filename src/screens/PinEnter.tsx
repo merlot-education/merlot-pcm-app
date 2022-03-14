@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Colors, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
 import { Screens } from '../types/navigators'
+import { LocalStorageKeys } from '../constants'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
@@ -36,6 +38,7 @@ const PinEnter: React.FC<PinEnterProps> = ({
   navigation,
 }) => {
   const [pin, setPin] = useState('')
+  const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
   const [biometricFailed, setBiometricFailed] = useState(false)
 
   const biometricEnable = () => {
@@ -60,7 +63,6 @@ const PinEnter: React.FC<PinEnterProps> = ({
           })
       } else {
         Alert.alert(t('Biometric.BiometricNotSupport'))
-        setBiometricFailed(true)
       }
     })
   }
@@ -87,6 +89,12 @@ const PinEnter: React.FC<PinEnterProps> = ({
       setAuthenticated(true)
     } else {
       Alert.alert(t('PinEnter.IncorrectPin'))
+      setLoginAttemtsFailed(loginAttemtsFailed + 1)
+      if (loginAttemtsFailed === 5) {
+        Alert.alert(t('Registration.RegisterAgain'))
+        navigation.navigate(Screens.Registration, { forgotPin: false })
+        await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)
+      }
     }
   }
 
