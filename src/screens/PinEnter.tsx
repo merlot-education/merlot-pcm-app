@@ -12,6 +12,7 @@ import { LocalStorageKeys } from '../constants'
 
 interface PinEnterProps {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  initAgent: (email: string, pin: string) => void
   navigation: any
 }
 
@@ -35,11 +36,19 @@ const style = StyleSheet.create({
 
 const PinEnter: React.FC<PinEnterProps> = ({
   setAuthenticated,
+  initAgent,
   navigation,
 }) => {
   const [pin, setPin] = useState('')
   const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
   const [biometricFailed, setBiometricFailed] = useState(false)
+
+  const startAgent = async () => {
+    const email = await getValueKeychain({
+      service: 'email',
+    })
+    initAgent(email.password, pin)
+  }
 
   const biometricEnable = () => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -86,6 +95,7 @@ const PinEnter: React.FC<PinEnterProps> = ({
       service: 'passcode',
     })
     if (keychainEntry && pin === keychainEntry.password) {
+      startAgent()
       setAuthenticated(true)
     } else {
       Alert.alert(t('PinEnter.IncorrectPin'))
