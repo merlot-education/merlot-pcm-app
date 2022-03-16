@@ -4,12 +4,14 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Scan from '../screens/Scan'
 import useNotifications from '../hooks/notifcations'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
+import ScanStack from './ScanStack'
 import SettingStack from './SettingStack'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
@@ -155,22 +157,22 @@ const TabStack: React.FC = () => {
         />
         <MainTabNavigator.Screen
           name={TabStacks.ScanStack}
+          component={Scan}
           options={{
-            tabBarIcon: () => <ScannerIcon />,
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon
+                activeIconName="wallet"
+                inactiveIconName="wallet-outline"
+                color={color}
+                focused={focused}
+              />
+            ),
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('TabStack.Scan')} focused={focused} />
             ),
-            tabBarAccessibilityLabel: t('TabStack.Scan'),
           }}
-          listeners={({ navigation }) => ({
-            tabPress: e => {
-              e.preventDefault()
-              navigation.navigate(TabStacks.ScanStack, { screen: Screens.Scan })
-            },
-          })}
-        >
-          {() => <View />}
-        </MainTabNavigator.Screen>
+        />
+        {() => <View />}
         <MainTabNavigator.Screen
           name={TabStacks.CredentialStack}
           component={CredentialStack}
