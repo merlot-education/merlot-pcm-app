@@ -68,7 +68,15 @@ const translation = {
     "RegisterPinandBiometric": 'PIN und Biometrie registrieren'
   },
   "Home": {
-    "LoginMsg": "You are login successfullySie haben sich erfolgreich angemeldet",
+    "Welcome": "Willkommen",
+    "Notifications": "Benachrichtigungen",
+    "NoNewUpdates": "Sie haben keine neuen Benachrichtigungen.",
+    "NoCredentials": "Sie haben keine Zugangsdaten in Ihrem Wallet.",
+    "SeeAll": "Alle anzeigen",
+    "YouHave": "Sie haben",
+    "Credential": "Zugangsdaten",
+    "Credentials": "Zugangsdaten",
+    "InYourWallet": "in Ihrem Wallet"
   },
   "Settings": {
     "ChangePin": "Pin ändern",
