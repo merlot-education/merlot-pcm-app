@@ -13,6 +13,11 @@ import md5 from 'md5'
 import Config from 'react-native-config'
 import { agentDependencies } from '@aries-framework/react-native'
 import indyLedgers from '../../configs/ledgers/indy'
+import Connect from '../screens/Connect'
+import ListContacts from '../screens/ListContacts'
+import Scan from '../screens/Scan'
+import * as api from '../api'
+import ConnectionInvitation from '../screens/ConnectionInvitation'
 import MainStack from './MainStack'
 import OnboardingStack from './OnboardingStack'
 
@@ -30,7 +35,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         label: email, // added email as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: email, key: walletPin },
+        walletConfig: { id: 'email', key: walletPin },
         autoAcceptConnections: true,
         publicDidSeed: emailHash,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,

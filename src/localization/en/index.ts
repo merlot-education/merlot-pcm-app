@@ -91,6 +91,13 @@ const translation = {
     "AboutApp": "About App",
     "Language": "Language",   
   },
+  "QRScanner": {
+    "PermissionToUseCamera": "Permission to use camera",
+    "WeNeedYourPermissionToUseYourCamera": "We need your permission to use your camera",
+    "Ok": "Ok",
+  },
+  "ConnectionInvitation":{
+    "ConsentMessage":"You have received connection invitation from the organization you have recently scanned code for,Do you want to accept the invitation?"},
   "TabStack": {
     "Home": "Home",
     "Connections": "Contacts",

@@ -85,6 +85,11 @@ const translation = {
     "AboutApp": "Über App",
     "Language": "Sprache"
   },
+  "QRScanner": {
+    "PermissionToUseCamera": "Erlaubnis zur Verwendung der Kamera",
+    "WeNeedYourPermissionToUseYourCamera": "Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
+    "Ok": "Ok",
+  },
   "TabStack": {
     "Home": "Zuhause",
     "Connections": "Kontakte",
