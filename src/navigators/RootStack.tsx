@@ -19,6 +19,7 @@ import OnboardingStack from './OnboardingStack'
 interface Props {
   setAgent: (agent: Agent) => void
 }
+export let MainStackContext = React.createContext(null);
 
 const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
@@ -50,9 +51,10 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     await newAgent.initialize()
     setAgent(newAgent)
   }
-
   return authenticated ? (
-    <MainStack setAuthenticated={setAuthenticated} />
+    <MainStackContext.Provider value={{value: setAuthenticated}}>
+    <MainStack />
+    </MainStackContext.Provider>
   ) : (
     <OnboardingStack
       initAgent={initAgent}

@@ -12,10 +12,6 @@ import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
 import SettingStack from './SettingStack'
 
-type Prop = {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-}
-
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 
 type TabBarIconProps = {
@@ -100,7 +96,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const TabStack: React.FC<Prop> = ({ setAuthenticated }) => {
+const TabStack: React.FC = () => {
   const { total } = useNotifications()
   const { t } = useTranslation()
 
@@ -197,9 +193,7 @@ const TabStack: React.FC<Prop> = ({ setAuthenticated }) => {
         />
         <MainTabNavigator.Screen
           name={TabStacks.SettingsStack}
-          component={props => (
-            <SettingStack {...props} setAuthenticated={setAuthenticated} />
-          )}
+          component={SettingStack}
           options={{
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon

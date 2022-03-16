@@ -28,7 +28,8 @@ const translation = {
     "Email": "Entrez votre e-mail",
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
-    "OldPin": 'Saisir lancien code PIN'
+    "OldPin": 'Saisir lancien code PIN',
+    "Copy": 'Copie'
   },
   "Language": {
     "English": "Anglais",
@@ -55,7 +56,8 @@ const translation = {
     "ReenterPin": "Locataire le code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
-    "WalletCreated": "Votre portefeuille est créé avec succès"
+    "WalletCreated": "Votre portefeuille est créé avec succès",
+    "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité'
   },
   "Biometric": {
     "Biometric": "Biométrique",

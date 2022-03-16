@@ -7,6 +7,7 @@ import { Screens, SettingStackParams } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
 import Language from '../screens/Language'
+import { MainStackContext } from './RootStack'
 
 const Stack = createStackNavigator<SettingStackParams>()
 
@@ -14,11 +15,12 @@ interface SettingStackProp {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const SettingStack: React.FC<SettingStackProp> = ({ setAuthenticated }) => {
+const SettingStack: React.FC<SettingStackProp> = () => {
+  const { value } = React.useContext(MainStackContext)
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
       <Stack.Screen name={Screens.Settings}>
-        {props => <Settings {...props} setAuthenticated={setAuthenticated} />}
+        {props => <Settings {...props} setAuthenticated={value} />}
       </Stack.Screen>
       <Stack.Screen name={Screens.Language} component={Language} />
       <Stack.Screen
