@@ -59,6 +59,7 @@ const translation = {
     "ReenterNewPin": "Re-Enter New PIN",
     "Create": "Create",
     "ValidOldPin": "Please enter valid old PIN",
+    "WalletCreated": "Your wallet is created successfully."
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -89,8 +90,11 @@ const translation = {
     "ConnectionNotFound": "Connection not found",
     "ConnectWith": "Do you want to connect with AISBL ?",
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Your wallet is created successfully."
+  "Toasts":{
+    "Success": "Success",
+    "Error": "Error",
+    "Info": "Info",
+    "Warning": "Warning",
   }
 }
 export default translation

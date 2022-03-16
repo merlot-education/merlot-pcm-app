@@ -18,7 +18,7 @@ exports[`Loader Component Loader renders correctly 1`] = `
     }
   >
     <ActivityIndicator
-      color="#03028A"
+      color="#1E9BF2"
       size="small"
     />
   </View>

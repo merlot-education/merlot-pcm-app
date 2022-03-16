@@ -55,6 +55,7 @@ const translation = {
     "ReenterPin": "Locataire le code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
+    "WalletCreated": "Votre portefeuille est créé avec succès"
   },
   "Biometric": {
     "Biometric": "Biométrique",
@@ -85,8 +86,11 @@ const translation = {
     "ConnectionNotFound": "Connexion introuvable",
     "ConnectWith": "Voulez-vous vous connecter avec AISBL ?",
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Votre portefeuille est créé avec succès"
+  "Toasts":{
+    "Success": "Succès",
+    "Error": "Erreur",
+    "Info": "Info",
+    "Warning": "Avertissement"
   }
 }
 export default translation
