@@ -69,8 +69,12 @@ const translation = {
   "Home": {
     "LoginMsg": "You are login successfullySie haben sich erfolgreich angemeldet",
   },
-  "Settings": { 
-    "Language": "Sprache",     
+  "Settings": {
+    "ChangePin": "Pin ändern",
+    "Version": "Version",
+    "AppPreferences": "App-Einstellungen",
+    "AboutApp": "Über App",
+    "Language": "Sprache"
   },
   "TabStack": {
     "Home": "Zuhause",

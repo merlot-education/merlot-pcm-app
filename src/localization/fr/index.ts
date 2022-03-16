@@ -72,6 +72,10 @@ const translation = {
     "IncorrectPin": "Broche incorrecte",    
   }, 
   "Settings": {
+    "ChangePin": "Changer la broche",
+    "Version": "Version",
+    "AppPreferences": "Préférences de l'application",
+    "AboutApp": "À propos de l'application",
     "Language": "Langue"
   },
   "TabStack": {

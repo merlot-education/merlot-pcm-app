@@ -126,6 +126,7 @@ export const ColorPallet: ColorPallet = {
 export const BaseColors: BaseColor = {
   black: '#000000',
   darkGreen: '#35823F',
+  lightBlue: '#CCE8F4',
   darkGreenLightTransparent: `rgba(53, 130, 63, ${heavyOpacity})`,
   darkGreenHeavyTransparent: `rgba(53, 130, 63, ${lightOpacity})`,
   darkGrey: '#1C1C1E',
@@ -151,6 +152,7 @@ interface ColorTheme extends BaseColor {
   borderLight: string
   primary: string
   primaryActive: string
+  primaryLight: string
   shadow: string
   text: string
 }
@@ -195,6 +197,7 @@ export const Colors: ColorTheme = {
   borderLight: BaseColors.mediumGreen,
   primary: BrandColors.primary,
   primaryActive: BaseColors.darkGreenHeavyTransparent,
+  primaryLight: BaseColors.lightBlue,
   shadow: BaseColors.lightGrey,
   text: BrandColors.primary,
   ...BaseColors,
@@ -264,6 +267,14 @@ interface ContactTheme {
   background: string
 }
 
+interface SingleSelectBlockTheme {
+  background: string
+}
+
 export const ContactTheme: ContactTheme = {
   background: Colors.shadow,
+}
+
+export const SingleSelectBlockTheme: SingleSelectBlockTheme = {
+  background: Colors.primaryLight,
 }

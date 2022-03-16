@@ -75,8 +75,12 @@ const translation = {
   "PinEnter": {
     "IncorrectPin": "Incorrect PIN", 
   }, 
-  "Settings": { 
-    "Language": "Language",     
+  "Settings": {
+    "ChangePin": 'Change Pin',
+    "Version": "Version",
+    "AppPreferences": "App Preferences",
+    "AboutApp": "About App",
+    "Language": "Language",   
   },
   "TabStack": {
     "Home": "Home",

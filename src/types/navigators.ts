@@ -19,6 +19,7 @@ export enum Screens {
   Settings = 'Settings',
   GaiaxConsent = 'GaiaxConsent',
   DefaultConnection = 'DefaultConnection',
+  Language = 'Language',
 }
 
 export type MainStackParams = {
