@@ -18,6 +18,9 @@ export enum Screens {
   Contacts = 'Contacts',
   Settings = 'Settings',
   DefaultConnection = 'DefaultConnection',
+  Notifications = 'Notifications',
+  CredentialOffer = 'CredentialOffer',
+  ProofRequest = 'ProofRequest',
   Language = 'Language',
 }
 
@@ -45,8 +48,8 @@ export type CredentialStackParams = {
 export type HomeStackParams = {
   Home: undefined
   Notifications: undefined
-  'Credential Offer': { credentialId: string }
-  'Proof Request': { proofId: string }
+  CredentialOffer: { credentialId: string }
+  ProofRequest: { proofId: string }
 }
 
 export type ScanStackParams = {

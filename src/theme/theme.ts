@@ -79,7 +79,7 @@ const BrandColors: BrandColors = {
   highlight: '#FCBA19',
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
-  link: '#FFFFFF',
+  link: '#D8292F',
 }
 
 const SemanticColors: SemanticColors = {

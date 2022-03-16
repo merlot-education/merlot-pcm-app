@@ -67,7 +67,15 @@ const translation = {
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
   },
   "Home": {
-    "LoginMsg": "Vous êtes connecté avec succès",
+    "Welcome": "Bienvenue",
+    "Notifications": "Notifications",
+    "NoNewUpdates": "Vous n'avez pas de nouvelles notifications.",
+    "NoCredentials": "Vous n'avez pas d'informations d'identification dans votre portefeuille.",
+    "SeeAll": "Voir tous",
+    "YouHave": "Vous avez",
+    "Credential": "informations d'identification",
+    "Credentials": "informations d'identification",
+    "InYourWallet": "dans votre portefeuille"
   },
   "PinEnter": {
     "IncorrectPin": "Broche incorrecte",    

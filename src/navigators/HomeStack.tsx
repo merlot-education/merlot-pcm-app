@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import Home from '../screens/Home'
 import { HomeStackParams, Screens } from '../types/navigators'
+import ListNotifications from '../screens/ListNotifications'
 
 import defaultStackOptions from './defaultStackOptions'
 
@@ -15,6 +16,10 @@ const HomeStack: React.FC = () => {
       }}
     >
       <Stack.Screen name={Screens.Home} component={Home} />
+      <Stack.Screen
+        name={Screens.Notifications}
+        component={ListNotifications}
+      />
     </Stack.Navigator>
   )
 }
