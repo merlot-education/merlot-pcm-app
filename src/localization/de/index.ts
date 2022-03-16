@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Pin eingeben",
+    "EnterNewPin": "Neue PIN eingeben",
     "6DigitPin": "6-stellige Pin",
     "Submit": "Senden",
     "NoneYet!": "Noch keine!",
@@ -24,7 +25,10 @@ const translation = {
     "Home": "Startseite",
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
-    "Email": "E-Mail eingeben"
+    "Email": "E-Mail eingeben",
+    "ForgotPin": 'PIN vergessen',
+    "ChangePin": 'PIN ändern',
+    "OldPin": 'Alte PIN eingeben'
   },
   "Language": {
     "English": "Englisch",
@@ -39,7 +43,8 @@ const translation = {
   "Registration":{
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
-    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen"
+    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
+    "RegisterAgain": "Sie müssen sich erneut registrieren" 
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
@@ -48,7 +53,10 @@ const translation = {
     "PinsSuccess": "Pin erfolgreich erstellt",    
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
-    "Create": "Schaffen"
+    "ReenterNewPin": "Neue PIN erneut eingeben",
+    "Create": "Schaffen",
+    "ValidOldPin": "Bitte gültige alte PIN eingeben",
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
   },
   "Biometric": {
     "Biometric": "Biometrisch",
@@ -62,8 +70,12 @@ const translation = {
   "Home": {
     "LoginMsg": "You are login successfullySie haben sich erfolgreich angemeldet",
   },
-  "Settings": { 
-    "Language": "Sprache",     
+  "Settings": {
+    "ChangePin": "Pin ändern",
+    "Version": "Version",
+    "AppPreferences": "App-Einstellungen",
+    "AboutApp": "Über App",
+    "Language": "Sprache"
   },
   "QRScanner": {
     "PermissionToUseCamera": "Erlaubnis zur Verwendung der Kamera",
@@ -76,6 +88,16 @@ const translation = {
     "Scan": "Scan",
     "Credentials": "Referenzen",
     "Settings": "Einstellungen",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Verbindung nicht gefunden",
+    "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
+  },
+  "Toasts":{
+    "Success": "Erfolg",
+    "Error": "Fehler",
+    "Info": "Info",
+    "Warning": "Warnung"
   }
 }
 export default translation

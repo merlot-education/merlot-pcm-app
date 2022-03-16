@@ -44,9 +44,21 @@ const initStoredLanguage = async () => {
   }
 }
 
+const availableLanguages = Object.keys(resources)
+const bestLanguageMatch =
+  RNLocalize.findBestAvailableLanguage(availableLanguages)
+let translationToUse = defaultLanguage
+
+if (
+  bestLanguageMatch &&
+  availableLanguages.includes(bestLanguageMatch.languageTag)
+) {
+  translationToUse = bestLanguageMatch.languageTag
+}
+
 i18n.use(initReactI18next).init({
   debug: true,
-  lng: defaultLanguage,
+  lng: translationToUse,
   fallbackLng: defaultLanguage,
   resources,
 })

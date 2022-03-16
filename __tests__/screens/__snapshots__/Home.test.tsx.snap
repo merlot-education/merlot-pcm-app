@@ -15,7 +15,7 @@ exports[`Home Screen Renders correctly 1`] = `
     style={
       Array [
         Object {
-          "color": "#03028A",
+          "color": "#1E9BF2",
           "flexShrink": 1,
           "fontSize": 18,
           "fontWeight": "normal",
@@ -26,78 +26,7 @@ exports[`Home Screen Renders correctly 1`] = `
       ]
     }
   >
-    Your wallet is created successfully.
+    Home
   </Text>
-  <View
-    style={
-      Object {
-        "height": 40,
-      }
-    }
-  />
-  <View
-    accessibilityState={
-      Object {
-        "disabled": false,
-      }
-    }
-    accessible={true}
-    focusable={true}
-    onClick={[Function]}
-    onResponderGrant={[Function]}
-    onResponderMove={[Function]}
-    onResponderRelease={[Function]}
-    onResponderTerminate={[Function]}
-    onResponderTerminationRequest={[Function]}
-    onStartShouldSetResponder={[Function]}
-    style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "borderRadius": 5,
-          "borderWidth": 1,
-          "justifyContent": "center",
-        },
-        Object {
-          "height": 47,
-          "paddingLeft": 15,
-          "paddingRight": 15,
-        },
-        Object {
-          "backgroundColor": "#108ee9",
-          "borderColor": "#108ee9",
-        },
-        false,
-        false,
-        undefined,
-        undefined,
-      ]
-    }
-  >
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontSize": 18,
-            },
-            Object {
-              "color": "#ffffff",
-            },
-            false,
-            false,
-          ]
-        }
-      >
-        Global.Continue
-      </Text>
-    </View>
-  </View>
 </View>
 `;

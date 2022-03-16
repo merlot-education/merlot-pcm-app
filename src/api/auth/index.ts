@@ -1,9 +1,5 @@
 import { AxiosInstance } from 'axios'
-import {
-  RegisterUserRequest,
-  RegisterUserOtpRequest,
-  SeedHashRequest,
-} from './auth.types'
+import { RegisterUserRequest, RegisterUserOtpRequest } from './auth.types'
 
 const auth = (instance: AxiosInstance) => {
   // TODO: Added sample just for reference remove it later when ready
@@ -13,9 +9,6 @@ const auth = (instance: AxiosInstance) => {
     },
     otp(body: RegisterUserOtpRequest, config = {}) {
       return instance.post('v1/notification/verifyOtp', body, config)
-    },
-    sendSeedHash(body: SeedHashRequest, config = {}) {
-      return instance.post('/v1/notification/sendSeed', body, config)
     },
   }
 }

@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Keyboard, StyleSheet, View } from 'react-native'
+import { Keyboard, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
-import md5 from 'md5'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useNavigation } from '@react-navigation/core'
+import Toast from 'react-native-toast-message'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import * as api from '../api'
+import { LocalStorageKeys } from '../constants'
+import { Screens } from '../types/navigators'
+import { ToastType } from '../components/toast/BaseToast'
 
 interface PinCreateProps {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, pin: string) => void
+  route: any
 }
 
 const style = StyleSheet.create({
@@ -25,10 +29,7 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC<PinCreateProps> = ({
-  setAuthenticated,
-  initAgent,
-}) => {
+const PinCreate: React.FC<PinCreateProps> = ({ initAgent, route }) => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -37,26 +38,35 @@ const PinCreate: React.FC<PinCreateProps> = ({
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
-
+  const { forgotPin } = route.params
   const { t } = useTranslation()
+  const nav = useNavigation()
 
-  const sendSeedHash = async (userEmail: string) => {
-    const genratedSeedHash = md5(userEmail)
-    const seedHashResponse = await api.default.auth.sendSeedHash({
-      email: userEmail,
-      seedHash: genratedSeedHash,
-    })
-    if (seedHashResponse.data != null) {
-      // seed sent via email
+  const startAgent = async (email: string, pin: string) => {
+    try {
+      setLoading(true)
+      await initAgent(email, pin)
+      await storeOnboardingCompleteStage()
+      setLoading(false)
+      Toast.show({
+        type: ToastType.Success,
+        text1: t('Toasts.Success'),
+        text2: t('PinCreate.WalletCreated'),
+      })
+      nav.navigate(Screens.DefaultConnection)
+    } catch (error) {
+      setLoading(false)
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Error'),
+        text2: error.message,
+      })
     }
   }
-  const startAgent = async (email: string, pin: string) => {
-    setLoading(true)
-    await initAgent(email, pin)
-    await sendSeedHash(email)
-    setLoading(false)
-    setAuthenticated(true)
+  const storeOnboardingCompleteStage = async () => {
+    await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
   }
+
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
       const { available, biometryType } = resultObject
@@ -67,7 +77,6 @@ const PinCreate: React.FC<PinCreateProps> = ({
   })
 
   const passcodeCreate = async (passcode: string) => {
-    // const passcode = JSON.stringify(pin)
     const description = t('PinCreate.UserAuthenticationPin')
     try {
       setValueKeychain(description, passcode, {
@@ -79,22 +88,34 @@ const PinCreate: React.FC<PinCreateProps> = ({
         service: 'email',
       })
       setEmail(keychainEntry.password)
-      Alert.alert(t('PinCreate.PinsSuccess'), '', [
-        {
-          text: 'Ok',
-        },
-      ])
       setSuccessPin(true)
+      Toast.show({
+        type: ToastType.Success,
+        text1: t('Toasts.Success'),
+        text2: t('PinCreate.PinsSuccess'),
+      })
     } catch (e) {
-      Alert.alert(e)
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Error'),
+        text2: e,
+      })
     }
   }
 
   const confirmEntry = (x: string, y: string) => {
     if (x.length < 6 || y.length < 6) {
-      Alert.alert(t('PinCreate.PinMustBe6DigitsInLength'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('PinCreate.PinMustBe6DigitsInLength'),
+      })
     } else if (x !== y) {
-      Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Error'),
+        text2: t('PinCreate.PinsEnteredDoNotMatch'),
+      })
     } else {
       passcodeCreate(x)
     }
@@ -112,17 +133,33 @@ const PinCreate: React.FC<PinCreateProps> = ({
             if (success) {
               ReactNativeBiometrics.createKeys().then(() => {
                 setSuccessBiometric(true)
-                Alert.alert(t('Biometric.BiometricSuccess'))
+                Toast.show({
+                  type: ToastType.Success,
+                  text1: t('Toasts.Success'),
+                  text2: t('Biometric.BiometricSuccess'),
+                })
               })
             } else {
-              Alert.alert(t('Biometric.BiometricCancle'))
+              Toast.show({
+                type: ToastType.Warn,
+                text1: t('Toasts.Warn'),
+                text2: t('Biometric.BiometricCancle'),
+              })
             }
           })
           .catch(() => {
-            Alert.alert(t('Biometric.BiometricFailed'))
+            Toast.show({
+              type: ToastType.Error,
+              text1: t('Toasts.Error'),
+              text2: t('Biometric.BiometricFailed'),
+            })
           })
       } else {
-        Alert.alert(t('Biometric.BiometricNotSupport'))
+        Toast.show({
+          type: ToastType.Warn,
+          text1: t('Toasts.Warn'),
+          text2: t('Biometric.BiometricNotSupport'),
+        })
       }
     })
   }
@@ -133,7 +170,11 @@ const PinCreate: React.FC<PinCreateProps> = ({
     } else if (successPin && !biometricSensorAvailable) {
       await startAgent(email, pin)
     } else {
-      Alert.alert(t('Biometric.RegisterPinandBiometric'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warn'),
+        text2: t('Biometric.RegisterPinandBiometric'),
+      })
     }
   }
   return (
@@ -177,23 +218,26 @@ const PinCreate: React.FC<PinCreateProps> = ({
           confirmEntry(pin, pinTwo)
         }}
       />
-      <View style={style.btnContainer}>
-        {biometricSensorAvailable && (
-          <Button
-            title="Setup Biometric"
-            buttonType={ButtonType.Primary}
-            onPress={biometricEnable}
-          />
-        )}
-      </View>
-
-      <View style={style.btnContainer}>
-        <Button
-          title="Create Wallet"
-          buttonType={ButtonType.Primary}
-          onPress={onSubmit}
-        />
-      </View>
+      {!forgotPin && (
+        <>
+          <View style={style.btnContainer}>
+            {biometricSensorAvailable && (
+              <Button
+                title="Setup Biometric"
+                buttonType={ButtonType.Primary}
+                onPress={biometricEnable}
+              />
+            )}
+          </View>
+          <View style={style.btnContainer}>
+            <Button
+              title="Create Wallet"
+              buttonType={ButtonType.Primary}
+              onPress={onSubmit}
+            />
+          </View>
+        </>
+      )}
     </SafeAreaView>
   )
 }

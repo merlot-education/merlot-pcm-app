@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
+import ChangePin from '../screens/ChangePin'
 import Connect from '../screens/Connect'
 import ConnectionInvitation from '../screens/ConnectionInvitation'
 import Home from '../screens/Home'
@@ -26,6 +27,11 @@ const MainStack: React.FC = () => {
       <Stack.Screen
         name={Screens.ConnectionInvitation}
         component={ConnectionInvitation}
+      />
+      <Stack.Screen
+        name={Screens.ChangePin}
+        component={ChangePin}
+        options={{ headerShown: true }}
       />
     </Stack.Navigator>
   )

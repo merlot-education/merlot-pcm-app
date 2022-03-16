@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
 import React from 'react'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -6,7 +5,6 @@ import { Colors } from 'react-native/Libraries/NewAppScreen'
 
 interface Props {
   active: boolean
-  onPress?: () => void
 }
 
 const styles = StyleSheet.create({
@@ -26,14 +24,14 @@ const styles = StyleSheet.create({
   },
 })
 
-const TorchButton: React.FC<Props> = ({ active, onPress, children }) => {
+const TorchButton: React.FC<Props> = ({ active, children }) => {
   return (
     <TouchableOpacity
       style={[
         styles.container,
         { backgroundColor: active ? Colors.white : undefined },
       ]}
-      onPress={onPress}
+      // onPress={onPress}
     >
       {children}
     </TouchableOpacity>
@@ -51,9 +49,9 @@ const TorchIcon: React.FC<Props> = ({ active }) => {
   )
 }
 
-const QRScannerTorch: React.FC<Props> = ({ active, onPress }) => {
+const QRScannerTorch: React.FC<Props> = ({ active }) => {
   return (
-    <TorchButton active={active} onPress={onPress}>
+    <TorchButton active={active}>
       <TorchIcon active={active} />
     </TorchButton>
   )

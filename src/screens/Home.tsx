@@ -1,9 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/core'
 import { Colors, TextTheme } from '../theme/theme'
-import Button, { ButtonType } from '../components/button/Button'
-import { Screens } from '../types/navigators'
 
 const styles = StyleSheet.create({
   container: {
@@ -14,17 +13,11 @@ const styles = StyleSheet.create({
     ...TextTheme.normal,
     flexShrink: 1,
   },
-  spacer: {
-    height: 40,
-  },
 })
 
-interface HomeProps {
-  navigation: any
-}
-
-const Home: React.FC<HomeProps> = ({ navigation }) => {
+const Home: React.FC = () => {
   const { t } = useTranslation()
+  const navigation = useNavigation()
 
   const nextPage = () => {
     navigation.navigate(Screens.ConnectionInvitation)
@@ -32,16 +25,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   return (
     <View style={[styles.container]}>
-      <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        {/* {t('Home.LoginMsg')} */}
-        Your wallet is created successfully.
-      </Text>
-      <View style={styles.spacer} />
-      <Button
-        title={t('Global.Continue')}
-        buttonType={ButtonType.Primary}
-        onPress={nextPage}
-      />
+      <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>Home</Text>
     </View>
   )
 }
