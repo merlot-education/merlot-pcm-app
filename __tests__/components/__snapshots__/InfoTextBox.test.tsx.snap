@@ -4,8 +4,8 @@ exports[`InfoTextBox Component Renders correctly 1`] = `
 <View
   style={
     Object {
-      "backgroundColor": "#313132",
-      "borderColor": "#0099FF",
+      "backgroundColor": "#CCE8F4",
+      "borderColor": "#4F7C9E",
       "borderRadius": 5,
       "borderWidth": 1,
       "flexDirection": "row",
@@ -22,7 +22,7 @@ exports[`InfoTextBox Component Renders correctly 1`] = `
     }
   >
     <Icon
-      color="#0099FF"
+      color="#4F7C9E"
       name="info"
       size={30}
     />
@@ -31,7 +31,7 @@ exports[`InfoTextBox Component Renders correctly 1`] = `
     style={
       Object {
         "alignSelf": "center",
-        "color": "#FFFFFF",
+        "color": "#4F7C9E",
         "flexShrink": 1,
         "fontSize": 18,
         "fontWeight": "bold",

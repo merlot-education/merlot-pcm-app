@@ -1,16 +1,16 @@
+import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, Alert } from 'react-native'
 import { getVersion, getBuildNumber } from 'react-native-device-info'
 import { borderRadius, Colors, TextTheme } from '../theme/theme'
-import { Screens } from '../types/navigators'
+import { Screens, SettingStackParams } from '../types/navigators'
 import { SettingListItem, Text } from '../components'
 
-type Props = {
+type SettingsProps = {
+  navigation: StackScreenProps<SettingStackParams, Screens.Settings>
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  navigation: any
 }
-
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -38,7 +38,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const Settings: React.FC<Props> = ({ navigation, setAuthenticated }) => {
+const Settings: React.FC<SettingsProps> = ({
+  navigation,
+  setAuthenticated,
+}) => {
   const { t } = useTranslation()
   const logoff = () =>
     Alert.alert(t('Settings.Logout'), t('Settings.LogoutMsg'), [

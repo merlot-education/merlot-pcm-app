@@ -55,6 +55,7 @@ const translation = {
     "ReenterPin": "Locataire le code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
+    "WalletCreated": "Votre portefeuille est créé avec succès"
   },
   "Biometric": {
     "Biometric": "Biométrique",
@@ -66,7 +67,15 @@ const translation = {
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
   },
   "Home": {
-    "LoginMsg": "Vous êtes connecté avec succès",
+    "Welcome": "Bienvenue",
+    "Notifications": "Notifications",
+    "NoNewUpdates": "Vous n'avez pas de nouvelles notifications.",
+    "NoCredentials": "Vous n'avez pas d'informations d'identification dans votre portefeuille.",
+    "SeeAll": "Voir tous",
+    "YouHave": "Vous avez",
+    "Credential": "informations d'identification",
+    "Credentials": "informations d'identification",
+    "InYourWallet": "dans votre portefeuille"
   },
   "PinEnter": {
     "IncorrectPin": "Broche incorrecte",    
@@ -93,8 +102,11 @@ const translation = {
     "ConnectionNotFound": "Connexion introuvable",
     "ConnectWith": "Voulez-vous vous connecter avec AISBL ?",
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Votre portefeuille est créé avec succès"
+  "Toasts":{
+    "Success": "Succès",
+    "Error": "Erreur",
+    "Info": "Info",
+    "Warning": "Avertissement"
   }
 }
 export default translation

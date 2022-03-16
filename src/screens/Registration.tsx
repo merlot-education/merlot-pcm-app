@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { Alert, Keyboard, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
+import Toast from 'react-native-toast-message'
 import { setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Screens } from '../types/navigators'
 import * as api from '../api'
+import { ToastType } from '../components/toast/BaseToast'
 
 interface PinCreateProps {
   navigation: any
@@ -47,29 +49,46 @@ const Registration: React.FC<PinCreateProps> = ({ navigation, route }) => {
       /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
     )
   }
+
   const confirmEntry = async (email: string) => {
+    const { forgotPin } = route.params
     if (email.length > 0) {
       if (validateEmail(email)) {
         emailCreate(email)
         setLoading(true)
-        const res = await api.default.auth.register({ email })
-        if (res?.data) {
-          const { forgotPin } = route.params
-          if (forgotPin) {
-            navigation.navigate(Screens.VerifyOtp, { email, forgotPin: true })
-          } else {
-            navigation.navigate(Screens.VerifyOtp, { email, forgotPin: false })
-          }
-          Alert.alert(res?.message)
+        try {
+          await api.default.auth.register({ email })
+          navigation.navigate(Screens.VerifyOtp, { email })
           setLoading(false)
+          if (forgotPin) {
+            navigation.navigate(Screens.VerifyOtp, { email, forgotPin })
+          } else {
+            navigation.navigate(Screens.VerifyOtp, { email, forgotPin })
+          }
+        } catch (error) {
+          setLoading(false)
+          Toast.show({
+            type: ToastType.Error,
+            text1: error.name,
+            text2: error.message,
+          })
         }
       } else {
-        Alert.alert(t('Registration.ValidEmail'))
+        Toast.show({
+          type: ToastType.Warn,
+          text1: t('Toasts.Warning'),
+          text2: t('Registration.ValidEmail'),
+        })
       }
     } else {
-      Alert.alert(t('Registration.EnterEmail'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('Registration.EnterEmail'),
+      })
     }
   }
+
   return (
     <SafeAreaView style={[style.container]}>
       <Loader loading={loading} />

@@ -59,6 +59,7 @@ const translation = {
     "ReenterNewPin": "Re-Enter New PIN",
     "Create": "Create",
     "ValidOldPin": "Please enter valid old PIN",
+    "WalletCreated": "Your wallet is created successfully."
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -70,7 +71,15 @@ const translation = {
     "RegisterPinandBiometric": 'Register PIN and Biometric'
   },
   "Home": {
-    "LoginMsg": "You are login successfully",
+    "Welcome": "Welcome",
+    "Notifications": "Notifications",
+    "NoNewUpdates": "You have no new notifications.",
+    "NoCredentials": "You have no credentials in your wallet.",
+    "SeeAll": "See all",
+    "YouHave": "You have",
+    "Credential": "credential",
+    "Credentials": "credentials",
+    "InYourWallet": "in your wallet"
   },
   "PinEnter": {
     "IncorrectPin": "Incorrect PIN", 
@@ -97,8 +106,11 @@ const translation = {
     "ConnectionNotFound": "Connection not found",
     "ConnectWith": "Do you want to connect with AISBL ?",
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Your wallet is created successfully."
+  "Toasts":{
+    "Success": "Success",
+    "Error": "Error",
+    "Info": "Info",
+    "Warning": "Warning",
   }
 }
 export default translation

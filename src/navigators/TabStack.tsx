@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import useNotifications from '../hooks/notifcations'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
 import ContactStack from './ContactStack'
@@ -56,7 +57,7 @@ const TabBarLabel = ({ color, focused, label }: TabBarlabelProps) => {
         paddingBottom: 5,
         color: focused
           ? ColorPallet.brand.primary
-          : ColorPallet.notification.infoText,
+          : ColorPallet.grayscale.white,
       }}
     >
       {label}
@@ -100,11 +101,8 @@ const styles = StyleSheet.create({
 })
 
 const TabStack: React.FC<Prop> = ({ setAuthenticated }) => {
+  const { total } = useNotifications()
   const { t } = useTranslation()
-
-  // const YourComponent = props => (
-  // <SettingStack {...props} setAuthenticated={setAuthenticated} />
-  // )
 
   return (
     <SafeAreaView
@@ -114,7 +112,7 @@ const TabStack: React.FC<Prop> = ({ setAuthenticated }) => {
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
           tabBarActiveTintColor: ColorPallet.brand.primary,
-          tabBarInactiveTintColor: ColorPallet.notification.infoText,
+          tabBarInactiveTintColor: ColorPallet.grayscale.white,
           header: () => null,
         }}
       >
@@ -133,6 +131,10 @@ const TabStack: React.FC<Prop> = ({ setAuthenticated }) => {
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('TabStack.Home')} focused={focused} />
             ),
+            tabBarBadge: total || null,
+            tabBarBadgeStyle: {
+              backgroundColor: ColorPallet.semantic.error,
+            },
           }}
         />
         <MainTabNavigator.Screen

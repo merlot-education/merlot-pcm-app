@@ -48,9 +48,14 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         {props => <PinCreate {...props} initAgent={initAgent} />}
       </Stack.Screen>
       <Stack.Screen name={Screens.EnterPin}>
-        {props => <PinEnter {...props} setAuthenticated={setAuthenticated} />}
+        {props => (
+          <PinEnter
+            {...props}
+            setAuthenticated={setAuthenticated}
+            initAgent={initAgent}
+          />
+        )}
       </Stack.Screen>
-      <Stack.Screen name={Screens.GaiaxConsent} component={GaiaxConsent} />
       <Stack.Screen name={Screens.DefaultConnection}>
         {props => (
           <DefaultConnection {...props} setAuthenticated={setAuthenticated} />

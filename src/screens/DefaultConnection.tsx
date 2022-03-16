@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useAgent } from '@aries-framework/react-hooks'
+import Toast from 'react-native-toast-message'
 import { Colors, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
 import { Loader } from '../components'
+import { ToastType } from '../components/toast/BaseToast'
 
 type Props = {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
@@ -52,6 +54,11 @@ const DefaultConnection: React.FC<Props> = ({ setAuthenticated }) => {
       },
     )
     if (!connectionRecord?.id) {
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Error'),
+        text2: t('DefaultConnection.ConnectionNotFound'),
+      })
       throw new Error(t('DefaultConnection.ConnectionNotFound'))
     }
   }

@@ -17,8 +17,10 @@ export enum Screens {
   Credentials = 'Credentials',
   Contacts = 'Contacts',
   Settings = 'Settings',
-  GaiaxConsent = 'GaiaxConsent',
   DefaultConnection = 'DefaultConnection',
+  Notifications = 'Notifications',
+  CredentialOffer = 'CredentialOffer',
+  ProofRequest = 'ProofRequest',
   Language = 'Language',
 }
 
@@ -46,8 +48,8 @@ export type CredentialStackParams = {
 export type HomeStackParams = {
   Home: undefined
   Notifications: undefined
-  'Credential Offer': { credentialId: string }
-  'Proof Request': { proofId: string }
+  CredentialOffer: { credentialId: string }
+  ProofRequest: { proofId: string }
 }
 
 export type ScanStackParams = {
@@ -73,7 +75,7 @@ export type TabStackParams = {
   [TabStacks.ContactStack]: NavigatorScreenParams<ContactStackParams>
   [TabStacks.ScanStack]: NavigatorScreenParams<ScanStackParams>
   [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
-  [TabStacks.SettingsStack]: NavigatorScreenParams<CredentialStackParams>
+  [TabStacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
 }
 
 export enum Stacks {

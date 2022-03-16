@@ -79,7 +79,7 @@ const BrandColors: BrandColors = {
   highlight: '#FCBA19',
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
-  link: '#FFFFFF',
+  link: '#D8292F',
 }
 
 const SemanticColors: SemanticColors = {
@@ -89,22 +89,22 @@ const SemanticColors: SemanticColors = {
 }
 
 const NotificationColors: NotificationColors = {
-  success: '#313132',
-  successBorder: '#2E8540',
-  successIcon: '#2E8540',
-  successText: '#FFFFFF',
-  info: '#313132',
-  infoBorder: '#0099FF',
-  infoIcon: '#0099FF',
-  infoText: '#FFFFFF',
-  warn: '#313132',
-  warnBorder: '#fcba19',
-  warnIcon: '#fcba19',
-  warnText: '#FFFFFF',
-  error: '#313132',
-  errorBorder: '#D8292F',
-  errorIcon: '#D8292F',
-  errorText: '#FFFFFF',
+  success: '#D2EBCA',
+  successBorder: '#60775A',
+  successIcon: '#60775A',
+  successText: '#60775A',
+  info: '#CCE8F4',
+  infoBorder: '#4F7C9E',
+  infoIcon: '#4F7C9E',
+  infoText: '#4F7C9E',
+  warn: '#F7F3D7',
+  warnBorder: '#AE8E56',
+  warnIcon: '#AE8E56',
+  warnText: '#AE8E56',
+  error: '#ECC8C4',
+  errorBorder: '#B25B59',
+  errorIcon: '#B25B59',
+  errorText: '#B25B59',
 }
 
 const GrayscaleColors: GrayscaleColors = {

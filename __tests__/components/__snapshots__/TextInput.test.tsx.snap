@@ -11,7 +11,7 @@ exports[`TextInput Component TextInput renders correctly 1`] = `
   <Text
     style={
       Object {
-        "color": "#03028A",
+        "color": "#1E9BF2",
         "fontSize": 14,
         "fontWeight": "bold",
         "marginBottom": 3,
@@ -23,7 +23,7 @@ exports[`TextInput Component TextInput renders correctly 1`] = `
   <TextInput
     onBlur={[Function]}
     onFocus={[Function]}
-    selectionColor="#03028A"
+    selectionColor="#1E9BF2"
     style={
       Array [
         Object {
@@ -31,7 +31,7 @@ exports[`TextInput Component TextInput renders correctly 1`] = `
           "borderColor": undefined,
           "borderRadius": 4,
           "borderWidth": 2,
-          "color": "#03028A",
+          "color": "#1E9BF2",
           "fontSize": 16,
           "padding": 10,
         },
