@@ -34,7 +34,7 @@ exports[`CheckBoxRow Component CheckBoxRow renders correctly 1`] = `
     }
   >
     <Icon
-      color="#03028A"
+      color="#1E9BF2"
       name="check-box-outline-blank"
       size={36}
     />
@@ -42,7 +42,7 @@ exports[`CheckBoxRow Component CheckBoxRow renders correctly 1`] = `
       style={
         Array [
           Object {
-            "color": "#03028A",
+            "color": "#1E9BF2",
             "flexShrink": 1,
             "fontSize": 18,
             "fontWeight": "normal",

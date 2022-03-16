@@ -2,6 +2,7 @@
 const translation = {
   "Global": {
     "EnterPin": "Enter PIN",
+    "EnterNewPin": "Enter New PIN",
     "6DigitPin": "6 Digit PIN",
     "Submit": "Submit",
     "NoneYet!": "None yet!",
@@ -27,6 +28,9 @@ const translation = {
     "Email": "Enter Email",
     "Verify": 'Verify',
     "Otp": 'Enter OTP',
+    "ForgotPin": 'Forgot Pin',
+    "ChangePin": 'Change Pin',
+    "OldPin": 'Enter Old Pin'
   },
   "Language": {
     "English": "English",
@@ -42,7 +46,8 @@ const translation = {
     "UserAuthenticationEmail": "User authentication email",
     "EnterEmail": 'Please enter email',
     "ValidEmail": "Please enter valid email",
-    'ResendOtp': 'Resend OTP'
+    'ResendOtp': 'Resend OTP',
+    "RegisterAgain": "You have to register again" 
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
@@ -51,7 +56,10 @@ const translation = {
     "PinsSuccess": "PIN created successfully",    
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
-    "Create": "Create"
+    "ReenterNewPin": "Re-Enter New PIN",
+    "Create": "Create",
+    "ValidOldPin": "Please enter valid old PIN",
+    "WalletCreated": "Your wallet is created successfully."
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -63,13 +71,25 @@ const translation = {
     "RegisterPinandBiometric": 'Register PIN and Biometric'
   },
   "Home": {
-    "LoginMsg": "You are login successfully",
+    "Welcome": "Welcome",
+    "Notifications": "Notifications",
+    "NoNewUpdates": "You have no new notifications.",
+    "NoCredentials": "You have no credentials in your wallet.",
+    "SeeAll": "See all",
+    "YouHave": "You have",
+    "Credential": "credential",
+    "Credentials": "credentials",
+    "InYourWallet": "in your wallet"
   },
   "PinEnter": {
-    "IncorrectPin": "Incorrect PIN",    
+    "IncorrectPin": "Incorrect PIN", 
   }, 
-  "Settings": { 
-    "Language": "Language",     
+  "Settings": {
+    "ChangePin": 'Change Pin',
+    "Version": "Version",
+    "AppPreferences": "App Preferences",
+    "AboutApp": "About App",
+    "Language": "Language",   
   },
   "QRScanner": {
     "PermissionToUseCamera": "Permission to use camera",
@@ -84,6 +104,16 @@ const translation = {
     "Scan": "Scan",
     "Credentials": "Credentials",
     "Settings": "Settings",
+  },
+  "DefaultConnection":{
+    "ConnectionNotFound": "Connection not found",
+    "ConnectWith": "Do you want to connect with AISBL ?",
+  },
+  "Toasts":{
+    "Success": "Success",
+    "Error": "Error",
+    "Info": "Info",
+    "Warning": "Warning",
   }
 }
 export default translation

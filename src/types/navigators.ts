@@ -13,10 +13,16 @@ export enum Screens {
   Consent = 'Consent',
   ListContacts = 'ListContacts',
   Scan = 'Scan',
+  ChangePin = 'ChangePin',
   Credentials = 'Credentials',
   Contacts = 'Contacts',
   Settings = 'Settings',
   ConnectionInvitation = 'ConnectionInvitation',
+  DefaultConnection = 'DefaultConnection',
+  Notifications = 'Notifications',
+  CredentialOffer = 'CredentialOffer',
+  ProofRequest = 'ProofRequest',
+  Language = 'Language',
 }
 
 export type MainStackParams = {
@@ -48,9 +54,8 @@ export type CredentialStackParams = {
 export type HomeStackParams = {
   Home: undefined
   Notifications: undefined
-  'Credential Offer': { credentialId: string }
-  'Proof Request': { proofId: string }
-  'Manage Your Wallet': undefined
+  CredentialOffer: { credentialId: string }
+  ProofRequest: { proofId: string }
 }
 
 export type ScanStackParams = {

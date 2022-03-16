@@ -79,7 +79,7 @@ const BrandColors: BrandColors = {
   highlight: '#FCBA19',
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
-  link: '#FFFFFF',
+  link: '#D8292F',
 }
 
 const SemanticColors: SemanticColors = {
@@ -89,22 +89,22 @@ const SemanticColors: SemanticColors = {
 }
 
 const NotificationColors: NotificationColors = {
-  success: '#313132',
-  successBorder: '#2E8540',
-  successIcon: '#2E8540',
-  successText: '#FFFFFF',
-  info: '#313132',
-  infoBorder: '#0099FF',
-  infoIcon: '#0099FF',
-  infoText: '#FFFFFF',
-  warn: '#313132',
-  warnBorder: '#fcba19',
-  warnIcon: '#fcba19',
-  warnText: '#FFFFFF',
-  error: '#313132',
-  errorBorder: '#D8292F',
-  errorIcon: '#D8292F',
-  errorText: '#FFFFFF',
+  success: '#D2EBCA',
+  successBorder: '#60775A',
+  successIcon: '#60775A',
+  successText: '#60775A',
+  info: '#CCE8F4',
+  infoBorder: '#4F7C9E',
+  infoIcon: '#4F7C9E',
+  infoText: '#4F7C9E',
+  warn: '#F7F3D7',
+  warnBorder: '#AE8E56',
+  warnIcon: '#AE8E56',
+  warnText: '#AE8E56',
+  error: '#ECC8C4',
+  errorBorder: '#B25B59',
+  errorIcon: '#B25B59',
+  errorText: '#B25B59',
 }
 
 const GrayscaleColors: GrayscaleColors = {
@@ -126,6 +126,7 @@ export const ColorPallet: ColorPallet = {
 export const BaseColors: BaseColor = {
   black: '#000000',
   darkGreen: '#35823F',
+  lightBlue: '#CCE8F4',
   darkGreenLightTransparent: `rgba(53, 130, 63, ${heavyOpacity})`,
   darkGreenHeavyTransparent: `rgba(53, 130, 63, ${lightOpacity})`,
   darkGrey: '#1C1C1E',
@@ -151,6 +152,7 @@ interface ColorTheme extends BaseColor {
   borderLight: string
   primary: string
   primaryActive: string
+  primaryLight: string
   shadow: string
   text: string
 }
@@ -195,6 +197,7 @@ export const Colors: ColorTheme = {
   borderLight: BaseColors.mediumGreen,
   primary: BrandColors.primary,
   primaryActive: BaseColors.darkGreenHeavyTransparent,
+  primaryLight: BaseColors.lightBlue,
   shadow: BaseColors.lightGrey,
   text: BrandColors.primary,
   ...BaseColors,
@@ -264,6 +267,14 @@ interface ContactTheme {
   background: string
 }
 
+interface SingleSelectBlockTheme {
+  background: string
+}
+
 export const ContactTheme: ContactTheme = {
   background: Colors.shadow,
+}
+
+export const SingleSelectBlockTheme: SingleSelectBlockTheme = {
+  background: Colors.primaryLight,
 }
