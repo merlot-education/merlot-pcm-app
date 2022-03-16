@@ -52,7 +52,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
   }
 
   return authenticated ? (
-    <MainStack />
+    <MainStack setAuthenticated={setAuthenticated} />
   ) : (
     <OnboardingStack
       initAgent={initAgent}

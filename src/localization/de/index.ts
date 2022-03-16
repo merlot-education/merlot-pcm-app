@@ -74,7 +74,11 @@ const translation = {
     "Version": "Version",
     "AppPreferences": "App-Einstellungen",
     "AboutApp": "Über App",
-    "Language": "Sprache"
+    "Language": "Sprache",
+    "Logout": "Ausloggen",
+    "LogoutMsg": "Sie möchten sich sicher abmelden",
+    "Yes": "Jawohl",
+    "No": 'Nein'
   },
   "TabStack": {
     "Home": "Zuhause",

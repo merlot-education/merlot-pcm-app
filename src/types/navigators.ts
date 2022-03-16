@@ -57,6 +57,7 @@ export type ScanStackParams = {
 export type SettingStackParams = {
   Settings: undefined
   Language: undefined
+  ChangePin: undefined
 }
 
 export enum TabStacks {

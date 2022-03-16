@@ -30,7 +30,7 @@ const translation = {
     "Otp": 'Enter OTP',
     "ForgotPin": 'Forgot Pin',
     "ChangePin": 'Change Pin',
-    "OldPin": 'Enter Old Pin'
+    "OldPin": 'Enter Old Pin',
   },
   "Language": {
     "English": "English",
@@ -80,7 +80,11 @@ const translation = {
     "Version": "Version",
     "AppPreferences": "App Preferences",
     "AboutApp": "About App",
-    "Language": "Language",   
+    "Language": "Language",
+    "Logout": "Logout",
+    "LogoutMsg": "Are sure want to logout",
+    "Yes": "yes",
+    "No": 'No'
   },
   "TabStack": {
     "Home": "Home",
