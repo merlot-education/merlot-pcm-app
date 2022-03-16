@@ -39,6 +39,7 @@
     "react-native": "0.66.4",
     "react-native-biometrics": "^2.1.4",
     "react-native-config": "^1.4.5",
+    "react-native-device-info": "^8.5.0",
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^2.2.0",
     "react-native-get-random-values": "^1.7.2",
