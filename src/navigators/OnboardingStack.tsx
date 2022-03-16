@@ -56,7 +56,6 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
           />
         )}
       </Stack.Screen>
-      <Stack.Screen name={Screens.GaiaxConsent} component={GaiaxConsent} />
       <Stack.Screen name={Screens.DefaultConnection}>
         {props => (
           <DefaultConnection {...props} setAuthenticated={setAuthenticated} />

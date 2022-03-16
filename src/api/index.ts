@@ -1,5 +1,7 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import Config from 'react-native-config'
+import Toast from 'react-native-toast-message'
+import { ToastType } from '../components/toast/BaseToast'
 import auth from './auth'
 import config from './config'
 
@@ -17,25 +19,33 @@ const configInstance = axios.create({
   },
 })
 
-instance.interceptors.response.use(
-  async response => {
-    return response.data
-  },
-  async ({ response }) => {
-    const error = response?.data?.meta?.message
-    return Promise.reject(error)
-  },
-)
+const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  return config
+}
 
-configInstance.interceptors.response.use(
-  async response => {
-    return response.data
-  },
-  async ({ response }) => {
-    const error = response?.data?.meta?.message
-    return Promise.reject(error)
-  },
-)
+const onRequestError = (error: AxiosError): Promise<AxiosError> => {
+  return Promise.reject(error)
+}
+
+const onResponse = (response: AxiosResponse): AxiosResponse => {
+  Toast.show({
+    type: ToastType.Success,
+    text1: response.statusText,
+    text2: response.statusText,
+  })
+  return response
+}
+
+const onResponseError = (error: AxiosError): Promise<AxiosError> => {
+  console.log('[response error]', JSON.stringify(error, null, 2))
+  return Promise.reject(error)
+}
+
+instance.interceptors.request.use(onRequest, onRequestError)
+instance.interceptors.response.use(onResponse, onResponseError)
+
+configInstance.interceptors.request.use(onRequest, onRequestError)
+configInstance.interceptors.response.use(onResponse, onResponseError)
 
 export default {
   auth: auth(instance),

@@ -50,6 +50,7 @@
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.11.1",
     "react-native-splash-screen": "^3.3.0",
+    "react-native-toast-message": "^2.1.1",
     "react-native-vector-icons": "^9.1.0"
   },
   "devDependencies": {
@@ -58,6 +59,7 @@
     "@react-native-community/eslint-config": "^3.0.1",
     "@testing-library/jest-native": "^4.0.4",
     "@testing-library/react-native": "^9.0.0",
+    "@types/jest": "^27.4.1",
     "@types/react": "^17.0.39",
     "@types/react-native": "^0.66.15",
     "@types/react-native-vector-icons": "^6.4.10",
