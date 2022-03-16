@@ -29,15 +29,15 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
 
   const initAgent = async (email: string, walletPin: string) => {
-    const emailHash = String(md5(email))
+    // const emailHash = String(md5(email))
     const newAgent = new Agent(
       {
-        label: email, // added email as label
+        label: 'email', // added email as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: email, key: walletPin },
+        walletConfig: { id: 'email', key: walletPin },
         autoAcceptConnections: true,
-        publicDidSeed: emailHash,
+        // publicDidSeed: 'emailHash',
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
         autoAcceptProofs: AutoAcceptProof.ContentApproved,
         logger: new ConsoleLogger(LogLevel.trace),

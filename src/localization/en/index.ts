@@ -71,7 +71,15 @@ const translation = {
     "RegisterPinandBiometric": 'Register PIN and Biometric'
   },
   "Home": {
-    "LoginMsg": "You are login successfully",
+    "Welcome": "Welcome",
+    "Notifications": "Notifications",
+    "NoNewUpdates": "You have no new notifications.",
+    "NoCredentials": "You have no credentials in your wallet.",
+    "SeeAll": "See all",
+    "YouHave": "You have",
+    "Credential": "credential",
+    "Credentials": "credentials",
+    "InYourWallet": "in your wallet"
   },
   "PinEnter": {
     "IncorrectPin": "Incorrect PIN", 
