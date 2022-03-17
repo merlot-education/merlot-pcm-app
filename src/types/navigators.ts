@@ -17,6 +17,7 @@ export enum Screens {
   Credentials = 'Credentials',
   Contacts = 'Contacts',
   Settings = 'Settings',
+  ConnectionInvitation = 'ConnectionInvitation',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
   CredentialOffer = 'CredentialOffer',
@@ -33,6 +34,11 @@ export type MainStackParams = {
 
 export type AuthenticateStackParams = {
   'Enter Pin': { setAuthenticated: (auth: boolean) => void }
+}
+
+export type ConnectionInvitationStackParams = {
+  Connections: undefined
+  'Connection Invitation URL': { connectionInvitationURL: string }
 }
 
 export type ContactStackParams = {

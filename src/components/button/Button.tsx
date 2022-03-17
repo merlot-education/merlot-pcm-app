@@ -7,6 +7,7 @@ export enum ButtonType {
   Primary = 'primary',
   Warning = 'warning',
   Ghost = 'ghost',
+  Secondary = 'Secondary',
 }
 
 interface ButtonProps {

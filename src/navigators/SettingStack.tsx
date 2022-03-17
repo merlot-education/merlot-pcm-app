@@ -7,7 +7,7 @@ import { Screens, SettingStackParams } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
 import Language from '../screens/Language'
-import { MainStackContext } from './RootStack'
+import { MainStackContext } from '../utils/helpers'
 
 const Stack = createStackNavigator<SettingStackParams>()
 

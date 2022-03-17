@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import {
   Agent,
   AutoAcceptCredential,
@@ -15,11 +15,11 @@ import { agentDependencies } from '@aries-framework/react-native'
 import indyLedgers from '../../configs/ledgers/indy'
 import MainStack from './MainStack'
 import OnboardingStack from './OnboardingStack'
+import { MainStackContext } from '../utils/helpers'
 
 interface Props {
   setAgent: (agent: Agent) => void
 }
-export let MainStackContext = React.createContext(null);
 
 const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
@@ -31,7 +31,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         label: email, // added email as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: email, key: walletPin },
+        walletConfig: { id: 'email', key: walletPin },
         autoAcceptConnections: true,
         publicDidSeed: emailHash,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
@@ -51,9 +51,11 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     await newAgent.initialize()
     setAgent(newAgent)
   }
+
+  const setAuthenticatedValue = useMemo(() => ({ value: setAuthenticated }), [])
   return authenticated ? (
-    <MainStackContext.Provider value={{value: setAuthenticated}}>
-    <MainStack />
+    <MainStackContext.Provider value={setAuthenticatedValue}>
+      <MainStack />
     </MainStackContext.Provider>
   ) : (
     <OnboardingStack

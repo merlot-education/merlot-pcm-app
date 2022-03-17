@@ -93,7 +93,6 @@ const Registration: React.FC<PinCreateProps> = ({ navigation, route }) => {
   }
 
   const confirmEntry = async (email: string) => {
-    navigation.navigate(Screens.CreatePin, { forgotPin: false })
     const { forgotPin } = route.params
     if (email.length > 0) {
       if (validateEmail(email)) {
