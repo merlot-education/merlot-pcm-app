@@ -28,12 +28,7 @@ const onRequestError = (error: AxiosError): Promise<AxiosError> => {
 }
 
 const onResponse = (response: AxiosResponse): AxiosResponse => {
-  Toast.show({
-    type: ToastType.Success,
-    text1: response.statusText,
-    text2: response.statusText,
-  })
-  return response
+  return response.data
 }
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {

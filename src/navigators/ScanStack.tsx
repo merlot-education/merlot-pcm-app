@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import Scan from '../screens/Scan'
-import ConnectionInvitation from '../screens/ConnectionInvitation'
 import { ScanStackParams, Screens } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'

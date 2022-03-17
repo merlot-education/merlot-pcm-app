@@ -3,18 +3,16 @@ import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StackScreenProps } from '@react-navigation/stack'
+import md5 from 'md5'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Colors, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
-import { Screens } from '../types/navigators'
+import { OnboardingStackParams, Screens } from '../types/navigators'
 import { LocalStorageKeys } from '../constants'
 
-interface PinEnterProps {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  initAgent: (email: string, pin: string) => void
-  navigation: any
-}
+type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>
 
 const style = StyleSheet.create({
   container: {
@@ -34,11 +32,8 @@ const style = StyleSheet.create({
   },
 })
 
-const PinEnter: React.FC<PinEnterProps> = ({
-  setAuthenticated,
-  initAgent,
-  navigation,
-}) => {
+const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
+  const { initAgent, setAuthenticated } = route.params
   const [pin, setPin] = useState('')
   const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
   const [biometricFailed, setBiometricFailed] = useState(false)
@@ -47,7 +42,14 @@ const PinEnter: React.FC<PinEnterProps> = ({
     const email = await getValueKeychain({
       service: 'email',
     })
-    initAgent(email.password, pin)
+    const passphrase = await getValueKeychain({
+      service: 'passphrase',
+    })
+    if (email && passphrase) {
+      const hash = email + passphrase.password.replace(/ /g, '')
+      const seedHash = String(md5(hash))
+      initAgent(email.password, pin, seedHash)
+    }
   }
 
   const biometricEnable = () => {

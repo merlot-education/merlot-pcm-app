@@ -3,7 +3,6 @@ import React from 'react'
 import Connect from '../screens/Connect'
 import ConnectionInvitation from '../screens/ConnectionInvitation'
 import Home from '../screens/Home'
-
 import ListContacts from '../screens/ListContacts'
 import Scan from '../screens/Scan'
 import { Screens, Stacks } from '../types/navigators'

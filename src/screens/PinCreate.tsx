@@ -4,20 +4,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useNavigation } from '@react-navigation/core'
+import md5 from 'md5'
 import Toast from 'react-native-toast-message'
+import { StackScreenProps } from '@react-navigation/stack'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import { LocalStorageKeys } from '../constants'
-import { Screens } from '../types/navigators'
+import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
+import { OnboardingStackParams, Screens } from '../types/navigators'
 import { ToastType } from '../components/toast/BaseToast'
 
-interface PinCreateProps {
-  initAgent: (email: string, pin: string) => void
-  route: any
-}
+type PinCreateProps = StackScreenProps<OnboardingStackParams, Screens.CreatePin>
 
 const style = StyleSheet.create({
   container: {
@@ -29,7 +27,8 @@ const style = StyleSheet.create({
   },
 })
 
-const PinCreate: React.FC<PinCreateProps> = ({ initAgent, route }) => {
+const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
+  const { initAgent, forgotPin } = route.params
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -38,14 +37,15 @@ const PinCreate: React.FC<PinCreateProps> = ({ initAgent, route }) => {
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
-  const { forgotPin } = route.params
+  const [passphrase, setPassphrase] = useState('')
   const { t } = useTranslation()
-  const nav = useNavigation()
 
   const startAgent = async (email: string, pin: string) => {
     try {
+      const hash = email + passphrase.replace(/ /g, '')
+      const seedHash = String(md5(hash))
       setLoading(true)
-      await initAgent(email, pin)
+      await initAgent(email, pin, seedHash)
       await storeOnboardingCompleteStage()
       setLoading(false)
       Toast.show({
@@ -53,7 +53,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ initAgent, route }) => {
         text1: t('Toasts.Success'),
         text2: t('PinCreate.WalletCreated'),
       })
-      nav.navigate(Screens.DefaultConnection)
+      navigation.navigate(Screens.DefaultConnection)
     } catch (error) {
       setLoading(false)
       Toast.show({
@@ -84,10 +84,16 @@ const PinCreate: React.FC<PinCreateProps> = ({ initAgent, route }) => {
       })
 
       // Change email here
-      const keychainEntry = await getValueKeychain({
-        service: 'email',
+      const emailEntry = await getValueKeychain({
+        service: KeychainStorageKeys.Email,
       })
-      setEmail(keychainEntry.password)
+      const passphraseEntry = await getValueKeychain({
+        service: KeychainStorageKeys.Passphrase,
+      })
+      if (emailEntry && passphraseEntry) {
+        setEmail(emailEntry.password)
+        setPassphrase(passphraseEntry.password)
+      }
       setSuccessPin(true)
       Toast.show({
         type: ToastType.Success,

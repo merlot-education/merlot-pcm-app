@@ -40,7 +40,9 @@ const translation = {
     "UserAuthenticationEmail": "Courriel d'authentification de l'utilisateur",
     "EnterEmail": 'Veuillez saisir un e-mail',
     "ValidEmail": "Veuillez saisir une adresse e-mail valide",
-    "RegisterAgain": "Vous devez vous inscrire à nouveau" 
+    "RegisterAgain": "Vous devez vous inscrire à nouveau",
+    "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
+    "Passphrase": "Mot de passe"
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
@@ -93,10 +95,6 @@ const translation = {
     "Yes": "Oui",
     "No": 'Non'
   },
-  "QRScanner": {
-    "PermissionToUseCamera": "Autorisation d'utiliser la caméra",
-    "WeNeedYourPermissionToUseYourCamera": "Nous avons besoin de votre permission pour utiliser votre appareil photo",
-    "Ok": "D'accord"},
   "TabStack": {
     "Home": "Maison",
     "Connections": "Contacts",

@@ -1,13 +1,20 @@
 import { AxiosInstance } from 'axios'
-import { RegisterUserRequest, RegisterUserOtpRequest } from './auth.types'
+import {
+  RegisterUserRequest,
+  VerifyOtpRequest,
+  RegisterUserResponse,
+  VerifyOtpResponse,
+} from './auth.types'
 
 const auth = (instance: AxiosInstance) => {
-  // TODO: Added sample just for reference remove it later when ready
   return {
-    register(body: RegisterUserRequest, config = {}) {
+    register(
+      body: RegisterUserRequest,
+      config = {},
+    ): Promise<RegisterUserResponse> {
       return instance.post('v1/notification/sendOtp', body, config)
     },
-    otp(body: RegisterUserOtpRequest, config = {}) {
+    verifyOtp(body: VerifyOtpRequest, config = {}): Promise<VerifyOtpResponse> {
       return instance.post('v1/notification/verifyOtp', body, config)
     },
   }
