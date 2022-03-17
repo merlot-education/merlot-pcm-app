@@ -1,6 +1,6 @@
 /* eslint-disable no-bitwise */
 import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
-import { useConnectionById } from '@aries-framework/react-hooks'
+import React from 'react'
 
 export const connectionRecordFromId = (connectionId: string) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -55,3 +55,4 @@ export function hashToRGBA(i: number) {
   const colour = (i & 0x00ffffff).toString(16).toUpperCase()
   return `#${'00000'.substring(0, 6 - colour.length)}${colour}`
 }
+export const MainStackContext = React.createContext(null)

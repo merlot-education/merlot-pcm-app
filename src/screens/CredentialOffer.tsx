@@ -77,7 +77,9 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
       credential.state === CredentialState.CredentialReceived ||
       credential.state === CredentialState.Done
     ) {
-      pendingModalVisible && setPendingModalVisible(false)
+      if (pendingModalVisible) {
+        setPendingModalVisible(false)
+      }
       setSuccessModalVisible(true)
     }
   }, [credential, pendingModalVisible])
