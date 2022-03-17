@@ -3,15 +3,18 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useAgent } from '@aries-framework/react-hooks'
 import Toast from 'react-native-toast-message'
+import { StackScreenProps } from '@react-navigation/stack'
 import { Colors, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
 import { Loader } from '../components'
 import { ToastType } from '../components/toast/BaseToast'
+import { OnboardingStackParams, Screens } from '../types/navigators'
 
-type Props = {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-}
+type DefaultConnectionProps = StackScreenProps<
+  OnboardingStackParams,
+  Screens.DefaultConnection
+>
 
 const styles = StyleSheet.create({
   container: {
@@ -28,22 +31,23 @@ const styles = StyleSheet.create({
   },
 })
 
-const DefaultConnection: React.FC<Props> = ({ setAuthenticated }) => {
+const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
+  const { setAuthenticated } = route.params
   const [loading, setLoading] = useState(false)
   const { agent } = useAgent()
   const { t } = useTranslation()
 
   const getConnectionInvitationUrl = async () => {
-    // setLoading(true)
-    // const connectionInvitationUrlResponse =
-    //   await api.default.config.connectionInvitation({
-    //     autoAcceptConnection: true,
-    //   })
-    // if (connectionInvitationUrlResponse.data != null) {
-    //   const url = connectionInvitationUrlResponse.data.invitationUrl
-    //   await connectWithOrganization(url)
-    // }
-    // setLoading(false)
+    setLoading(true)
+    const connectionInvitationUrlResponse =
+      await api.default.config.connectionInvitation({
+        autoAcceptConnection: true,
+      })
+    if (connectionInvitationUrlResponse.data != null) {
+      const url = connectionInvitationUrlResponse.data.invitationUrl
+      await connectWithOrganization(url)
+    }
+    setLoading(false)
     setAuthenticated(true)
   }
   const connectWithOrganization = async (url: string) => {

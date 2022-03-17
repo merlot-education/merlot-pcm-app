@@ -1,7 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import DefaultConnection from '../screens/DefaultConnection'
-import GaiaxConsent from '../screens/GaiaxConsent'
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
 import Registration from '../screens/Registration'
@@ -10,15 +9,15 @@ import Terms from '../screens/Terms'
 import VerifyOtp from '../screens/VerifyOtp'
 import { Colors } from '../theme/theme'
 
-import { Screens } from '../types/navigators'
+import { OnboardingStackParams, Screens } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<OnboardingStackParams>()
 
 type OnboardingStackProps = {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  initAgent: (email: string, walletPin: string) => void
+  initAgent: (email: string, walletPin: string, seed: string) => void
 }
 
 const OnboardingStack: React.FC<OnboardingStackProps> = ({
@@ -44,20 +43,21 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       />
       <Stack.Screen name={Screens.Registration} component={Registration} />
       <Stack.Screen name={Screens.VerifyOtp} component={VerifyOtp} />
-      <Stack.Screen name={Screens.CreatePin}>
-        {props => <PinCreate {...props} initAgent={initAgent} />}
-      </Stack.Screen>
-      <Stack.Screen name={Screens.DefaultConnection}>
-        {props => (
-          <DefaultConnection {...props} setAuthenticated={setAuthenticated} />
-        )}
-      </Stack.Screen>
-      {/* <Stack.Screen name={Screens.GaiaxConsent} component={GaiaxConsent} />
-      <Stack.Screen name={Screens.DefaultConnection}>
-        {props => (
-          <DefaultConnection {...props} setAuthenticated={setAuthenticated} />
-        )}
-      </Stack.Screen> */}
+      <Stack.Screen
+        name={Screens.CreatePin}
+        component={PinCreate}
+        initialParams={{ initAgent }}
+      />
+      <Stack.Screen
+        name={Screens.EnterPin}
+        component={PinEnter}
+        initialParams={{ initAgent, setAuthenticated }}
+      />
+      <Stack.Screen
+        name={Screens.DefaultConnection}
+        component={DefaultConnection}
+        initialParams={{ setAuthenticated }}
+      />
     </Stack.Navigator>
   )
 }

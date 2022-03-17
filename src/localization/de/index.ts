@@ -46,7 +46,8 @@ const translation = {
     "EnterEmail": 'Bitte E-Mail eingeben',
     "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
     "RegisterAgain": "Sie müssen sich erneut registrieren",
-    "MnemonicMsg": 'Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher'
+    "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
+    "Passphrase": "Passphrase"
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
@@ -89,11 +90,6 @@ const translation = {
     "LogoutMsg": "Möchten Sie sich wirklich abmelden",
     "Yes": "Jawohl",
     "No": 'Nein'
-  },
-  "QRScanner": {
-    "PermissionToUseCamera": "Erlaubnis zur Verwendung der Kamera",
-    "WeNeedYourPermissionToUseYourCamera": "Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
-    "Ok": "Ok",
   },
   "TabStack": {
     "Home": "Zuhause",

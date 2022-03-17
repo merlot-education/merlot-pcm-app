@@ -7,6 +7,7 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { Colors, TextTheme } from '../theme/theme'
 import { ConnectionInvitationStackParams, Screens } from '../types/navigators'
 import ContactStack from '../navigators/ContactStack'
+import { Loader } from '../components'
 
 const styles = StyleSheet.create({
   container: {
@@ -36,10 +37,13 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
 }) => {
   const { agent } = useAgent()
   const nav = useNavigation()
+  const [loading, setLoading] = useState(false)
+
   const handleAcceptPress = async (): Promise<void> => {
     const { url } = route.params
     console.log('****Connection URL****')
     console.log(url)
+    setLoading(true)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,
       {
@@ -49,11 +53,13 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
     if (!connectionRecord?.id) {
       throw new Error(t('Scan.ConnectionNotFound'))
     }
+    setLoading(false)
     nav.navigate(Screens.ListContacts)
   }
 
   return (
     <View style={[styles.container]}>
+      <Loader loading={loading} />
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
         {t('ConnectionInvitation.ConsentMessage')}
       </Text>

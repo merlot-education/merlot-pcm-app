@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { ColorPallet } from '../../theme/theme'
+import { ColorPallet, Colors } from '../../theme/theme'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorPallet.brand.secondaryBackground,
+    backgroundColor: Colors.background,
     height: '100%',
     paddingHorizontal: 25,
     paddingVertical: 16,

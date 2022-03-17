@@ -31,15 +31,16 @@ const styles = StyleSheet.create({
   headerTextContainer: {
     paddingHorizontal: 25,
     paddingVertical: 16,
-    backgroundColor: Colors.backgroundLight,
+    backgroundColor: Colors.background,
   },
   headerText: {
+    backgroundColor: Colors.background,
     ...TextTheme.normal,
     flexShrink: 1,
   },
   footerButton: {
     paddingTop: 10,
-    backgroundColor: Colors.backgroundLight,
+    backgroundColor: Colors.background,
   },
 })
 

@@ -4,7 +4,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { Text } from '../components'
-import { ColorPallet } from '../theme/theme'
+import { ColorPallet, Colors } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 
 const styles = StyleSheet.create({
@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: Colors.background,
   },
 })
 
@@ -30,7 +31,7 @@ const ListCredentials: React.FC = () => {
 
   return (
     <FlatList
-      style={{ backgroundColor: ColorPallet.brand.primaryBackground }}
+      style={{ backgroundColor: Colors.background }}
       data={credentials.sort(
         (a, b) =>
           new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),

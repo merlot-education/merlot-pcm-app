@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { Title } from '..'
 
 import { dateFormatOptions } from '../../constants'
-import { ColorPallet, Colors, TextTheme } from '../../theme/theme'
+import { ColorPallet, Colors, ContactTheme, TextTheme } from '../../theme/theme'
 import { parsedSchema } from '../../utils/helpers'
 import AvatarView from './AvatarView'
 
@@ -17,7 +17,7 @@ interface CredentialCardProps {
 const styles = StyleSheet.create({
   container: {
     minHeight: 125,
-    backgroundColor: Colors.background,
+    backgroundColor: ContactTheme.background,
     justifyContent: 'center',
     borderRadius: 15,
     padding: 10,

@@ -9,7 +9,6 @@ import {
   WsOutboundTransport,
   AutoAcceptProof,
 } from '@aries-framework/core'
-import md5 from 'md5'
 import Config from 'react-native-config'
 import { agentDependencies } from '@aries-framework/react-native'
 import indyLedgers from '../../configs/ledgers/indy'
@@ -24,16 +23,15 @@ interface Props {
 const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
 
-  const initAgent = async (email: string, walletPin: string) => {
-    const emailHash = String(md5('email'))
+  const initAgent = async (email: string, walletPin: string, seed: string) => {
     const newAgent = new Agent(
       {
-        label: 'email', // added email as label
+        label: email, // added email as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: 'email', key: walletPin },
+        walletConfig: { id: email, key: walletPin },
         autoAcceptConnections: true,
-        publicDidSeed: emailHash,
+        publicDidSeed: seed,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
         autoAcceptProofs: AutoAcceptProof.ContentApproved,
         logger: new ConsoleLogger(LogLevel.trace),

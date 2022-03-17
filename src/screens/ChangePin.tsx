@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Alert, Keyboard, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
+import { StackScreenProps } from '@react-navigation/stack'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { Colors } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
+import { Screens, SettingStackParams } from '../types/navigators'
 
-interface PinCreateProps {
-  navigation: any
-}
+type ChangePinProps = StackScreenProps<SettingStackParams, Screens.ChangePin>
 
 const style = StyleSheet.create({
   container: {
@@ -21,7 +21,7 @@ const style = StyleSheet.create({
   },
 })
 
-const ChangePin: React.FC<PinCreateProps> = () => {
+const ChangePin: React.FC<ChangePinProps> = () => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
