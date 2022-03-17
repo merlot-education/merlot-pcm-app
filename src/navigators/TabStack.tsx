@@ -8,11 +8,10 @@ import Scan from '../screens/Scan'
 import useNotifications from '../hooks/notifcations'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
+import SettingStack from './SettingStack'
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
-import ScanStack from './ScanStack'
-import SettingStack from './SettingStack'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 

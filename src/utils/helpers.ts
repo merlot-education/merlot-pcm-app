@@ -1,4 +1,5 @@
 import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
+import React from 'react'
 
 export const parseSchema = (
   schemaId?: string,
@@ -40,3 +41,5 @@ export const parsedSchema = (
 } => {
   return parseSchema(credentialSchema(credential))
 }
+
+export const MainStackContext = React.createContext(null)

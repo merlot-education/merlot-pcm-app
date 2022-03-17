@@ -28,7 +28,8 @@ const translation = {
     "Email": "E-Mail eingeben",
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
-    "OldPin": 'Alte PIN eingeben'
+    "OldPin": 'Alte PIN eingeben',
+    "Copy": 'Kopieren'
   },
   "Language": {
     "English": "Englisch",
@@ -44,7 +45,8 @@ const translation = {
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
     "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
-    "RegisterAgain": "Sie müssen sich erneut registrieren" 
+    "RegisterAgain": "Sie müssen sich erneut registrieren",
+    "MnemonicMsg": 'Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher'
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
@@ -83,7 +85,11 @@ const translation = {
     "Version": "Version",
     "AppPreferences": "App-Einstellungen",
     "AboutApp": "Über App",
-    "Language": "Sprache"
+    "Language": "Sprache",
+    "Logout": "Ausloggen",
+    "LogoutMsg": "Möchten Sie sich wirklich abmelden",
+    "Yes": "Jawohl",
+    "No": 'Nein'
   },
   "QRScanner": {
     "PermissionToUseCamera": "Erlaubnis zur Verwendung der Kamera",

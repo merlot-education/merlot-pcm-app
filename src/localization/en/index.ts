@@ -30,7 +30,8 @@ const translation = {
     "Otp": 'Enter OTP',
     "ForgotPin": 'Forgot Pin',
     "ChangePin": 'Change Pin',
-    "OldPin": 'Enter Old Pin'
+    "OldPin": 'Enter Old Pin',
+    "Copy": "Copy"
   },
   "Language": {
     "English": "English",
@@ -47,7 +48,8 @@ const translation = {
     "EnterEmail": 'Please enter email',
     "ValidEmail": "Please enter valid email",
     'ResendOtp': 'Resend OTP',
-    "RegisterAgain": "You have to register again" 
+    "RegisterAgain": "You have to register again",
+    "MnemonicMsg": 'This is the phrase that will be used to create your wallet seed please save it securely'
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
@@ -89,7 +91,11 @@ const translation = {
     "Version": "Version",
     "AppPreferences": "App Preferences",
     "AboutApp": "About App",
-    "Language": "Language",   
+    "Language": "Language",
+    "Logout": "Logout",
+    "LogoutMsg": "Are you sure want to logout",
+    "Yes": "yes",
+    "No": 'No'
   },
   "QRScanner": {
     "PermissionToUseCamera": "Permission to use camera",
