@@ -10,7 +10,7 @@ import { StyleSheet, View } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { ToastType } from '../components/toast/BaseToast'
 import QRScanner from '../components/inputs/QRScanner'
-import { HomeStackParams, Screens } from '../types/navigators'
+import { ScanStackParams, Screens } from '../types/navigators'
 import QrCodeScanError from '../types/error'
 import { Colors, TextTheme } from '../theme/theme'
 
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 })
 
 interface ScanProps {
-  navigation: StackNavigationProp<HomeStackParams, 'Scan'>
+  navigation: StackNavigationProp<ScanStackParams, Screens.Scan>
 }
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {
@@ -70,7 +70,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         text1: t('Global.Success'),
         text2: t('Scan.ConnectionAccepted'),
       })
-      navigation.navigate('Home')
+      navigation.navigate(Screens.Home)
     }
   }, [connection, navigation, t])
 
