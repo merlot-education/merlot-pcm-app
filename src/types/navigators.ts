@@ -5,9 +5,9 @@ export enum Screens {
   Terms = 'Terms',
   Registration = 'Registration',
   VerifyOtp = 'VerifyOtp',
-  CreatePin = 'Create 6-Digit Pin',
+  CreatePin = 'CreatePin',
   Splash = 'Splash',
-  EnterPin = 'Enter Pin',
+  EnterPin = 'EnterPin',
   Home = 'Home',
   Connect = 'Connect',
   Consent = 'Consent',
@@ -17,12 +17,34 @@ export enum Screens {
   Credentials = 'Credentials',
   Contacts = 'Contacts',
   Settings = 'Settings',
-  ConnectionInvitation = 'ConnectionInvitation',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
   CredentialOffer = 'CredentialOffer',
   ProofRequest = 'ProofRequest',
   Language = 'Language',
+  ConnectionInvitation = 'ConnectionInvitation',
+}
+
+export type OnboardingStackParams = {
+  Splash: undefined
+  Terms: undefined
+  Registration: { forgotPin: boolean }
+  VerifyOtp: {
+    email: string
+    forgotPin: boolean
+    otpId: string
+  }
+  CreatePin: {
+    initAgent?: (email: string, walletPin: string, seed: string) => void
+    forgotPin: boolean
+  }
+  EnterPin: {
+    initAgent: (email: string, walletPin: string, seed: string) => void
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  DefaultConnection: {
+    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
+  }
 }
 
 export type MainStackParams = {
@@ -34,11 +56,6 @@ export type MainStackParams = {
 
 export type AuthenticateStackParams = {
   'Enter Pin': { setAuthenticated: (auth: boolean) => void }
-}
-
-export type ConnectionInvitationStackParams = {
-  Connections: undefined
-  'Connection Invitation URL': { connectionInvitationURL: string }
 }
 
 export type ContactStackParams = {

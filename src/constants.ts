@@ -5,6 +5,11 @@ export enum LocalStorageKeys {
   OnboardingCompleteStage = 'onboardingCompleteStage',
 }
 
+export enum KeychainStorageKeys {
+  Email = 'email',
+  Passphrase = 'passphrase',
+}
+
 export const dateFormatOptions: {
   year: 'numeric'
   month: 'short'

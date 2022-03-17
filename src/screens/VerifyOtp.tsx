@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { Alert, Keyboard, StyleSheet, Text } from 'react-native'
+import { Keyboard, StyleSheet, Text } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
+import Toast from 'react-native-toast-message'
+import { StackScreenProps } from '@react-navigation/stack'
 import { Colors, TextTheme } from '../theme/theme'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import { Screens } from '../types/navigators'
+import { OnboardingStackParams, Screens } from '../types/navigators'
 import * as api from '../api'
+import { ToastType } from '../components/toast/BaseToast'
 
-interface VerifyOtpProps {
-  navigation: any
-  route: any
-}
+type VerifyOtpProps = StackScreenProps<OnboardingStackParams, Screens.VerifyOtp>
 
 const style = StyleSheet.create({
   container: {
@@ -33,9 +33,10 @@ const RESEND_OTP_TIME_LIMIT = 30 // 30 secs
 let resendOtpTimerInterval
 
 const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
+  const { email, forgotPin, otpId } = route.params
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const [verifyOTPId, setVerifyOTPId] = useState(otpId)
   const { t } = useTranslation()
 
   // in secs, if value is greater than 0 then button will be disabled
@@ -69,36 +70,53 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   const onResendOtpButtonPress = async () => {
     setResendButtonDisabledTime(RESEND_OTP_TIME_LIMIT)
     startResendOtpTimer()
-    const { email } = route.params
-    const res = await api.default.auth.register({ email })
-    if (res?.data) {
-      navigation.navigate(Screens.VerifyOtp, { email })
-      Alert.alert(res?.message)
-    }
+    setLoading(true)
+    const {
+      data: { otpId },
+      message,
+    } = await api.default.auth.register({ email, otpId: verifyOTPId })
+    setLoading(false)
+    setVerifyOTPId(otpId)
+    Toast.show({
+      type: ToastType.Success,
+      text1: t('Toasts.Success'),
+      text2: message,
+    })
   }
 
   const confirmEntry = async (otpCode: string) => {
     if (otpCode.length < 6) {
-      Alert.alert(t('Registration.EnterEmail'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Error'),
+        text2: t('Registration.EnterEmail'),
+      })
     } else {
       const params = {
-        contact: route.params.email,
+        otpId: verifyOTPId,
         otp: parseInt(otpCode, 10),
       }
       setLoading(true)
-      const res = await api.default.auth.otp(params)
-      if (res?.data) {
-        const { forgotPin } = route.params
+      const { data, message } = await api.default.auth.verifyOtp(params)
+      setLoading(false)
+      if (data) {
+        Toast.show({
+          type: ToastType.Success,
+          text1: t('Toasts.Success'),
+          text2: message,
+        })
         if (forgotPin) {
-          navigation.navigate(Screens.CreatePin, { forgotPin: true })
+          navigation.navigate(Screens.CreatePin, { forgotPin })
         } else {
-          navigation.navigate(Screens.CreatePin, { forgotPin: false })
+          navigation.navigate(Screens.CreatePin, { forgotPin })
         }
-        Alert.alert(res?.message)
-        setLoading(false)
       } else {
         setLoading(false)
-        Alert.alert('Invalid OTP')
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Error'),
+          text2: 'Invalid OTP',
+        })
       }
     }
   }

@@ -31,7 +31,7 @@ const translation = {
     "ForgotPin": 'Forgot Pin',
     "ChangePin": 'Change Pin',
     "OldPin": 'Enter Old Pin',
-    "Copy": "Copy"
+    "Copy": 'Copy',
   },
   "Language": {
     "English": "English",
@@ -49,7 +49,8 @@ const translation = {
     "ValidEmail": "Please enter valid email",
     'ResendOtp': 'Resend OTP',
     "RegisterAgain": "You have to register again",
-    "MnemonicMsg": 'This is the phrase that will be used to create your wallet seed please save it securely'
+    "MnemonicMsg": "This is the phrase that will be used to create your wallet seed please save it securely",
+    "Passphrase": "Passphrase"
   },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
@@ -97,13 +98,6 @@ const translation = {
     "Yes": "yes",
     "No": 'No'
   },
-  "QRScanner": {
-    "PermissionToUseCamera": "Permission to use camera",
-    "WeNeedYourPermissionToUseYourCamera": "We need your permission to use your camera",
-    "Ok": "Ok",
-  },
-  "ConnectionInvitation":{
-    "ConsentMessage":"You have received connection invitation from the organization you have recently scanned code for,Do you want to accept the invitation?"},
   "TabStack": {
     "Home": "Home",
     "Connections": "Contacts",
