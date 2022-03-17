@@ -93,7 +93,7 @@ const translation = {
     "AboutApp": "About App",
     "Language": "Language",
     "Logout": "Logout",
-    "LogoutMsg": "Are sure want to logout",
+    "LogoutMsg": "Are you sure want to logout",
     "Yes": "yes",
     "No": 'No'
   },

@@ -89,7 +89,7 @@ const translation = {
     "AboutApp": "À propos de l'application",
     "Language": "Langue",
     "Logout": "Se déconnecter",
-    "LogoutMsg": "Sont sûrs de vouloir se déconnecter",
+    "LogoutMsg": "Voulez-vous vraiment vous déconnecter",
     "Yes": "Oui",
     "No": 'Non'
   },
