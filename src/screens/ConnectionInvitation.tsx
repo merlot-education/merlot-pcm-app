@@ -1,11 +1,9 @@
 import { t } from 'i18next'
-import { View, FlatList, StyleSheet, Text, Button } from 'react-native'
-import React, { useState, useEffect } from 'react'
-import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
-import { RouteProp, useNavigation } from '@react-navigation/core'
+import { View, StyleSheet, Text, Button } from 'react-native'
+import React, { useState } from 'react'
+import { useAgent } from '@aries-framework/react-hooks'
+import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { Label } from '../components'
-import { ButtonType } from '../components/button/Button'
 import { Colors, TextTheme } from '../theme/theme'
 import { ConnectionInvitationStackParams, Screens } from '../types/navigators'
 
@@ -37,10 +35,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
 }) => {
   const { agent } = useAgent()
   const nav = useNavigation()
-  const [connectionId, setConnectionId] = useState('')
   const handleAcceptPress = async (): Promise<void> => {
-    // TODO: Change to a full screen modal
-    // displayPendingMessage()
     const { url } = route.params
     console.log('****Connection URL****')
     console.log(url)
@@ -51,7 +46,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       },
     )
     if (!connectionRecord?.id) {
-      // throw new Error(t('Scan.ConnectionNotFound'))
+      throw new Error(t('Scan.ConnectionNotFound'))
     }
     nav.navigate(Screens.ListContacts)
   }
@@ -64,11 +59,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       <View style={styles.spacer} />
       <View style={[{ marginHorizontal: 20 }]}>
         <View style={[{ paddingBottom: 10 }]}>
-          <Button
-            title={t('Global.Accept')}
-            // buttonType={ButtonType.Primary}
-            onPress={handleAcceptPress}
-          />
+          <Button title={t('Global.Accept')} onPress={handleAcceptPress} />
         </View>
         <Button title={t('Global.Decline')} />
       </View>

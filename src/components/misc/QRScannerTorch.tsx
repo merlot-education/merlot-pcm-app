@@ -31,7 +31,6 @@ const TorchButton: React.FC<Props> = ({ active, children }) => {
         styles.container,
         { backgroundColor: active ? Colors.white : undefined },
       ]}
-      // onPress={onPress}
     >
       {children}
     </TouchableOpacity>

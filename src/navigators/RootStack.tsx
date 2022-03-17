@@ -31,7 +31,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         label: email, // added email as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: 'email', key: walletPin },
+        walletConfig: { id: email, key: walletPin },
         autoAcceptConnections: true,
         publicDidSeed: emailHash,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
