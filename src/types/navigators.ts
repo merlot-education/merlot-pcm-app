@@ -65,6 +65,7 @@ export type ScanStackParams = {
 export type SettingStackParams = {
   Settings: undefined
   Language: undefined
+  ChangePin: undefined
 }
 
 export enum TabStacks {
@@ -80,7 +81,7 @@ export type TabStackParams = {
   [TabStacks.ContactStack]: NavigatorScreenParams<ContactStackParams>
   [TabStacks.ScanStack]: NavigatorScreenParams<ScanStackParams>
   [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
-  [TabStacks.SettingsStack]: NavigatorScreenParams<CredentialStackParams>
+  [TabStacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
 }
 
 export enum Stacks {

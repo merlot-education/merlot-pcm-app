@@ -1,14 +1,16 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Alert } from 'react-native'
 import { getVersion, getBuildNumber } from 'react-native-device-info'
 import { borderRadius, Colors, TextTheme } from '../theme/theme'
 import { Screens, SettingStackParams } from '../types/navigators'
 import { SettingListItem, Text } from '../components'
 
-type SettingsProps = StackScreenProps<SettingStackParams>
-
+type SettingsProps = {
+  navigation: StackScreenProps<SettingStackParams, Screens.Settings>
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+}
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -36,8 +38,19 @@ const styles = StyleSheet.create({
   },
 })
 
-const Settings: React.FC<SettingsProps> = ({ navigation }) => {
+const Settings: React.FC<SettingsProps> = ({
+  navigation,
+  setAuthenticated,
+}) => {
   const { t } = useTranslation()
+  const logoff = () =>
+    Alert.alert(t('Settings.Logout'), t('Settings.LogoutMsg'), [
+      {
+        text: t('Settings.Yes'),
+        onPress: () => setAuthenticated(false),
+      },
+      { text: t('Settings.No') },
+    ])
 
   return (
     <View style={styles.container}>
@@ -50,6 +63,7 @@ const Settings: React.FC<SettingsProps> = ({ navigation }) => {
         title={t('Settings.Language')}
         onPress={() => navigation.navigate(Screens.Language)}
       />
+      <SettingListItem title={t('Settings.Logout')} onPress={logoff} />
       <Text style={styles.groupHeader}>{t('Settings.AboutApp')}</Text>
       <View style={styles.rowGroup}>
         <View style={styles.row}>

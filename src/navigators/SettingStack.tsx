@@ -1,20 +1,33 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-
+import ChangePin from '../screens/ChangePin'
 import Settings from '../screens/Settings'
 
 import { Screens, SettingStackParams } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
 import Language from '../screens/Language'
+import { MainStackContext } from '../utils/helpers'
 
 const Stack = createStackNavigator<SettingStackParams>()
 
-const SettingStack: React.FC = () => {
+interface SettingStackProp {
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const SettingStack: React.FC<SettingStackProp> = () => {
+  const { value } = React.useContext(MainStackContext)
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
-      <Stack.Screen name={Screens.Settings} component={Settings} />
+      <Stack.Screen name={Screens.Settings}>
+        {props => <Settings {...props} setAuthenticated={value} />}
+      </Stack.Screen>
       <Stack.Screen name={Screens.Language} component={Language} />
+      <Stack.Screen
+        name={Screens.ChangePin}
+        component={ChangePin}
+        options={{ headerShown: true }}
+      />
     </Stack.Navigator>
   )
 }
