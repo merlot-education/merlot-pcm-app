@@ -51,43 +51,27 @@ const Registration: React.FC<PinCreateProps> = ({ navigation, route }) => {
   }
 
   const confirmEntry = async (email: string) => {
-    // const { forgotPin } = route.params
-    // if (email.length > 0) {
-    //   if (validateEmail(email)) {
-    //     emailCreate(email)
-    //     setLoading(true)
-    //     try {
-    //       await api.default.auth.register({ email })
-    //       navigation.navigate(Screens.VerifyOtp, { email })
-    //       setLoading(false)
-    //       if (forgotPin) {
-    //         navigation.navigate(Screens.VerifyOtp, { email, forgotPin })
-    //       } else {
-    //         navigation.navigate(Screens.VerifyOtp, { email, forgotPin })
-    //       }
-    //     } catch (error) {
-    //       setLoading(false)
-    //       Toast.show({
-    //         type: ToastType.Error,
-    //         text1: error.name,
-    //         text2: error.message,
-    //       })
-    //     }
-    //   } else {
-    //     Toast.show({
-    //       type: ToastType.Warn,
-    //       text1: t('Toasts.Warning'),
-    //       text2: t('Registration.ValidEmail'),
-    //     })
-    //   }
-    // } else {
-    //   Toast.show({
-    //     type: ToastType.Warn,
-    //     text1: t('Toasts.Warning'),
-    //     text2: t('Registration.EnterEmail'),
-    //   })
-    // }
-    navigation.navigate(Screens.CreatePin, { forgotPin: false })
+    if (email.length > 0) {
+      if (validateEmail(email)) {
+        emailCreate(email)
+        setLoading(true)
+        const res = await api.default.auth.register({ email })
+        if (res?.data) {
+          const { forgotPin } = route.params
+          if (forgotPin) {
+            navigation.navigate(Screens.VerifyOtp, { email, forgotPin: true })
+          } else {
+            navigation.navigate(Screens.VerifyOtp, { email, forgotPin: false })
+          }
+          Alert.alert(res?.message)
+          setLoading(false)
+        }
+      } else {
+        Alert.alert(t('Registration.ValidEmail'))
+      }
+    } else {
+      Alert.alert(t('Registration.EnterEmail'))
+    }
   }
 
   return (

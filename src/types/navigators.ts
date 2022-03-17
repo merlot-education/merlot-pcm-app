@@ -23,6 +23,7 @@ export enum Screens {
   CredentialOffer = 'CredentialOffer',
   ProofRequest = 'ProofRequest',
   Language = 'Language',
+  GaiaxConsent = 'GaiaxConsent',
 }
 
 export type MainStackParams = {

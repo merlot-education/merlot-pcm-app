@@ -107,6 +107,9 @@ const translation = {
     "Error": "Erreur",
     "Info": "Info",
     "Warning": "Avertissement"
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Votre portefeuille est créé avec succès"
   }
 }
 export default translation
