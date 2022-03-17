@@ -16,7 +16,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { State } from 'react-native-gesture-handler'
-import { TextTheme } from '../theme/theme'
+import { Colors, TextTheme } from '../theme/theme'
 import { HomeStackParams, Screens, TabStacks } from '../types/navigators'
 import Title from '../components/text/Title'
 import FlowDetailModal from '../components/modals/FlowDetailModal'
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   headerTextContainer: {
     paddingHorizontal: 25,
     paddingVertical: 16,
+    backgroundColor: Colors.backgroundLight,
   },
   headerText: {
     ...TextTheme.normal,
@@ -38,6 +39,7 @@ const styles = StyleSheet.create({
   },
   footerButton: {
     paddingTop: 10,
+    backgroundColor: Colors.backgroundLight,
   },
 })
 

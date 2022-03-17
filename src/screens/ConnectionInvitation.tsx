@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { Colors, TextTheme } from '../theme/theme'
 import { ConnectionInvitationStackParams, Screens } from '../types/navigators'
+import ContactStack from '../navigators/ContactStack'
 
 const styles = StyleSheet.create({
   container: {

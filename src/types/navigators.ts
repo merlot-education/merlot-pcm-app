@@ -60,6 +60,8 @@ export type HomeStackParams = {
 
 export type ScanStackParams = {
   Scan: undefined
+  ConnectionInvitation: undefined
+  ListContacts: undefined
 }
 
 export type SettingStackParams = {
@@ -89,6 +91,7 @@ export enum Stacks {
   HomeStack = 'Home Stack',
   ConnectStack = 'Connect Stack',
   CredentialStack = 'Credentials Stack',
+  ScanStack = 'Scan Stack',
   SettingStack = 'Settings Stack',
   ContactStack = 'Contacts Stack',
 }

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { Attribute } from '../../types/record'
+import testIdWithKey from '../../utils/testtable'
 
 interface RecordAttributeProps {
   attribute: Attribute

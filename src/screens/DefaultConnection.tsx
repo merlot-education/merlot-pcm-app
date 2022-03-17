@@ -34,16 +34,16 @@ const DefaultConnection: React.FC<Props> = ({ setAuthenticated }) => {
   const { t } = useTranslation()
 
   const getConnectionInvitationUrl = async () => {
-    setLoading(true)
-    const connectionInvitationUrlResponse =
-      await api.default.config.connectionInvitation({
-        autoAcceptConnection: true,
-      })
-    if (connectionInvitationUrlResponse.data != null) {
-      const url = connectionInvitationUrlResponse.data.invitationUrl
-      await connectWithOrganization(url)
-    }
-    setLoading(false)
+    // setLoading(true)
+    // const connectionInvitationUrlResponse =
+    //   await api.default.config.connectionInvitation({
+    //     autoAcceptConnection: true,
+    //   })
+    // if (connectionInvitationUrlResponse.data != null) {
+    //   const url = connectionInvitationUrlResponse.data.invitationUrl
+    //   await connectWithOrganization(url)
+    // }
+    // setLoading(false)
     setAuthenticated(true)
   }
   const connectWithOrganization = async (url: string) => {
