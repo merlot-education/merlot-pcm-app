@@ -52,7 +52,7 @@ export type CredentialStackParams = {
 }
 
 export type HomeStackParams = {
-  Home: undefined
+  Scan: undefined
   Notifications: undefined
   CredentialOffer: { credentialId: string }
   ProofRequest: { proofId: string }

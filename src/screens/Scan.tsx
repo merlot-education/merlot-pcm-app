@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
 })
 
 interface ScanProps {
-  navigation: StackNavigationProp<HomeStackParams, 'Home'>
+  navigation: StackNavigationProp<HomeStackParams, 'Scan'>
 }
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {

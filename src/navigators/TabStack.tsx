@@ -157,22 +157,22 @@ const TabStack: React.FC = () => {
         />
         <MainTabNavigator.Screen
           name={TabStacks.ScanStack}
-          component={Scan}
           options={{
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                activeIconName="wallet"
-                inactiveIconName="wallet-outline"
-                color={color}
-                focused={focused}
-              />
-            ),
+            tabBarIcon: () => <ScannerIcon />,
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('TabStack.Scan')} focused={focused} />
             ),
+            tabBarAccessibilityLabel: t('TabStack.Scan'),
           }}
-        />
-        {() => <View />}
+          listeners={({ navigation }) => ({
+            tabPress: e => {
+              e.preventDefault()
+              navigation.navigate(TabStacks.ScanStack, { screen: Screens.Scan })
+            },
+          })}
+        >
+          {() => <View />}
+        </MainTabNavigator.Screen>
         <MainTabNavigator.Screen
           name={TabStacks.CredentialStack}
           component={CredentialStack}
