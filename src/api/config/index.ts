@@ -1,16 +1,10 @@
 import { AxiosInstance } from 'axios'
-import { ConnectionInvitationURLRequest } from './config.types'
 
 const config = (instance: AxiosInstance) => {
-  // TODO: Added sample just for reference remove it later when ready
   return {
-    logs(body, config = {}) {
-      return instance.post('log', body, config)
-    },
-    connectionInvitation(body: ConnectionInvitationURLRequest, config = {}) {
+    invitationUrl(config = {}) {
       return instance.get(
-        '/v1/invitation-url?agent=http://3.111.77.38:4000',
-        body,
+        'v1/invitation-url?agent=http://3.111.77.38:4002&participantId=f018599e-c5ce-4099-9e56-697e56483aca',
         config,
       )
     },

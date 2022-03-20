@@ -40,9 +40,7 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
   const getConnectionInvitationUrl = async () => {
     setLoading(true)
     const connectionInvitationUrlResponse =
-      await api.default.config.connectionInvitation({
-        autoAcceptConnection: true,
-      })
+      await api.default.config.invitationUrl()
     if (connectionInvitationUrlResponse.data != null) {
       const url = connectionInvitationUrlResponse.data.invitationUrl
       await connectWithOrganization(url)
