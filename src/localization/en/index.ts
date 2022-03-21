@@ -98,6 +98,42 @@ const translation = {
     "Yes": "yes",
     "No": 'No'
   },
+  "ConnectionInvitation":{
+    "ConsentMessage": "New Connection Request"
+  },
+  "ContactDetails": {
+    "Created": "Created",
+    "ConnectionState": "Connection State",
+    "AContact": "A contact",
+  },
+  "Credentials": {
+    "CredentialsNotFound": "Credentials not found",
+  },
+  "CredentialDetails": {
+    "Id": "Id:",
+    "CreatedAt": "Created At:",
+    "Version": "Version",
+    "Issued": "Issued",
+    "PrivacyPolicy": "Privacy policy",
+    "TermsAndConditions": "Terms and conditions",
+    "RemoveFromWallet": "Remove from wallet",
+  },
+  "CredentialOffer": {
+    "ThisIsTakingLongerThanExpected": "This is taking Longer than expected. Check back later for your new credential.",
+    "RejectThisCredential?": "Reject this Credential?",
+    "AcceptingCredential": "Accepting Credential",
+    "SuccessfullyAcceptedCredential": "Successfully Accepted Credential",
+    "RejectingCredential":"Rejecting Credential",
+    "SuccessfullyRejectedCredential":"Successfully Rejected Credential",
+    "CredentialNotFound": "Credential not found",
+    "CredentialAccepted": "Credential Accepted",
+    "CredentialRejected": "Credential Rejected",
+    "CredentialAddedToYourWallet": "Credential added to your wallet",
+    "CredentialDeclined": "Credential declined",
+    "CredentialOnTheWay": "Your credential is on the way",
+    "CredentialOffer": "New Credential Offer",
+    "IsOfferingYouACredential": "is offering you a credential"
+  },
   "TabStack": {
     "Home": "Home",
     "Connections": "Contacts",

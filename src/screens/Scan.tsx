@@ -17,7 +17,6 @@ import { Colors, TextTheme } from '../theme/theme'
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.background,
-    margin: 20,
   },
   bodyText: {
     ...TextTheme.normal,

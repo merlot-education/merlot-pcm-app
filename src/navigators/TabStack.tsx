@@ -111,6 +111,7 @@ const TabStack: React.FC = () => {
           tabBarActiveTintColor: ColorPallet.brand.primary,
           tabBarInactiveTintColor: ColorPallet.grayscale.white,
           header: () => null,
+          tabBarHideOnKeyboard: true,
         }}
       >
         <MainTabNavigator.Screen
@@ -156,7 +157,6 @@ const TabStack: React.FC = () => {
         />
         <MainTabNavigator.Screen
           name={TabStacks.ScanStack}
-          component={ScanStack}
           options={{
             tabBarIcon: () => <ScannerIcon />,
             tabBarLabel: ({ focused }) => (
@@ -164,15 +164,16 @@ const TabStack: React.FC = () => {
             ),
             tabBarAccessibilityLabel: t('TabStack.Scan'),
           }}
-          // listeners={({ navigation }) => ({
-          //   tabPress: e => {
-          //     console.log('scan pressed')
-          //     e.preventDefault()
-          //     navigation.navigate(TabStacks.ScanStack, { screen: Screens.Scan })
-          //   },
-          // })}
-        />
-        {/* </MainTabNavigator.Screen> */}
+          listeners={({ navigation }) => ({
+            tabPress: e => {
+              e.preventDefault()
+              navigation.navigate(Screens.Scan)
+            },
+          })}
+        >
+          {/* Just a placeholder, the the tab will navigate to a different stack */}
+          {() => <View />}
+        </MainTabNavigator.Screen>
         <MainTabNavigator.Screen
           name={TabStacks.CredentialStack}
           component={CredentialStack}

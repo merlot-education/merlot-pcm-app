@@ -25,11 +25,9 @@ const ListContacts: React.FC = () => {
   const { connections } = useConnections()
   const { t } = useTranslation()
   const [searchText, setSearchText] = useState('')
-  const [selectedId, setSelectedId] = useState(-1)
   const [filteredData, setFilteredData] = useState([])
 
   const search = text => {
-    const formattedQuery = text.toLowerCase()
     const filteredData = connections.filter(item => {
       const orgLabel = item.theirLabel.toUpperCase()
       const textData = text.toUpperCase()
@@ -70,6 +68,7 @@ const ListContacts: React.FC = () => {
         renderItem={({ item }) => <ContactListItem contact={item} />}
         keyExtractor={(item: ConnectionRecord) => item.did}
         style={{ backgroundColor: Colors.background }}
+        contentContainerStyle={{ paddingBottom: 65 }}
         ListEmptyComponent={
           <Text style={{ textAlign: 'center', margin: 100 }}>
             {t('Global.NoneYet!')}

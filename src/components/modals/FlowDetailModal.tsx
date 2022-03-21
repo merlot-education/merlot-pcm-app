@@ -2,11 +2,13 @@ import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Modal, StyleSheet, TouchableOpacity, View, Button } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { Title } from '..'
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
+import Button, { ButtonType } from '../button/Button'
 import { Colors, TextTheme } from '../../theme/theme'
-import { HomeStackParams } from '../../types/navigators'
+import { HomeStackParams, Screens } from '../../types/navigators'
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +19,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 25,
   },
   buttonContainer: {
     marginBottom: 35,
@@ -32,20 +35,24 @@ const styles = StyleSheet.create({
     paddingVertical: 28,
   },
 })
-interface FlowDetailModalProps {
+
+interface NotificationModalProps {
   title: string
   doneTitle?: string
   onDone?: () => void
   onHome?: () => void
   visible?: boolean
+  testID?: string
 }
-const FlowDetailModal: React.FC<FlowDetailModalProps> = ({
+
+const NotificationModal: React.FC<NotificationModalProps> = ({
   title,
   doneTitle,
   onDone,
   onHome,
   visible,
   children,
+  testID,
 }) => {
   const { t } = useTranslation()
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
@@ -63,12 +70,12 @@ const FlowDetailModal: React.FC<FlowDetailModalProps> = ({
 
   const closeHome = () => {
     close()
-    navigation.navigate('Home')
+    navigation.navigate(Screens.Home)
   }
 
   return (
-    <Modal visible={modalVisible} transparent>
-      <View style={styles.container}>
+    <Modal testID={testID} visible={modalVisible} transparent>
+      <SafeAreaView style={styles.container}>
         <View style={styles.iconContainer}>
           <TouchableOpacity
             style={styles.iconButton}
@@ -78,18 +85,26 @@ const FlowDetailModal: React.FC<FlowDetailModalProps> = ({
           </TouchableOpacity>
         </View>
         <View style={styles.childContainer}>
-          <Title style={TextTheme.headingFour}>{title}</Title>
+          <Text
+            style={[
+              TextTheme.headingThree,
+              { fontWeight: 'normal', textAlign: 'center' },
+            ]}
+          >
+            {title}
+          </Text>
           {children}
         </View>
         <View style={styles.buttonContainer}>
           <Button
+            buttonType={ButtonType.Primary}
             title={doneTitle || t('Global.Done')}
             onPress={onDone || close}
           />
         </View>
-      </View>
+      </SafeAreaView>
     </Modal>
   )
 }
 
-export default FlowDetailModal
+export default NotificationModal

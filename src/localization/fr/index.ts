@@ -95,6 +95,42 @@ const translation = {
     "Yes": "Oui",
     "No": 'Non'
   },
+  "ConnectionInvitation":{
+    "ConsentMessage": "Nouvelle demande de connexion"
+  },
+  "ContactDetails": {
+    "Created": "Créé",
+    "ConnectionState": "État de la connexion",
+    "AContact": "Un contact",
+  },
+  "Credentials": {
+    "CredentialsNotFound": "Identifiants introuvables",
+  },
+  "CredentialDetails": {
+    "Id": "Identifiant:",
+    "CreatedAt": "Créé à:",
+    "Version": "Version",
+    "Issued": "Publié",
+    "PrivacyPolicy": "Politique de confidentialité",
+    "TermsAndConditions": "Termes et conditions",
+    "RemoveFromWallet": "Retirer du portefeuille",
+  },
+  "CredentialOffer": {
+    "ThisIsTakingLongerThanExpected": "Cela prend plus de temps que prévu. Revenez plus tard pour vos nouvelles informations d'identification.",
+    "RejectThisCredential?": "Refuser cet identifiant ?",
+    "AcceptingCredential": "Acceptation des informations d'identification",
+    "SuccessfullyAcceptedCredential": "Informations d'identification acceptées avec succès",
+    "RejectingCredential":"Rejeter les informations d'identification",
+    "SuccessfullyRejectedCredential":"Identifiant rejeté avec succès",
+    "CredentialNotFound": "Identifiant introuvable",
+    "CredentialAccepted": "Titre accepté",
+    "CredentialRejected": "Identifiant refusé",
+    "CredentialAddedToYourWallet": "Identifiant ajouté à votre portefeuille",
+    "CredentialDeclined": "Identifiant refusé",
+    "CredentialOnTheWay": "Votre accréditation est en route",
+    "CredentialOffer": "Nouvelle offre d'accréditation",
+    "IsOfferingYouACredential": "vous offre une accréditation"
+  },
   "TabStack": {
     "Home": "Maison",
     "Connections": "Contacts",

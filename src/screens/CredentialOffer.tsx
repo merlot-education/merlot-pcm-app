@@ -6,22 +6,17 @@ import {
   useConnectionById,
   useCredentialById,
 } from '@aries-framework/react-hooks'
-import React, {
-  createContext,
-  Dispatch,
-  ReducerAction,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { State } from 'react-native-gesture-handler'
 import { Colors, TextTheme } from '../theme/theme'
 import { HomeStackParams, Screens, TabStacks } from '../types/navigators'
 import Title from '../components/text/Title'
 import FlowDetailModal from '../components/modals/FlowDetailModal'
 import Record from '../components/record/Record'
 import CredentialCard from '../components/misc/CredentialCard'
+import CredentialDeclined from '../assets/img/credential-declined.svg'
+import CredentialPending from '../assets/img/credential-pending.svg'
+import CredentialSuccess from '../assets/img/credential-success.svg'
 
 type CredentialOfferProps = StackScreenProps<
   HomeStackParams,
@@ -179,7 +174,9 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         onDone={() => {
           setPendingModalVisible(false)
         }}
-      />
+      >
+        <CredentialPending style={{ marginVertical: 20 }} />
+      </FlowDetailModal>
       <FlowDetailModal
         title={t('CredentialOffer.CredentialAddedToYourWallet')}
         visible={successModalVisible}
@@ -190,7 +187,9 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             screen: Screens.Credentials,
           })
         }}
-      />
+      >
+        <CredentialSuccess style={{ marginVertical: 20 }} />
+      </FlowDetailModal>
       <FlowDetailModal
         title={t('CredentialOffer.CredentialDeclined')}
         visible={declinedModalVisible}
@@ -199,7 +198,9 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
           navigation.pop()
           navigation.navigate(Screens.Home)
         }}
-      />
+      >
+        <CredentialDeclined style={{ marginVertical: 20 }} />
+      </FlowDetailModal>
     </>
   )
 }

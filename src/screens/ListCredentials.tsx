@@ -7,15 +7,6 @@ import { Text } from '../components'
 import { ColorPallet, Colors } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.background,
-  },
-})
-
 const ListCredentials: React.FC = () => {
   const credentials = [
     ...useCredentialByState(CredentialState.CredentialReceived),

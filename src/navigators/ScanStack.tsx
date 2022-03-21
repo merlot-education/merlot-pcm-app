@@ -14,14 +14,15 @@ const ScanStack: React.FC = () => {
     <Stack.Navigator
       screenOptions={{
         ...defaultStackOptions,
+        headerShown: false,
       }}
     >
       <Stack.Screen name={Screens.Scan} component={Scan} />
-      <Stack.Screen
+      {/* <Stack.Screen
         name={Screens.ConnectionInvitation}
         component={ConnectionInvitation}
       />
-      <Stack.Screen name={Screens.ListContacts} component={ListContacts} />
+      <Stack.Screen name={Screens.ListContacts} component={ListContacts} /> */}
     </Stack.Navigator>
   )
 }
