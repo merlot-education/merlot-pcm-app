@@ -45,7 +45,6 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
       const url = connectionInvitationUrlResponse.data.invitationUrl
       await connectWithOrganization(url)
     }
-    setLoading(false)
     setAuthenticated(true)
   }
   const connectWithOrganization = async (url: string) => {
@@ -55,6 +54,7 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
         autoAcceptConnection: true,
       },
     )
+    setLoading(false)
     if (!connectionRecord?.id) {
       Toast.show({
         type: ToastType.Error,
@@ -74,12 +74,12 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
 
       <View style={styles.spacer} />
       <Button
-        title={t('Yes')}
+        title={t('Settings.Yes')}
         buttonType={ButtonType.Primary}
         onPress={getConnectionInvitationUrl}
       />
       <View style={styles.spacer} />
-      <Button title={t('No')} buttonType={ButtonType.Primary} />
+      <Button title={t('Settings.No')} buttonType={ButtonType.Primary} />
     </View>
   )
 }

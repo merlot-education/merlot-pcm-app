@@ -4,7 +4,7 @@ const config = (instance: AxiosInstance) => {
   return {
     invitationUrl(config = {}) {
       return instance.get(
-        'v1/invitation-url?agent=http://3.111.77.38:4002&participantId=f018599e-c5ce-4099-9e56-697e56483aca',
+        'v1/invitation-url?participantId=0191cf79-338e-46c5-9314-831c1b391a19',
         config,
       )
     },
