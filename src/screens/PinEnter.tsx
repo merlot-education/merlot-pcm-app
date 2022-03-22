@@ -5,7 +5,7 @@ import ReactNativeBiometrics from 'react-native-biometrics'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StackScreenProps } from '@react-navigation/stack'
 import md5 from 'md5'
-import { TextInput } from '../components'
+import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Colors, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
@@ -37,6 +37,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   const [pin, setPin] = useState('')
   const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
   const [biometricFailed, setBiometricFailed] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const startAgent = async () => {
     const email = await getValueKeychain({
@@ -55,7 +56,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
     }
   }
 
-  const biometricEnable = () => {
+  const biometricEnable = async () => {
+    setLoading(true)
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
       const { available, biometryType } = resultObject
       if (available && biometryType === ReactNativeBiometrics.Biometrics) {
@@ -67,6 +69,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
             if (success) {
               startAgent()
               setAuthenticated(true)
+              setLoading(false)
             } else {
               Alert.alert(t('Biometric.BiometricCancle'))
               setBiometricFailed(true)
@@ -101,8 +104,10 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       service: 'passcode',
     })
     if (keychainEntry && pin === keychainEntry.password) {
-      startAgent()
+      setLoading(true)
+      await startAgent()
       setAuthenticated(true)
+      setLoading(false)
     } else {
       Alert.alert(t('PinEnter.IncorrectPin'))
       setLoginAttemtsFailed(loginAttemtsFailed + 1)
@@ -116,6 +121,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
         accessible
