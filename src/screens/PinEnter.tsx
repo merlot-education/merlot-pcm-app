@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
@@ -38,8 +38,9 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
   const [biometricFailed, setBiometricFailed] = useState(false)
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
-  const startAgent = async () => {
+  const startAgent = useCallback(async () => {
     const email = await getValueKeychain({
       service: 'email',
     })
@@ -54,22 +55,22 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       const seedHash = String(md5(hash))
       initAgent(email.password, pinCode.password, seedHash)
     }
-  }
+  }, [initAgent])
 
-  const biometricEnable = async () => {
-    setLoading(true)
+  const biometricEnable = useCallback(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
       const { available, biometryType } = resultObject
       if (available && biometryType === ReactNativeBiometrics.Biometrics) {
         ReactNativeBiometrics.simplePrompt({
           promptMessage: t('Biometric.BiometricConfirm'),
         })
-          .then(resultObject => {
+          .then(async resultObject => {
             const { success } = resultObject
             if (success) {
-              startAgent()
-              setAuthenticated(true)
+              setLoading(true)
+              await startAgent()
               setLoading(false)
+              setAuthenticated(true)
             } else {
               Alert.alert(t('Biometric.BiometricCancle'))
               setBiometricFailed(true)
@@ -83,7 +84,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         Alert.alert(t('Biometric.BiometricNotSupport'))
       }
     })
-  }
+  }, [setAuthenticated, startAgent, t])
 
   useEffect(() => {
     ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
@@ -96,9 +97,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         biometricEnable()
       }
     })
-  })
+  }, [biometricEnable, biometricFailed])
 
-  const { t } = useTranslation()
   const checkPin = async (pin: string) => {
     const keychainEntry = await getValueKeychain({
       service: 'passcode',
