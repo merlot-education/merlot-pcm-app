@@ -45,10 +45,13 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
     const passphrase = await getValueKeychain({
       service: 'passphrase',
     })
+    const pinCode = await getValueKeychain({
+      service: 'passcode',
+    })
     if (email && passphrase) {
       const hash = email + passphrase.password.replace(/ /g, '')
       const seedHash = String(md5(hash))
-      initAgent(email.password, pin, seedHash)
+      initAgent(email.password, pinCode.password, seedHash)
     }
   }
 
@@ -62,6 +65,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           .then(resultObject => {
             const { success } = resultObject
             if (success) {
+              startAgent()
               setAuthenticated(true)
             } else {
               Alert.alert(t('Biometric.BiometricCancle'))
