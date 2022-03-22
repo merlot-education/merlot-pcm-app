@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
+    alignSelf: 'center',
   },
   spacer: {
     height: 40,
@@ -47,7 +48,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       throw new Error(t('Scan.ConnectionNotFound'))
     }
     setLoading(false)
-    navigation.getParent()?.navigate(Stacks.TabStack, { screen: Screens.Home })
+    navigation.navigate(Screens.ListContacts)
   }
 
   return (
