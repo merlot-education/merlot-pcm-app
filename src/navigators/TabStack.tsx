@@ -11,6 +11,7 @@ import SettingStack from './SettingStack'
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
+import ScanStack from './ScanStack'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 
@@ -110,6 +111,7 @@ const TabStack: React.FC = () => {
           tabBarActiveTintColor: ColorPallet.brand.primary,
           tabBarInactiveTintColor: ColorPallet.grayscale.white,
           header: () => null,
+          tabBarHideOnKeyboard: true,
         }}
       >
         <MainTabNavigator.Screen
@@ -165,10 +167,11 @@ const TabStack: React.FC = () => {
           listeners={({ navigation }) => ({
             tabPress: e => {
               e.preventDefault()
-              navigation.navigate(TabStacks.ScanStack, { screen: Screens.Scan })
+              navigation.navigate(Screens.Scan)
             },
           })}
         >
+          {/* Just a placeholder, the the tab will navigate to a different stack */}
           {() => <View />}
         </MainTabNavigator.Screen>
         <MainTabNavigator.Screen

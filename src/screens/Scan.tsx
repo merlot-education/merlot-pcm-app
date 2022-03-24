@@ -7,7 +7,7 @@ import { parseUrl } from 'query-string'
 import { Agent, ConnectionState } from '@aries-framework/core'
 import type { BarCodeReadEvent } from 'react-native-camera'
 import { StyleSheet, View } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
+import { useIsFocused, useNavigation } from '@react-navigation/core'
 import { ToastType } from '../components/toast/BaseToast'
 import QRScanner from '../components/inputs/QRScanner'
 import { ScanStackParams, Screens } from '../types/navigators'
@@ -17,7 +17,6 @@ import { Colors, TextTheme } from '../theme/theme'
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.background,
-    margin: 20,
   },
   bodyText: {
     ...TextTheme.normal,
@@ -36,6 +35,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const { agent } = useAgent()
   const { t } = useTranslation()
   const nav = useNavigation()
+  const isFocused = useIsFocused()
 
   const [qrCodeScanError, setQrCodeScanError] =
     useState<QrCodeScanError | null>(null)
@@ -91,11 +91,13 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
   return (
     <View style={[styles.container]}>
-      <QRScanner
-        handleCodeScan={handleCodeScan}
-        error={qrCodeScanError}
-        enableCameraOnError
-      />
+      {isFocused && (
+        <QRScanner
+          handleCodeScan={handleCodeScan}
+          error={qrCodeScanError}
+          enableCameraOnError
+        />
+      )}
     </View>
   )
 }

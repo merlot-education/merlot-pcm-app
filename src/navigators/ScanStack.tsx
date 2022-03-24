@@ -12,6 +12,7 @@ const ScanStack: React.FC = () => {
     <Stack.Navigator
       screenOptions={{
         ...defaultStackOptions,
+        headerShown: false,
       }}
     >
       <Stack.Screen name={Screens.Scan} component={Scan} />

@@ -77,10 +77,10 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   switch (notificationType) {
     case NotificationType.CredentialOffer: {
       const { name, version } = parsedSchema(notification as CredentialRecord)
-      onPress = () =>
-        navigation.navigate(Screens.CredentialOffer, {
-          credentialId: notification.id,
-        })
+      onPress = () => console.log('credential offer')
+      navigation.navigate(Screens.CredentialOffer, {
+        credentialId: notification.id,
+      })
       title = t('CredentialOffer.CredentialOffer')
       body = `${name} v${version}`
       break

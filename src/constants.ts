@@ -1,5 +1,7 @@
 export const defaultLanguage = 'en'
 
+export const testIdPrefix = 'com.pcm:id/'
+
 export enum LocalStorageKeys {
   Language = 'language',
   OnboardingCompleteStage = 'onboardingCompleteStage',

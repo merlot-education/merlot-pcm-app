@@ -1,12 +1,17 @@
+/* eslint-disable no-bitwise */
 import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
 import React from 'react'
 
-export const parseSchema = (
-  schemaId?: string,
-): {
+export const connectionRecordFromId = (connectionId: string) => {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const connection = useConnectionById(connectionId)
+  return connection
+}
+
+export function parseSchema(schemaId?: string): {
   name: string
   version: string
-} => {
+} {
   let name = 'Credential'
   let version = ''
   if (schemaId) {
@@ -26,20 +31,28 @@ export const parseSchema = (
   return { name, version }
 }
 
-export const credentialSchema = (
+export function credentialSchema(
   credential: CredentialRecord,
-): string | undefined => {
+): string | undefined {
   return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
     ?.schemaId
 }
 
-export const parsedSchema = (
-  credential: CredentialRecord,
-): {
+export function parsedSchema(credential: CredentialRecord): {
   name: string
   version: string
-} => {
+} {
   return parseSchema(credentialSchema(credential))
 }
 
+export function hashCode(s: string): number {
+  return s
+    .split('')
+    .reduce((hash, char) => char.charCodeAt(0) + ((hash << 5) - hash), 0)
+}
+
+export function hashToRGBA(i: number) {
+  const colour = (i & 0x00ffffff).toString(16).toUpperCase()
+  return `#${'00000'.substring(0, 6 - colour.length)}${colour}`
+}
 export const MainStackContext = React.createContext(null)

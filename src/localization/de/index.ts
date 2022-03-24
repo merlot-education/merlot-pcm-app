@@ -59,7 +59,6 @@ const translation = {
     "ReenterNewPin": "Neue PIN erneut eingeben",
     "Create": "Schaffen",
     "ValidOldPin": "Bitte gültige alte PIN eingeben",
-    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
   },
   "Biometric": {
     "Biometric": "Biometrisch",
@@ -92,6 +91,42 @@ const translation = {
     "Yes": "Jawohl",
     "No": 'Nein'
   },
+  "ConnectionInvitation":{
+    "ConsentMessage": "Neue Verbindungsanforderung"
+  },
+  "ContactDetails": {
+    "Created": "Erstellt",
+    "ConnectionState": "Verbindungs status",
+    "AContact": "Ein Kontakt",
+  },
+  "Credentials": {
+    "CredentialsNotFound": "Anmeldedaten nicht gefunden",
+  },
+  "CredentialDetails": {
+    "Id": "Ausweis:",
+    "CreatedAt": "Hergestellt in:",
+    "Version": "Ausführung",
+    "Issued": "Problematisch",
+    "PrivacyPolicy": "Datenschutz-Bestimmungen",
+    "TermsAndConditions": "Geschäftsbedingungen",
+    "RemoveFromWallet": "Aus der Brieftasche entfernen",
+  },
+  "CredentialOffer": {
+    "ThisIsTakingLongerThanExpected": "Dies dauert länger als erwartet. Schauen Sie später noch einmal nach, um Ihre neuen Anmeldeinformationen zu erhalten.",
+    "RejectThisCredential?": "Diese Anmeldeinformationen ablehnen?",
+    "AcceptingCredential": "Akzeptieren von Anmeldeinformationen",
+    "SuccessfullyAcceptedCredential": "Anmeldeinformationen erfolgreich akzeptiert",
+    "RejectingCredential":"Ausweis ablehnen",
+    "SuccessfullyRejectedCredential":"Anmeldeinformationen erfolgreich abgelehnt",
+    "CredentialNotFound": "Anmeldedaten nicht gefunden",
+    "CredentialAccepted": "Anmeldeinformationen akzeptiert",
+    "CredentialRejected": "Anmeldeinformationen abgelehnt",
+    "CredentialAddedToYourWallet": "Zugangsdaten zu Ihrem Wallet hinzugefügt",
+    "CredentialDeclined": "Anmeldedaten abgelehnt",
+    "CredentialOnTheWay": "Ihr Ausweis ist unterwegs",
+    "CredentialOffer": "Neue Anmeldeinformationen",
+    "IsOfferingYouACredential": "bietet Ihnen einen Ausweis an"
+  },
   "TabStack": {
     "Home": "Zuhause",
     "Connections": "Kontakte",
@@ -103,11 +138,8 @@ const translation = {
     "ConnectionNotFound": "Verbindung nicht gefunden",
     "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
   },
-  "Toasts":{
-    "Success": "Erfolg",
-    "Error": "Fehler",
-    "Info": "Info",
-    "Warning": "Warnung"
+  "GaiaxConsent": {
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
   }
 }
 export default translation

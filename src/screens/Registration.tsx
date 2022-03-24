@@ -168,6 +168,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
         text2: t('Registration.EnterEmail'),
       })
     }
+    // navigation.navigate(Screens.CreatePin, { forgotPin })
   }
 
   return (

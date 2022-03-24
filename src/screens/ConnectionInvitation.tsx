@@ -2,10 +2,9 @@ import { t } from 'i18next'
 import { View, StyleSheet, Text, Button } from 'react-native'
 import React, { useState } from 'react'
 import { useAgent } from '@aries-framework/react-hooks'
-import { useNavigation } from '@react-navigation/core'
-import { StackNavigationProp } from '@react-navigation/stack'
 import { Colors, TextTheme } from '../theme/theme'
-import { ConnectionInvitationStackParams, Screens } from '../types/navigators'
+import { Screens, Stacks } from '../types/navigators'
+import { Loader } from '../components'
 
 const styles = StyleSheet.create({
   container: {
@@ -15,6 +14,7 @@ const styles = StyleSheet.create({
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
+    alignSelf: 'center',
   },
   spacer: {
     height: 40,
@@ -22,10 +22,7 @@ const styles = StyleSheet.create({
   },
 })
 interface ConnectionProps {
-  navigation: StackNavigationProp<
-    ConnectionInvitationStackParams,
-    'Connection Invitation URL'
-  >
+  navigation: any
   route: any
 }
 
@@ -34,11 +31,13 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
   route,
 }) => {
   const { agent } = useAgent()
-  const nav = useNavigation()
+  const [loading, setLoading] = useState(false)
+
   const handleAcceptPress = async (): Promise<void> => {
     const { url } = route.params
     console.log('****Connection URL****')
     console.log(url)
+    setLoading(true)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,
       {
@@ -48,11 +47,13 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
     if (!connectionRecord?.id) {
       throw new Error(t('Scan.ConnectionNotFound'))
     }
-    nav.navigate(Screens.ListContacts)
+    setLoading(false)
+    navigation.navigate(Screens.ListContacts)
   }
 
   return (
     <View style={[styles.container]}>
+      <Loader loading={loading} />
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
         {t('ConnectionInvitation.ConsentMessage')}
       </Text>
