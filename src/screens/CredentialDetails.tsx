@@ -41,27 +41,6 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   const { t } = useTranslation()
   const { credentialId } = route.params
   const credential = useCredentialById(credentialId)
-
-  //   const getCredentialRecord = (
-  //     credentialId?: string,
-  //   ): CredentialRecord | void => {
-  //     try {
-  //       if (!credentialId) {
-  //         throw new Error(t('CredentialOffer.CredentialNotFound'))
-  //       }
-
-  //       return useCredentialById(credentialId)
-  //     } catch (e: unknown) {
-  //       Toast.show({
-  //         type: ToastType.Error,
-  //         text1: t('Global.Failure'),
-  //         text2: (e as Error)?.message || t('CredentialOffer.CredentialNotFound'),
-  //       })
-
-  //       navigation.goBack()
-  //     }
-  //   }
-
   if (!route.params.credentialId) {
     Toast.show({
       type: ToastType.Error,
@@ -72,9 +51,6 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
     navigation.goBack()
     return null
   }
-
-  //   const credential = useCredentialById(route.params.credentialId)
-
   if (!credential) {
     Toast.show({
       type: ToastType.Error,

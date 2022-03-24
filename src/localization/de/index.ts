@@ -140,6 +140,12 @@ const translation = {
   },
   "GaiaxConsent": {
     "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
+  },
+  "Record": {
+    "Hide": "Ausblenden",
+    "Show": "Zeigen",
+    "HideAll": "Versteck alles",
+    "Hidden": "Versteckt"
   }
 }
 export default translation

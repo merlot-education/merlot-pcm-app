@@ -150,6 +150,12 @@ const translation = {
   },
   "GaiaxConsent": {
     "WalletCreated": "Votre portefeuille est créé avec succès"
+  },
+  "Record": {
+    "Hide": "Cacher",
+    "Show": "Montrer",
+    "HideAll": "Cacher tout",
+    "Hidden": "Caché"
   }
 }
 export default translation
