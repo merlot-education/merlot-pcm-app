@@ -29,7 +29,8 @@ const translation = {
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
-    "Copy": 'Copie'
+    "Copy": 'Copie',
+    "ZeroRecords": 'Zéro enregistrement disponible'
   },
   "Language": {
     "English": "Anglais",

@@ -29,7 +29,8 @@ const translation = {
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
-    "Copy": 'Kopieren'
+    "Copy": 'Kopieren',
+    "ZeroRecords": 'Null Datensätze verfügbar'
   },
   "Language": {
     "English": "Englisch",
