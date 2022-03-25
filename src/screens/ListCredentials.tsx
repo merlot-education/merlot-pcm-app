@@ -7,7 +7,7 @@ import { Text } from '../components'
 import { ColorPallet, Colors, TextTheme } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 import SearchBar from '../components/inputs/SearchBar'
-import { parsedSchema } from '../utils/helpers'
+import { parsedCredentialDefinition, parsedSchema } from '../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -35,7 +35,7 @@ const ListCredentials: React.FC = () => {
 
   const search = text => {
     const filteredData = credentials.filter(item => {
-      const orgLabel = parsedSchema(item).name
+      const orgLabel = parsedCredentialDefinition(item).name
       const textData = text.toUpperCase()
       return orgLabel.indexOf(textData) > -1
     })
