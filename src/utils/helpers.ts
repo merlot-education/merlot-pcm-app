@@ -1,10 +1,19 @@
 /* eslint-disable no-bitwise */
-import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
+import {
+  ConnectionRecord,
+  CredentialMetadataKeys,
+  CredentialRecord,
+  ProofRecord,
+  RequestedAttribute,
+} from '@aries-framework/core'
 import React from 'react'
+import {
+  useConnectionById as getConnectionById,
+  useProofById as getProofById,
+} from '@aries-framework/react-hooks'
 
 export const connectionRecordFromId = (connectionId: string) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const connection = useConnectionById(connectionId)
+  const connection = getConnectionById(connectionId)
   return connection
 }
 
@@ -56,3 +65,44 @@ export function hashToRGBA(i: number) {
   return `#${'00000'.substring(0, 6 - colour.length)}${colour}`
 }
 export const MainStackContext = React.createContext(null)
+
+export const proofRecordFromId = (proofId: string): ProofRecord | void => {
+  // if (proofId) {
+  return getProofById(proofId)
+  // }
+}
+
+export function getConnectionName(connection: ConnectionRecord): string | void {
+  return connection?.alias || connection?.invitation?.label
+}
+
+export function firstAttributeCredential(
+  attributes: RequestedAttribute[],
+  revoked = true,
+): RequestedAttribute | null {
+  if (!attributes.length) {
+    return null
+  }
+
+  let first = null
+  const firstNonRevoked = attributes.filter(attribute => !attribute.revoked)[0]
+  if (firstNonRevoked) {
+    first = firstNonRevoked
+  } else if (attributes.length && revoked) [first] = attributes
+
+  if (!first?.credentialInfo) {
+    return null
+  }
+
+  return first
+}
+
+export const valueFromAttributeCredential = (
+  name: string,
+  credential: RequestedAttribute,
+) => {
+  if (!credential) {
+    return ''
+  }
+  return credential.credentialInfo?.attributes[name]
+}

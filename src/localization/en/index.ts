@@ -151,8 +151,26 @@ const translation = {
     "Info": "Info",
     "Warning": "Warning",
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Your wallet is created successfully."
+  "ProofRequest": {
+    "OfferDelay": "Offer delay",
+    "RejectThisProof?": "Reject this Proof?",
+    "AcceptingProof": "Accepting Proof",
+    "SuccessfullyAcceptedProof": "Successfully Accepted Proof",
+    "ProofNotFound": "Proof not Found",
+    "RejectingProof": "Rejecting Proof",
+    "ProofAccepted": "Proof Accepted",
+    "ProofRejected": "Proof Rejected",
+    "RequestedCredentialsCouldNotBeFound": "Requested credentials could not be found",
+    "ProofRequest": "New Proof Request",
+    "NotAvailableInYourWallet": "Not available in your wallet",
+    "IsRequestng": "is requesting",
+    "IsRequestingSomethingYouDontHaveAvailable": "is requesting something you don't have available",
+    "IsRequestingYouToShare": "is requesting you to share",
+    "WhichYouCanProvideFrom": "which you can provide from",
+    "Details": "Details",
+    "SendingTheInformationSecurely": "Sending the information securely",
+    "InformationSentSuccessfully": "Information sent successfully",
+    "ProofRequestDeclined": "Proof request declined"
   }
 }
 export default translation

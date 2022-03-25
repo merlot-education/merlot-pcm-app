@@ -148,8 +148,26 @@ const translation = {
     "Info": "Info",
     "Warning": "Avertissement"
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Votre portefeuille est créé avec succès"
+  "ProofRequest": {
+    "OfferDelay": "Retard de l'offre",
+    "RejectThisProof?": "Rejeter cette preuve ?",
+    "AcceptingProof": "Acceptation de la preuve",
+    "SuccessfullyAcceptedProof": "Preuve acceptée avec succès",
+    "ProofNotFound": "Preuve introuvable",
+    "RejectingProof": "Rejet de la preuve",
+    "ProofAccepted": "Preuve acceptée",
+    "ProofRejected": "Preuve rejetée",
+    "RequestedCredentialsCouldNotBeFound": "Les informations d'identification demandées sont introuvables",
+    "ProofRequest": "Nouvelle demande de preuve",
+    "NotAvailableInYourWallet": "Rejeter cette preuve ?0",
+    "IsRequestng": "Rejeter cette preuve ?1",
+    "IsRequestingSomethingYouDontHaveAvailable": "Rejeter cette preuve ?2",
+    "IsRequestingYouToShare": "Rejeter cette preuve ?3",
+    "WhichYouCanProvideFrom": "Rejeter cette preuve ?4",
+    "Details": "Rejeter cette preuve ?5",
+    "SendingTheInformationSecurely": "Rejeter cette preuve ?6",
+    "InformationSentSuccessfully": "Rejeter cette preuve ?7",
+    "ProofRequestDeclined": "Rejeter cette preuve ?8"
   }
 }
 export default translation

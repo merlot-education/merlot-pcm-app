@@ -23,6 +23,7 @@ export enum Screens {
   ProofRequest = 'ProofRequest',
   Language = 'Language',
   ConnectionInvitation = 'ConnectionInvitation',
+  ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
 }
 
 export type OnboardingStackParams = {
@@ -73,6 +74,7 @@ export type HomeStackParams = {
   Notifications: undefined
   CredentialOffer: { credentialId: string }
   ProofRequest: { proofId: string }
+  ProofRequestAttributeDetails: { proofId: string; attributeName: string }
 }
 
 export type ScanStackParams = {

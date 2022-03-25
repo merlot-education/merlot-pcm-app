@@ -7,12 +7,13 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { TextTheme, ColorPallet, Colors } from '../../theme/theme'
+
+import { ColorPallet, TextTheme } from '../../theme/theme'
 import { Attribute } from '../../types/record'
+
 import RecordAttribute from './RecordAttribute'
 import RecordFooter from './RecordFooter'
 import RecordHeader from './RecordHeader'
-import testIdWithKey from '../../utils/testtable'
 
 interface RecordProps {
   header: () => React.ReactElement | null
@@ -28,13 +29,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingHorizontal: 25,
     paddingVertical: 16,
-    background: Colors.background,
   },
   link: {
     minHeight: TextTheme.normal.fontSize,
     paddingVertical: 2,
     color: ColorPallet.brand.link,
-    background: Colors.background,
   },
 })
 
@@ -67,7 +66,6 @@ const Record: React.FC<RecordProps> = ({
                 style={styles.link}
                 activeOpacity={1}
                 onPress={() => resetShown()}
-                testID={testIdWithKey('HideAll')}
                 accessible
                 accessibilityLabel={t('Record.HideAll')}
               >
