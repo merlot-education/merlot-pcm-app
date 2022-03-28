@@ -18,7 +18,7 @@ import RecordHeader from './RecordHeader'
 interface RecordProps {
   header: () => React.ReactElement | null
   footer: () => React.ReactElement | null
-  attributes?: Array<Attribute>
+  attributes?: Attribute[]
   hideAttributeValues?: boolean
   attribute?: (attribute: Attribute) => React.ReactElement | null
 }

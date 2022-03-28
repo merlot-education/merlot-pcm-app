@@ -68,22 +68,7 @@ const ProofRequestAttributeDetails: React.FC<
     return null
   }
 
-  const getProofRecord = (proofId?: string): ProofRecord | void => {
-    try {
-      const proof = proofRecordFromId(proofId)
-      if (!proof) {
-        throw new Error(t('ProofRequest.ProofNotFound'))
-      }
-      return proof
-    } catch (e: unknown) {
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Global.Failure'),
-        text2: (e as Error)?.message || t('Global.Failure'),
-      })
-      navigation.goBack()
-    }
-  }
+  const proof = proofRecordFromId(proofId)
 
   const getRetrievedCredentials = async (proof: ProofRecord) => {
     try {
@@ -105,8 +90,6 @@ const ProofRequestAttributeDetails: React.FC<
     }
   }
 
-  const proof = getProofRecord(proofId)
-
   if (!proof) {
     Toast.show({
       type: ToastType.Error,
@@ -117,12 +100,14 @@ const ProofRequestAttributeDetails: React.FC<
     return null
   }
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     try {
       getRetrievedCredentials(proof)
     } catch (e: unknown) {
       navigation.goBack()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const connection = connectionRecordFromId(proof.connectionId)
