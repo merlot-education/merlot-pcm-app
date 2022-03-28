@@ -31,7 +31,8 @@ const translation = {
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
-    "Copy": 'Copie'
+    "Copy": 'Copie',
+    "ZeroRecords": 'Zéro enregistrement disponible'
   },
   "Language": {
     "English": "Anglais",
@@ -153,6 +154,12 @@ const translation = {
   },
   "GaiaxConsent": {
     "WalletCreated": "Votre portefeuille est créé avec succès"
+  },
+  "Record": {
+    "Hide": "Cacher",
+    "Show": "Montrer",
+    "HideAll": "Cacher tout",
+    "Hidden": "Caché"
   }
 }
 export default translation

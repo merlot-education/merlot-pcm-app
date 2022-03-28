@@ -32,6 +32,7 @@ const translation = {
     "ChangePin": 'Change Pin',
     "OldPin": 'Enter Old Pin',
     "Copy": 'Copy',
+    "ZeroRecords": 'Zero Records available'
   },
   "Language": {
     "English": "English",
@@ -153,6 +154,12 @@ const translation = {
   },
   "GaiaxConsent": {
     "WalletCreated": "Your wallet is created successfully."
+  },
+  "Record": {
+    "Hide": "Hide",
+    "Show": "Show",
+    "HideAll": "Hide all",
+    "Hidden": "Hidden"
   }
 }
 export default translation

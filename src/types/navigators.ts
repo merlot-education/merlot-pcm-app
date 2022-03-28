@@ -15,6 +15,7 @@ export enum Screens {
   Scan = 'Scan',
   ChangePin = 'ChangePin',
   Credentials = 'Credentials',
+  CredentialDetails = 'Credential Details',
   Settings = 'Settings',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
@@ -64,7 +65,7 @@ export type ContactStackParams = {
 
 export type CredentialStackParams = {
   Credentials: undefined
-  'Credential Details': { credentialId: string }
+  [Screens.CredentialDetails]: { credentialId: string }
 }
 
 export type HomeStackParams = {

@@ -31,7 +31,8 @@ const translation = {
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
-    "Copy": 'Kopieren'
+    "Copy": 'Kopieren',
+    "ZeroRecords": 'Null Datensätze verfügbar'
   },
   "Language": {
     "English": "Englisch",
@@ -153,6 +154,12 @@ const translation = {
   },
   "GaiaxConsent": {
     "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
+  },
+  "Record": {
+    "Hide": "Ausblenden",
+    "Show": "Zeigen",
+    "HideAll": "Versteck alles",
+    "Hidden": "Versteckt"
   }
 }
 export default translation
