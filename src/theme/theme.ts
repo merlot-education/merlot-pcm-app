@@ -61,11 +61,27 @@ interface GrayscaleColors {
   white: string
 }
 
+interface BaseScaleColors {
+  black: string
+  darkGreen: string
+  lightBlue: string
+  darkGreenLightTransparent: string
+  darkGreenHeavyTransparent: string
+  darkGrey: string
+  green: string
+  lightGrey: string
+  red: string
+  transparent: string
+  yellow: string
+  white: string
+}
+
 interface ColorPallet {
   brand: BrandColors
   semantic: SemanticColors
   notification: NotificationColors
   grayscale: GrayscaleColors
+  baseColors: BaseScaleColors
 }
 
 export const borderRadius = 4
@@ -116,14 +132,7 @@ const GrayscaleColors: GrayscaleColors = {
   white: '#FFFFFF',
 }
 
-export const ColorPallet: ColorPallet = {
-  brand: BrandColors,
-  semantic: SemanticColors,
-  notification: NotificationColors,
-  grayscale: GrayscaleColors,
-}
-
-export const BaseColors: BaseColor = {
+const BaseScaleColors: BaseScaleColors = {
   black: '#000000',
   darkGreen: '#35823F',
   lightBlue: '#CCE8F4',
@@ -138,23 +147,19 @@ export const BaseColors: BaseColor = {
   white: '#FFFFFF',
 }
 
-export const StatusColors: BaseColor = {
-  error: BaseColors.red,
-  info: BaseColors.black,
-  success: BaseColors.green,
-  warning: BaseColors.black,
+export const ColorPallet: ColorPallet = {
+  brand: BrandColors,
+  semantic: SemanticColors,
+  notification: NotificationColors,
+  grayscale: GrayscaleColors,
+  baseColors: BaseScaleColors,
 }
 
-interface ColorTheme extends BaseColor {
-  accent: string
-  background: string
-  backgroundLight: string
-  borderLight: string
-  primary: string
-  primaryActive: string
-  primaryLight: string
-  shadow: string
-  text: string
+export const StatusColors: BaseColor = {
+  error: ColorPallet.baseColors.red,
+  info: ColorPallet.baseColors.black,
+  success: ColorPallet.baseColors.green,
+  warning: ColorPallet.baseColors.black,
 }
 
 interface FontAttributes {
@@ -190,61 +195,47 @@ interface TextBoxTheme {
   text: string
 }
 
-export const Colors: ColorTheme = {
-  accent: BaseColors.yellow,
-  background: GrayscaleColors.white,
-  backgroundLight: BaseColors.lightGreen,
-  borderLight: BaseColors.mediumGreen,
-  primary: BrandColors.primary,
-  primaryActive: BaseColors.darkGreenHeavyTransparent,
-  primaryLight: BaseColors.lightBlue,
-  shadow: BaseColors.lightGrey,
-  text: BrandColors.primary,
-  ...BaseColors,
-  ...StatusColors,
-}
-
 export const TextBoxTheme: TextBoxTheme = {
-  background: Colors.darkGreenLightTransparent,
-  border: Colors.borderLight,
-  text: Colors.text,
+  background: ColorPallet.baseColors.darkGreenLightTransparent,
+  border: ColorPallet.baseColors.green,
+  text: ColorPallet.brand.primary,
 }
 
 export const TextTheme: TextTheme = {
   headingOne: {
     fontSize: 38,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
   headingTwo: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
   headingThree: {
     fontSize: 26,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
   headingFour: {
     fontSize: 21,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
   normal: {
     fontSize: 18,
     fontWeight: 'normal',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
   label: {
     fontSize: 14,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
   caption: {
     fontSize: 14,
     fontWeight: 'normal',
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
 }
 
@@ -260,7 +251,7 @@ export const customTheme: Partial<Theme> = {
   ghost_button_fill_tap: BrandColors.primary,
 
   // input_font_size
-  border_color_base: BaseColors.black,
+  border_color_base: BaseScaleColors.black,
 }
 
 interface ContactTheme {
@@ -272,9 +263,9 @@ interface SingleSelectBlockTheme {
 }
 
 export const ContactTheme: ContactTheme = {
-  background: Colors.shadow,
+  background: BaseScaleColors.lightGrey,
 }
 
 export const SingleSelectBlockTheme: SingleSelectBlockTheme = {
-  background: Colors.primaryLight,
+  background: BaseScaleColors.lightBlue,
 }

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useAgent } from '@aries-framework/react-hooks'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
-import { Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import Button, { ButtonType } from '../components/button/Button'
 import * as api from '../api'
 import { Loader } from '../components'
@@ -18,7 +18,7 @@ type DefaultConnectionProps = StackScreenProps<
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   bodyText: {
