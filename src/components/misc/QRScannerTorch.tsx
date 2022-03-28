@@ -1,7 +1,7 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
+import { ColorPallet } from '../../theme/theme'
 
 interface Props {
   active: boolean
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: Colors.white,
+    borderColor: ColorPallet.baseColors.white,
     borderRadius: 24,
     marginBottom: 50,
   },
@@ -29,7 +29,7 @@ const TorchButton: React.FC<Props> = ({ active, children }) => {
     <TouchableOpacity
       style={[
         styles.container,
-        { backgroundColor: active ? Colors.white : undefined },
+        { backgroundColor: active ? ColorPallet.baseColors.white : undefined },
       ]}
     >
       {children}
@@ -41,7 +41,9 @@ const TorchIcon: React.FC<Props> = ({ active }) => {
   return (
     <Icon
       name={active ? 'flash-on' : 'flash-off'}
-      color={active ? Colors.black : Colors.white}
+      color={
+        active ? ColorPallet.baseColors.black : ColorPallet.baseColors.white
+      }
       size={24}
       style={styles.icon}
     />

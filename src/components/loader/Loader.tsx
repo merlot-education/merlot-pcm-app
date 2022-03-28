@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, View, ActivityIndicator, StyleSheet } from 'react-native'
-import { Colors } from '../../theme/theme'
+import { ColorPallet } from '../../theme/theme'
 
 interface LoaderProps {
   loading?: boolean
@@ -19,7 +19,7 @@ const Loader: React.FC<LoaderProps> = ({ loading }) => {
   return (
     <Modal animationType="none" visible={loading} transparent>
       <View style={styles.activityIndicatorWrapper}>
-        <ActivityIndicator size="small" color={Colors.primary} />
+        <ActivityIndicator size="small" color={ColorPallet.brand.primary} />
       </View>
     </Modal>
   )

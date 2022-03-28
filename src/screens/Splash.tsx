@@ -4,7 +4,7 @@ import SplashScreen from 'react-native-splash-screen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StackScreenProps } from '@react-navigation/stack'
 import { Screens, OnboardingStackParams } from '../types/navigators'
-import { Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 import { LocalStorageKeys } from '../constants'
 
 type SplashProps = StackScreenProps<OnboardingStackParams, Screens.Splash>
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
   },
 })
 
