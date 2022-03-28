@@ -2,9 +2,9 @@ import { CredentialState, CredentialRecord } from '@aries-framework/core'
 import { useCredentialByState } from '@aries-framework/react-hooks'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { Text } from '../components'
-import { ColorPallet, Colors } from '../theme/theme'
+import { Colors } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 
 const ListCredentials: React.FC = () => {

@@ -11,7 +11,6 @@ import SettingStack from './SettingStack'
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
-import ScanStack from './ScanStack'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 

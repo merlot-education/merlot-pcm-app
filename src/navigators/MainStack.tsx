@@ -1,10 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import Connect from '../screens/Connect'
 import ConnectionInvitation from '../screens/ConnectionInvitation'
 import Home from '../screens/Home'
 import ListContacts from '../screens/ListContacts'
-import Scan from '../screens/Scan'
 import { Screens, Stacks } from '../types/navigators'
 import ScanStack from './ScanStack'
 import defaultStackOptions from './defaultStackOptions'
@@ -19,7 +17,6 @@ const MainStack: React.FC = () => {
     >
       <Stack.Screen name={Stacks.TabStack} component={TabStack} />
       <Stack.Screen name={Screens.Home} component={Home} />
-      <Stack.Screen name={Screens.Connect} component={Connect} />
       <Stack.Screen name={Screens.Scan} options={{ presentation: 'modal' }}>
         {() => <ScanStack />}
       </Stack.Screen>

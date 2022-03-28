@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, Button } from 'react-native'
 import React, { useState } from 'react'
 import { useAgent } from '@aries-framework/react-hooks'
 import { Colors, TextTheme } from '../theme/theme'
-import { Screens, Stacks } from '../types/navigators'
+import { TabStacks } from '../types/navigators'
 import { Loader } from '../components'
 
 const styles = StyleSheet.create({
@@ -48,7 +48,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       throw new Error(t('Scan.ConnectionNotFound'))
     }
     setLoading(false)
-    navigation.navigate(Screens.ListContacts)
+    navigation.navigate(TabStacks.ContactStack)
   }
 
   return (

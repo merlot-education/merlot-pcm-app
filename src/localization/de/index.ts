@@ -26,6 +26,8 @@ const translation = {
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
     "Email": "E-Mail eingeben",
+    "Verify": 'Verifizieren',
+    "Otp": 'OTP eingeben',
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
@@ -45,6 +47,7 @@ const translation = {
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
     "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
+    'ResendOtp': 'OTP erneut senden',
     "RegisterAgain": "Sie müssen sich erneut registrieren",
     "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
     "Passphrase": "Passphrase"
@@ -59,6 +62,7 @@ const translation = {
     "ReenterNewPin": "Neue PIN erneut eingeben",
     "Create": "Schaffen",
     "ValidOldPin": "Bitte gültige alte PIN eingeben",
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt."
   },
   "Biometric": {
     "Biometric": "Biometrisch",
@@ -80,6 +84,9 @@ const translation = {
     "Credentials": "Zugangsdaten",
     "InYourWallet": "in Ihrem Wallet"
   },
+  "PinEnter": {
+    "IncorrectPin": "Falsche PIN", 
+  }, 
   "Settings": {
     "ChangePin": "Pin ändern",
     "Version": "Version",
@@ -137,6 +144,12 @@ const translation = {
   "DefaultConnection":{
     "ConnectionNotFound": "Verbindung nicht gefunden",
     "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
+  },
+  "Toasts":{
+    "Success": "Erfolg",
+    "Error": "Fehler",
+    "Info": "Die Info",
+    "Warning": "Warnung",
   },
   "GaiaxConsent": {
     "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"

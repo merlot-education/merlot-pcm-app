@@ -19,9 +19,6 @@ const style = StyleSheet.create({
     backgroundColor: Colors.background,
     margin: 20,
   },
-  btnContainer: {
-    marginTop: 20,
-  },
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,

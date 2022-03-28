@@ -15,7 +15,6 @@ export enum Screens {
   Scan = 'Scan',
   ChangePin = 'ChangePin',
   Credentials = 'Credentials',
-  Contacts = 'Contacts',
   Settings = 'Settings',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
@@ -59,7 +58,7 @@ export type AuthenticateStackParams = {
 }
 
 export type ContactStackParams = {
-  Contacts: undefined
+  ListContacts: undefined
   'Contact Details': { connectionId: string }
 }
 
