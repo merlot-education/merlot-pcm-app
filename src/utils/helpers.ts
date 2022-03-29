@@ -106,3 +106,13 @@ export const valueFromAttributeCredential = (
   }
   return credential.credentialInfo?.attributes[name]
 }
+
+export const getCredDefName = (credentialDefinitionId: string) => {
+  const data = credentialDefinitionId.split(':')
+  return data[data.length - 1]
+}
+
+export const getSchemaNameFromSchemaId = (schemaId: string) => {
+  const data = schemaId.split(':')
+  return data[data.length - 1]
+}

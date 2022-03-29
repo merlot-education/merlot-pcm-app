@@ -6,30 +6,30 @@ import {
   RequestedAttribute,
   RetrievedCredentials,
 } from '@aries-framework/core'
-import { useAgent, useProofById } from '@aries-framework/react-hooks'
+import {
+  useAgent,
+  useProofById,
+  useConnectionById,
+} from '@aries-framework/react-hooks'
 import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Alert, View, StyleSheet, Text, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Trans, useTranslation } from 'react-i18next'
+import { Alert, View, StyleSheet, Text } from 'react-native'
 import Toast from 'react-native-toast-message'
-import Record from '../components/record/Record'
+import { Buffer } from 'buffer'
+import { ItemType } from 'react-native-dropdown-picker'
 import ProofDeclined from '../assets/img/proof-declined.svg'
 import ProofPending from '../assets/img/proof-pending.svg'
 import ProofSuccess from '../assets/img/proof-success.svg'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { HomeStackParams, Screens, Stacks } from '../types/navigators'
 import { Attribute } from '../types/record'
-import {
-  connectionRecordFromId,
-  firstAttributeCredential,
-  getConnectionName,
-  valueFromAttributeCredential,
-} from '../utils/helpers'
+import { getCredDefName, getSchemaNameFromSchemaId } from '../utils/helpers'
 import { ToastType } from '../components/toast/BaseToast'
-import { Title } from '../components'
+// eslint-disable-next-line import/no-cycle
+import ProofRequestAttribute from '../components/views/ProofRequestAttribute'
 import Button, { ButtonType } from '../components/button/Button'
-import RecordAttribute from '../components/record/RecordAttribute'
 import FlowDetailModal from '../components/modals/FlowDetailModal'
+import InfoTextBox from '../components/text/InfoTextBox'
 
 type ProofRequestProps = StackScreenProps<HomeStackParams, Screens.ProofRequest>
 
@@ -37,7 +37,24 @@ interface ProofRequestAttribute extends Attribute {
   values?: RequestedAttribute[]
 }
 
+interface CredentialList {
+  isSelected: boolean
+  label: string
+  value: string
+}
+
+export interface CredentialDisplay {
+  key: string
+  names: string[]
+  values: string[]
+  credentials: CredentialList[]
+}
+
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
   headerTextContainer: {
     paddingHorizontal: 25,
     paddingVertical: 16,
@@ -74,12 +91,209 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   const [successModalVisible, setSuccessModalVisible] = useState(false)
   const [declinedModalVisible, setDeclinedModalVisible] = useState(false)
 
-  const [credentials, setCredentials] = useState<RetrievedCredentials>()
   const [attributeCredentials, setAttributeCredentials] = useState<
     [string, RequestedAttribute[]][]
   >([])
 
+  const [retrievedCredentials, setRetrievedCredentials] =
+    useState<RetrievedCredentials>()
+  const [isShowError, setIsShowError] = useState(false)
+  const [missingAttributes, setMissingAttributes] = useState<string[]>([])
+  const [credentialsDisplay, setCredentialsDisplay] = useState<
+    CredentialDisplay[]
+  >([])
+
   const proof = useProofById(proofId)
+  const connection = useConnectionById(
+    proof?.connectionId ? proof.connectionId : '',
+  )
+
+  const transformProofObject = async (creds: RetrievedCredentials) => {
+    const base64Data =
+      proof?.requestMessage?.requestPresentationAttachments[0].data.base64
+    const proofRequest = JSON.parse(
+      Buffer.from(base64Data!, 'base64').toString(),
+    )
+    const requestedAttributesKeys = Object.keys(
+      proofRequest.requested_attributes,
+    )
+    const requestedPredicatesKeys = Object.keys(
+      proofRequest.requested_predicates,
+    )
+    const displayObject: CredentialDisplay[] = []
+
+    requestedAttributesKeys.forEach(key => {
+      const names = proofRequest.requested_attributes[key].name
+        ? [proofRequest.requested_attributes[key].name]
+        : proofRequest.requested_attributes[key].names
+
+      if (creds.requestedAttributes[key].length > 0) {
+        const credentialList: CredentialList[] = []
+        creds.requestedAttributes[key].forEach((cred, index) => {
+          const credentialDefinitionId = getCredDefName(
+            JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
+          )
+          credentialList.push({
+            isSelected: index === 0,
+            label: credentialDefinitionId,
+            value: JSON.parse(JSON.stringify(cred.credentialInfo)).referent,
+          })
+        })
+        const showNames: string[] = []
+        const showValues: string[] = []
+        names.forEach((name: string) => {
+          showNames.push(name)
+          showValues.push(
+            JSON.parse(
+              JSON.stringify(creds.requestedAttributes[key][0].credentialInfo),
+            ).attrs[name],
+          )
+        })
+        const object = {
+          key,
+          names: showNames,
+          values: showValues,
+          credentials: credentialList,
+        }
+        displayObject.push(object)
+      } else {
+        console.log('object456')
+        // TODO: handle not matching with proof request
+        proofRequest.requested_attributes[key].restrictions.forEach(
+          restriction => {
+            if (
+              Object.prototype.hasOwnProperty.call(restriction, 'schema_name')
+            ) {
+              names.forEach((name: string) => {
+                console.log(
+                  'first',
+                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
+                )
+                setMissingAttributes(prevState => [
+                  ...prevState,
+                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
+                ])
+              })
+            } else if (
+              Object.prototype.hasOwnProperty.call(restriction, 'schema_id')
+            ) {
+              const schemaName = getSchemaNameFromSchemaId(
+                restriction.schema_id,
+              )
+              names.forEach((name: string) => {
+                console.log(
+                  'first123',
+                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
+                )
+                setMissingAttributes(prevState => [
+                  ...prevState,
+                  `${name} ${t('Global.from')}  ${schemaName}`,
+                ])
+              })
+            } else {
+              names.forEach((name: string) => {
+                setMissingAttributes(prevState => [...prevState, name])
+              })
+            }
+          },
+        )
+        setIsShowError(true)
+      }
+      requestedPredicatesKeys.forEach(key => {
+        const names = proofRequest.requested_predicates[key].name
+          ? [proofRequest.requested_predicates[key].name]
+          : proofRequest.requested_predicates[key].names
+
+        if (creds.requestedPredicates[key].length > 0) {
+          const credentialList: CredentialList[] = []
+
+          creds.requestedAttributes[key].forEach((cred, index) => {
+            const credentialDefinitionId = getCredDefName(
+              JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
+            )
+            credentialList.push({
+              isSelected: index === 0,
+              label: credentialDefinitionId,
+              value: JSON.parse(JSON.stringify(cred.credentialInfo)).referent,
+            })
+          })
+
+          const showNames: string[] = []
+          const showValues: string[] = []
+
+          names.forEach((name: string) => {
+            showNames.push(
+              `${name + proofRequest.requested_predicates[key].p_type} ${
+                proofRequest.requested_predicates[key].p_value
+              }`,
+            )
+            showValues.push(
+              JSON.parse(
+                JSON.stringify(
+                  creds.requestedPredicates[key][0].credentialInfo,
+                ),
+              ).attrs[name],
+            )
+          })
+
+          const object = {
+            key,
+            names: showNames,
+            values: showValues,
+            credentials: credentialList,
+          }
+          displayObject.push(object)
+        } else {
+          proofRequest.requested_predicates[key].restrictions.forEach(
+            restriction => {
+              if (
+                Object.prototype.hasOwnProperty.call(restriction, 'schema_name')
+              ) {
+                names.forEach((name: string) => {
+                  setMissingAttributes(prevState => [
+                    ...prevState,
+                    `${`${
+                      name + proofRequest.requested_predicates[key].p_type
+                    } ${proofRequest.requested_predicates[key].p_value}`} ${t(
+                      'Global.from',
+                    )}  ${restriction.schema_name}`,
+                  ])
+                })
+              } else if (
+                Object.prototype.hasOwnProperty.call(restriction, 'schema_id')
+              ) {
+                const schemaName = getSchemaNameFromSchemaId(
+                  restriction.schema_id,
+                )
+                names.forEach((name: string) => {
+                  setMissingAttributes(prevState => [
+                    ...prevState,
+                    `${`${
+                      name + proofRequest.requested_predicates[key].p_type
+                    } ${proofRequest.requested_predicates[key].p_value}`} ${t(
+                      'Global.from',
+                    )} ${schemaName}`,
+                  ])
+                })
+              } else {
+                names.forEach((name: string) => {
+                  setMissingAttributes(prevState => [
+                    ...prevState,
+                    `${name + proofRequest.requested_predicates[key].p_type} ${
+                      proofRequest.requested_predicates[key].p_value
+                    }`,
+                  ])
+                })
+              }
+            },
+          )
+          setIsShowError(true)
+        }
+      })
+      setCredentialsDisplay(displayObject)
+      // setIsLoading(false)
+    })
+  }
 
   if (!agent) {
     throw new Error('Unable to fetch agent from AFJ')
@@ -97,8 +311,10 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
       if (!creds) {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
-      setCredentials(creds)
-      setAttributeCredentials(Object.entries(creds?.requestedAttributes || {}))
+      transformProofObject(creds)
+      // setCredentials(creds)
+      setRetrievedCredentials(creds)
+      // setAttributeCredentials(Object.entries(creds?.requestedAttributes || {}))
     }
 
     updateRetrievedCredentials(proof).catch(() => {
@@ -108,6 +324,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         text2: 'There was a problem while updating retrieved credentials.',
       })
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [agent.proofs, proof, t])
 
   useEffect(() => {
@@ -138,9 +355,50 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     try {
       setButtonsVisible(false)
       setPendingModalVisible(true)
+      const updateRetrievedCredentials: RetrievedCredentials = {
+        requestedAttributes: {},
+        requestedPredicates: {},
+      }
+
+      credentialsDisplay?.map(async (credential: CredentialDisplay) => {
+        const isSelectedCredentialId = credential.credentials.find(
+          credential => credential.isSelected,
+        )?.value
+        if (
+          Object.prototype.hasOwnProperty.call(
+            retrievedCredentials?.requestedAttributes,
+            credential.key,
+          )
+        ) {
+          const selectedCredential = retrievedCredentials?.requestedAttributes[
+            credential.key
+          ].filter(item => item.credentialId === isSelectedCredentialId)
+          const object = {
+            [credential.key]: selectedCredential,
+          }
+          Object.assign(updateRetrievedCredentials.requestedAttributes, object)
+        }
+
+        if (
+          Object.prototype.hasOwnProperty.call(
+            retrievedCredentials?.requestedPredicates,
+            credential.key,
+          )
+        ) {
+          const selectedCredential = retrievedCredentials?.requestedPredicates[
+            credential.key
+          ].filter(item => item.credentialId === isSelectedCredentialId)
+          const object = {
+            [credential.key]: selectedCredential,
+          }
+          Object.assign(updateRetrievedCredentials.requestedPredicates, object)
+        }
+      })
       const automaticRequestedCreds =
-        credentials &&
-        agent.proofs.autoSelectCredentialsForProofRequest(credentials)
+        retrievedCredentials &&
+        agent.proofs.autoSelectCredentialsForProofRequest(
+          updateRetrievedCredentials,
+        )
       if (!automaticRequestedCreds) {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
@@ -182,137 +440,127 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     )
   }
 
-  const connection = connectionRecordFromId(proof.connectionId)
+  const onCredentialSelect = async (credentialId: string, key: string) => {
+    const updatedCredentialsDisplay = [...credentialsDisplay]
+    const credential = updatedCredentialsDisplay.filter(
+      (object: { key: string }) => object.key === key,
+    )[0]
+    if (retrievedCredentials?.requestedAttributes?.[key]) {
+      const keyObject = retrievedCredentials?.requestedAttributes?.[key].filter(
+        object => object.credentialId === credentialId,
+      )[0]
+      const showValues: string[] = []
+      credential?.names.forEach((name: string) => {
+        showValues.push(
+          JSON.parse(JSON.stringify(keyObject.credentialInfo)).attrs[name],
+        )
+      })
+      credential.credentials.forEach((item: any) => {
+        const element = item
+        if (item.value === credentialId) {
+          element.isSelected = true
+        } else {
+          element.isSelected = false
+        }
+      })
+      credential.values = showValues
+    }
+    const index = updatedCredentialsDisplay.findIndex(
+      (item: string) => item === key,
+    )
+    updatedCredentialsDisplay[index] = credential
+    setCredentialsDisplay(updatedCredentialsDisplay)
+  }
+
+  console.log('object890', missingAttributes)
+
   return (
-    <>
-      <Record
-        header={() => (
-          <View style={styles.headerTextContainer}>
-            {anyUnavailable(attributeCredentials) ? (
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Icon
-                  style={{ marginLeft: -2, marginRight: 10 }}
-                  name="highlight-off"
-                  color={TextTheme.headingOne.color}
-                  size={TextTheme.headingOne.fontSize}
-                />
-                <Text style={styles.headerText}>
-                  <Title>
-                    {getConnectionName(connection) ||
-                      t('ContactDetails.AContact')}
-                  </Title>{' '}
-                  {t('ProofRequest.IsRequestingSomethingYouDontHaveAvailable')}:
-                </Text>
-              </View>
-            ) : (
-              <Text style={styles.headerText}>
-                <Title>
-                  {getConnectionName(connection) ||
-                    t('ContactDetails.AContact')}
-                </Title>{' '}
-                {t('ProofRequest.IsRequestingYouToShare')}:
+    <View style={styles.container}>
+      {isShowError ? (
+        <>
+          <Text
+            style={[
+              TextTheme.headingFour,
+              {
+                color: ColorPallet.notification.errorText,
+                marginVertical: 10,
+              },
+            ]}
+          >
+            {t('ProofRequest.MissingInformation.Title')}
+          </Text>
+          <InfoTextBox>
+            {t('ProofRequest.MissingInformation.AlertMissingInformation.Title')}
+          </InfoTextBox>
+          <View>
+            {missingAttributes.map(item => (
+              <Text key={item} style={TextTheme.normal}>
+                {item}
               </Text>
-            )}
+            ))}
           </View>
-        )}
-        footer={() => (
-          <View style={{ marginBottom: 30 }}>
-            {!(
+        </>
+      ) : null}
+
+      {!isShowError && (
+        <>
+          <Text
+            style={TextTheme.normal}
+            accessibilityLabel={t('ProofRequest.Title', {
+              connection: connection?.alias || connection?.invitation?.label,
+            })}
+          >
+            <Trans
+              i18nKey="ProofRequest.Title"
+              values={{
+                connection: connection?.alias || connection?.invitation?.label,
+              }}
+              components={{
+                b: <Text style={{ fontWeight: 'bold' }} />,
+              }}
+              t={t}
+            />
+          </Text>
+
+          <View style={{ zIndex: 1 }}>
+            <ProofRequestAttribute
+              proofRequest={credentialsDisplay}
+              onSelectItem={(item: ItemType, key) =>
+                onCredentialSelect(item.value, key)
+              }
+            />
+          </View>
+        </>
+      )}
+
+      <View style={{ marginBottom: 30 }}>
+        {!(
+          anyUnavailable(attributeCredentials) ||
+          anyRevoked(attributeCredentials)
+        ) && !isShowError ? (
+          <View style={styles.footerButton}>
+            <Button
+              title={t('Global.Share')}
+              buttonType={ButtonType.Primary}
+              onPress={handleAcceptPress}
+              disabled={!buttonsVisible}
+            />
+          </View>
+        ) : null}
+        <View style={styles.footerButton}>
+          <Button
+            title={t('Global.Decline')}
+            buttonType={
               anyUnavailable(attributeCredentials) ||
               anyRevoked(attributeCredentials)
-            ) ? (
-              <View style={styles.footerButton}>
-                <Button
-                  title={t('Global.Share')}
-                  buttonType={ButtonType.Primary}
-                  onPress={handleAcceptPress}
-                  disabled={!buttonsVisible}
-                />
-              </View>
-            ) : null}
-            <View style={styles.footerButton}>
-              <Button
-                title={t('Global.Decline')}
-                buttonType={
-                  anyUnavailable(attributeCredentials) ||
-                  anyRevoked(attributeCredentials)
-                    ? ButtonType.Primary
-                    : ButtonType.Ghost
-                }
-                onPress={handleDeclinePress}
-                disabled={!buttonsVisible}
-              />
-            </View>
-          </View>
-        )}
-        attributes={attributeCredentials.map(([name, values]) => ({
-          name,
-          value: firstAttributeCredential(values),
-          values,
-        }))}
-        attribute={attribute => {
-          return (
-            <RecordAttribute
-              attribute={attribute}
-              attributeValue={(attribute: ProofRequestAttribute) => (
-                <>
-                  {!attribute?.values?.length ||
-                  (attribute?.value as unknown as RequestedAttribute)
-                    ?.revoked ? (
-                    <View
-                      style={{ flexDirection: 'row', alignItems: 'center' }}
-                    >
-                      <Icon
-                        style={{ paddingTop: 2, paddingHorizontal: 2 }}
-                        name="close"
-                        color={ColorPallet.semantic.error}
-                        size={TextTheme.normal.fontSize}
-                      />
-                      <Text
-                        style={[
-                          TextTheme.normal,
-                          { color: ColorPallet.semantic.error },
-                        ]}
-                      >
-                        {(attribute?.value as unknown as RequestedAttribute)
-                          ?.revoked
-                          ? t('CredentialDetails.Revoked')
-                          : t('ProofRequest.NotAvailableInYourWallet')}
-                      </Text>
-                    </View>
-                  ) : (
-                    <Text style={TextTheme.normal}>
-                      {valueFromAttributeCredential(
-                        attribute.name,
-                        attribute.value as unknown as RequestedAttribute,
-                      )}
-                    </Text>
-                  )}
-                  {attribute?.values?.length ? (
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate(
-                          Screens.ProofRequestAttributeDetails,
-                          {
-                            proofId,
-                            attributeName: attribute.name,
-                            attributeCredentials: attribute.values || [],
-                          },
-                        )
-                      }
-                      style={styles.link}
-                    >
-                      <Text style={TextTheme.normal}>
-                        {t('ProofRequest.Details')}
-                      </Text>
-                    </TouchableOpacity>
-                  ) : null}
-                </>
-              )}
-            />
-          )
-        }}
-      />
+                ? ButtonType.Primary
+                : ButtonType.Ghost
+            }
+            onPress={handleDeclinePress}
+            disabled={!buttonsVisible}
+          />
+        </View>
+      </View>
       {pendingModalVisible && (
         <FlowDetailModal
           title={t('ProofRequest.SendingTheInformationSecurely')}
@@ -353,7 +601,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           <ProofDeclined style={{ marginVertical: 20 }} />
         </FlowDetailModal>
       )}
-    </>
+    </View>
   )
 }
 
