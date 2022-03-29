@@ -1,10 +1,12 @@
 import { t } from 'i18next'
-import { View, StyleSheet, Text, Button } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useAgent } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { TabStacks } from '../types/navigators'
 import { Loader } from '../components'
+import Button, { ButtonType } from '../components/button/Button'
+import ConnectionPending from '../assets/img/connection-pending.svg'
 
 const styles = StyleSheet.create({
   container: {
@@ -19,6 +21,9 @@ const styles = StyleSheet.create({
   spacer: {
     height: 40,
     width: 50,
+  },
+  topSpacer: {
+    paddingTop: 10,
   },
 })
 interface ConnectionProps {
@@ -51,18 +56,31 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
     navigation.navigate(TabStacks.ContactStack)
   }
 
+  const handleDeclinePress = () => {
+    navigation.navigate(TabStacks.HomeStack)
+  }
+
   return (
     <View style={[styles.container]}>
       <Loader loading={loading} />
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
         {t('ConnectionInvitation.ConsentMessage')}
       </Text>
+      <ConnectionPending style={{ marginVertical: 20, alignSelf: 'center' }} />
       <View style={styles.spacer} />
-      <View style={[{ marginHorizontal: 20 }]}>
-        <View style={[{ paddingBottom: 10 }]}>
-          <Button title={t('Global.Accept')} onPress={handleAcceptPress} />
-        </View>
-        <Button title={t('Global.Decline')} />
+      <View style={styles.topSpacer}>
+        <Button
+          title={t('Global.Accept')}
+          onPress={handleAcceptPress}
+          buttonType={ButtonType.Primary}
+        />
+      </View>
+      <View style={styles.topSpacer}>
+        <Button
+          title={t('Global.Decline')}
+          buttonType={ButtonType.Ghost}
+          onPress={handleDeclinePress}
+        />
       </View>
     </View>
   )

@@ -1,49 +1,38 @@
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import React from 'react'
-import { StyleSheet, View, Keyboard, Button } from 'react-native'
-import TextInput from './TextInput'
+import { StyleSheet, View, Keyboard, Button, TextInput } from 'react-native'
 import { ColorPallet } from '../../theme/theme'
 // styles
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 15,
-    marginRight: 5,
-    height: 70,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
     flexDirection: 'row',
-    width: '90%',
+    width: '95%',
   },
-  searchBar__unclicked: {
+  searchbarUnclicked: {
     marginLeft: 15,
     marginRight: 15,
-    height: 60,
+    height: 50,
     flexDirection: 'row',
     width: '95%',
     backgroundColor: '#d9dbda',
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
   },
-  searchBar__clicked: {
+  searchbarClicked: {
     marginLeft: 15,
     marginRight: 10,
-    height: 60,
+    height: 50,
     flexDirection: 'row',
     width: '70%',
     backgroundColor: '#d9dbda',
     borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'space-around',
   },
   input: {
     fontSize: 18,
-    marginLeft: 10,
     alignSelf: 'center',
     width: '90%',
   },
   buttonStyle: {
-    marginTop: 20,
+    alignSelf: 'center',
   },
 })
 
@@ -63,9 +52,7 @@ const SearchBar: React.FC<Props> = ({
   return (
     <View style={styles.container}>
       <View
-        style={
-          clicked ? styles.searchBar__clicked : styles.searchBar__unclicked
-        }
+        style={clicked ? styles.searchbarClicked : styles.searchbarUnclicked}
       >
         {/* search Icon */}
         <Icon
@@ -81,7 +68,7 @@ const SearchBar: React.FC<Props> = ({
         />
         {/* Input field */}
         <TextInput
-          label=""
+          // label=""
           style={styles.input}
           placeholder="Search"
           value={searchPhrase}
@@ -96,7 +83,7 @@ const SearchBar: React.FC<Props> = ({
             name="close"
             size={20}
             color="black"
-            style={{ padding: 1, marginTop: 15 }}
+            style={{ alignSelf: 'center' }}
             onPress={() => {
               setSearchPhrase('')
               setClicked(false)

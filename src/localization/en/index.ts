@@ -32,7 +32,7 @@ const translation = {
     "ChangePin": 'Change Pin',
     "OldPin": 'Enter Old Pin',
     "Copy": 'Copy',
-    "ZeroRecords": 'Zero Records available'
+    "ZeroRecords": 'No records available'
   },
   "Language": {
     "English": "English",

@@ -32,7 +32,7 @@ const translation = {
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
     "Copy": 'Copie',
-    "ZeroRecords": 'Zéro enregistrement disponible'
+    "ZeroRecords": 'Aucun enregistrement disponible'
   },
   "Language": {
     "English": "Anglais",

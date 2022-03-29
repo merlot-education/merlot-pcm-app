@@ -32,7 +32,7 @@ const translation = {
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
     "Copy": 'Kopieren',
-    "ZeroRecords": 'Null Datensätze verfügbar'
+    "ZeroRecords": 'Keine Aufzeichnungen verfügbar'
   },
   "Language": {
     "English": "Englisch",
