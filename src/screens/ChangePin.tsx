@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
-import { Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Screens, SettingStackParams } from '../types/navigators'
@@ -13,7 +13,7 @@ type ChangePinProps = StackScreenProps<SettingStackParams, Screens.ChangePin>
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
 })
@@ -65,7 +65,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         accessible
         accessibilityLabel={t('Global.OldPin')}
         maxLength={6}
@@ -80,7 +80,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         accessible
         accessibilityLabel={t('Global.EnterNewPin')}
         placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry
         keyboardType="number-pad"
@@ -93,8 +93,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         label={t('PinCreate.ReenterNewPin')}
         accessible
         accessibilityLabel={t('PinCreate.ReenterNewPin')}
-        placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry
         keyboardType="number-pad"

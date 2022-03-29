@@ -2,13 +2,13 @@ import { t } from 'i18next'
 import { View, StyleSheet, Text, Button } from 'react-native'
 import React, { useState } from 'react'
 import { useAgent } from '@aries-framework/react-hooks'
-import { Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { TabStacks } from '../types/navigators'
 import { Loader } from '../components'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   bodyText: {

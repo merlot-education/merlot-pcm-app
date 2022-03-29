@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { setValueKeychain } from '../utils/keychain'
-import { ColorPallet, Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader, Text } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { OnboardingStackParams, Screens } from '../types/navigators'
@@ -22,7 +22,7 @@ type RegistrationProps = StackScreenProps<
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   bodyText: {
@@ -175,7 +175,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
         <TextInput
           label={t('Global.Email')}
           placeholder={t('Global.Email')}
-          placeholderTextColor={Colors.primary}
+          placeholderTextColor={ColorPallet.brand.primary}
           accessible
           accessibilityLabel={t('Global.Email')}
           autoFocus

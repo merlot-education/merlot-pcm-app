@@ -5,11 +5,11 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 import SearchBar from '../components/inputs/SearchBar'
 import { ContactListItem, Text } from '../components'
-import { Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
 })
@@ -42,7 +42,7 @@ const ListContacts: React.FC = () => {
         data={filteredData}
         renderItem={({ item }) => <ContactListItem contact={item} />}
         keyExtractor={(item: ConnectionRecord) => item.did}
-        style={{ backgroundColor: Colors.background }}
+        style={{ backgroundColor: ColorPallet.grayscale.white }}
         contentContainerStyle={{ paddingBottom: 65 }}
         ListEmptyComponent={
           <Text style={{ textAlign: 'center', margin: 100 }}>

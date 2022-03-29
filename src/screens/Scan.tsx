@@ -12,11 +12,11 @@ import { ToastType } from '../components/toast/BaseToast'
 import QRScanner from '../components/inputs/QRScanner'
 import { ScanStackParams, Screens } from '../types/navigators'
 import QrCodeScanError from '../types/error'
-import { Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
   },
 })
 
