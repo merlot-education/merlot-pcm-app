@@ -28,7 +28,7 @@ const Splash: React.FC<SplashProps> = ({ navigation }) => {
       navigation.navigate(Screens.EnterPin)
     } else {
       SplashScreen.hide()
-      navigation.navigate(Screens.Terms)
+      navigation.navigate(Screens.Onboarding)
     }
   }
 
