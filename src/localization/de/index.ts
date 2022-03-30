@@ -29,7 +29,9 @@ const translation = {
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
-    "Copy": 'Kopieren'
+    "Copy": 'Kopieren',
+    "from": 'von',
+    "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
   },
   "Language": {
     "English": "Englisch",
@@ -139,6 +141,7 @@ const translation = {
     "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
   },
   "ProofRequest": {
+    "Title": "<b>{{connection}}</b> demande une vérification à partir de votre portefeuille. \n\nIls vous demandent de partager :",
     "OfferDelay": "Angebotsverzögerung",
     "RejectThisProof?": "Diesen Nachweis ablehnen?",
     "AcceptingProof": "Nachweis wird akzeptiert",
@@ -157,7 +160,13 @@ const translation = {
     "Details": "Diesen Nachweis ablehnen?5",
     "SendingTheInformationSecurely": "Diesen Nachweis ablehnen?6",
     "InformationSentSuccessfully": "Diesen Nachweis ablehnen?7",
-    "ProofRequestDeclined": "Diesen Nachweis ablehnen?8"
+    "ProofRequestDeclined": "Diesen Nachweis ablehnen?8",
+    "MissingInformation": {
+      "Title": "Die Anfrage kann nicht abgeschlossen werden",
+      "AlertMissingInformation": {
+        "Title": "In Ihrer Brieftasche fehlen Informationen"
+      }
+    }
   }
 }
 export default translation

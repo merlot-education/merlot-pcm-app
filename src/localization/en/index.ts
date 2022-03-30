@@ -32,6 +32,8 @@ const translation = {
     "ChangePin": 'Change Pin',
     "OldPin": 'Enter Old Pin',
     "Copy": 'Copy',
+    "from": 'from',
+    "ThisDecisionCannotBeChanged.": "This decision cannot be changed.",
   },
   "Language": {
     "English": "English",
@@ -152,6 +154,7 @@ const translation = {
     "Warning": "Warning",
   },
   "ProofRequest": {
+    "Title": "<b>{{connection}}</b> is requesting a  verification from your Wallet. \n\nThey are asking that you share:",
     "OfferDelay": "Offer delay",
     "RejectThisProof?": "Reject this Proof?",
     "AcceptingProof": "Accepting Proof",
@@ -170,7 +173,13 @@ const translation = {
     "Details": "Details",
     "SendingTheInformationSecurely": "Sending the information securely",
     "InformationSentSuccessfully": "Information sent successfully",
-    "ProofRequestDeclined": "Proof request declined"
+    "ProofRequestDeclined": "Proof request declined",
+    "MissingInformation": {
+      "Title": "The request cannot be completed",
+      "AlertMissingInformation": {
+        "Title": "Your wallet is missing information",
+      },
+    }
   }
 }
 export default translation

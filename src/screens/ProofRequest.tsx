@@ -403,6 +403,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
       await agent.proofs.acceptRequest(proof.id, automaticRequestedCreds)
+      setPendingModalVisible(false)
+      setSuccessModalVisible(true)
     } catch (e: unknown) {
       setButtonsVisible(true)
       setPendingModalVisible(false)

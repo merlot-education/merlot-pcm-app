@@ -29,7 +29,9 @@ const translation = {
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
-    "Copy": 'Copie'
+    "Copy": 'Copie',
+    "from": 'à partir de',
+    "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
   },
   "Language": {
     "English": "Anglais",
@@ -149,6 +151,7 @@ const translation = {
     "Warning": "Avertissement"
   },
   "ProofRequest": {
+    "Title": "<b>{{connection}}</b> fordert eine Verifizierung von Ihrem Wallet an. \n\nSie bitten darum, dass Sie teilen:",
     "OfferDelay": "Retard de l'offre",
     "RejectThisProof?": "Rejeter cette preuve ?",
     "AcceptingProof": "Acceptation de la preuve",
@@ -167,7 +170,13 @@ const translation = {
     "Details": "Rejeter cette preuve ?5",
     "SendingTheInformationSecurely": "Rejeter cette preuve ?6",
     "InformationSentSuccessfully": "Rejeter cette preuve ?7",
-    "ProofRequestDeclined": "Rejeter cette preuve ?8"
+    "ProofRequestDeclined": "Rejeter cette preuve ?8",
+    "MissingInformation": {
+      "Title": "La demande ne peut pas être complétée",
+      "AlertMissingInformation": {
+        "Title": "Votre portefeuille manque d'informations"
+      }
+    }
   }
 }
 export default translation
