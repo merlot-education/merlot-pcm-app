@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     width: '95%',
-    backgroundColor: '#d9dbda',
+    backgroundColor: ColorPallet.grayscale.searchGray,
     borderRadius: 10,
   },
   searchbarClicked: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height: 50,
     flexDirection: 'row',
     width: '70%',
-    backgroundColor: '#d9dbda',
+    backgroundColor: ColorPallet.grayscale.searchGray,
     borderRadius: 10,
   },
   input: {
