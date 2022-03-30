@@ -60,7 +60,11 @@ const Terms: React.FC = () => {
             />
           </View>
           <View style={styles.topSpacer}>
-            <Button title={t('Global.Back')} buttonType={ButtonType.Ghost} />
+            <Button
+              title={t('Global.Back')}
+              onPress={nav.goBack}
+              buttonType={ButtonType.Ghost}
+            />
           </View>
         </View>
       </ScrollView>
