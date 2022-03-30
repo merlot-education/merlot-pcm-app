@@ -10,10 +10,10 @@ import {
 } from 'react-native'
 import { BarCodeReadEvent, RNCamera } from 'react-native-camera'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 import QRScannerClose from '../misc/QRScannerClose'
 import QRScannerTorch from '../misc/QRScannerTorch'
 import QrCodeScanError from '../../types/error'
+import { ColorPallet } from '../../theme/theme'
 
 interface Props {
   handleCodeScan: (event: BarCodeReadEvent) => Promise<void>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%',
-    backgroundColor: Colors.black,
+    backgroundColor: ColorPallet.baseColors.black,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     height: 250,
     borderRadius: 24,
     borderWidth: 2,
-    borderColor: Colors.white,
-    backgroundColor: Colors.transparent,
+    borderColor: ColorPallet.baseColors.white,
+    backgroundColor: ColorPallet.baseColors.transparent,
   },
   viewFinderContainer: {
     flex: 1,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    color: Colors.white,
+    color: ColorPallet.baseColors.white,
     padding: 4,
   },
 })

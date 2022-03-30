@@ -7,7 +7,7 @@ import Registration from '../screens/Registration'
 import Splash from '../screens/Splash'
 import Terms from '../screens/Terms'
 import VerifyOtp from '../screens/VerifyOtp'
-import { Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 
 import { OnboardingStackParams, Screens } from '../types/navigators'
 
@@ -34,7 +34,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.Terms}
         options={() => ({
           title: 'Terms & Conditions',
-          headerTintColor: Colors.white,
+          headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
           rightLeft: () => false,

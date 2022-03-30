@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { Title } from '..'
 
 import { dateFormatOptions } from '../../constants'
-import { ColorPallet, Colors, ContactTheme, TextTheme } from '../../theme/theme'
+import { ContactTheme, TextTheme } from '../../theme/theme'
 import { parsedSchema } from '../../utils/helpers'
 import AvatarView from './AvatarView'
 

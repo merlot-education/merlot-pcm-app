@@ -1,8 +1,8 @@
-import { ColorPallet, Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 
 export default {
   headerStyle: {
-    backgroundColor: Colors.primary,
+    backgroundColor: ColorPallet.brand.primary,
     elevation: 0,
     shadowOpacity: 0,
     borderBottomWidth: 0,
