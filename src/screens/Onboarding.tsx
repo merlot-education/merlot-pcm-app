@@ -1,13 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { TextTheme } from '../theme/theme'
+import { Context } from '../store/Store'
 import CredentialListImage from '../assets/credential-list.png'
 import ScanToConnectImage from '../assets/scan-share.png'
 import SecureImage from '../assets/secure-image.png'
+import { DispatchAction } from '../store/reducer'
 
 const styles = StyleSheet.create({
   container: {
@@ -69,8 +71,11 @@ const slides = [
 ]
 
 const Onboarding: React.FC = () => {
+  const [activeIndex, setActiveIndex] = useState(0)
   const [showRealApp, setShowRealApp] = useState(false)
   const navigation = useNavigation()
+  const [, dispatch] = useContext(Context)
+
   const renderItem = ({ item }: { item: Item }) => {
     return (
       <View style={styles.container}>
@@ -80,11 +85,22 @@ const Onboarding: React.FC = () => {
       </View>
     )
   }
+  const onNext = () => {
+    if (activeIndex + 1 < slides.length) {
+      setActiveIndex(activeIndex + 1)
+    }
+  }
+
   const keyExtractor = (item: Item) => item.title
   const renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Icon name="east" color="rgba(255, 255, 255, .9)" size={24} />
+        <Icon
+          name="east"
+          onPress={onNext}
+          color="rgba(255, 255, 255, .9)"
+          size={24}
+        />
       </View>
     )
   }
@@ -103,9 +119,14 @@ const Onboarding: React.FC = () => {
   const onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
+    dispatch({
+      type: DispatchAction.SetTutorialCompletionStatus,
+      payload: [{ DidCompleteTutorial: true }],
+    })
     navigation.navigate('Terms')
     setShowRealApp(true)
   }
+
   return (
     <View style={{ flex: 1 }}>
       <AppIntroSlider
