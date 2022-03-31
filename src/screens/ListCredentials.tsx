@@ -4,10 +4,10 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { Text } from '../components'
+import { ColorPallet, ContactTheme, TextTheme } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 import SearchBar from '../components/inputs/SearchBar'
 import { parsedCredentialDefinition } from '../utils/helpers'
-import { ColorPallet, ContactTheme, TextTheme } from '../theme/theme'
 
 const styles = StyleSheet.create({
   container: {

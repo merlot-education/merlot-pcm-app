@@ -6895,9 +6895,9 @@ react-native-svg@^12.3.0:
     css-tree "^1.0.0-alpha.39"
 
 react-native-toast-message@^2.1.1:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.3.tgz#7af947f0e86ea26d3b015bf928c473f41231eff1"
-  integrity sha512-K3hHSWezWixxOZUDbxPSarEG+tPv2WcaJG4L7dvRUC1TOKNVCEKzXjsx+6ZMxllDrJ0sFczuYGqZibGpFe/ubA==
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-2.1.5.tgz#550acb9c6c0f1ee49c6b57b65a56d34e297eb723"
+  integrity sha512-mk3rELtBEhrhWBCN6CTaw0gypgL9ZNauX3xx1LUs4uee9vc0pVsghrKxO57vroUCcNL2hDeZSLJWdQNMCkGeaQ==
 
 react-native-vector-icons@^9.1.0:
   version "9.1.0"

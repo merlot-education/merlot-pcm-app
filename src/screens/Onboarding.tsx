@@ -1,14 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useTranslation } from 'react-i18next'
 import { ColorPallet, TextTheme } from '../theme/theme'
-import { Context } from '../store/Store'
 import CredentialListImage from '../assets/credential-list.png'
 import ScanToConnectImage from '../assets/scan-share.png'
 import SecureImage from '../assets/secure-image.png'
-import { DispatchAction } from '../store/reducer'
+import { LocalStorageKeys } from '../constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,10 +39,15 @@ const styles = StyleSheet.create({
   buttonCircle: {
     width: 44,
     height: 44,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
+    backgroundColor: ColorPallet.brand.primary,
     borderRadius: 22,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  textButton: {
+    marginTop: 12,
+    marginLeft: 5,
+    ...TextTheme.normal,
   },
 })
 
@@ -70,8 +76,7 @@ const Onboarding: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [showRealApp, setShowRealApp] = useState(false)
   const navigation = useNavigation()
-  const [, dispatch] = useContext(Context)
-
+  const { t } = useTranslation()
   const renderItem = ({ item }: { item: Item }) => {
     return (
       <View style={styles.container}>
@@ -81,22 +86,11 @@ const Onboarding: React.FC = () => {
       </View>
     )
   }
-  const onNext = () => {
-    if (activeIndex + 1 < slides.length) {
-      setActiveIndex(activeIndex + 1)
-    }
-  }
-
   const keyExtractor = (item: Item) => item.title
   const renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Icon
-          name="east"
-          onPress={onNext}
-          color="rgba(255, 255, 255, .9)"
-          size={24}
-        />
+        <Icon name="east" color={ColorPallet.grayscale.white} size={28} />
       </View>
     )
   }
@@ -105,30 +99,55 @@ const Onboarding: React.FC = () => {
       <View style={styles.buttonCircle}>
         <Icon
           name="check"
-          color="rgba(255, 255, 255, .9)"
-          size={24}
+          color={ColorPallet.grayscale.white}
+          size={28}
           onPress={onDone}
         />
       </View>
     )
   }
-  const onDone = () => {
+  const renderSkipButton = () => {
+    return (
+      <View>
+        <Text style={styles.textButton} onPress={onDone}>
+          {t('Global.Skip')}
+        </Text>
+      </View>
+    )
+  }
+  const renderPrevButton = () => {
+    return (
+      <View>
+        <Text style={styles.textButton}> {t('Global.Previous')}</Text>
+      </View>
+    )
+  }
+  const onDone = async () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
-    dispatch({
-      type: DispatchAction.SetTutorialCompletionStatus,
-      payload: [{ DidCompleteTutorial: true }],
-    })
+    await storeAppIntroCompleteStage()
     navigation.navigate('Terms')
     setShowRealApp(true)
+  }
+
+  const storeAppIntroCompleteStage = async () => {
+    await AsyncStorage.setItem(
+      LocalStorageKeys.OnboardingCompleteStage,
+      'appIntroComplete',
+    )
   }
 
   return (
     <View style={{ flex: 1 }}>
       <AppIntroSlider
+        activeDotStyle={{ backgroundColor: ColorPallet.grayscale.darkGrey }}
         keyExtractor={keyExtractor}
         renderDoneButton={renderDoneButton}
         renderNextButton={renderNextButton}
+        renderSkipButton={renderSkipButton}
+        renderPrevButton={renderPrevButton}
+        showPrevButton
+        showSkipButton
         renderItem={renderItem}
         data={slides}
       />
