@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { TextTheme, ColorPallet, Colors } from '../../theme/theme'
+import { TextTheme, ColorPallet } from '../../theme/theme'
 import { Attribute } from '../../types/record'
 import RecordAttribute from './RecordAttribute'
 import RecordFooter from './RecordFooter'
@@ -28,13 +28,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     paddingHorizontal: 25,
     paddingVertical: 16,
-    background: Colors.background,
+    background: ColorPallet.grayscale.white,
   },
   link: {
     minHeight: TextTheme.normal.fontSize,
     paddingVertical: 2,
     color: ColorPallet.brand.link,
-    background: Colors.background,
+    background: ColorPallet.grayscale.white,
   },
 })
 

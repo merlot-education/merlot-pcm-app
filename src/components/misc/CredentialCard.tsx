@@ -5,8 +5,8 @@ import { StyleSheet, Text, View, ViewStyle } from 'react-native'
 import { Title } from '..'
 
 import { dateFormatOptions } from '../../constants'
-import { ColorPallet, Colors, ContactTheme, TextTheme } from '../../theme/theme'
-import { parsedCredentialDefinition, parsedSchema } from '../../utils/helpers'
+import { parsedCredentialDefinition } from '../../utils/helpers'
+import { ContactTheme, TextTheme } from '../../theme/theme'
 import AvatarView from './AvatarView'
 
 interface CredentialCardProps {

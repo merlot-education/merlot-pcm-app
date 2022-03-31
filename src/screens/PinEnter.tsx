@@ -7,7 +7,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import md5 from 'md5'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
-import { Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 import { LocalStorageKeys } from '../constants'
@@ -16,7 +16,7 @@ type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   btnContainer: {
@@ -127,7 +127,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         accessible
         accessibilityLabel={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         keyboardType="numeric"
         secureTextEntry

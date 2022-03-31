@@ -2,9 +2,8 @@ import { useNavigation } from '@react-navigation/native'
 import React, { useState, useContext } from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
-import { Colors } from 'react-native/Libraries/NewAppScreen'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { Context } from '../store/Store'
 import CredentialListImage from '../assets/credential-list.png'
 import ScanToConnectImage from '../assets/scan-share.png'
@@ -13,7 +12,7 @@ import { DispatchAction } from '../store/reducer'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 10,
     flex: 0.75,
     alignItems: 'center',
@@ -52,21 +51,18 @@ const slides = [
     title: 'Credentials List',
     text: 'Get the list of issued credentials',
     image: CredentialListImage,
-    backgroundColor: '#59b2ab',
   },
   {
     key: 2,
     title: 'Scan to connect',
     text: 'Scan QR to connect to organizations',
     image: ScanToConnectImage,
-    backgroundColor: '#febe29',
   },
   {
     key: 3,
     title: 'Secure Storage',
     text: "I'm already out of descriptions\n\nLorem ipsum ",
     image: SecureImage,
-    backgroundColor: '#22bcb5',
   },
 ]
 

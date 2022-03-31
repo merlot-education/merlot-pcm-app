@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { LocalStorageKeys } from '../constants'
-import { State } from '../types/state'
+import { State } from '../types/states'
 
 export enum DispatchAction {
   ConnectionPending = 'CONNECTION_PENDING',

@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, Alert } from 'react-native'
 import { getVersion, getBuildNumber } from 'react-native-device-info'
-import { borderRadius, Colors, TextTheme } from '../theme/theme'
+import { borderRadius, ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, SettingStackParams } from '../types/navigators'
 import { SettingListItem, Text } from '../components'
 
@@ -23,11 +23,11 @@ const styles = StyleSheet.create({
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
-    color: Colors.primary,
+    color: ColorPallet.brand.primary,
   },
   rowGroup: {
     borderRadius: borderRadius * 2,
-    backgroundColor: Colors.primaryLight,
+    backgroundColor: ColorPallet.baseColors.lightBlue,
     marginBottom: 10,
   },
   row: {

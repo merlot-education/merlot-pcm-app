@@ -8,7 +8,7 @@ import md5 from 'md5'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
-import { Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
@@ -19,7 +19,7 @@ type PinCreateProps = StackScreenProps<OnboardingStackParams, Screens.CreatePin>
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   btnContainer: {
@@ -189,7 +189,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       <TextInput
         label={t('Global.EnterPin')}
         placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         accessible
         accessibilityLabel={t('Global.EnterPin')}
         maxLength={6}
@@ -204,7 +204,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         accessible
         accessibilityLabel={t('PinCreate.ReenterPin')}
         placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry
         keyboardType="number-pad"

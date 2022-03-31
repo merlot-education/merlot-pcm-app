@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { ColorPallet, Colors, TextTheme } from '../../theme/theme'
+import { ColorPallet, TextTheme } from '../../theme/theme'
 import { Attribute } from '../../types/record'
 import testIdWithKey from '../../utils/testtable'
 
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 25,
     paddingTop: 16,
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
   },
   border: {
     borderBottomColor: ColorPallet.brand.primaryBackground,
