@@ -2,16 +2,16 @@ import { CredentialState, CredentialRecord } from '@aries-framework/core'
 import { useCredentialByState } from '@aries-framework/react-hooks'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, View, StyleSheet } from 'react-native'
 import { Text } from '../components'
-import { ColorPallet, Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, ContactTheme, TextTheme } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 import SearchBar from '../components/inputs/SearchBar'
-import { parsedCredentialDefinition, parsedSchema } from '../utils/helpers'
+import { parsedCredentialDefinition } from '../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ContactTheme.background,
     margin: 20,
   },
   bodyText: {
@@ -58,7 +58,7 @@ const ListCredentials: React.FC = () => {
         setClicked={setClicked}
       />
       <FlatList
-        style={{ backgroundColor: Colors.background }}
+        style={{ backgroundColor: ColorPallet.grayscale.white }}
         data={filteredData}
         keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
         ListEmptyComponent={emptyListComponent}

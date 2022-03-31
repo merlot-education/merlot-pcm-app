@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
-import { Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { OnboardingStackParams, Screens } from '../types/navigators'
@@ -15,7 +15,7 @@ type VerifyOtpProps = StackScreenProps<OnboardingStackParams, Screens.VerifyOtp>
 
 const style = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   bodyText: {
@@ -126,7 +126,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       <TextInput
         label={t('Global.Otp')}
         placeholder={t('Global.Otp')}
-        placeholderTextColor={Colors.lightGrey}
+        placeholderTextColor={ColorPallet.baseColors.lightGrey}
         accessible
         accessibilityLabel={t('Global.Otp')}
         maxLength={6}

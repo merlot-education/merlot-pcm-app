@@ -6,14 +6,14 @@ import { useTranslation } from 'react-i18next'
 import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../components/text/InfoTextBox'
-import { Colors, TextTheme } from '../theme/theme'
 import { Context } from '../store/Store'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens } from '../types/navigators'
 import { DispatchAction } from '../store/reducer'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   bodyText: {
