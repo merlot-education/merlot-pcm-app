@@ -35,7 +35,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.Onboarding}
         options={() => ({
           title: 'App Introduction',
-          headerTintColor: Colors.white,
+          headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
           rightLeft: () => false,

@@ -3,7 +3,7 @@ import React, { useState, useContext } from 'react'
 import { StyleSheet, View, Image, Text } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { ColorPallet, ContactTheme, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { Context } from '../store/Store'
 import CredentialListImage from '../assets/credential-list.png'
 import ScanToConnectImage from '../assets/scan-share.png'
@@ -12,7 +12,7 @@ import { DispatchAction } from '../store/reducer'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ContactTheme.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 10,
     flex: 0.75,
     alignItems: 'center',
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   buttonCircle: {
     width: 44,
     height: 44,
-    backgroundColor: 'rgba(0, 0, 0, .2)',
+    backgroundColor: ColorPallet.grayscale.lightGrey,
     borderRadius: 22,
     justifyContent: 'center',
     alignItems: 'center',
@@ -126,6 +126,7 @@ const Onboarding: React.FC = () => {
   return (
     <View style={{ flex: 1 }}>
       <AppIntroSlider
+        activeDotStyle={{ backgroundColor: ColorPallet.grayscale.darkGrey }}
         keyExtractor={keyExtractor}
         renderDoneButton={renderDoneButton}
         renderNextButton={renderNextButton}
