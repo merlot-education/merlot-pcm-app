@@ -29,7 +29,9 @@ const translation = {
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
-    "Copy": 'Kopieren'
+    "Copy": 'Kopieren',
+    "from": 'von',
+    "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
   },
   "Language": {
     "English": "Englisch",
@@ -138,8 +140,33 @@ const translation = {
     "ConnectionNotFound": "Verbindung nicht gefunden",
     "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
+  "ProofRequest": {
+    "Title": "<b>{{connection}}</b> demande une vérification à partir de votre portefeuille. \n\nIls vous demandent de partager :",
+    "OfferDelay": "Angebotsverzögerung",
+    "RejectThisProof?": "Diesen Nachweis ablehnen?",
+    "AcceptingProof": "Nachweis wird akzeptiert",
+    "SuccessfullyAcceptedProof": "Nachweis erfolgreich akzeptiert",
+    "ProofNotFound": "Nachweis nicht gefunden",
+    "RejectingProof": "Nachweis wird abgelehnt",
+    "ProofAccepted": "Nachweis akzeptiert",
+    "ProofRejected": "Nachweis abgelehnt",
+    "RequestedCredentialsCouldNotBeFound": "Angeforderte Anmeldeinformationen konnten nicht gefunden werden",
+    "ProofRequest": "Neuer Nachweis angefordert",
+    "NotAvailableInYourWallet": "Diesen Nachweis ablehnen?0",
+    "IsRequestng": "Diesen Nachweis ablehnen?1",
+    "IsRequestingSomethingYouDontHaveAvailable": "Diesen Nachweis ablehnen?2",
+    "IsRequestingYouToShare": "Diesen Nachweis ablehnen?3",
+    "WhichYouCanProvideFrom": "Diesen Nachweis ablehnen?4",
+    "Details": "Diesen Nachweis ablehnen?5",
+    "SendingTheInformationSecurely": "Diesen Nachweis ablehnen?6",
+    "InformationSentSuccessfully": "Diesen Nachweis ablehnen?7",
+    "ProofRequestDeclined": "Diesen Nachweis ablehnen?8",
+    "MissingInformation": {
+      "Title": "Die Anfrage kann nicht abgeschlossen werden",
+      "AlertMissingInformation": {
+        "Title": "In Ihrer Brieftasche fehlen Informationen"
+      }
+    }
   }
 }
 export default translation

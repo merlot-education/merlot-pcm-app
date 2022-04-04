@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text as T, StyleSheet, TextStyle } from 'react-native'
+import { Text as T, StyleSheet, TextStyle, StyleProp } from 'react-native'
 import { ColorPallet } from '../../theme/theme'
 
 const styles = StyleSheet.create({
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
 
 type Props = {
   children: React.ReactNode
-  style?: TextStyle
+  style?: StyleProp<TextStyle>
 }
 
 const Text: React.FC<Props> = ({ children, style }) => {

@@ -9,15 +9,15 @@ import {
 } from 'react-native'
 import { TextTheme, ColorPallet } from '../../theme/theme'
 import { Attribute } from '../../types/record'
+
 import RecordAttribute from './RecordAttribute'
 import RecordFooter from './RecordFooter'
 import RecordHeader from './RecordHeader'
-import testIdWithKey from '../../utils/testtable'
 
 interface RecordProps {
   header: () => React.ReactElement | null
   footer: () => React.ReactElement | null
-  attributes?: Array<Attribute>
+  attributes?: Attribute[]
   hideAttributeValues?: boolean
   attribute?: (attribute: Attribute) => React.ReactElement | null
 }
@@ -67,7 +67,6 @@ const Record: React.FC<RecordProps> = ({
                 style={styles.link}
                 activeOpacity={1}
                 onPress={() => resetShown()}
-                testID={testIdWithKey('HideAll')}
                 accessible
                 accessibilityLabel={t('Record.HideAll')}
               >

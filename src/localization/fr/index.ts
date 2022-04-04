@@ -29,7 +29,9 @@ const translation = {
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
-    "Copy": 'Copie'
+    "Copy": 'Copie',
+    "from": 'à partir de',
+    "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
   },
   "Language": {
     "English": "Anglais",
@@ -148,8 +150,33 @@ const translation = {
     "Info": "Info",
     "Warning": "Avertissement"
   },
-  "GaiaxConsent": {
-    "WalletCreated": "Votre portefeuille est créé avec succès"
+  "ProofRequest": {
+    "Title": "<b>{{connection}}</b> fordert eine Verifizierung von Ihrem Wallet an. \n\nSie bitten darum, dass Sie teilen:",
+    "OfferDelay": "Retard de l'offre",
+    "RejectThisProof?": "Rejeter cette preuve ?",
+    "AcceptingProof": "Acceptation de la preuve",
+    "SuccessfullyAcceptedProof": "Preuve acceptée avec succès",
+    "ProofNotFound": "Preuve introuvable",
+    "RejectingProof": "Rejet de la preuve",
+    "ProofAccepted": "Preuve acceptée",
+    "ProofRejected": "Preuve rejetée",
+    "RequestedCredentialsCouldNotBeFound": "Les informations d'identification demandées sont introuvables",
+    "ProofRequest": "Nouvelle demande de preuve",
+    "NotAvailableInYourWallet": "Rejeter cette preuve ?0",
+    "IsRequestng": "Rejeter cette preuve ?1",
+    "IsRequestingSomethingYouDontHaveAvailable": "Rejeter cette preuve ?2",
+    "IsRequestingYouToShare": "Rejeter cette preuve ?3",
+    "WhichYouCanProvideFrom": "Rejeter cette preuve ?4",
+    "Details": "Rejeter cette preuve ?5",
+    "SendingTheInformationSecurely": "Rejeter cette preuve ?6",
+    "InformationSentSuccessfully": "Rejeter cette preuve ?7",
+    "ProofRequestDeclined": "Rejeter cette preuve ?8",
+    "MissingInformation": {
+      "Title": "La demande ne peut pas être complétée",
+      "AlertMissingInformation": {
+        "Title": "Votre portefeuille manque d'informations"
+      }
+    }
   }
 }
 export default translation
