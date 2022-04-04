@@ -8,7 +8,7 @@ import {
 } from '@aries-framework/react-hooks'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Colors, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { HomeStackParams, Screens, TabStacks } from '../types/navigators'
 import Title from '../components/text/Title'
 import FlowDetailModal from '../components/modals/FlowDetailModal'
@@ -26,16 +26,16 @@ const styles = StyleSheet.create({
   headerTextContainer: {
     paddingHorizontal: 25,
     paddingVertical: 16,
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
   },
   headerText: {
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
     ...TextTheme.normal,
     flexShrink: 1,
   },
   footerButton: {
     paddingTop: 10,
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
   },
 })
 

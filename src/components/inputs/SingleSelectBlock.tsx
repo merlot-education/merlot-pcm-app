@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { borderRadius, Colors, SingleSelectBlockTheme } from '../../theme/theme'
+import {
+  borderRadius,
+  ColorPallet,
+  SingleSelectBlockTheme,
+} from '../../theme/theme'
 import Text from '../text/Text'
 
 const styles = StyleSheet.create({
@@ -53,7 +57,7 @@ const SingleSelectBlock: React.FC<Props> = ({
         >
           <Text>{item.value}</Text>
           {item.id === selected.id ? (
-            <Icon name="check" size={25} color={Colors.text} />
+            <Icon name="check" size={25} color={ColorPallet.brand.primary} />
           ) : null}
         </TouchableOpacity>
       ))}

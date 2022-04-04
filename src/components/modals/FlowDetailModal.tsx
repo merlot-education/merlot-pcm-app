@@ -7,13 +7,13 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Button, { ButtonType } from '../button/Button'
-import { ColorPallet, Colors, TextTheme } from '../../theme/theme'
+import { ColorPallet, TextTheme } from '../../theme/theme'
 import { HomeStackParams, Screens } from '../../types/navigators'
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: ColorPallet.grayscale.white,
   },
   childContainer: {
     flexGrow: 1,

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Text as T, StyleSheet, TextStyle, StyleProp } from 'react-native'
-import { Colors } from '../../theme/theme'
+import { ColorPallet } from '../../theme/theme'
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.text,
+    color: ColorPallet.brand.primary,
   },
 })
 

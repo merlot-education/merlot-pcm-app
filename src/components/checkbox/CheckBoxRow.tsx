@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
-import { Colors, TextTheme } from '../../theme/theme'
+import { ColorPallet, TextTheme } from '../../theme/theme'
 
 interface Props {
   title: string
@@ -42,12 +42,12 @@ const CheckBoxRow: React.FC<Props> = ({
         onPress={onPress}
       >
         {checked ? (
-          <Icon name="check-box" size={36} color={Colors.primary} />
+          <Icon name="check-box" size={36} color={ColorPallet.brand.primary} />
         ) : (
           <Icon
             name="check-box-outline-blank"
             size={36}
-            color={Colors.primary}
+            color={ColorPallet.brand.primary}
           />
         )}
         <Text style={[style.text]}>{title}</Text>

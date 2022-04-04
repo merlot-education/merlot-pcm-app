@@ -2,9 +2,9 @@ import { CredentialState, CredentialRecord } from '@aries-framework/core'
 import { useCredentialByState } from '@aries-framework/react-hooks'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import { Text } from '../components'
-import { ColorPallet, Colors } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 
 const ListCredentials: React.FC = () => {
@@ -22,7 +22,7 @@ const ListCredentials: React.FC = () => {
 
   return (
     <FlatList
-      style={{ backgroundColor: Colors.background }}
+      style={{ backgroundColor: ColorPallet.grayscale.white }}
       data={credentials.sort(
         (a, b) =>
           new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf(),
