@@ -180,6 +180,15 @@ const translation = {
         "Title": "Your wallet is missing information",
       },
     }
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Your wallet is created successfully."
+  },
+  "Record": {
+    "Hide": "Hide",
+    "Show": "Show",
+    "HideAll": "Hide all",
+    "Hidden": "Hidden"
   }
 }
 export default translation

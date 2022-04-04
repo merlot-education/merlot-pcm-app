@@ -167,6 +167,15 @@ const translation = {
         "Title": "In Ihrer Brieftasche fehlen Informationen"
       }
     }
+  },
+  "GaiaxConsent": {
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
+  },
+  "Record": {
+    "Hide": "Ausblenden",
+    "Show": "Zeigen",
+    "HideAll": "Versteck alles",
+    "Hidden": "Versteckt"
   }
 }
 export default translation
