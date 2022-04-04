@@ -21,6 +21,7 @@ const translation = {
     "SomethingWentWrong": "Something went wrong",
     "Done": "Done",
     "Skip": "Skip",
+    "Previous": "Prev",
     "View": "View",
     "Home": "Home",
     "ErrorCode": "Error Code",

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { SafeAreaView, StyleSheet } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -6,8 +6,6 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { Screens, OnboardingStackParams } from '../types/navigators'
 import { ColorPallet } from '../theme/theme'
 import { LocalStorageKeys } from '../constants'
-import { Context } from '../store/Store'
-import { Onboarding } from '../types/states'
 
 type SplashProps = StackScreenProps<OnboardingStackParams, Screens.Splash>
 
@@ -21,8 +19,6 @@ const styles = StyleSheet.create({
 })
 
 const Splash: React.FC<SplashProps> = ({ navigation }) => {
-  const [, dispatch] = useContext(Context)
-
   const checkStack = async () => {
     const onboardingCompleteStage = await AsyncStorage.getItem(
       LocalStorageKeys.OnboardingCompleteStage,
@@ -30,6 +26,12 @@ const Splash: React.FC<SplashProps> = ({ navigation }) => {
     if (onboardingCompleteStage === 'true') {
       SplashScreen.hide()
       navigation.navigate(Screens.EnterPin)
+    } else if (onboardingCompleteStage === 'appIntroComplete') {
+      SplashScreen.hide()
+      navigation.navigate(Screens.Terms)
+    } else if (onboardingCompleteStage === 'termsComplete') {
+      SplashScreen.hide()
+      navigation.navigate(Screens.Registration, { forgotPin: false })
     } else {
       SplashScreen.hide()
       navigation.navigate(Screens.Onboarding)

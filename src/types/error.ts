@@ -6,4 +6,5 @@ class QrCodeScanError extends Error {
     this.data = data
   }
 }
+
 export default QrCodeScanError
