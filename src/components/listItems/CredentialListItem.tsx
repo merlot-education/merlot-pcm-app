@@ -13,15 +13,15 @@ interface CredentialListItemProps {
 const CredentialListItem: React.FC<CredentialListItemProps> = ({
   credential,
 }) => {
-  // const navigation = useNavigation<StackNavigationProp<CredentialStackParams>>()
+  const navigation = useNavigation<StackNavigationProp<CredentialStackParams>>()
 
   return (
     <Pressable
-    // onPress={() =>
-    //   navigation.navigate(Screens.CredentialDetails, {
-    //     credentialId: credential.id,
-    //   })
-    // }
+      onPress={() =>
+        navigation.navigate(Screens.CredentialDetails, {
+          credentialId: credential.id,
+        })
+      }
     >
       <CredentialCard credential={credential} />
     </Pressable>

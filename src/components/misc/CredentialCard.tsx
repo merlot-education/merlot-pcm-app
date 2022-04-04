@@ -6,7 +6,7 @@ import { Title } from '..'
 
 import { dateFormatOptions } from '../../constants'
 import { ContactTheme, TextTheme } from '../../theme/theme'
-import { parsedSchema } from '../../utils/helpers'
+import { parsedCredentialDefinition } from '../../utils/helpers'
 import AvatarView from './AvatarView'
 
 interface CredentialCardProps {
@@ -38,12 +38,9 @@ const CredentialCard: React.FC<CredentialCardProps> = ({
   return (
     <View style={[styles.container, style]}>
       <View style={styles.row}>
-        <AvatarView name={parsedSchema(credential).name} />
+        <AvatarView name={parsedCredentialDefinition(credential).name} />
         <View style={styles.details}>
-          <Title>{parsedSchema(credential).name}</Title>
-          <Text style={{ ...TextTheme.caption }}>
-            {t('CredentialDetails.Version')}: {parsedSchema(credential).version}
-          </Text>
+          <Title>{parsedCredentialDefinition(credential).name}</Title>
           <Text style={{ ...TextTheme.caption }}>
             {t('CredentialDetails.Issued')}:{' '}
             {credential.createdAt.toLocaleDateString(

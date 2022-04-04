@@ -16,9 +16,6 @@ const style = StyleSheet.create({
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
-  btnContainer: {
-    marginTop: 20,
-  },
 })
 
 const ChangePin: React.FC<ChangePinProps> = () => {

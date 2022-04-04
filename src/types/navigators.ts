@@ -15,7 +15,7 @@ export enum Screens {
   Scan = 'Scan',
   ChangePin = 'ChangePin',
   Credentials = 'Credentials',
-  Contacts = 'Contacts',
+  CredentialDetails = 'Credential Details',
   Settings = 'Settings',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
@@ -28,6 +28,7 @@ export enum Screens {
 
 export type OnboardingStackParams = {
   Splash: undefined
+  Onboarding: undefined
   Terms: undefined
   Registration: { forgotPin: boolean }
   VerifyOtp: {
@@ -60,13 +61,13 @@ export type AuthenticateStackParams = {
 }
 
 export type ContactStackParams = {
-  Contacts: undefined
+  ListContacts: undefined
   'Contact Details': { connectionId: string }
 }
 
 export type CredentialStackParams = {
   Credentials: undefined
-  'Credential Details': { credentialId: string }
+  [Screens.CredentialDetails]: { credentialId: string }
 }
 
 export type HomeStackParams = {

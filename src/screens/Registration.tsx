@@ -23,10 +23,14 @@ type RegistrationProps = StackScreenProps<
 const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
-    margin: 20,
+    justifyContent: 'center',
+    flex: 1,
   },
-  btnContainer: {
-    marginTop: 20,
+  subContainer: {
+    backgroundColor: ColorPallet.grayscale.white,
+    justifyContent: 'center',
+    flex: 1,
+    margin: 20,
   },
   bodyText: {
     ...TextTheme.caption,
@@ -173,7 +177,10 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={style.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={style.subContainer}
+      >
         <Loader loading={loading} />
         <TextInput
           label={t('Global.Email')}

@@ -6,6 +6,7 @@ import PinEnter from '../screens/PinEnter'
 import Registration from '../screens/Registration'
 import Splash from '../screens/Splash'
 import Terms from '../screens/Terms'
+import Onboarding from '../screens/Onboarding'
 import VerifyOtp from '../screens/VerifyOtp'
 import { ColorPallet } from '../theme/theme'
 
@@ -30,6 +31,17 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       screenOptions={{ ...defaultStackOptions, headerShown: false }}
     >
       <Stack.Screen name={Screens.Splash} component={Splash} />
+      <Stack.Screen
+        name={Screens.Onboarding}
+        options={() => ({
+          title: 'App Introduction',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+        component={Onboarding}
+      />
       <Stack.Screen
         name={Screens.Terms}
         options={() => ({
