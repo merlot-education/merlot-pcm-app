@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/core'
@@ -6,8 +6,10 @@ import { useTranslation } from 'react-i18next'
 import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../components/text/InfoTextBox'
+import { Context } from '../store/Store'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens } from '../types/navigators'
+import { DispatchAction } from '../store/reducer'
 
 const styles = StyleSheet.create({
   container: {
@@ -30,10 +32,20 @@ const styles = StyleSheet.create({
 })
 
 const Terms: React.FC = () => {
+  const [, dispatch] = useContext(Context)
   const [checked, setChecked] = useState(false)
   const nav = useNavigation()
 
   const { t } = useTranslation()
+
+  const onSubmitPressed = () => {
+    dispatch({
+      type: DispatchAction.SetDidAgreeToTerms,
+      payload: [{ DidAgreeToTerms: checked }],
+    })
+
+    nav.navigate(Screens.Registration, { forgotPin: false })
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -52,15 +64,17 @@ const Terms: React.FC = () => {
           <View style={styles.topSpacer}>
             <Button
               title={t('Global.Continue')}
-              onPress={() =>
-                nav.navigate(Screens.Registration, { forgotPin: false })
-              }
+              onPress={onSubmitPressed}
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />
           </View>
           <View style={styles.topSpacer}>
-            <Button title={t('Global.Back')} buttonType={ButtonType.Ghost} />
+            <Button
+              title={t('Global.Back')}
+              onPress={nav.goBack}
+              buttonType={ButtonType.Ghost}
+            />
           </View>
         </View>
       </ScrollView>
