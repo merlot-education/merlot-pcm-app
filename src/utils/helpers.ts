@@ -1,19 +1,14 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-bitwise */
-import {
-  ConnectionRecord,
-  CredentialMetadataKeys,
-  CredentialRecord,
-  ProofRecord,
-  RequestedAttribute,
-} from '@aries-framework/core'
+import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
 import React from 'react'
 import {
-  useConnectionById as getConnectionById,
-  useProofById as getProofById,
+  useConnectionById,
+  useCredentialById,
 } from '@aries-framework/react-hooks'
 
 export const connectionRecordFromId = (connectionId: string) => {
-  const connection = getConnectionById(connectionId)
+  const connection = useConnectionById(connectionId)
   return connection
 }
 
@@ -40,6 +35,27 @@ export function parseSchema(schemaId?: string): {
   return { name, version }
 }
 
+export function parseCredDef(credentialDefinitionId?: string): {
+  name: string
+} {
+  let name = 'Credential'
+  if (credentialDefinitionId) {
+    const credDefIdRegex =
+      /^([a-zA-Z0-9]{21,22}):3:CL:(([1-9][0-9]*)|([a-zA-Z0-9]{21,22}:2:.+:[0-9.]+)):(.+)?$/
+    const credDefParts = credentialDefinitionId.match(credDefIdRegex)
+    if (credDefParts?.length === 5) {
+      name = `${credDefParts?.[3].replace(/_|-/g, ' ')}`
+        .split(' ')
+        .map(
+          credDefIdPart =>
+            credDefIdPart.charAt(0).toUpperCase() + credDefIdPart.substring(1),
+        )
+        .join(' ')
+    }
+  }
+  return { name }
+}
+
 export function credentialSchema(
   credential: CredentialRecord,
 ): string | undefined {
@@ -47,11 +63,24 @@ export function credentialSchema(
     ?.schemaId
 }
 
+export function credentialDefinition(
+  credential: CredentialRecord,
+): string | undefined {
+  return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
+    ?.credentialDefinitionId
+}
+
 export function parsedSchema(credential: CredentialRecord): {
   name: string
   version: string
 } {
   return parseSchema(credentialSchema(credential))
+}
+
+export function parsedCredentialDefinition(credential: CredentialRecord): {
+  name: string
+} {
+  return parseCredDef(credentialDefinition(credential))
 }
 
 export function hashCode(s: string): number {
@@ -64,55 +93,10 @@ export function hashToRGBA(i: number) {
   const colour = (i & 0x00ffffff).toString(16).toUpperCase()
   return `#${'00000'.substring(0, 6 - colour.length)}${colour}`
 }
+
+export const credentialRecordFromId = (credentialId: string) => {
+  const credential = useCredentialById(credentialId)
+  return credential
+}
+
 export const MainStackContext = React.createContext(null)
-
-export const proofRecordFromId = (proofId: string): ProofRecord | void => {
-  // if (proofId) {
-  return getProofById(proofId)
-  // }
-}
-
-export function getConnectionName(connection: ConnectionRecord): string | void {
-  return connection?.alias || connection?.invitation?.label
-}
-
-export function firstAttributeCredential(
-  attributes: RequestedAttribute[],
-  revoked = true,
-): RequestedAttribute | null {
-  if (!attributes.length) {
-    return null
-  }
-
-  let first = null
-  const firstNonRevoked = attributes.filter(attribute => !attribute.revoked)[0]
-  if (firstNonRevoked) {
-    first = firstNonRevoked
-  } else if (attributes.length && revoked) [first] = attributes
-
-  if (!first?.credentialInfo) {
-    return null
-  }
-
-  return first
-}
-
-export const valueFromAttributeCredential = (
-  name: string,
-  credential: RequestedAttribute,
-) => {
-  if (!credential) {
-    return ''
-  }
-  return credential.credentialInfo?.attributes[name]
-}
-
-export const getCredDefName = (credentialDefinitionId: string) => {
-  const data = credentialDefinitionId.split(':')
-  return data[data.length - 1]
-}
-
-export const getSchemaNameFromSchemaId = (schemaId: string) => {
-  const data = schemaId.split(':')
-  return data[data.length - 1]
-}
