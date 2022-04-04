@@ -34,6 +34,7 @@ const translation = {
     "Copy": 'Copy',
     "from": 'from',
     "ThisDecisionCannotBeChanged.": "This decision cannot be changed.",
+    "ZeroRecords": 'Zero Records available'
   },
   "Language": {
     "English": "English",

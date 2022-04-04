@@ -5,6 +5,7 @@ export const testIdPrefix = 'com.pcm:id/'
 export enum LocalStorageKeys {
   Language = 'language',
   OnboardingCompleteStage = 'onboardingCompleteStage',
+  Onboarding = 'Onboarding',
 }
 
 export enum KeychainStorageKeys {

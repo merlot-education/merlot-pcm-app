@@ -29,6 +29,7 @@ export enum Screens {
 
 export type OnboardingStackParams = {
   Splash: undefined
+  Onboarding: undefined
   Terms: undefined
   Registration: { forgotPin: boolean }
   VerifyOtp: {
