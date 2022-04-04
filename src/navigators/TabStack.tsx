@@ -135,9 +135,10 @@ const TabStack: React.FC = () => {
           }}
         />
         <MainTabNavigator.Screen
-          name={TabStacks.ContactStack}
+          name={TabStacks.ConnectionStack}
           component={ContactStack}
           options={{
+            headerTitle: 'Connection',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon
                 activeIconName="account-group"

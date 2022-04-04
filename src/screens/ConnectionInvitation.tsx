@@ -53,7 +53,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       throw new Error(t('Scan.ConnectionNotFound'))
     }
     setLoading(false)
-    navigation.navigate(TabStacks.ContactStack)
+    navigation.navigate(TabStacks.ConnectionStack)
   }
 
   const handleDeclinePress = () => {

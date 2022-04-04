@@ -39,7 +39,9 @@ const ListContacts: React.FC = () => {
         setClicked={setClicked}
       />
       <FlatList
-        data={filteredData}
+        data={
+          filteredData && filteredData.length > 0 ? filteredData : connections
+        }
         renderItem={({ item }) => <ContactListItem contact={item} />}
         keyExtractor={(item: ConnectionRecord) => item.did}
         style={{ backgroundColor: ColorPallet.grayscale.white }}

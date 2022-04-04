@@ -17,7 +17,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flex: 1,
   },
   bodyText: {
@@ -91,7 +91,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       Toast.show({
         type: ToastType.Warn,
         text1: t('Toasts.Error'),
-        text2: t('Registration.EnterEmail'),
+        text2: t('Global.Otp'),
       })
     } else {
       const params = {

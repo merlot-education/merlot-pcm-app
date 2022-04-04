@@ -140,7 +140,7 @@ const translation = {
   },
   "TabStack": {
     "Home": "Maison",
-    "Connections": "Contacts",
+    "Connections": "Connexion",
     "Scan": "Analyse",
     "Credentials": "Identifiants",
     "Settings": "Réglages",

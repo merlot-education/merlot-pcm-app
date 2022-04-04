@@ -20,7 +20,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-    justifyContent: 'center',
     flex: 1,
   },
   bodyText: {

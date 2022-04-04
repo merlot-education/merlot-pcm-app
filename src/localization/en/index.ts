@@ -142,7 +142,7 @@ const translation = {
     "Home": "Home",
     "Connections": "Contacts",
     "Scan": "Scan",
-    "Credentials": "Credentials",
+    "Credentials": "Connection",
     "Settings": "Settings",
   },
   "DefaultConnection":{

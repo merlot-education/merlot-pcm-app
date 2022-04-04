@@ -5,12 +5,14 @@ import ReactNativeBiometrics from 'react-native-biometrics'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StackScreenProps } from '@react-navigation/stack'
 import md5 from 'md5'
+import Toast from 'react-native-toast-message'
 import { TextInput, Loader } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { getValueKeychain } from '../utils/keychain'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 import { LocalStorageKeys } from '../constants'
+import { ToastType } from '../components/toast/BaseToast'
 
 type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>
 
@@ -69,16 +71,28 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
               setLoading(false)
               setAuthenticated(true)
             } else {
-              Alert.alert(t('Biometric.BiometricCancle'))
+              Toast.show({
+                type: ToastType.Warn,
+                text1: t('Toasts.Warning'),
+                text2: t('Biometric.BiometricCancle'),
+              })
               setBiometricFailed(true)
             }
           })
           .catch(() => {
-            Alert.alert(t('Biometric.BiometricFailed'))
+            Toast.show({
+              type: ToastType.Error,
+              text1: t('Toasts.Warning'),
+              text2: t('Biometric.BiometricFailed'),
+            })
             setBiometricFailed(true)
           })
       } else {
-        Alert.alert(t('Biometric.BiometricNotSupport'))
+        Toast.show({
+          type: ToastType.Warn,
+          text1: t('Toasts.Warning'),
+          text2: t('Biometric.BiometricNotSupport'),
+        })
       }
     })
   }, [setAuthenticated, startAgent, t])
@@ -106,7 +120,11 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       setAuthenticated(true)
       setLoading(false)
     } else {
-      Alert.alert(t('PinEnter.IncorrectPin'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('PinEnter.IncorrectPin'),
+      })
       setLoginAttemtsFailed(loginAttemtsFailed + 1)
       if (loginAttemtsFailed === 5) {
         Alert.alert(t('Registration.RegisterAgain'))

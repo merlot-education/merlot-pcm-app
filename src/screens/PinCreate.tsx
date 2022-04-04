@@ -21,7 +21,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flex: 1,
   },
   btnContainer: {

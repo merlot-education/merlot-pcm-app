@@ -59,7 +59,11 @@ const ListCredentials: React.FC = () => {
       />
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
-        data={filteredData}
+        data={filteredData.sort(
+          (issuedDate, acceptanceDate) =>
+            new Date(acceptanceDate.createdAt).valueOf() -
+            new Date(issuedDate.createdAt).valueOf(),
+        )}
         keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (

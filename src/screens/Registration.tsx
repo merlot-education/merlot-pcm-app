@@ -23,12 +23,12 @@ type RegistrationProps = StackScreenProps<
 const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flex: 1,
   },
   subContainer: {
     backgroundColor: ColorPallet.grayscale.white,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     flex: 1,
     margin: 20,
   },
