@@ -26,6 +26,8 @@ const ListContacts: React.FC = () => {
   const { t } = useTranslation()
   const [searchText, setSearchText] = useState('')
   const [filteredData, setFilteredData] = useState(connections)
+
+  console.log('data is ', filteredData)
   const [clicked, setClicked] = useState(false)
   const search = text => {
     const filteredData = connections.filter(item => {
@@ -46,7 +48,9 @@ const ListContacts: React.FC = () => {
         setClicked={setClicked}
       />
       <FlatList
-        data={filteredData}
+        data={
+          filteredData && filteredData.length > 0 ? filteredData : connections
+        }
         renderItem={({ item }) => <ContactListItem contact={item} />}
         keyExtractor={(item: ConnectionRecord) => item.did}
         style={{ backgroundColor: ColorPallet.grayscale.white }}

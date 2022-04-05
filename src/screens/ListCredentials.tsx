@@ -11,7 +11,7 @@ import { parsedCredentialDefinition } from '../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ContactTheme.background,
+    backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
   },
   bodyText: {
@@ -32,13 +32,13 @@ const ListCredentials: React.FC = () => {
   const [searchPhrase, setSearchPhrase] = useState('')
   const [clicked, setClicked] = useState(false)
   const [filteredData, setFilteredData] = useState(credentials)
-
   const search = text => {
     const filteredData = credentials.filter(item => {
       const orgLabel = parsedCredentialDefinition(item).name
       const textData = text.toUpperCase()
       return orgLabel.indexOf(textData) > -1
     })
+
     setFilteredData(filteredData)
     setSearchPhrase(text)
   }
@@ -59,7 +59,9 @@ const ListCredentials: React.FC = () => {
       />
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
-        data={filteredData}
+        data={
+          filteredData && filteredData.length > 0 ? filteredData : credentials
+        }
         keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (

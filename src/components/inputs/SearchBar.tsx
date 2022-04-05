@@ -59,7 +59,6 @@ const SearchBar: React.FC<Props> = ({
   setSearchPhrase,
   setClicked,
 }) => {
-  console.log('search phrase', searchPhrase)
   return (
     <View style={styles.container}>
       <View
