@@ -53,22 +53,63 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         })}
         component={Terms}
       />
-      <Stack.Screen name={Screens.Registration} component={Registration} />
-      <Stack.Screen name={Screens.VerifyOtp} component={VerifyOtp} />
+      <Stack.Screen
+        name={Screens.Registration}
+        component={Registration}
+        options={() => ({
+          title: 'Registration',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.VerifyOtp}
+        component={VerifyOtp}
+        options={() => ({
+          title: 'Otp Verify',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
       <Stack.Screen
         name={Screens.CreatePin}
         component={PinCreate}
         initialParams={{ initAgent }}
+        options={() => ({
+          title: 'PIN Setup',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
       />
       <Stack.Screen
         name={Screens.EnterPin}
         component={PinEnter}
         initialParams={{ initAgent, setAuthenticated }}
+        options={() => ({
+          title: 'Login',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
       />
       <Stack.Screen
         name={Screens.DefaultConnection}
         component={DefaultConnection}
         initialParams={{ setAuthenticated }}
+        options={() => ({
+          title: 'AISBL Connection',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
       />
     </Stack.Navigator>
   )

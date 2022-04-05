@@ -5,19 +5,12 @@ import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 import SearchBar from '../components/inputs/SearchBar'
 import { ContactListItem, Text } from '../components'
-import { ColorPallet, TextTheme } from '../theme/theme'
+import { ColorPallet } from '../theme/theme'
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-  },
-  bodyText: {
-    ...TextTheme.normal,
-    flexShrink: 1,
-  },
-  spacer: {
-    height: 40,
   },
 })
 

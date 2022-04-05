@@ -3,36 +3,17 @@ import type { StackScreenProps } from '@react-navigation/stack'
 import { useCredentialById } from '@aries-framework/react-hooks'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import Toast from 'react-native-toast-message'
 import Record from '../components/record/Record'
 import { ToastType } from '../components/toast/BaseToast'
 import CredentialCard from '../components/misc/CredentialCard'
-import { ColorPallet, TextTheme } from '../theme/theme'
 import { CredentialStackParams, Screens } from '../types/navigators'
 
 type CredentialDetailsProps = StackScreenProps<
   CredentialStackParams,
   Screens.CredentialDetails
 >
-
-const styles = StyleSheet.create({
-  headerText: {
-    ...TextTheme.normal,
-  },
-  footerText: {
-    ...TextTheme.normal,
-    paddingTop: 16,
-  },
-  linkContainer: {
-    minHeight: TextTheme.normal.fontSize,
-    paddingVertical: 2,
-  },
-  link: {
-    ...TextTheme.normal,
-    color: ColorPallet.brand.link,
-  },
-})
 
 const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   navigation,

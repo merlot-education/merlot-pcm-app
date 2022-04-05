@@ -27,13 +27,15 @@ const translation = {
     "ErrorCode": "Code d'erreur",
     "Okay": "Okay",
     "Email": "Entrez votre e-mail",
+    "Verify": 'Vérifier',
+    "Otp": 'Entrez OTP',
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
     "Copy": 'Copie',
     "from": 'à partir de',
     "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
-    "ZeroRecords": 'Zéro enregistrement disponible'
+    "ZeroRecords": 'Aucun enregistrement disponible',
   },
   "Language": {
     "English": "Anglais",
@@ -44,6 +46,7 @@ const translation = {
     "UserAuthenticationEmail": "Courriel d'authentification de l'utilisateur",
     "EnterEmail": 'Veuillez saisir un e-mail',
     "ValidEmail": "Veuillez saisir une adresse e-mail valide",
+    'ResendOtp': 'Renvoyer OTP',
     "RegisterAgain": "Vous devez vous inscrire à nouveau",
     "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
     "Passphrase": "Mot de passe"
@@ -137,7 +140,7 @@ const translation = {
   },
   "TabStack": {
     "Home": "Maison",
-    "Connections": "Contacts",
+    "Connections": "Connexion",
     "Scan": "Analyse",
     "Credentials": "Identifiants",
     "Settings": "Réglages",
@@ -187,7 +190,7 @@ const translation = {
     "Hide": "Cacher",
     "Show": "Montrer",
     "HideAll": "Cacher tout",
-    "Hidden": "Caché"
+    "Hidden": "Caché",
   }
 }
 export default translation

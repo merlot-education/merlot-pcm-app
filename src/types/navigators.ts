@@ -16,7 +16,6 @@ export enum Screens {
   ChangePin = 'ChangePin',
   Credentials = 'Credentials',
   CredentialDetails = 'Credential Details',
-  Contacts = 'Contacts',
   Settings = 'Settings',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
@@ -62,7 +61,7 @@ export type AuthenticateStackParams = {
 }
 
 export type ContactStackParams = {
-  Contacts: undefined
+  ListContacts: undefined
   'Contact Details': { connectionId: string }
 }
 
@@ -93,7 +92,7 @@ export type SettingStackParams = {
 
 export enum TabStacks {
   HomeStack = 'Tab Home Stack',
-  ContactStack = 'Tab Contact Stack',
+  ConnectionStack = 'Tab Connection Stack',
   ScanStack = 'Tab Scan Stack',
   CredentialStack = 'Tab Credential Stack',
   SettingsStack = 'Tab Settings Stack',
@@ -101,7 +100,7 @@ export enum TabStacks {
 
 export type TabStackParams = {
   [TabStacks.HomeStack]: NavigatorScreenParams<HomeStackParams>
-  [TabStacks.ContactStack]: NavigatorScreenParams<ContactStackParams>
+  [TabStacks.ConnectionStack]: NavigatorScreenParams<ContactStackParams>
   [TabStacks.ScanStack]: NavigatorScreenParams<ScanStackParams>
   [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
   [TabStacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
@@ -114,5 +113,5 @@ export enum Stacks {
   CredentialStack = 'Credentials Stack',
   ScanStack = 'Scan Stack',
   SettingStack = 'Settings Stack',
-  ContactStack = 'Contacts Stack',
+  ConnectionStack = 'Connection Stack',
 }

@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { Text } from '../components'
-import { ColorPallet, ContactTheme, TextTheme } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import CredentialListItem from '../components/listItems/CredentialListItem'
 import SearchBar from '../components/inputs/SearchBar'
 import { parsedCredentialDefinition } from '../utils/helpers'
@@ -59,7 +59,11 @@ const ListCredentials: React.FC = () => {
       />
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
-        data={filteredData}
+        data={filteredData.sort(
+          (issuedDate, acceptanceDate) =>
+            new Date(acceptanceDate.createdAt).valueOf() -
+            new Date(issuedDate.createdAt).valueOf(),
+        )}
         keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (

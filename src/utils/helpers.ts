@@ -100,3 +100,13 @@ export const credentialRecordFromId = (credentialId: string) => {
 }
 
 export const MainStackContext = React.createContext(null)
+
+export const getCredDefName = (credentialDefinitionId: string) => {
+  const data = credentialDefinitionId.split(':')
+  return data[data.length - 1]
+}
+
+export const getSchemaNameFromSchemaId = (schemaId: string) => {
+  const data = schemaId.split(':')
+  return data[data.length - 1]
+}

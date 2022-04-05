@@ -3,11 +3,13 @@ import { Alert, Keyboard, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
+import Toast from 'react-native-toast-message'
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { ColorPallet } from '../theme/theme'
 import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { Screens, SettingStackParams } from '../types/navigators'
+import { ToastType } from '../components/toast/BaseToast'
 
 type ChangePinProps = StackScreenProps<SettingStackParams, Screens.ChangePin>
 
@@ -15,9 +17,6 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-  },
-  btnContainer: {
-    marginTop: 20,
   },
 })
 
@@ -53,11 +52,23 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       service: 'passcode',
     })
     if (oldPin.length < 6 || newPin.length < 6) {
-      Alert.alert(t('PinCreate.PinMustBe6DigitsInLength'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('PinCreate.PinMustBe6DigitsInLength'),
+      })
     } else if (newPin !== reEnterNewPin) {
-      Alert.alert(t('PinCreate.PinsEnteredDoNotMatch'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('PinCreate.PinsEnteredDoNotMatch'),
+      })
     } else if (keychainEntry.password !== oldPin) {
-      Alert.alert(t('PinCreate.ValidOldPin'))
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('PinCreate.ValidOldPin'),
+      })
     } else {
       passcodeCreate(newPin)
     }

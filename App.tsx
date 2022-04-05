@@ -35,7 +35,7 @@ const App = () => {
       <AgentProvider agent={agent}>
         <NavigationContainer theme={navigationTheme}>
           <RootStack setAgent={setupAgent} />
-          <Toast topOffset={15} config={toastConfig} />
+          <Toast topOffset={5} config={toastConfig} />
         </NavigationContainer>
       </AgentProvider>
     </AntDesignProvider>
