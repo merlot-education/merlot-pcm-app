@@ -59,9 +59,7 @@ const ListCredentials: React.FC = () => {
       />
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
-        data={
-          filteredData && filteredData.length > 0 ? filteredData : credentials
-        }
+        data={filteredData}
         keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (
@@ -69,7 +67,7 @@ const ListCredentials: React.FC = () => {
             style={{
               marginHorizontal: 15,
               marginTop: 15,
-              marginBottom: index === credentials.length - 1 ? 45 : 0,
+              marginBottom: index === filteredData.length - 1 ? 45 : 0,
             }}
           >
             <CredentialListItem credential={item} />
