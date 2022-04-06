@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Keyboard, StyleSheet, View } from 'react-native'
+import { Keyboard, StyleSheet, View, Alert, BackHandler } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
@@ -21,7 +21,6 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-    // justifyContent: 'center',
     flex: 1,
   },
   btnContainer: {
@@ -77,6 +76,35 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       }
     })
   })
+
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert(
+        'Already authenticated!',
+        'Are you sure you want to go back?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {
+            text: 'YES',
+            onPress: () =>
+              navigation.navigate(Screens.Registration, { forgotPin: false }),
+          },
+        ],
+      )
+      return true
+    }
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    )
+
+    return () => backHandler.remove()
+  }, [navigation])
 
   const passcodeCreate = async (passcode: string) => {
     const description = t('PinCreate.UserAuthenticationPin')
@@ -217,10 +245,12 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             Keyboard.dismiss()
           }
         }}
+        editable={pin.length === 6 && true}
       />
       <Button
         title="Setup PIN"
         buttonType={ButtonType.Primary}
+        disabled={successPin}
         onPress={() => {
           Keyboard.dismiss()
           confirmEntry(pin, pinTwo)
@@ -234,6 +264,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
                 title="Setup Biometric"
                 buttonType={ButtonType.Primary}
                 onPress={biometricEnable}
+                disabled={successBiometric}
               />
             )}
           </View>
