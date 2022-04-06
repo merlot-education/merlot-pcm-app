@@ -53,7 +53,7 @@ const Terms: React.FC = () => {
   }
   const onBack = async () => {
     await restoreAppIntroCompleteStage()
-    nav.goBack()
+    nav.navigate(Screens.Onboarding)
   }
   useFocusEffect(
     useCallback(() => {

@@ -3,7 +3,7 @@ import {
   useCredentialByState,
   useCredentials,
 } from '@aries-framework/react-hooks'
-import React, { useEffect, useState, useMemo, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { Text } from '../components'
@@ -49,7 +49,7 @@ const ListCredentials: React.FC = () => {
     }
   }, [credentials.length, filteredData.length, refreshFilteredData])
 
-  function search(text) {
+  const search = text => {
     const filteredData = credentials.filter(item => {
       const orgLabel = parsedCredentialDefinition(item).name
       const textData = text.toUpperCase()

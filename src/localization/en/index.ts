@@ -59,7 +59,8 @@ const translation = {
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
     "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
-    "PinsEnteredDoNotMatch": "Pins entered do not match", 
+    "ReEnterPinMustBe6DigitsInLength": 'Reenter PIN must be 6 digits in length',
+    "PinsEnteredDoNotMatch": "Pin entered do not match", 
     "PinsSuccess": "PIN created successfully",    
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",

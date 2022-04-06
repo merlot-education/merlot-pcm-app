@@ -139,21 +139,27 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     }
   }
 
-  const confirmEntry = (x: string, y: string) => {
-    if (x.length < 6 || y.length < 6) {
+  const confirmEntry = (pin: string, reEnterPin: string) => {
+    if (pin.length < 6) {
       Toast.show({
         type: ToastType.Warn,
         text1: t('Toasts.Warning'),
         text2: t('PinCreate.PinMustBe6DigitsInLength'),
       })
-    } else if (x !== y) {
+    } else if (reEnterPin.length < 6) {
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Error'),
+        text2: t('PinCreate.ReEnterPinMustBe6DigitsInLength'),
+      })
+    } else if (pin !== reEnterPin) {
       Toast.show({
         type: ToastType.Error,
         text1: t('Toasts.Error'),
         text2: t('PinCreate.PinsEnteredDoNotMatch'),
       })
     } else {
-      passcodeCreate(x)
+      passcodeCreate(pin)
     }
   }
   const biometricEnable = () => {

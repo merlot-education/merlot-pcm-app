@@ -59,7 +59,8 @@ const translation = {
   "PinCreate": {
     "UserAuthenticationPin": "NIP d'authentification de l'utilisateur",
     "PinMustBe6DigitsInLength": "La broche doit comporter 6 chiffres",
-    "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",    
+    "ReEnterPinMustBe6DigitsInLength": 'Die erneute Eingabe der PIN muss 6 Ziffern lang sein',
+    "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",
     "PinsSuccess": "Épingle créée avec succès",    
     "6DigitPin": "Broche à 6 chiffres",
     "ReenterPin": "Locataire le code PIN",
