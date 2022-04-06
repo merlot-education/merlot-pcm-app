@@ -1,6 +1,6 @@
-import type { ConnectionRecord } from '@aries-framework/core'
+import { ConnectionRecord, ConsoleLogger } from '@aries-framework/core'
 import { useConnections } from '@aries-framework/react-hooks'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 import SearchBar from '../components/inputs/SearchBar'
@@ -21,6 +21,12 @@ const ListContacts: React.FC = () => {
   const [filteredData, setFilteredData] = useState(connections)
 
   const [clicked, setClicked] = useState(false)
+
+  useEffect(() => {
+    // Should not ever set state during rendering, so do this in useEffect instead.
+    setFilteredData(connections)
+  }, [connections])
+
   const search = text => {
     const filteredData = connections.filter(item => {
       const orgLabel = item.theirLabel.toUpperCase()
@@ -40,9 +46,7 @@ const ListContacts: React.FC = () => {
         setClicked={setClicked}
       />
       <FlatList
-        data={
-          filteredData && filteredData.length > 0 ? filteredData : connections
-        }
+        data={filteredData}
         renderItem={({ item }) => <ContactListItem contact={item} />}
         keyExtractor={(item: ConnectionRecord) => item.did}
         style={{ backgroundColor: ColorPallet.grayscale.white }}

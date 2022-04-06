@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
   Alert,
-  AsyncStorage,
   BackHandler,
   Keyboard,
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'

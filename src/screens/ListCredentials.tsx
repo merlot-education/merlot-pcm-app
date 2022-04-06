@@ -1,6 +1,9 @@
 import { CredentialState, CredentialRecord } from '@aries-framework/core'
-import { useCredentialByState } from '@aries-framework/react-hooks'
-import React, { useState } from 'react'
+import {
+  useCredentialByState,
+  useCredentials,
+} from '@aries-framework/react-hooks'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View, StyleSheet } from 'react-native'
 import { Text } from '../components'
@@ -24,15 +27,24 @@ const styles = StyleSheet.create({
 })
 
 const ListCredentials: React.FC = () => {
-  const credentials = [
-    ...useCredentialByState(CredentialState.CredentialReceived),
-    ...useCredentialByState(CredentialState.Done),
-  ]
+  // const credentials = [
+  //   ...useCredentialByState(CredentialState.CredentialReceived),
+  //   ...useCredentialByState(CredentialState.Done),
+  // ]
+
+  const credentials = useCredentialByState(CredentialState.Done)
+
   const { t } = useTranslation()
   const [searchPhrase, setSearchPhrase] = useState('')
   const [clicked, setClicked] = useState(false)
   const [filteredData, setFilteredData] = useState(credentials)
-  const search = text => {
+
+  useCallback(() => {
+    setFilteredData(credentials)
+  }, [credentials])
+  // Should not ever set state during rendering, so do this in useEffect instead.
+
+  function search(text) {
     const filteredData = credentials.filter(item => {
       const orgLabel = parsedCredentialDefinition(item).name
       const textData = text.toUpperCase()
@@ -59,11 +71,7 @@ const ListCredentials: React.FC = () => {
       />
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
-        data={filteredData.sort(
-          (issuedDate, acceptanceDate) =>
-            new Date(acceptanceDate.createdAt).valueOf() -
-            new Date(issuedDate.createdAt).valueOf(),
-        )}
+        data={filteredData}
         keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (
