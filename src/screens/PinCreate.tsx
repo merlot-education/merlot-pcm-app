@@ -150,7 +150,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             } else {
               Toast.show({
                 type: ToastType.Warn,
-                text1: t('Toasts.Warn'),
+                text1: t('Toasts.Warning'),
                 text2: t('Biometric.BiometricCancle'),
               })
             }
@@ -165,7 +165,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       } else {
         Toast.show({
           type: ToastType.Warn,
-          text1: t('Toasts.Warn'),
+          text1: t('Toasts.Warning'),
           text2: t('Biometric.BiometricNotSupport'),
         })
       }
@@ -180,7 +180,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     } else {
       Toast.show({
         type: ToastType.Warn,
-        text1: t('Toasts.Warn'),
+        text1: t('Toasts.Warning'),
         text2: t('Biometric.RegisterPinandBiometric'),
       })
     }

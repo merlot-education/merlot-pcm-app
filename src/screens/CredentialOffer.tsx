@@ -1,6 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import { ConnectionRecord, CredentialState } from '@aries-framework/core'
-import { StyleSheet, Alert, View, Text, Button } from 'react-native'
+import { StyleSheet, Alert, View, Text } from 'react-native'
 import {
   useAgent,
   useConnectionById,
@@ -17,6 +17,7 @@ import CredentialCard from '../components/misc/CredentialCard'
 import CredentialDeclined from '../assets/img/credential-declined.svg'
 import CredentialPending from '../assets/img/credential-pending.svg'
 import CredentialSuccess from '../assets/img/credential-success.svg'
+import Button, { ButtonType } from '../components/button/Button'
 
 type CredentialOfferProps = StackScreenProps<
   HomeStackParams,
@@ -154,6 +155,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
                 title={t('Global.Accept')}
                 onPress={handleAcceptPress}
                 disabled={!buttonsVisible}
+                buttonType={ButtonType.Primary}
               />
             </View>
             <View style={styles.footerButton}>
@@ -161,6 +163,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
                 title={t('Global.Decline')}
                 onPress={handleDeclinePress}
                 disabled={!buttonsVisible}
+                buttonType={ButtonType.Ghost}
               />
             </View>
           </View>
