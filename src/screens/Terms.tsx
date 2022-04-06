@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { BackHandler, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/core'
+import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Button, { ButtonType } from '../components/button/Button'
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
 const Terms: React.FC = () => {
   const [checked, setChecked] = useState(false)
   const nav = useNavigation()
+  let backCount = 0
 
   const { t } = useTranslation()
 
@@ -54,6 +55,28 @@ const Terms: React.FC = () => {
     await restoreAppIntroCompleteStage()
     nav.goBack()
   }
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = async () => {
+        // BackHandler.exitApp()
+        // eslint-disable-next-line no-plusplus
+        backCount++
+        if (backCount === 1) {
+          await restoreAppIntroCompleteStage()
+          nav.navigate(Screens.Onboarding)
+        } else {
+          BackHandler.exitApp()
+        }
+
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [backCount, nav]),
+  )
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>

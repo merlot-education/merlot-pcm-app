@@ -1,6 +1,6 @@
-import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
-import { StyleSheet, View, Image, Text } from 'react-native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import React, { useCallback, useState } from 'react'
+import { StyleSheet, View, Image, Text, BackHandler } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -77,6 +77,7 @@ const Onboarding: React.FC = () => {
   const [showRealApp, setShowRealApp] = useState(false)
   const navigation = useNavigation()
   const { t } = useTranslation()
+
   const renderItem = ({ item }: { item: Item }) => {
     return (
       <View style={styles.container}>
@@ -136,6 +137,20 @@ const Onboarding: React.FC = () => {
       'appIntroComplete',
     )
   }
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp()
+
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, []),
+  )
 
   return (
     <View style={{ flex: 1 }}>

@@ -1,10 +1,19 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Alert, Keyboard, ScrollView, StyleSheet, View } from 'react-native'
+import {
+  Alert,
+  AsyncStorage,
+  BackHandler,
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 import Clipboard from '@react-native-clipboard/clipboard'
+import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { setValueKeychain } from '../utils/keychain'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader, Text } from '../components'
@@ -13,7 +22,7 @@ import { OnboardingStackParams, Screens } from '../types/navigators'
 import * as api from '../api'
 import { ToastType } from '../components/toast/BaseToast'
 import wordsList from '../utils/wordsList'
-import { KeychainStorageKeys } from '../constants'
+import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
 
 type RegistrationProps = StackScreenProps<
   OnboardingStackParams,
@@ -63,7 +72,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [mnemonicText, setMnemonicText] = useState('')
-
+  const nav = useNavigation()
   const { t } = useTranslation()
 
   const createMnemonic = useCallback(() => {
@@ -174,6 +183,24 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
     }
     // navigation.navigate(Screens.CreatePin, { forgotPin })
   }
+  const restoreTermsCompleteStage = async () => {
+    await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)
+  }
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = async () => {
+        // BackHandler.exitApp()
+        await restoreTermsCompleteStage()
+        nav.navigate(Screens.Terms)
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [nav]),
+  )
 
   return (
     <SafeAreaView style={style.container}>

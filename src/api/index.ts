@@ -4,6 +4,7 @@ import Toast from 'react-native-toast-message'
 import { ToastType } from '../components/toast/BaseToast'
 import auth from './auth'
 import config from './config'
+import connection from './connection'
 
 const instance = axios.create({
   baseURL: Config.BASE_URL,
@@ -13,6 +14,13 @@ const instance = axios.create({
 })
 
 const configInstance = axios.create({
+  baseURL: Config.CONNECTION_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+const connectionInstance = axios.create({
   baseURL: Config.CONFIG_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -42,7 +50,11 @@ instance.interceptors.response.use(onResponse, onResponseError)
 configInstance.interceptors.request.use(onRequest, onRequestError)
 configInstance.interceptors.response.use(onResponse, onResponseError)
 
+connectionInstance.interceptors.request.use(onRequest, onRequestError)
+connectionInstance.interceptors.response.use(onResponse, onResponseError)
+
 export default {
   auth: auth(instance),
   config: config(configInstance),
+  connection: connection(connectionInstance),
 }

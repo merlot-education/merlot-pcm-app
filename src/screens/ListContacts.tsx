@@ -20,7 +20,6 @@ const ListContacts: React.FC = () => {
   const [searchText, setSearchText] = useState('')
   const [filteredData, setFilteredData] = useState(connections)
 
-  console.log('data is ', filteredData)
   const [clicked, setClicked] = useState(false)
   const search = text => {
     const filteredData = connections.filter(item => {
