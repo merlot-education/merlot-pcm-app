@@ -39,10 +39,15 @@ const ListCredentials: React.FC = () => {
   const [clicked, setClicked] = useState(false)
   const [filteredData, setFilteredData] = useState(credentials)
 
-  useCallback(() => {
+  const refreshFilteredData = useCallback(() => {
     setFilteredData(credentials)
   }, [credentials])
   // Should not ever set state during rendering, so do this in useEffect instead.
+  useEffect(() => {
+    if (filteredData.length < credentials.length) {
+      refreshFilteredData()
+    }
+  }, [credentials.length, filteredData.length, refreshFilteredData])
 
   function search(text) {
     const filteredData = credentials.filter(item => {
