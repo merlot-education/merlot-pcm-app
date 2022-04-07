@@ -100,6 +100,7 @@ const translation = {
     "Language": "Langue",
     "Logout": "Se déconnecter",
     "LogoutMsg": "Voulez-vous vraiment vous déconnecter",
+    "EnterMnemonic": 'Entrez le mnémonique',
     "Yes": "Oui",
     "No": 'Non'
   },

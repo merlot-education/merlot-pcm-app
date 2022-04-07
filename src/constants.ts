@@ -10,6 +10,7 @@ export enum LocalStorageKeys {
 export enum KeychainStorageKeys {
   Email = 'email',
   Passphrase = 'passphrase',
+  mnemonicText = 'mnemonicText',
 }
 
 export const dateFormatOptions: {

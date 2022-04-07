@@ -24,6 +24,7 @@ export enum Screens {
   Language = 'Language',
   ConnectionInvitation = 'ConnectionInvitation',
   ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
+  ExportWallet = 'ExportWallet',
 }
 
 export type OnboardingStackParams = {
@@ -88,6 +89,7 @@ export type SettingStackParams = {
   Settings: undefined
   Language: undefined
   ChangePin: undefined
+  ExportWallet: undefined
 }
 
 export enum TabStacks {

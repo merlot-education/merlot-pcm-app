@@ -2,7 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import ChangePin from '../screens/ChangePin'
 import Settings from '../screens/Settings'
-
+import ExportWallet from '../screens/ExportWallet'
 import { Screens, SettingStackParams } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
@@ -23,6 +23,7 @@ const SettingStack: React.FC<SettingStackProp> = () => {
         {props => <Settings {...props} setAuthenticated={value} />}
       </Stack.Screen>
       <Stack.Screen name={Screens.Language} component={Language} />
+      <Stack.Screen name={Screens.ExportWallet} component={ExportWallet} />
       <Stack.Screen
         name={Screens.ChangePin}
         component={ChangePin}
