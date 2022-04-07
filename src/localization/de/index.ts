@@ -101,7 +101,7 @@ const translation = {
     "Logout": "Ausloggen",
     "LogoutMsg": "Möchten Sie sich wirklich abmelden",
     "Yes": "Jawohl",
-    "No": 'Nein'
+    "No": 'Nein',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"

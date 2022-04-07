@@ -192,6 +192,7 @@ const TabStack: React.FC = () => {
                 focused={focused}
               />
             ),
+            unmountOnBlur: true,
           }}
         />
         <MainTabNavigator.Screen
