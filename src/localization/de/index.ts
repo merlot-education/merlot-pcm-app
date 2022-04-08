@@ -36,6 +36,7 @@ const translation = {
     "from": 'von',
     "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
     "ZeroRecords": 'Keine Aufzeichnungen verfügbar',
+    "ImportWallet": "Brieftasche importieren",
   },
   "Language": {
     "English": "Englisch",
@@ -101,7 +102,8 @@ const translation = {
     "Logout": "Ausloggen",
     "LogoutMsg": "Möchten Sie sich wirklich abmelden",
     "Yes": "Jawohl",
-    "No": 'Nein'
+    "No": 'Nein',
+    "ExportWallet": "Brieftasche exportieren",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
