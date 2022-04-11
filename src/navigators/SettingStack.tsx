@@ -23,7 +23,13 @@ const SettingStack: React.FC<SettingStackProp> = () => {
         {props => <Settings {...props} setAuthenticated={value} />}
       </Stack.Screen>
       <Stack.Screen name={Screens.Language} component={Language} />
-      <Stack.Screen name={Screens.ExportWallet} component={ExportWallet} />
+      <Stack.Screen
+        name={Screens.ExportWallet}
+        component={ExportWallet}
+        options={() => ({
+          title: 'Export Wallet',
+        })}
+      />
       <Stack.Screen
         name={Screens.ChangePin}
         component={ChangePin}

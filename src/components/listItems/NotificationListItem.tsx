@@ -2,10 +2,11 @@ import type { CredentialRecord, ProofRecord } from '@aries-framework/core'
 
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { useConnectionById } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Button, { ButtonType } from '../button/Button'
 import { HomeStackParams, Screens } from '../../types/navigators'
@@ -69,6 +70,9 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
   const { t } = useTranslation()
+  const connection = useConnectionById(
+    (notification as ProofRecord)?.connectionId || '',
+  )
 
   let onPress: () => void
   let title = ''
@@ -87,9 +91,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     }
     case NotificationType.ProofRequest: {
       title = t('ProofRequest.ProofRequest')
-      body =
-        (notification as ProofRecord).requestMessage?.indyProofRequest?.name ||
-        ''
+      body = connection?.theirLabel || ''
       onPress = () =>
         navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
       break

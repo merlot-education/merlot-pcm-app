@@ -36,6 +36,7 @@ const translation = {
     "from": 'à partir de',
     "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
     "ZeroRecords": 'Aucun enregistrement disponible',
+    "ImportWallet": "Importer un portefeuille",
   },
   "Language": {
     "English": "Anglais",
@@ -105,7 +106,8 @@ const translation = {
     "ValidMnemonic": 'Mnémonique valide',
     "InvalidMnemonic": 'Mnémonique invalide',
     "Yes": "Oui",
-    "No": 'Non'
+    "No": 'Non',
+    "ExportWallet": "Portefeuille d'exportation",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Nouvelle demande de connexion"

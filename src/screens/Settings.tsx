@@ -51,7 +51,6 @@ const Settings: React.FC<SettingsProps> = ({
       },
       { text: t('Settings.No') },
     ])
-
   return (
     <View style={styles.container}>
       <Text style={styles.groupHeader}>{t('Settings.AppPreferences')}</Text>
@@ -64,7 +63,7 @@ const Settings: React.FC<SettingsProps> = ({
         onPress={() => navigation.navigate(Screens.Language)}
       />
       <SettingListItem
-        title="Backup Wallet"
+        title={t('Settings.ExportWallet')}
         onPress={() => navigation.navigate(Screens.ExportWallet)}
       />
       <SettingListItem title={t('Settings.Logout')} onPress={logoff} />

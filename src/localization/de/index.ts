@@ -36,6 +36,7 @@ const translation = {
     "from": 'von',
     "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
     "ZeroRecords": 'Keine Aufzeichnungen verfügbar',
+    "ImportWallet": "Brieftasche importieren",
   },
   "Language": {
     "English": "Englisch",
@@ -105,7 +106,8 @@ const translation = {
     "ValidMnemonic": 'Gültige Mnemonik',
     "InvalidMnemonic": 'Ungültige Mnemonik',
     "Yes": "Jawohl",
-    "No": 'Nein'
+    "No": 'Nein',
+    "ExportWallet": "Brieftasche exportieren",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
