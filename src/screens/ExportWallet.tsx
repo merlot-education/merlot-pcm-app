@@ -108,7 +108,7 @@ const ExportWallet = () => {
         Toast.show({
           type: ToastType.Success,
           text1: t('Toasts.Success'),
-          text2: t('PinCreate.ValidMnemonic'),
+          text2: t('Settings.ValidMnemonic'),
         })
         exportWallet()
       } else {
