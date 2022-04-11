@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, SafeAreaView, StyleSheet } from 'react-native'
-import { zipWithPassword } from 'react-native-zip-archive'
-import { DocumentDirectoryPath } from 'react-native-fs'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import Toast from 'react-native-toast-message'
 import { TextInput } from '../components'
+import { ToastType } from '../components/toast/BaseToast'
 
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
@@ -26,41 +26,43 @@ const style = StyleSheet.create({
 
 const ExportWallet = () => {
   const { t } = useTranslation()
-  const [mnemonic, setMnemonic] = useState(
-    'wielder endless flavorful calibrate vagueness devotion vagabond snaking',
-  )
+  const [mnemonic, setMnemonic] = useState('')
 
   const compareMnemonic = async () => {
     const mnemonicText = await getValueKeychain({
       service: 'mnemonicText',
     })
-    if (mnemonic.trim() === mnemonicText?.password.trim()) {
-      console.log('========true===============')
+    if (mnemonic !== '') {
+      if (mnemonic.trim() === mnemonicText?.password.trim()) {
+        Toast.show({
+          type: ToastType.Success,
+          text1: t('Toasts.Success'),
+          text2: t('PinCreate.ValidMnemonic'),
+        })
+      } else {
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Error'),
+          text2: t('Settings.InvalidMnemonic'),
+        })
+      }
+    } else {
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('Settings.MnemonicMsg'),
+      })
     }
-  }
-
-  const startArchiveTest = async () => {
-    const targetPath = `${DocumentDirectoryPath}/myFile.zip`
-    const sourcePath = DocumentDirectoryPath
-    const password = 'password'
-
-    zipWithPassword(sourcePath, targetPath, password)
-      .then(path => {
-        console.log(`zip completed at ${path}`)
-      })
-      .catch(error => {
-        console.error(error)
-      })
   }
 
   return (
     <SafeAreaView style={style.container}>
       <TextInput
-        label={t('Global.EnterMnemonic')}
-        placeholder={t('Global.EnterMnemonic')}
+        label={t('Settings.EnterMnemonic')}
+        placeholder={t('Settings.EnterMnemonic')}
         placeholderTextColor={ColorPallet.brand.primary}
         accessible
-        accessibilityLabel={t('Global.EnterMnemonic')}
+        accessibilityLabel={t('Settings.EnterMnemonic')}
         autoFocus
         value={mnemonic}
         onChangeText={setMnemonic}
@@ -70,11 +72,6 @@ const ExportWallet = () => {
         title={t('Global.Submit')}
         buttonType={ButtonType.Primary}
         onPress={compareMnemonic}
-      />
-      <Button
-        title={t('Global.Submit')}
-        buttonType={ButtonType.Primary}
-        onPress={startArchiveTest}
       />
     </SafeAreaView>
   )

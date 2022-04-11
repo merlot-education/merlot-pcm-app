@@ -101,6 +101,9 @@ const translation = {
     "Logout": "Logout",
     "LogoutMsg": "Are you sure want to logout",
     "EnterMnemonic": 'Enter Mnemonic',
+    "ValidMnemonic": 'Valid Mnemonic',
+    "InvalidMnemonic": 'Invalid Mnemonic',
+    "MnemonicMsg": 'Mnemonic can not be blank',
     "Yes": "yes",
     "No": 'No'
   },
