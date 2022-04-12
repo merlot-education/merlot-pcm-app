@@ -44,18 +44,15 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
     if (connectionInvitationUrlResponse.data != null) {
       const response = connectionInvitationUrlResponse.data.config
       const participantID = response[0].value
-      console.log('**** participant id', participantID)
       getConnectionInvitationUrl(participantID)
     }
   }
 
   const getConnectionInvitationUrl = async participantId => {
     setLoading(true)
-    console.log('**** participant url', participantId)
     const config = {}
     const connectionInvitationUrlResponse =
       await api.default.config.invitationUrl(config, participantId)
-    console.log('**** participant url', connectionInvitationUrlResponse)
     if (connectionInvitationUrlResponse.data != null) {
       const url = connectionInvitationUrlResponse.data.invitationUrl
       await connectWithOrganization(url)
@@ -63,7 +60,6 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
     setAuthenticated(true)
   }
   const connectWithOrganization = async (url: string) => {
-    console.log('**** participant url', url)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,
       {
@@ -79,7 +75,6 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
       })
       throw new Error(t('DefaultConnection.ConnectionNotFound'))
     }
-    console.log('**** participant url', connectionRecord)
   }
 
   return (

@@ -109,6 +109,12 @@ const translation = {
     "No": 'No',
     "ExportWallet": "Export Wallet",
   },
+  "ExportWallet":{
+    "WalletExportedPath": "Wallet Exported to this path :"
+  },
+  "ImportWallet":{
+    "SelectWalletFile": "Select Wallet File"
+  },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"
   },

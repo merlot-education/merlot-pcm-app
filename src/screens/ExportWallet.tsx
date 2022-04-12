@@ -7,6 +7,7 @@ import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import moment from 'moment'
 import argon2 from 'react-native-argon2'
+import { useNavigation } from '@react-navigation/core'
 import { TextInput } from '../components'
 import { ToastType } from '../components/toast/BaseToast'
 import { KeychainStorageKeys } from '../constants'
@@ -35,6 +36,7 @@ const ExportWallet = () => {
   const [mnemonic, setMnemonic] = useState('')
   const { fs } = RNFetchBlob
   const { agent } = useAgent()
+  const nav = useNavigation()
   const exportWallet = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -45,6 +47,15 @@ const ExportWallet = () => {
           buttonPositive: '',
         },
       )
+      const permission = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Permission',
+          message: 'PCM needs to write to storage ',
+          buttonPositive: '',
+        },
+      )
+
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
         const documentDirectory = fs.dirs.DownloadDir
 
@@ -68,6 +79,9 @@ const ExportWallet = () => {
 
         const salt =
           '1234567891011121314151617181920212223242526272829303132333435363'
+        const email = await getValueKeychain({
+          service: KeychainStorageKeys.Email,
+        })
 
         const passphraseEntry = await getValueKeychain({
           service: KeychainStorageKeys.Passphrase,
@@ -87,7 +101,14 @@ const ExportWallet = () => {
           key: encodedHash,
           path: encryptedFileLocation,
         }
+        console.log('export wallet', agent.wallet)
         await agent.wallet.export(exportConfig)
+        Toast.show({
+          type: ToastType.Success,
+          text1: t('ExportWallet.WalletExportedPath'),
+          text2: t(zipDirectory),
+        })
+        nav.goBack()
       } else {
         console.log(
           'Permission Denied!',

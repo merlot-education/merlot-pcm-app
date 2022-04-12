@@ -109,6 +109,12 @@ const translation = {
     "No": 'Nein',
     "ExportWallet": "Brieftasche exportieren",
   },
+  "ExportWallet":{
+    "WalletExportedPath": "Wallet In diesen Pfad exportiert :"
+  },
+  "ImportWallet":{
+    "SelectWalletFile": "Wählen Sie Wallet-Datei aus"
+  },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
   },

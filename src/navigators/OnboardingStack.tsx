@@ -13,6 +13,7 @@ import { ColorPallet } from '../theme/theme'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
+import ImportWallet from '../screens/ImportWallet'
 
 const Stack = createStackNavigator<OnboardingStackParams>()
 
@@ -85,6 +86,13 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
           headerShown: true,
           headerLeft: () => false,
           rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.ImportWallet}
+        component={ImportWallet}
+        options={() => ({
+          title: 'Import Wallet',
         })}
       />
       <Stack.Screen

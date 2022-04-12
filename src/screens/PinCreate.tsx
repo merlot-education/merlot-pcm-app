@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import md5 from 'md5'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
+
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
 import { ColorPallet } from '../theme/theme'
 import { Loader, TextInput } from '../components'
@@ -205,7 +206,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       }
     })
   }
-
   const onSubmit = async () => {
     if (successPin && successBiometric) {
       await startAgent(email, pin)
@@ -273,6 +273,13 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
                 disabled={successBiometric}
               />
             )}
+          </View>
+          <View style={style.btnContainer}>
+            <Button
+              title="Import Wallet"
+              buttonType={ButtonType.Primary}
+              onPress={() => navigation.navigate(Screens.ImportWallet)}
+            />
           </View>
           <View style={style.btnContainer}>
             <Button
