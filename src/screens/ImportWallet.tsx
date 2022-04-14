@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     ...TextTheme.normal,
     fontWeight: 'bold',
   },
+  btnContainer: {
+    marginTop: 20,
+  },
 })
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
@@ -198,14 +201,16 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       <Loader loading={loading} />
-      <Button
-        title={t('ImportWallet.SelectWalletFile')}
-        buttonType={ButtonType.Primary}
-        onPress={() => {
-          Keyboard.dismiss()
-          askPermission()
-        }}
-      />
+      <View style={styles.btnContainer}>
+        <Button
+          title={t('ImportWallet.SelectWalletFile')}
+          buttonType={ButtonType.Primary}
+          onPress={() => {
+            Keyboard.dismiss()
+            askPermission()
+          }}
+        />
+      </View>
       <Text style={styles.label}>{walletBackupFilePath}</Text>
       <TextInput
         label={t('Settings.EnterMnemonic')}
@@ -218,11 +223,13 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         onChangeText={setMnemonic}
         autoCapitalize="none"
       />
-      <Button
-        title={t('Global.ImportWallet')}
-        buttonType={ButtonType.Primary}
-        onPress={importWallet}
-      />
+      <View style={styles.btnContainer}>
+        <Button
+          title={t('Global.ImportWallet')}
+          buttonType={ButtonType.Primary}
+          onPress={importWallet}
+        />
+      </View>
     </View>
   )
 }

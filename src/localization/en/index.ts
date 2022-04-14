@@ -68,7 +68,8 @@ const translation = {
     "ReenterNewPin": "Re-Enter New PIN",
     "Create": "Create",
     "ValidOldPin": "Please enter valid old PIN",
-    "WalletCreated": "Your wallet is created successfully."
+    "WalletCreated": "Your wallet is created successfully.",
+    "OR": "OR"
   },
   "Biometric": {
     "Biometric": "Biometric",

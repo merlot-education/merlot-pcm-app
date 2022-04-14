@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Keyboard, StyleSheet, View, Alert, BackHandler } from 'react-native'
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  BackHandler,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
@@ -9,7 +16,7 @@ import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
-import { ColorPallet } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
@@ -26,6 +33,10 @@ const style = StyleSheet.create({
   },
   btnContainer: {
     marginTop: 20,
+  },
+  label: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
   },
 })
 
@@ -280,6 +291,9 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
               buttonType={ButtonType.Primary}
               onPress={() => navigation.navigate(Screens.ImportWallet)}
             />
+          </View>
+          <View style={style.btnContainer}>
+            <Text style={style.label}> {t('PinCreate.OR')}</Text>
           </View>
           <View style={style.btnContainer}>
             <Button
