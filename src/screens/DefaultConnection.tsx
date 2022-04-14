@@ -64,6 +64,7 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
       url,
       {
         autoAcceptConnection: true,
+        alias: agent.publicDid.did,
       },
     )
     setLoading(false)

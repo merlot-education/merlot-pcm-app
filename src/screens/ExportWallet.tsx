@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaView, StyleSheet, PermissionsAndroid } from 'react-native'
+import {
+  SafeAreaView,
+  StyleSheet,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFetchBlob from 'rn-fetch-blob'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
@@ -37,6 +42,43 @@ const ExportWallet = () => {
   const { fs } = RNFetchBlob
   const { agent } = useAgent()
   const nav = useNavigation()
+
+  const askPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Permission',
+            message: 'PCM needs to write to storage ',
+            buttonPositive: '',
+          },
+        )
+        const permission = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Permission',
+            message: 'PCM needs to write to storage ',
+            buttonPositive: '',
+          },
+        )
+
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          exportWallet()
+        } else {
+          console.log(
+            'Permission Denied!',
+            'You need to give  permission to see contacts',
+          )
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      exportWallet()
+    }
+  }
+
   const exportWallet = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -131,7 +173,7 @@ const ExportWallet = () => {
           text1: t('Toasts.Success'),
           text2: t('Settings.ValidMnemonic'),
         })
-        exportWallet()
+        askPermission()
       } else {
         Toast.show({
           type: ToastType.Error,

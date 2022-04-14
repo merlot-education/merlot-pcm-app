@@ -38,6 +38,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
   const { agent } = useAgent()
   const [loading, setLoading] = useState(false)
 
+  console.log('getpublic did', agent?.publicDid?.did)
   const handleAcceptPress = async (): Promise<void> => {
     const { url } = route.params
     console.log('****Connection URL****')
@@ -47,8 +48,10 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       url,
       {
         autoAcceptConnection: true,
+        alias: agent.publicDid.did,
       },
     )
+    console.log('public did', agent.publicDid.did)
     if (!connectionRecord?.id) {
       throw new Error(t('Scan.ConnectionNotFound'))
     }

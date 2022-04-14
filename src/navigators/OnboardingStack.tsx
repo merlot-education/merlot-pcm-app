@@ -91,8 +91,13 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.ImportWallet}
         component={ImportWallet}
+        initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'Import Wallet',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
         })}
       />
       <Stack.Screen

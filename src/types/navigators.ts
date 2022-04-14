@@ -42,7 +42,10 @@ export type OnboardingStackParams = {
     initAgent?: (email: string, walletPin: string, seed: string) => void
     forgotPin: boolean
   }
-  ImportWallet: undefined
+  ImportWallet: {
+    initAgent: (email: string, walletPin: string, seed: string) => void
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  }
   EnterPin: {
     initAgent: (email: string, walletPin: string, seed: string) => void
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
