@@ -192,6 +192,7 @@ const TabStack: React.FC = () => {
                 focused={focused}
               />
             ),
+            unmountOnBlur: true,
           }}
         />
         <MainTabNavigator.Screen
@@ -209,6 +210,7 @@ const TabStack: React.FC = () => {
             tabBarLabel: ({ focused }) => (
               <TabBarLabel label={t('TabStack.Settings')} focused={focused} />
             ),
+            unmountOnBlur: true,
           }}
         />
       </MainTabNavigator.Navigator>
