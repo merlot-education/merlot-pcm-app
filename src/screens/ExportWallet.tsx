@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFetchBlob from 'rn-fetch-blob'
+import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import moment from 'moment'
@@ -39,7 +40,7 @@ const style = StyleSheet.create({
 const ExportWallet = () => {
   const { t } = useTranslation()
   const [mnemonic, setMnemonic] = useState('')
-  const { fs } = RNFetchBlob
+  // const { fs } = RNFetchBlob
   const { agent } = useAgent()
   const nav = useNavigation()
 
@@ -99,21 +100,20 @@ const ExportWallet = () => {
       )
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        const documentDirectory = fs.dirs.DownloadDir
+        const documentDirectory = RNFS.DownloadDirectoryPath
 
         const zipDirectory = `${documentDirectory}/PCM_Backup`
 
-        const destFileExists = await fs.exists(zipDirectory)
+        const destFileExists = await RNFS.exists(zipDirectory)
         if (destFileExists) {
-          await fs.unlink(zipDirectory)
+          await RNFS.unlink(zipDirectory)
         }
 
         const WALLET_FILE_NAME = `PCM_Wallet_${moment(
           new Date().toString(),
         ).format('DD-MMMM-YYYY_hmmssA')}`
 
-        await fs
-          .mkdir(zipDirectory)
+        await RNFS.mkdir(zipDirectory)
           .then(() => console.log('generated'))
           .catch(err => console.log('not generated', err))
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
