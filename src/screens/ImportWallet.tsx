@@ -1,13 +1,13 @@
 import { t } from 'i18next'
 import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, Keyboard } from 'react-native'
-import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
 import argon2 from 'react-native-argon2'
 import {
   WalletExportImportConfig,
   WalletConfig,
 } from '@aries-framework/core/build/types'
+import RNFS from 'react-native-fs'
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader, Text } from '../components'
@@ -42,10 +42,9 @@ const ImportWallet: React.FC = route => {
       let { name } = res
       name = name.substr(0, name.lastIndexOf('.'))
 
-      const { fs } = RNFetchBlob
       const WALLET_FILE_NAME = name
 
-      const restoreDirectoryPath = fs.dirs.DocumentDir
+      const restoreDirectoryPath = RNFS.DocumentDirectoryPath
       console.log('**restoreDirectoryPath', restoreDirectoryPath)
       const walletFilePath = `${restoreDirectoryPath}/${WALLET_FILE_NAME}.wallet`
       setwalletBackupFIlePath(walletFilePath)

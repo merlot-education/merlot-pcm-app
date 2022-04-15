@@ -7,11 +7,9 @@ import {
   Platform,
 } from 'react-native'
 import Toast from 'react-native-toast-message'
-import RNFetchBlob from 'rn-fetch-blob'
 import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
-import moment from 'moment'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
 import { TextInput } from '../components'
@@ -109,9 +107,9 @@ const ExportWallet = () => {
           await RNFS.unlink(zipDirectory)
         }
 
-        const WALLET_FILE_NAME = `PCM_Wallet_${moment(
-          new Date().toString(),
-        ).format('DD-MMMM-YYYY_hmmssA')}`
+        const date = new Date()
+        console.log(date.getTime())
+        const WALLET_FILE_NAME = `PCM_Wallet_${date.toString()}`
 
         await RNFS.mkdir(zipDirectory)
           .then(() => console.log('generated'))
