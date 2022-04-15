@@ -15,7 +15,7 @@ import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
 import { TextInput } from '../components'
 import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys } from '../constants'
+import { KeychainStorageKeys, salt } from '../constants'
 
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
@@ -119,8 +119,6 @@ const ExportWallet = () => {
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
         const encryptedFileLocation = `${zipDirectory}/${encryptedFileName}`
 
-        const salt =
-          '1234567891011121314151617181920212223242526272829303132333435363'
         const email = await getValueKeychain({
           service: KeychainStorageKeys.Email,
         })

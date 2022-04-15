@@ -48,7 +48,6 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       url,
       {
         autoAcceptConnection: true,
-        alias: agent.publicDid.did,
       },
     )
     console.log('public did', agent.publicDid.did)

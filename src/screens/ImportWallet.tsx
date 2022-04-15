@@ -33,7 +33,7 @@ import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader, Text } from '../components'
 import { getValueKeychain } from '../utils/keychain'
 import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys } from '../constants'
+import { KeychainStorageKeys, salt } from '../constants'
 import indyLedgers from '../../configs/ledgers/indy'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 
@@ -151,8 +151,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     console.log('email ', emailEntry.password)
 
     console.log('export wallet', agent?.wallet)
-    const salt =
-      '1234567891011121314151617181920212223242526272829303132333435363'
+
     const result = await argon2(mnemonic, salt, {
       iterations: 5,
       memory: 16 * 1024,

@@ -10,9 +10,10 @@ import { StyleSheet, View } from 'react-native'
 import { useIsFocused, useNavigation } from '@react-navigation/core'
 import { ToastType } from '../components/toast/BaseToast'
 import QRScanner from '../components/inputs/QRScanner'
-import { ScanStackParams, Screens } from '../types/navigators'
+import { ScanStackParams, Screens, TabStacks } from '../types/navigators'
 import QrCodeScanError from '../types/error'
 import { ColorPallet } from '../theme/theme'
+import PCMError from '../types/pcm_error'
 
 const styles = StyleSheet.create({
   container: {
@@ -45,15 +46,28 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     url: string,
     agent?: Agent,
   ): Promise<void> => {
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    const message = await res.json()
-    await agent?.receiveMessage(message)
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      const message = await res.json()
+
+      await agent?.receiveMessage(message)
+    } catch (err: unknown) {
+      const error = new PCMError(
+        'Unable to accept connection',
+        'There was a problem while accepting the connection redirection',
+        1024,
+      )
+
+      navigation
+        .getParent()
+        ?.navigate(TabStacks.HomeStack, { screen: Screens.Home })
+    }
   }
 
   useEffect(() => {
@@ -73,6 +87,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
       const url = event.data
       if (isRedirecton(url)) {
         await handleRedirection(url, agent)
+        console.log('connection url ', url)
       } else {
         nav.navigate(Screens.ConnectionInvitation, { url })
       }
