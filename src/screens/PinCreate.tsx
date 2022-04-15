@@ -3,6 +3,7 @@ import { Keyboard, StyleSheet, View, Alert, BackHandler } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/core'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import md5 from 'md5'
 import Toast from 'react-native-toast-message'
@@ -31,6 +32,7 @@ const style = StyleSheet.create({
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const { initAgent, forgotPin } = route.params
+  const nav = useNavigation()
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -99,13 +101,17 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       return true
     }
 
+    const backActionForgotPassword = () => {
+      nav.navigate(Screens.EnterPin)
+      return true
+    }
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      backAction,
+      forgotPin ? backActionForgotPassword : backAction,
     )
 
     return () => backHandler.remove()
-  }, [navigation])
+  }, [forgotPin, nav, navigation])
 
   const passcodeCreate = async (passcode: string) => {
     const description = t('PinCreate.UserAuthenticationPin')
@@ -127,6 +133,9 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       }
       console.log('passphrase', passphraseEntry)
       setSuccessPin(true)
+      if (forgotPin) {
+        nav.navigate(Screens.EnterPin)
+      }
       Toast.show({
         type: ToastType.Success,
         text1: t('Toasts.Success'),

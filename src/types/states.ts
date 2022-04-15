@@ -15,3 +15,8 @@ export interface State {
   notifications: Notifications
   error: PCMError | null
 }
+
+export interface WalletExportImportConfig {
+  key: string
+  path: string
+}
