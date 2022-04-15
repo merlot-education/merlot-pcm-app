@@ -21,15 +21,21 @@ const translation = {
     "SomethingWentWrong": "Quelque chose s'est mal passé",
     "Done": "Terminé",
     "Skip": "Ignorer",
+    "Previous": "Précédente",
     "View": "Voir",
     "Home": "Accueil",
     "ErrorCode": "Code d'erreur",
     "Okay": "Okay",
     "Email": "Entrez votre e-mail",
+    "Verify": 'Vérifier',
+    "Otp": 'Entrez OTP',
     "ForgotPin": 'Épingle oubliée',  
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
-    "Copy": 'Copie'
+    "Copy": 'Copie',
+    "from": 'à partir de',
+    "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
+    "ZeroRecords": 'Aucun enregistrement disponible',
   },
   "Language": {
     "English": "Anglais",
@@ -40,6 +46,7 @@ const translation = {
     "UserAuthenticationEmail": "Courriel d'authentification de l'utilisateur",
     "EnterEmail": 'Veuillez saisir un e-mail',
     "ValidEmail": "Veuillez saisir une adresse e-mail valide",
+    'ResendOtp': 'Renvoyer OTP',
     "RegisterAgain": "Vous devez vous inscrire à nouveau",
     "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
     "Passphrase": "Mot de passe"
@@ -52,7 +59,8 @@ const translation = {
   "PinCreate": {
     "UserAuthenticationPin": "NIP d'authentification de l'utilisateur",
     "PinMustBe6DigitsInLength": "La broche doit comporter 6 chiffres",
-    "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",    
+    "ReEnterPinMustBe6DigitsInLength": 'Die erneute Eingabe der PIN muss 6 Ziffern lang sein',
+    "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",
     "PinsSuccess": "Épingle créée avec succès",    
     "6DigitPin": "Broche à 6 chiffres",
     "ReenterPin": "Locataire le code PIN",
@@ -93,7 +101,7 @@ const translation = {
     "Logout": "Se déconnecter",
     "LogoutMsg": "Voulez-vous vraiment vous déconnecter",
     "Yes": "Oui",
-    "No": 'Non'
+    "No": 'Non',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Nouvelle demande de connexion"
@@ -133,7 +141,7 @@ const translation = {
   },
   "TabStack": {
     "Home": "Maison",
-    "Connections": "Contacts",
+    "Connections": "Connexion",
     "Scan": "Analyse",
     "Credentials": "Identifiants",
     "Settings": "Réglages",
@@ -148,8 +156,42 @@ const translation = {
     "Info": "Info",
     "Warning": "Avertissement"
   },
+  "ProofRequest": {
+    "Title": "<b>{{connection}}</b> fordert eine Verifizierung von Ihrem Wallet an. \n\nSie bitten darum, dass Sie teilen:",
+    "OfferDelay": "Retard de l'offre",
+    "RejectThisProof?": "Rejeter cette preuve ?",
+    "AcceptingProof": "Acceptation de la preuve",
+    "SuccessfullyAcceptedProof": "Preuve acceptée avec succès",
+    "ProofNotFound": "Preuve introuvable",
+    "RejectingProof": "Rejet de la preuve",
+    "ProofAccepted": "Preuve acceptée",
+    "ProofRejected": "Preuve rejetée",
+    "RequestedCredentialsCouldNotBeFound": "Les informations d'identification demandées sont introuvables",
+    "ProofRequest": "Nouvelle demande de preuve",
+    "NotAvailableInYourWallet": "Rejeter cette preuve ?0",
+    "IsRequestng": "Rejeter cette preuve ?1",
+    "IsRequestingSomethingYouDontHaveAvailable": "Rejeter cette preuve ?2",
+    "IsRequestingYouToShare": "Rejeter cette preuve ?3",
+    "WhichYouCanProvideFrom": "Rejeter cette preuve ?4",
+    "Details": "Rejeter cette preuve ?5",
+    "SendingTheInformationSecurely": "Rejeter cette preuve ?6",
+    "InformationSentSuccessfully": "Rejeter cette preuve ?7",
+    "ProofRequestDeclined": "Rejeter cette preuve ?8",
+    "MissingInformation": {
+      "Title": "La demande ne peut pas être complétée",
+      "AlertMissingInformation": {
+        "Title": "Votre portefeuille manque d'informations"
+      }
+    }
+  },
   "GaiaxConsent": {
     "WalletCreated": "Votre portefeuille est créé avec succès"
+  },
+  "Record": {
+    "Hide": "Cacher",
+    "Show": "Montrer",
+    "HideAll": "Cacher tout",
+    "Hidden": "Caché",
   }
 }
 export default translation

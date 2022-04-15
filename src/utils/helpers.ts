@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-bitwise */
 import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
 import React from 'react'
+import {
+  useConnectionById,
+  useCredentialById,
+} from '@aries-framework/react-hooks'
 
 export const connectionRecordFromId = (connectionId: string) => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const connection = useConnectionById(connectionId)
   return connection
 }
@@ -31,6 +35,27 @@ export function parseSchema(schemaId?: string): {
   return { name, version }
 }
 
+export function parseCredDef(credentialDefinitionId?: string): {
+  name: string
+} {
+  let name = 'Credential'
+  if (credentialDefinitionId) {
+    const credDefIdRegex =
+      /^([a-zA-Z0-9]{21,22}):3:CL:(([1-9][0-9]*)|([a-zA-Z0-9]{21,22}:2:.+:[0-9.]+)):(.+)?$/
+    const credDefParts = credentialDefinitionId.match(credDefIdRegex)
+    if (credDefParts?.length === 5) {
+      name = `${credDefParts?.[3].replace(/_|-/g, ' ')}`
+        .split(' ')
+        .map(
+          credDefIdPart =>
+            credDefIdPart.charAt(0).toUpperCase() + credDefIdPart.substring(1),
+        )
+        .join(' ')
+    }
+  }
+  return { name }
+}
+
 export function credentialSchema(
   credential: CredentialRecord,
 ): string | undefined {
@@ -38,11 +63,24 @@ export function credentialSchema(
     ?.schemaId
 }
 
+export function credentialDefinition(
+  credential: CredentialRecord,
+): string | undefined {
+  return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
+    ?.credentialDefinitionId
+}
+
 export function parsedSchema(credential: CredentialRecord): {
   name: string
   version: string
 } {
   return parseSchema(credentialSchema(credential))
+}
+
+export function parsedCredentialDefinition(credential: CredentialRecord): {
+  name: string
+} {
+  return parseCredDef(credentialDefinition(credential))
 }
 
 export function hashCode(s: string): number {
@@ -55,4 +93,20 @@ export function hashToRGBA(i: number) {
   const colour = (i & 0x00ffffff).toString(16).toUpperCase()
   return `#${'00000'.substring(0, 6 - colour.length)}${colour}`
 }
+
+export const credentialRecordFromId = (credentialId: string) => {
+  const credential = useCredentialById(credentialId)
+  return credential
+}
+
 export const MainStackContext = React.createContext(null)
+
+export const getCredDefName = (credentialDefinitionId: string) => {
+  const data = credentialDefinitionId.split(':')
+  return data[data.length - 1]
+}
+
+export const getSchemaNameFromSchemaId = (schemaId: string) => {
+  const data = schemaId.split(':')
+  return data[data.length - 1]
+}

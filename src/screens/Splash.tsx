@@ -26,9 +26,15 @@ const Splash: React.FC<SplashProps> = ({ navigation }) => {
     if (onboardingCompleteStage === 'true') {
       SplashScreen.hide()
       navigation.navigate(Screens.EnterPin)
-    } else {
+    } else if (onboardingCompleteStage === 'appIntroComplete') {
       SplashScreen.hide()
       navigation.navigate(Screens.Terms)
+    } else if (onboardingCompleteStage === 'termsComplete') {
+      SplashScreen.hide()
+      navigation.navigate(Screens.Registration, { forgotPin: false })
+    } else {
+      SplashScreen.hide()
+      navigation.navigate(Screens.Onboarding)
     }
   }
 

@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
+    flex: 1,
   },
   bodyText: {
     ...TextTheme.normal,
@@ -37,10 +38,24 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
   const { agent } = useAgent()
   const { t } = useTranslation()
 
-  const getConnectionInvitationUrl = async () => {
-    setLoading(true)
+  const getParticipantID = async () => {
     const connectionInvitationUrlResponse =
-      await api.default.config.invitationUrl()
+      await api.default.connection.invitationUrl()
+    if (connectionInvitationUrlResponse.data != null) {
+      const response = connectionInvitationUrlResponse.data.config
+      const participantID = response[0].value
+      console.log('**** participant id', participantID)
+      getConnectionInvitationUrl(participantID)
+    }
+  }
+
+  const getConnectionInvitationUrl = async participantId => {
+    setLoading(true)
+    console.log('**** participant url', participantId)
+    const config = {}
+    const connectionInvitationUrlResponse =
+      await api.default.config.invitationUrl(config, participantId)
+    console.log('**** participant url', connectionInvitationUrlResponse)
     if (connectionInvitationUrlResponse.data != null) {
       const url = connectionInvitationUrlResponse.data.invitationUrl
       await connectWithOrganization(url)
@@ -48,6 +63,7 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
     setAuthenticated(true)
   }
   const connectWithOrganization = async (url: string) => {
+    console.log('**** participant url', url)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,
       {
@@ -63,6 +79,7 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
       })
       throw new Error(t('DefaultConnection.ConnectionNotFound'))
     }
+    console.log('**** participant url', connectionRecord)
   }
 
   return (
@@ -76,7 +93,7 @@ const DefaultConnection: React.FC<DefaultConnectionProps> = ({ route }) => {
       <Button
         title={t('Settings.Yes')}
         buttonType={ButtonType.Primary}
-        onPress={getConnectionInvitationUrl}
+        onPress={getParticipantID}
       />
       <View style={styles.spacer} />
       <Button title={t('Settings.No')} buttonType={ButtonType.Primary} />

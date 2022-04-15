@@ -59,6 +59,7 @@ interface GrayscaleColors {
   lightGrey: string
   veryLightGrey: string
   white: string
+  searchGray: string
 }
 
 interface BaseScaleColors {
@@ -130,6 +131,7 @@ const GrayscaleColors: GrayscaleColors = {
   lightGrey: '#d3d3d3',
   veryLightGrey: '#f2f2f2',
   white: '#FFFFFF',
+  searchGray: '#d9dbda',
 }
 
 const BaseScaleColors: BaseScaleColors = {

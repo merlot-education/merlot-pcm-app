@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import React, { useCallback, useState } from 'react'
+import { BackHandler, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useNavigation } from '@react-navigation/core'
+import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Button, { ButtonType } from '../components/button/Button'
 import CheckBoxRow from '../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../components/text/InfoTextBox'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens } from '../types/navigators'
+import { LocalStorageKeys } from '../constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,9 +34,49 @@ const styles = StyleSheet.create({
 const Terms: React.FC = () => {
   const [checked, setChecked] = useState(false)
   const nav = useNavigation()
+  let backCount = 0
 
   const { t } = useTranslation()
 
+  const onSubmitPressed = async () => {
+    await storeTermsCompleteStage()
+    nav.navigate(Screens.Registration, { forgotPin: false })
+  }
+  const storeTermsCompleteStage = async () => {
+    await AsyncStorage.setItem(
+      LocalStorageKeys.OnboardingCompleteStage,
+      'termsComplete',
+    )
+  }
+  const restoreAppIntroCompleteStage = async () => {
+    await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)
+  }
+  const onBack = async () => {
+    await restoreAppIntroCompleteStage()
+    nav.navigate(Screens.Onboarding)
+  }
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = async () => {
+        // BackHandler.exitApp()
+        // eslint-disable-next-line no-plusplus
+        backCount++
+        if (backCount === 1) {
+          await restoreAppIntroCompleteStage()
+          nav.navigate(Screens.Onboarding)
+        } else {
+          BackHandler.exitApp()
+        }
+
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, [backCount, nav]),
+  )
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -52,15 +94,17 @@ const Terms: React.FC = () => {
           <View style={styles.topSpacer}>
             <Button
               title={t('Global.Continue')}
-              onPress={() =>
-                nav.navigate(Screens.Registration, { forgotPin: false })
-              }
+              onPress={onSubmitPressed}
               disabled={!checked}
               buttonType={ButtonType.Primary}
             />
           </View>
           <View style={styles.topSpacer}>
-            <Button title={t('Global.Back')} buttonType={ButtonType.Ghost} />
+            <Button
+              title={t('Global.Back')}
+              onPress={onBack}
+              buttonType={ButtonType.Ghost}
+            />
           </View>
         </View>
       </ScrollView>

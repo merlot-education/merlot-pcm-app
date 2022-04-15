@@ -21,15 +21,21 @@ const translation = {
     "SomethingWentWrong": "Etwas ging schief",
     "Done": "Erledigt",
     "Skip": "Überspringen",
+    "Previous": "Vorher",
     "View": "Ansicht",
     "Home": "Startseite",
     "ErrorCode": "Fehlercode",
     "Okay": "Okay",
     "Email": "E-Mail eingeben",
+    "Verify": 'Verifizieren',
+    "Otp": 'OTP eingeben',
     "ForgotPin": 'PIN vergessen',
     "ChangePin": 'PIN ändern',
     "OldPin": 'Alte PIN eingeben',
-    "Copy": 'Kopieren'
+    "Copy": 'Kopieren',
+    "from": 'von',
+    "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
+    "ZeroRecords": 'Keine Aufzeichnungen verfügbar',
   },
   "Language": {
     "English": "Englisch",
@@ -45,6 +51,7 @@ const translation = {
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
     "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
+    'ResendOtp': 'OTP erneut senden',
     "RegisterAgain": "Sie müssen sich erneut registrieren",
     "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
     "Passphrase": "Passphrase"
@@ -52,6 +59,7 @@ const translation = {
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
     "PinMustBe6DigitsInLength": "Die PIN muss 6 Ziffern lang sein",
+    "ReEnterPinMustBe6DigitsInLength": 'Le code PIN doit être composé de 6 chiffres',
     "PinsEnteredDoNotMatch": "Die eingegebenen Pins stimmen nicht überein", 
     "PinsSuccess": "Pin erfolgreich erstellt",    
     "6DigitPin": "6-stellige PIN",
@@ -59,6 +67,7 @@ const translation = {
     "ReenterNewPin": "Neue PIN erneut eingeben",
     "Create": "Schaffen",
     "ValidOldPin": "Bitte gültige alte PIN eingeben",
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt."
   },
   "Biometric": {
     "Biometric": "Biometrisch",
@@ -80,6 +89,9 @@ const translation = {
     "Credentials": "Zugangsdaten",
     "InYourWallet": "in Ihrem Wallet"
   },
+  "PinEnter": {
+    "IncorrectPin": "Falsche PIN", 
+  }, 
   "Settings": {
     "ChangePin": "Pin ändern",
     "Version": "Version",
@@ -89,7 +101,7 @@ const translation = {
     "Logout": "Ausloggen",
     "LogoutMsg": "Möchten Sie sich wirklich abmelden",
     "Yes": "Jawohl",
-    "No": 'Nein'
+    "No": 'Nein',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
@@ -129,7 +141,7 @@ const translation = {
   },
   "TabStack": {
     "Home": "Zuhause",
-    "Connections": "Kontakte",
+    "Connections": "Verbindung",
     "Scan": "Scan",
     "Credentials": "Referenzen",
     "Settings": "Einstellungen",
@@ -138,8 +150,48 @@ const translation = {
     "ConnectionNotFound": "Verbindung nicht gefunden",
     "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
   },
+  "ProofRequest": {
+    "Title": "<b>{{connection}}</b> demande une vérification à partir de votre portefeuille. \n\nIls vous demandent de partager :",
+    "OfferDelay": "Angebotsverzögerung",
+    "RejectThisProof?": "Diesen Nachweis ablehnen?",
+    "AcceptingProof": "Nachweis wird akzeptiert",
+    "SuccessfullyAcceptedProof": "Nachweis erfolgreich akzeptiert",
+    "ProofNotFound": "Nachweis nicht gefunden",
+    "RejectingProof": "Nachweis wird abgelehnt",
+    "ProofAccepted": "Nachweis akzeptiert",
+    "ProofRejected": "Nachweis abgelehnt",
+    "RequestedCredentialsCouldNotBeFound": "Angeforderte Anmeldeinformationen konnten nicht gefunden werden",
+    "ProofRequest": "Neuer Nachweis angefordert",
+    "NotAvailableInYourWallet": "Diesen Nachweis ablehnen?0",
+    "IsRequestng": "Diesen Nachweis ablehnen?1",
+    "IsRequestingSomethingYouDontHaveAvailable": "Diesen Nachweis ablehnen?2",
+    "IsRequestingYouToShare": "Diesen Nachweis ablehnen?3",
+    "WhichYouCanProvideFrom": "Diesen Nachweis ablehnen?4",
+    "Details": "Diesen Nachweis ablehnen?5",
+    "SendingTheInformationSecurely": "Diesen Nachweis ablehnen?6",
+    "InformationSentSuccessfully": "Diesen Nachweis ablehnen?7",
+    "ProofRequestDeclined": "Diesen Nachweis ablehnen?8",
+    "MissingInformation": {
+      "Title": "Die Anfrage kann nicht abgeschlossen werden",
+      "AlertMissingInformation": {
+        "Title": "In Ihrer Brieftasche fehlen Informationen"
+      }
+    }
+  },
+  "Toasts":{
+    "Success": "Erfolg",
+    "Error": "Fehler",
+    "Info": "Die Info",
+    "Warning": "Warnung",
+  },
   "GaiaxConsent": {
     "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
+  },
+  "Record": {
+    "Hide": "Ausblenden",
+    "Show": "Zeigen",
+    "HideAll": "Versteck alles",
+    "Hidden": "Versteckt",
   }
 }
 export default translation

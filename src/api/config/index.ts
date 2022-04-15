@@ -2,9 +2,10 @@ import { AxiosInstance } from 'axios'
 
 const config = (instance: AxiosInstance) => {
   return {
-    invitationUrl(config = {}) {
+    // eslint-disable-next-line default-param-last
+    invitationUrl(config = {}, participantID) {
       return instance.get(
-        'v1/invitation-url?participantId=0191cf79-338e-46c5-9314-831c1b391a19',
+        `/v1/invitation-url?participantId=${participantID}`,
         config,
       )
     },

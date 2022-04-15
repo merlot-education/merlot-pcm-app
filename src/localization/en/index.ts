@@ -21,6 +21,7 @@ const translation = {
     "SomethingWentWrong": "Something went wrong",
     "Done": "Done",
     "Skip": "Skip",
+    "Previous": "Prev",
     "View": "View",
     "Home": "Home",
     "ErrorCode": "Error Code",
@@ -32,16 +33,14 @@ const translation = {
     "ChangePin": 'Change Pin',
     "OldPin": 'Enter Old Pin',
     "Copy": 'Copy',
+    "from": 'from',
+    "ThisDecisionCannotBeChanged.": "This decision cannot be changed.",
+    "ZeroRecords": 'No records available',
   },
   "Language": {
     "English": "English",
     "French": "French",  
     "German": "German",    
-  },
-  "Terms": {
-    "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
-    "TermsAndConditions": "These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service. Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.",
-    "Attestation": "I have read, understand and accept the terms and conditions.",
   },
   "Registration":{
     "UserAuthenticationEmail": "User authentication email",
@@ -52,10 +51,16 @@ const translation = {
     "MnemonicMsg": "This is the phrase that will be used to create your wallet seed please save it securely",
     "Passphrase": "Passphrase"
   },
+  "Terms": {
+    "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
+    "TermsAndConditions": "These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service. Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.",
+    "Attestation": "I have read, understand and accept the terms and conditions.",
+  },
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
     "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
-    "PinsEnteredDoNotMatch": "Pins entered do not match", 
+    "ReEnterPinMustBe6DigitsInLength": 'Reenter PIN must be 6 digits in length',
+    "PinsEnteredDoNotMatch": "Pin entered do not match", 
     "PinsSuccess": "PIN created successfully",    
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
@@ -96,7 +101,7 @@ const translation = {
     "Logout": "Logout",
     "LogoutMsg": "Are you sure want to logout",
     "Yes": "yes",
-    "No": 'No'
+    "No": 'No',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"
@@ -136,9 +141,9 @@ const translation = {
   },
   "TabStack": {
     "Home": "Home",
-    "Connections": "Contacts",
+    "Connections": "Connection",
     "Scan": "Scan",
-    "Credentials": "Credentials",
+    "Credentials": "Credential",
     "Settings": "Settings",
   },
   "DefaultConnection":{
@@ -151,8 +156,42 @@ const translation = {
     "Info": "Info",
     "Warning": "Warning",
   },
+  "ProofRequest": {
+    "Title": "<b>{{connection}}</b> is requesting a  verification from your Wallet. \n\nThey are asking that you share:",
+    "OfferDelay": "Offer delay",
+    "RejectThisProof?": "Reject this Proof?",
+    "AcceptingProof": "Accepting Proof",
+    "SuccessfullyAcceptedProof": "Successfully Accepted Proof",
+    "ProofNotFound": "Proof not Found",
+    "RejectingProof": "Rejecting Proof",
+    "ProofAccepted": "Proof Accepted",
+    "ProofRejected": "Proof Rejected",
+    "RequestedCredentialsCouldNotBeFound": "Requested credentials could not be found",
+    "ProofRequest": "New Proof Request",
+    "NotAvailableInYourWallet": "Not available in your wallet",
+    "IsRequestng": "is requesting",
+    "IsRequestingSomethingYouDontHaveAvailable": "is requesting something you don't have available",
+    "IsRequestingYouToShare": "is requesting you to share",
+    "WhichYouCanProvideFrom": "which you can provide from",
+    "Details": "Details",
+    "SendingTheInformationSecurely": "Sending the information securely",
+    "InformationSentSuccessfully": "Information sent successfully",
+    "ProofRequestDeclined": "Proof request declined",
+    "MissingInformation": {
+      "Title": "The request cannot be completed",
+      "AlertMissingInformation": {
+        "Title": "Your wallet is missing information",
+      },
+    }
+  },
   "GaiaxConsent": {
     "WalletCreated": "Your wallet is created successfully."
+  },
+  "Record": {
+    "Hide": "Hide",
+    "Show": "Show",
+    "HideAll": "Hide all",
+    "Hidden": "Hidden",
   }
 }
 export default translation

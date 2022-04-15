@@ -42,6 +42,8 @@ interface NotificationModalProps {
   onDone?: () => void
   onHome?: () => void
   visible?: boolean
+  doneHidden?: boolean
+  homeHidden?: boolean
   testID?: string
 }
 
@@ -51,6 +53,8 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
   onDone,
   onHome,
   visible,
+  doneHidden = false,
+  homeHidden = false,
   children,
   testID,
 }) => {
@@ -76,14 +80,20 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
   return (
     <Modal testID={testID} visible={modalVisible} transparent>
       <SafeAreaView style={styles.container}>
-        <View style={styles.iconContainer}>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={onHome || closeHome}
-          >
-            <Icon name="home" size={24} color={ColorPallet.brand.primary} />
-          </TouchableOpacity>
-        </View>
+        {homeHidden ? null : (
+          <View style={styles.iconContainer}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={onHome || closeHome}
+            >
+              <Icon
+                name="home"
+                size={24}
+                color={ColorPallet.notification.infoText}
+              />
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.childContainer}>
           <Text
             style={[
@@ -95,13 +105,15 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
           </Text>
           {children}
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            buttonType={ButtonType.Primary}
-            title={doneTitle || t('Global.Done')}
-            onPress={onDone || close}
-          />
-        </View>
+        {doneHidden ? null : (
+          <View style={styles.buttonContainer}>
+            <Button
+              buttonType={ButtonType.Primary}
+              title={doneTitle || t('Global.Done')}
+              onPress={onDone || close}
+            />
+          </View>
+        )}
       </SafeAreaView>
     </Modal>
   )

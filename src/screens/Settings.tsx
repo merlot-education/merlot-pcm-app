@@ -51,7 +51,6 @@ const Settings: React.FC<SettingsProps> = ({
       },
       { text: t('Settings.No') },
     ])
-
   return (
     <View style={styles.container}>
       <Text style={styles.groupHeader}>{t('Settings.AppPreferences')}</Text>

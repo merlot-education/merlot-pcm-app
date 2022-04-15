@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Keyboard, StyleSheet, View } from 'react-native'
+import { Keyboard, StyleSheet, View, Alert, BackHandler } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
+import { useNavigation } from '@react-navigation/core'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import md5 from 'md5'
 import Toast from 'react-native-toast-message'
@@ -21,6 +22,7 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
+    flex: 1,
   },
   btnContainer: {
     marginTop: 20,
@@ -29,6 +31,7 @@ const style = StyleSheet.create({
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const { initAgent, forgotPin } = route.params
+  const nav = useNavigation()
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -76,6 +79,39 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     })
   })
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert(
+        'Already authenticated!',
+        'Are you sure you want to go back?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {
+            text: 'YES',
+            onPress: () =>
+              navigation.navigate(Screens.Registration, { forgotPin: false }),
+          },
+        ],
+      )
+      return true
+    }
+
+    const backActionForgotPassword = () => {
+      nav.navigate(Screens.EnterPin)
+      return true
+    }
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      forgotPin ? backActionForgotPassword : backAction,
+    )
+
+    return () => backHandler.remove()
+  }, [forgotPin, nav, navigation])
+
   const passcodeCreate = async (passcode: string) => {
     const description = t('PinCreate.UserAuthenticationPin')
     try {
@@ -95,6 +131,9 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         setPassphrase(passphraseEntry.password)
       }
       setSuccessPin(true)
+      if (forgotPin) {
+        nav.navigate(Screens.EnterPin)
+      }
       Toast.show({
         type: ToastType.Success,
         text1: t('Toasts.Success'),
@@ -109,21 +148,27 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     }
   }
 
-  const confirmEntry = (x: string, y: string) => {
-    if (x.length < 6 || y.length < 6) {
+  const confirmEntry = (pin: string, reEnterPin: string) => {
+    if (pin.length < 6) {
       Toast.show({
         type: ToastType.Warn,
         text1: t('Toasts.Warning'),
         text2: t('PinCreate.PinMustBe6DigitsInLength'),
       })
-    } else if (x !== y) {
+    } else if (reEnterPin.length < 6) {
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Error'),
+        text2: t('PinCreate.ReEnterPinMustBe6DigitsInLength'),
+      })
+    } else if (pin !== reEnterPin) {
       Toast.show({
         type: ToastType.Error,
         text1: t('Toasts.Error'),
         text2: t('PinCreate.PinsEnteredDoNotMatch'),
       })
     } else {
-      passcodeCreate(x)
+      passcodeCreate(pin)
     }
   }
   const biometricEnable = () => {
@@ -148,7 +193,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             } else {
               Toast.show({
                 type: ToastType.Warn,
-                text1: t('Toasts.Warn'),
+                text1: t('Toasts.Warning'),
                 text2: t('Biometric.BiometricCancle'),
               })
             }
@@ -163,7 +208,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       } else {
         Toast.show({
           type: ToastType.Warn,
-          text1: t('Toasts.Warn'),
+          text1: t('Toasts.Warning'),
           text2: t('Biometric.BiometricNotSupport'),
         })
       }
@@ -178,7 +223,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     } else {
       Toast.show({
         type: ToastType.Warn,
-        text1: t('Toasts.Warn'),
+        text1: t('Toasts.Warning'),
         text2: t('Biometric.RegisterPinandBiometric'),
       })
     }
@@ -215,10 +260,12 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             Keyboard.dismiss()
           }
         }}
+        editable={pin.length === 6 && true}
       />
       <Button
         title="Setup PIN"
         buttonType={ButtonType.Primary}
+        disabled={successPin}
         onPress={() => {
           Keyboard.dismiss()
           confirmEntry(pin, pinTwo)
@@ -232,6 +279,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
                 title="Setup Biometric"
                 buttonType={ButtonType.Primary}
                 onPress={biometricEnable}
+                disabled={successBiometric}
               />
             )}
           </View>

@@ -15,7 +15,7 @@ export enum Screens {
   Scan = 'Scan',
   ChangePin = 'ChangePin',
   Credentials = 'Credentials',
-  Contacts = 'Contacts',
+  CredentialDetails = 'Credential Details',
   Settings = 'Settings',
   DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
@@ -23,10 +23,12 @@ export enum Screens {
   ProofRequest = 'ProofRequest',
   Language = 'Language',
   ConnectionInvitation = 'ConnectionInvitation',
+  ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
 }
 
 export type OnboardingStackParams = {
   Splash: undefined
+  Onboarding: undefined
   Terms: undefined
   Registration: { forgotPin: boolean }
   VerifyOtp: {
@@ -59,13 +61,13 @@ export type AuthenticateStackParams = {
 }
 
 export type ContactStackParams = {
-  Contacts: undefined
+  ListContacts: undefined
   'Contact Details': { connectionId: string }
 }
 
 export type CredentialStackParams = {
   Credentials: undefined
-  'Credential Details': { credentialId: string }
+  [Screens.CredentialDetails]: { credentialId: string }
 }
 
 export type HomeStackParams = {
@@ -73,6 +75,7 @@ export type HomeStackParams = {
   Notifications: undefined
   CredentialOffer: { credentialId: string }
   ProofRequest: { proofId: string }
+  ProofRequestAttributeDetails: { proofId: string; attributeName: string }
 }
 
 export type ScanStackParams = {
@@ -89,7 +92,7 @@ export type SettingStackParams = {
 
 export enum TabStacks {
   HomeStack = 'Tab Home Stack',
-  ContactStack = 'Tab Contact Stack',
+  ConnectionStack = 'Tab Connection Stack',
   ScanStack = 'Tab Scan Stack',
   CredentialStack = 'Tab Credential Stack',
   SettingsStack = 'Tab Settings Stack',
@@ -97,7 +100,7 @@ export enum TabStacks {
 
 export type TabStackParams = {
   [TabStacks.HomeStack]: NavigatorScreenParams<HomeStackParams>
-  [TabStacks.ContactStack]: NavigatorScreenParams<ContactStackParams>
+  [TabStacks.ConnectionStack]: NavigatorScreenParams<ContactStackParams>
   [TabStacks.ScanStack]: NavigatorScreenParams<ScanStackParams>
   [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
   [TabStacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
@@ -110,5 +113,5 @@ export enum Stacks {
   CredentialStack = 'Credentials Stack',
   ScanStack = 'Scan Stack',
   SettingStack = 'Settings Stack',
-  ContactStack = 'Contacts Stack',
+  ConnectionStack = 'Connection Stack',
 }
