@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaView, StyleSheet, PermissionsAndroid } from 'react-native'
+import {
+  SafeAreaView,
+  StyleSheet,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFetchBlob from 'rn-fetch-blob'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
@@ -10,7 +15,7 @@ import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
 import { TextInput } from '../components'
 import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys } from '../constants'
+import { KeychainStorageKeys, salt } from '../constants'
 
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
@@ -37,6 +42,43 @@ const ExportWallet = () => {
   const { fs } = RNFetchBlob
   const { agent } = useAgent()
   const nav = useNavigation()
+
+  const askPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Permission',
+            message: 'PCM needs to write to storage ',
+            buttonPositive: '',
+          },
+        )
+        const permission = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Permission',
+            message: 'PCM needs to write to storage ',
+            buttonPositive: '',
+          },
+        )
+
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          exportWallet()
+        } else {
+          console.log(
+            'Permission Denied!',
+            'You need to give  permission to see contacts',
+          )
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      exportWallet()
+    }
+  }
+
   const exportWallet = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -77,8 +119,6 @@ const ExportWallet = () => {
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
         const encryptedFileLocation = `${zipDirectory}/${encryptedFileName}`
 
-        const salt =
-          '1234567891011121314151617181920212223242526272829303132333435363'
         const email = await getValueKeychain({
           service: KeychainStorageKeys.Email,
         })
@@ -129,9 +169,9 @@ const ExportWallet = () => {
         Toast.show({
           type: ToastType.Success,
           text1: t('Toasts.Success'),
-          text2: t('PinCreate.ValidMnemonic'),
+          text2: t('Settings.ValidMnemonic'),
         })
-        exportWallet()
+        askPermission()
       } else {
         Toast.show({
           type: ToastType.Error,
