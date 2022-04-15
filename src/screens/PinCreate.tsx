@@ -30,7 +30,7 @@ const style = StyleSheet.create({
 })
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
-  const { initAgent, forgotPin } = route.params
+  const { initAgent, forgotPin, setAuthenticated } = route.params
   const nav = useNavigation()
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
@@ -56,7 +56,8 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         text1: t('Toasts.Success'),
         text2: t('PinCreate.WalletCreated'),
       })
-      navigation.navigate(Screens.DefaultConnection)
+      setAuthenticated(true)
+      // navigation.navigate(Screens.Home)
     } catch (error) {
       setLoading(false)
       Toast.show({
