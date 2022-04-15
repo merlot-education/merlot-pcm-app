@@ -142,6 +142,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         setEmail(emailEntry.password)
         setPassphrase(passphraseEntry.password)
       }
+      console.log('passphrase', passphraseEntry)
       setSuccessPin(true)
       if (forgotPin) {
         nav.navigate(Screens.EnterPin)

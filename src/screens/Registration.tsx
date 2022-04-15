@@ -141,42 +141,42 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
         if (!forgotPin) {
           await savePassphrase(mnemonicText)
         }
-        // try {
-        //   setLoading(true)
-        //   const {
-        //     data: { otpId },
-        //     message,
-        //   } = await api.default.auth.register({
-        //     email,
-        //     otpId: '',
-        //   })
-        //   setLoading(false)
-        //   Toast.show({
-        //     type: ToastType.Success,
-        //     text1: t('Toasts.Success'),
-        //     text2: message,
-        //   })
-        //   if (forgotPin) {
-        //     navigation.navigate(Screens.VerifyOtp, {
-        //       email,
-        //       forgotPin,
-        //       otpId,
-        //     })
-        //   } else {
-        //     navigation.navigate(Screens.VerifyOtp, {
-        //       email,
-        //       forgotPin,
-        //       otpId,
-        //     })
-        //   }
-        // } catch (error) {
-        //   setLoading(false)
-        //   Toast.show({
-        //     type: ToastType.Error,
-        //     text1: error.name,
-        //     text2: error.message,
-        //   })
-        // }
+        try {
+          setLoading(true)
+          const {
+            data: { otpId },
+            message,
+          } = await api.default.auth.register({
+            email,
+            otpId: '',
+          })
+          setLoading(false)
+          Toast.show({
+            type: ToastType.Success,
+            text1: t('Toasts.Success'),
+            text2: message,
+          })
+          if (forgotPin) {
+            navigation.navigate(Screens.VerifyOtp, {
+              email,
+              forgotPin,
+              otpId,
+            })
+          } else {
+            navigation.navigate(Screens.VerifyOtp, {
+              email,
+              forgotPin,
+              otpId,
+            })
+          }
+        } catch (error) {
+          setLoading(false)
+          Toast.show({
+            type: ToastType.Error,
+            text1: error.name,
+            text2: error.message,
+          })
+        }
       } else {
         Toast.show({
           type: ToastType.Warn,
@@ -191,7 +191,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
         text2: t('Registration.EnterEmail'),
       })
     }
-    navigation.navigate(Screens.CreatePin, { forgotPin })
+    // navigation.navigate(Screens.CreatePin, { forgotPin })
   }
   const restoreTermsCompleteStage = async () => {
     await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)

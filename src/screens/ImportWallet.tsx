@@ -6,6 +6,7 @@ import {
   Keyboard,
   Platform,
   PermissionsAndroid,
+  AsyncStorage,
 } from 'react-native'
 import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
@@ -33,7 +34,7 @@ import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader, Text } from '../components'
 import { getValueKeychain } from '../utils/keychain'
 import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys, salt } from '../constants'
+import { KeychainStorageKeys, LocalStorageKeys, salt } from '../constants'
 import indyLedgers from '../../configs/ledgers/indy'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 
@@ -79,8 +80,11 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
       initAgent(email.password, pinCode.password, seedHash)
     }
     setAuthenticated(true)
+    await storeOnboardingCompleteStage()
   }, [initAgent, setAuthenticated])
-
+  const storeOnboardingCompleteStage = async () => {
+    await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
+  }
   const askPermission = async () => {
     if (Platform.OS === 'android') {
       try {

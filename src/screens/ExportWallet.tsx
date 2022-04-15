@@ -7,10 +7,9 @@ import {
   Platform,
 } from 'react-native'
 import Toast from 'react-native-toast-message'
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
-import moment from 'moment'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
 import { TextInput } from '../components'
@@ -39,7 +38,7 @@ const style = StyleSheet.create({
 const ExportWallet = () => {
   const { t } = useTranslation()
   const [mnemonic, setMnemonic] = useState('')
-  const { fs } = RNFetchBlob
+  // const { fs } = RNFetchBlob
   const { agent } = useAgent()
   const nav = useNavigation()
 
@@ -99,21 +98,21 @@ const ExportWallet = () => {
       )
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        const documentDirectory = fs.dirs.DownloadDir
+        const documentDirectory = RNFS.DownloadDirectoryPath
 
         const zipDirectory = `${documentDirectory}/PCM_Backup`
 
-        const destFileExists = await fs.exists(zipDirectory)
+        const destFileExists = await RNFS.exists(zipDirectory)
         if (destFileExists) {
-          await fs.unlink(zipDirectory)
+          await RNFS.unlink(zipDirectory)
         }
 
-        const WALLET_FILE_NAME = `PCM_Wallet_${moment(
-          new Date().toString(),
-        ).format('DD-MMMM-YYYY_hmmssA')}`
-
-        await fs
-          .mkdir(zipDirectory)
+        const date = new Date()
+        const dformat = `${date.getHours()}_${date.getMinutes()}_${date.getSeconds()}`
+        console.log(date.getTime())
+        const WALLET_FILE_NAME = `PCM_Wallet_${dformat}`
+        console.log('wallet name', WALLET_FILE_NAME)
+        await RNFS.mkdir(zipDirectory)
           .then(() => console.log('generated'))
           .catch(err => console.log('not generated', err))
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
@@ -161,11 +160,11 @@ const ExportWallet = () => {
   }
 
   const compareMnemonic = async () => {
-    const mnemonicText = await getValueKeychain({
-      service: 'mnemonicText',
+    const passphraseEntry = await getValueKeychain({
+      service: KeychainStorageKeys.Passphrase,
     })
     if (mnemonic !== '') {
-      if (mnemonic.trim() === mnemonicText?.password.trim()) {
+      if (mnemonic.trim() === passphraseEntry?.password.trim()) {
         Toast.show({
           type: ToastType.Success,
           text1: t('Toasts.Success'),
