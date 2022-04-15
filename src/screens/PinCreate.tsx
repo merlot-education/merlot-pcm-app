@@ -57,7 +57,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         text2: t('PinCreate.WalletCreated'),
       })
       setAuthenticated(true)
-      // navigation.navigate(Screens.Home)
     } catch (error) {
       setLoading(false)
       Toast.show({
