@@ -2,6 +2,9 @@ export const defaultLanguage = 'en'
 
 export const testIdPrefix = 'com.pcm:id/'
 
+export const salt =
+  '1234567891011121314151617181920212223242526272829303132333435363'
+
 export enum LocalStorageKeys {
   Language = 'language',
   OnboardingCompleteStage = 'onboardingCompleteStage',
@@ -10,7 +13,6 @@ export enum LocalStorageKeys {
 export enum KeychainStorageKeys {
   Email = 'email',
   Passphrase = 'passphrase',
-  mnemonicText = 'mnemonicText',
 }
 
 export const dateFormatOptions: {

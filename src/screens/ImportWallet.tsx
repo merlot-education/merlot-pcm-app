@@ -3,21 +3,16 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { View, StyleSheet, Keyboard } from 'react-native'
 import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
-import Toast from 'react-native-toast-message'
 import argon2 from 'react-native-argon2'
 import {
   WalletExportImportConfig,
   WalletConfig,
 } from '@aries-framework/core/build/types'
-import md5 from 'md5'
-import AgentProvider, { useAgent } from '@aries-framework/react-hooks'
-import { Agent } from '@aries-framework/core'
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { TextInput, Loader, Text } from '../components'
 import { getValueKeychain } from '../utils/keychain'
-import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys } from '../constants'
+import { KeychainStorageKeys, salt } from '../constants'
 
 const styles = StyleSheet.create({
   container: {
@@ -55,17 +50,7 @@ const ImportWallet: React.FC = route => {
       const walletFilePath = `${restoreDirectoryPath}/${WALLET_FILE_NAME}.wallet`
       setwalletBackupFIlePath(walletFilePath)
       const restoreSaltPath = `${restoreDirectoryPath}/salt.json`
-      // if (Platform.OS === 'android') {
-      //   await unzip(res.fileCopyUri, restoreDirectoryPath)
-      // } else {
-      //   await unzip(res.uri, restoreDirectoryPath)
-      // }
 
-      // this.setState({
-      //   showInputScreen: true,
-      //   restoreSaltPath,
-      //   walletFilePath,
-      // })
       console.log('file picked', walletFilePath)
       console.log('salt path', restoreSaltPath)
     } catch (err) {
@@ -86,8 +71,7 @@ const ImportWallet: React.FC = route => {
     console.log('email ', emailEntry.password)
 
     console.log('export wallet', agent.wallet)
-    const salt =
-      '1234567891011121314151617181920212223242526272829303132333435363'
+
     const result = await argon2(mnemonic, salt, {
       iterations: 5,
       memory: 16 * 1024,

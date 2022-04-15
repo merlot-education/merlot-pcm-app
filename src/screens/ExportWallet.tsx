@@ -161,11 +161,11 @@ const ExportWallet = () => {
   }
 
   const compareMnemonic = async () => {
-    const mnemonicText = await getValueKeychain({
-      service: 'mnemonicText',
+    const passphraseEntry = await getValueKeychain({
+      service: KeychainStorageKeys.Passphrase,
     })
     if (mnemonic !== '') {
-      if (mnemonic.trim() === mnemonicText?.password.trim()) {
+      if (mnemonic.trim() === passphraseEntry?.password.trim()) {
         Toast.show({
           type: ToastType.Success,
           text1: t('Toasts.Success'),

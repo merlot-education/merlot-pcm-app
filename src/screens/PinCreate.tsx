@@ -125,6 +125,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         setEmail(emailEntry.password)
         setPassphrase(passphraseEntry.password)
       }
+      console.log('passphrase', passphraseEntry)
       setSuccessPin(true)
       Toast.show({
         type: ToastType.Success,
