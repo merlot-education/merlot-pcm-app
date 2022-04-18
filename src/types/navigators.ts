@@ -25,6 +25,7 @@ export enum Screens {
   ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
   ExportWallet = 'ExportWallet',
   ImportWallet = 'ImportWallet',
+  ContactDetails = 'ConnectionDetails',
 }
 
 export type OnboardingStackParams = {
@@ -62,7 +63,7 @@ export type AuthenticateStackParams = {
 
 export type ContactStackParams = {
   ListContacts: undefined
-  'Contact Details': { connectionId: string }
+  [Screens.ContactDetails]: { connectionId: string }
 }
 
 export type CredentialStackParams = {

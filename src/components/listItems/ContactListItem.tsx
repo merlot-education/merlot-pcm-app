@@ -1,11 +1,14 @@
 import type { ConnectionRecord } from '@aries-framework/core'
 
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet } from 'react-native'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/core'
 import { borderRadius, ContactTheme } from '../../theme/theme'
 import { dateFormatOptions } from '../../constants'
 import Text from '../text/Text'
 import Title from '../text/Title'
+import { ContactStackParams, Screens } from '../../types/navigators'
 
 interface Props {
   contact: ConnectionRecord
@@ -25,15 +28,25 @@ const styles = StyleSheet.create({
 })
 
 const ContactListItem: React.FC<Props> = ({ contact }) => {
+  const navigation = useNavigation<StackNavigationProp<ContactStackParams>>()
+
   return (
-    <View key={contact.id} style={styles.container}>
+    <Pressable
+      onPress={() =>
+        navigation.navigate(Screens.ContactDetails, {
+          connectionId: contact.id,
+        })
+      }
+      key={contact.id}
+      style={styles.container}
+    >
       <Title>{contact?.alias || contact?.invitation?.label}</Title>
       <Text>DID : {contact.did}</Text>
       <Text>State : {contact.state}</Text>
       <Text style={styles.date}>
         {contact.createdAt.toLocaleDateString('en-CA', dateFormatOptions)}
       </Text>
-    </View>
+    </Pressable>
   )
 }
 
