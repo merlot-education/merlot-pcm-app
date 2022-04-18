@@ -159,10 +159,6 @@ const translation = {
     "Credentials": "Credential",
     "Settings": "Settings",
   },
-  "DefaultConnection":{
-    "ConnectionNotFound": "Connection not found",
-    "ConnectWith": "Do you want to connect with AISBL ?",
-  },
   "Toasts":{
     "Success": "Success",
     "Error": "Error",
@@ -196,9 +192,6 @@ const translation = {
         "Title": "Your wallet is missing information",
       },
     }
-  },
-  "GaiaxConsent": {
-    "WalletCreated": "Your wallet is created successfully."
   },
   "Record": {
     "Hide": "Hide",

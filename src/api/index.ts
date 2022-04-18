@@ -1,25 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
 import Config from 'react-native-config'
 import auth from './auth'
-import config from './config'
-import connection from './connection'
 
 const instance = axios.create({
   baseURL: Config.BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-
-const configInstance = axios.create({
-  baseURL: Config.CONNECTION_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-})
-
-const connectionInstance = axios.create({
-  baseURL: Config.CONFIG_URL,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -44,14 +28,6 @@ const onResponseError = (error: AxiosError): AxiosError => {
 instance.interceptors.request.use(onRequest, onRequestError)
 instance.interceptors.response.use(onResponse, onResponseError)
 
-configInstance.interceptors.request.use(onRequest, onRequestError)
-configInstance.interceptors.response.use(onResponse, onResponseError)
-
-connectionInstance.interceptors.request.use(onRequest, onRequestError)
-connectionInstance.interceptors.response.use(onResponse, onResponseError)
-
 export default {
   auth: auth(instance),
-  config: config(configInstance),
-  connection: connection(connectionInstance),
 }

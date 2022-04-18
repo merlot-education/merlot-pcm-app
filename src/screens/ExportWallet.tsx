@@ -108,10 +108,10 @@ const ExportWallet = () => {
         }
 
         const date = new Date()
-        const dformat = `${date.getHours()}_${date.getMinutes()}_${date.getSeconds()}`
+        const dformat = `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
         console.log(date.getTime())
         const WALLET_FILE_NAME = `PCM_Wallet_${dformat}`
-        console.log('wallet name', WALLET_FILE_NAME)
+
         await RNFS.mkdir(zipDirectory)
           .then(() => console.log('generated'))
           .catch(err => console.log('not generated', err))
