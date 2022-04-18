@@ -3,6 +3,7 @@ import React from 'react'
 
 import ListContacts from '../screens/ListContacts'
 import { ContactStackParams, Screens } from '../types/navigators'
+import ContactDetails from '../screens/ContactDetails'
 
 import defaultStackOptions from './defaultStackOptions'
 import { ColorPallet } from '../theme/theme'
@@ -23,6 +24,7 @@ const ContactStack: React.FC = () => {
           rightLeft: () => false,
         })}
       />
+      <Stack.Screen name={Screens.ContactDetails} component={ContactDetails} />
     </Stack.Navigator>
   )
 }
