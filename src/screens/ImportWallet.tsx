@@ -8,7 +8,7 @@ import {
   PermissionsAndroid,
   AsyncStorage,
 } from 'react-native'
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFS from 'react-native-fs'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
 import argon2 from 'react-native-argon2'
@@ -122,19 +122,51 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
   }
 
   const pickBackupFile = async () => {
+    // try {
+    //   const res = await DocumentPicker.pickSingle({
+    //     type: [DocumentPicker.types.allFiles],
+    //     copyTo: 'documentDirectory',
+    //   })
+    //   RNFetchBlob.fs
+    //     .stat(res.uri)
+    //     .then(stats => {
+    //       console.log(stats.path)
+    //       setwalletBackupFIlePath(stats.path)
+    //     })
+    //     .catch(err => {
+    //       console.log(err)
+    //     })
+    // } catch (err) {
+    //   if (DocumentPicker.isCancel(err)) {
+    //     // User cancelled the picker, exit any dialogs or menus and move on
+    //   } else {
+    //     throw console.log('Error from zip', err)
+    //   }
+    // }
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.allFiles],
         copyTo: 'documentDirectory',
       })
-      RNFetchBlob.fs
-        .stat(res.uri)
-        .then(stats => {
-          console.log(stats.path)
-          setwalletBackupFIlePath(stats.path)
+      RNFS.readDir(RNFS.ExternalStorageDirectoryPath)
+        .then(result => {
+          console.log('GOT RESULT', result)
+          return Promise.all([RNFS.stat(result[0].path), result[0].path])
+        })
+        .then(statResult => {
+          if (statResult[0].isFile()) {
+            console.log('path1 ', statResult[0])
+            console.log('path 2', statResult[1])
+            setwalletBackupFIlePath(stats.path)
+            return RNFS.readFile(statResult[1], 'utf8')
+          }
+          return 'no file'
+        })
+        .then(contents => {
+          console.log(contents)
         })
         .catch(err => {
-          console.log(err)
+          console.log(err.message, err.code)
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -152,9 +184,6 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     const keychainEntry = await getValueKeychain({
       service: 'passcode',
     })
-    console.log('email ', emailEntry.password)
-
-    console.log('export wallet', agent?.wallet)
 
     const result = await argon2(mnemonic, salt, {
       iterations: 5,
