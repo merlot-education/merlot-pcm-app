@@ -12,7 +12,6 @@ const auth = (instance: AxiosInstance) => {
       body: RegisterUserRequest,
       config = {},
     ): Promise<RegisterUserResponse> {
-      console.log('---')
       return instance.post('v1/notification/sendOtp', body, config)
     },
     verifyOtp(body: VerifyOtpRequest, config = {}): Promise<VerifyOtpResponse> {

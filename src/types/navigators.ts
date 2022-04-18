@@ -17,7 +17,6 @@ export enum Screens {
   Credentials = 'Credentials',
   CredentialDetails = 'Credential Details',
   Settings = 'Settings',
-  DefaultConnection = 'DefaultConnection',
   Notifications = 'Notifications',
   CredentialOffer = 'CredentialOffer',
   ProofRequest = 'ProofRequest',
@@ -41,14 +40,12 @@ export type OnboardingStackParams = {
   CreatePin: {
     initAgent?: (email: string, walletPin: string, seed: string) => void
     forgotPin: boolean
+    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
   }
   ImportWallet: undefined
   EnterPin: {
     initAgent: (email: string, walletPin: string, seed: string) => void
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  }
-  DefaultConnection: {
-    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
 

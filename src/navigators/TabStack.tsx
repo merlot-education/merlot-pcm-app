@@ -111,6 +111,7 @@ const TabStack: React.FC = () => {
           tabBarInactiveTintColor: ColorPallet.grayscale.white,
           header: () => null,
           tabBarHideOnKeyboard: true,
+          unmountOnBlur: true,
         }}
       >
         <MainTabNavigator.Screen
