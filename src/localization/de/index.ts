@@ -122,6 +122,11 @@ const translation = {
     "Created": "Erstellt",
     "ConnectionState": "Verbindungs status",
     "AContact": "Ein Kontakt",
+    "DeleteConnection": "Verbindung löschen",
+    "DeleteConnectionAlert": "Möchten Sie diese Verbindung wirklich löschen?",
+    "DeleteConnectionSuccess": "Verbindung erfolgreich gelöscht",
+    "DeleteConnectionFailed": "Fehler beim Löschen der Verbindung",
+    "ConnectionCannotDelete": "Mediator-Verbindung kann nicht gelöscht werden"
   },
   "Credentials": {
     "CredentialsNotFound": "Anmeldedaten nicht gefunden",

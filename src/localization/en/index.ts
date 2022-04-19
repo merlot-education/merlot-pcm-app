@@ -123,6 +123,11 @@ const translation = {
     "Created": "Created",
     "ConnectionState": "Connection State",
     "AContact": "A contact",
+    "DeleteConnection": "Delete Connection",
+    "DeleteConnectionAlert": "Are you sure you want to delete this connection?",
+    "DeleteConnectionSuccess": "Connection deleted successfully",
+    "DeleteConnectionFailed": "Failed to delete connection",
+    "ConnectionCannotDelete": "Mediator connection cannot be deleted",
   },
   "Credentials": {
     "CredentialsNotFound": "Credentials not found",
@@ -198,6 +203,6 @@ const translation = {
     "Show": "Show",
     "HideAll": "Hide all",
     "Hidden": "Hidden",
-  }
+  },
 }
 export default translation
