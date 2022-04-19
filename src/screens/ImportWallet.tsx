@@ -8,7 +8,7 @@ import {
   PermissionsAndroid,
   AsyncStorage,
 } from 'react-native'
-import RNFS from 'react-native-fs'
+import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
 import argon2 from 'react-native-argon2'
@@ -122,51 +122,19 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
   }
 
   const pickBackupFile = async () => {
-    // try {
-    //   const res = await DocumentPicker.pickSingle({
-    //     type: [DocumentPicker.types.allFiles],
-    //     copyTo: 'documentDirectory',
-    //   })
-    //   RNFetchBlob.fs
-    //     .stat(res.uri)
-    //     .then(stats => {
-    //       console.log(stats.path)
-    //       setwalletBackupFIlePath(stats.path)
-    //     })
-    //     .catch(err => {
-    //       console.log(err)
-    //     })
-    // } catch (err) {
-    //   if (DocumentPicker.isCancel(err)) {
-    //     // User cancelled the picker, exit any dialogs or menus and move on
-    //   } else {
-    //     throw console.log('Error from zip', err)
-    //   }
-    // }
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.allFiles],
         copyTo: 'documentDirectory',
       })
-      RNFS.readDir(RNFS.ExternalStorageDirectoryPath)
-        .then(result => {
-          console.log('GOT RESULT', result)
-          return Promise.all([RNFS.stat(result[0].path), result[0].path])
-        })
-        .then(statResult => {
-          if (statResult[0].isFile()) {
-            console.log('path1 ', statResult[0])
-            console.log('path 2', statResult[1])
-            setwalletBackupFIlePath(stats.path)
-            return RNFS.readFile(statResult[1], 'utf8')
-          }
-          return 'no file'
-        })
-        .then(contents => {
-          console.log(contents)
+      RNFetchBlob.fs
+        .stat(res.uri)
+        .then(stats => {
+          console.log(stats.path)
+          setwalletBackupFIlePath(stats.path)
         })
         .catch(err => {
-          console.log(err.message, err.code)
+          console.log(err)
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -177,56 +145,70 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     }
   }
   const importWallet = async () => {
-    setLoading(true)
-    const emailEntry = await getValueKeychain({
-      service: KeychainStorageKeys.Email,
-    })
-    const keychainEntry = await getValueKeychain({
-      service: 'passcode',
-    })
+    if (mnemonic.length === 0) {
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('ImportWallet.EmptyMnemonic'),
+      })
+    } else {
+      setLoading(true)
+      const emailEntry = await getValueKeychain({
+        service: KeychainStorageKeys.Email,
+      })
+      const keychainEntry = await getValueKeychain({
+        service: 'passcode',
+      })
 
-    const result = await argon2(mnemonic, salt, {
-      iterations: 5,
-      memory: 16 * 1024,
-      parallelism: 2,
-      hashLength: 20,
-      mode: 'argon2i',
-    })
+      const result = await argon2(mnemonic, salt, {
+        iterations: 5,
+        memory: 16 * 1024,
+        parallelism: 2,
+        hashLength: 20,
+        mode: 'argon2i',
+      })
 
-    const { rawHash, encodedHash } = result
+      const { rawHash, encodedHash } = result
 
-    const importConfig: WalletExportImportConfig = {
-      key: encodedHash,
-      path: walletBackupFilePath,
-    }
-    const walletConfig: WalletConfig = {
-      id: emailEntry.password,
-      key: keychainEntry.password,
-    }
-    console.log('export wallet', agent)
-    console.log('wallet congif', walletConfig)
-    console.log('import congif', importConfig)
+      const importConfig: WalletExportImportConfig = {
+        key: encodedHash,
+        path: walletBackupFilePath,
+      }
+      const walletConfig: WalletConfig = {
+        id: emailEntry.password,
+        key: keychainEntry.password,
+      }
+      console.log('export wallet', agent)
+      console.log('wallet congif', walletConfig)
+      console.log('import congif', importConfig)
 
-    const newAgent = new Agent(
-      {
-        label: emailEntry.password, // added email as label
-        mediatorConnectionsInvite: Config.MEDIATOR_URL,
-        mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        autoAcceptConnections: true,
-        autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
-        autoAcceptProofs: AutoAcceptProof.ContentApproved,
-        logger: new ConsoleLogger(LogLevel.trace),
-        indyLedgers,
-      },
-      agentDependencies,
-    )
-    try {
-      await newAgent?.wallet.import(walletConfig, importConfig)
-      await newAgent.wallet.initialize(walletConfig)
-      await startAgent()
-      setLoading(false)
-    } catch (e) {
-      console.error(e)
+      const newAgent = new Agent(
+        {
+          label: emailEntry.password, // added email as label
+          mediatorConnectionsInvite: Config.MEDIATOR_URL,
+          mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
+          autoAcceptConnections: true,
+          autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
+          autoAcceptProofs: AutoAcceptProof.ContentApproved,
+          logger: new ConsoleLogger(LogLevel.trace),
+          indyLedgers,
+        },
+        agentDependencies,
+      )
+      try {
+        await newAgent?.wallet.import(walletConfig, importConfig)
+        await newAgent.wallet.initialize(walletConfig)
+        await startAgent()
+        setLoading(false)
+      } catch (e) {
+        setLoading(false)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t('ImportWallet.InvalidMnemonic'),
+        })
+        console.error('wallet import erro ', e)
+      }
     }
   }
 

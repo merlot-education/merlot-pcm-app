@@ -8,6 +8,7 @@ import { Screens, SettingStackParams } from '../types/navigators'
 import defaultStackOptions from './defaultStackOptions'
 import Language from '../screens/Language'
 import { MainStackContext } from '../utils/helpers'
+import ViewMnemonic from '../screens/ViewMnemonic'
 
 const Stack = createStackNavigator<SettingStackParams>()
 
@@ -28,6 +29,13 @@ const SettingStack: React.FC<SettingStackProp> = () => {
         component={ExportWallet}
         options={() => ({
           title: 'Export Wallet',
+        })}
+      />
+      <Stack.Screen
+        name={Screens.ViewMnemonic}
+        component={ViewMnemonic}
+        options={() => ({
+          title: 'View Mnemonic',
         })}
       />
       <Stack.Screen

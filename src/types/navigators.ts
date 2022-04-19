@@ -25,6 +25,7 @@ export enum Screens {
   ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
   ExportWallet = 'ExportWallet',
   ImportWallet = 'ImportWallet',
+  ViewMnemonic = 'ViewMnemonic',
 }
 
 export type OnboardingStackParams = {
@@ -92,6 +93,7 @@ export type SettingStackParams = {
   Language: undefined
   ChangePin: undefined
   ExportWallet: undefined
+  ViewMnemonic: undefined
 }
 
 export enum TabStacks {
