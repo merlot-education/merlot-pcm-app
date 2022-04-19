@@ -94,6 +94,7 @@ export type SettingStackParams = {
   Language: undefined
   ChangePin: undefined
   ExportWallet: undefined
+  ViewMnemonic: undefined
 }
 
 export enum TabStacks {

@@ -63,6 +63,10 @@ const Settings: React.FC<SettingsProps> = ({
         onPress={() => navigation.navigate(Screens.Language)}
       />
       <SettingListItem
+        title={t('Settings.ViewMnemonic')}
+        onPress={() => navigation.navigate(Screens.ViewMnemonic)}
+      />
+      <SettingListItem
         title={t('Settings.ExportWallet')}
         onPress={() => navigation.navigate(Screens.ExportWallet)}
       />

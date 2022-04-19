@@ -145,59 +145,70 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     }
   }
   const importWallet = async () => {
-    setLoading(true)
-    const emailEntry = await getValueKeychain({
-      service: KeychainStorageKeys.Email,
-    })
-    const keychainEntry = await getValueKeychain({
-      service: 'passcode',
-    })
-    console.log('email ', emailEntry.password)
+    if (mnemonic.length === 0) {
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('ImportWallet.EmptyMnemonic'),
+      })
+    } else {
+      setLoading(true)
+      const emailEntry = await getValueKeychain({
+        service: KeychainStorageKeys.Email,
+      })
+      const keychainEntry = await getValueKeychain({
+        service: 'passcode',
+      })
 
-    console.log('export wallet', agent?.wallet)
+      const result = await argon2(mnemonic, salt, {
+        iterations: 5,
+        memory: 16 * 1024,
+        parallelism: 2,
+        hashLength: 20,
+        mode: 'argon2i',
+      })
 
-    const result = await argon2(mnemonic, salt, {
-      iterations: 5,
-      memory: 16 * 1024,
-      parallelism: 2,
-      hashLength: 20,
-      mode: 'argon2i',
-    })
+      const { rawHash, encodedHash } = result
 
-    const { rawHash, encodedHash } = result
+      const importConfig: WalletExportImportConfig = {
+        key: encodedHash,
+        path: walletBackupFilePath,
+      }
+      const walletConfig: WalletConfig = {
+        id: emailEntry.password,
+        key: keychainEntry.password,
+      }
+      console.log('export wallet', agent)
+      console.log('wallet congif', walletConfig)
+      console.log('import congif', importConfig)
 
-    const importConfig: WalletExportImportConfig = {
-      key: encodedHash,
-      path: walletBackupFilePath,
-    }
-    const walletConfig: WalletConfig = {
-      id: emailEntry.password,
-      key: keychainEntry.password,
-    }
-    console.log('export wallet', agent)
-    console.log('wallet congif', walletConfig)
-    console.log('import congif', importConfig)
-
-    const newAgent = new Agent(
-      {
-        label: emailEntry.password, // added email as label
-        mediatorConnectionsInvite: Config.MEDIATOR_URL,
-        mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        autoAcceptConnections: true,
-        autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
-        autoAcceptProofs: AutoAcceptProof.ContentApproved,
-        logger: new ConsoleLogger(LogLevel.trace),
-        indyLedgers,
-      },
-      agentDependencies,
-    )
-    try {
-      await newAgent?.wallet.import(walletConfig, importConfig)
-      await newAgent.wallet.initialize(walletConfig)
-      await startAgent()
-      setLoading(false)
-    } catch (e) {
-      console.error(e)
+      const newAgent = new Agent(
+        {
+          label: emailEntry.password, // added email as label
+          mediatorConnectionsInvite: Config.MEDIATOR_URL,
+          mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
+          autoAcceptConnections: true,
+          autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
+          autoAcceptProofs: AutoAcceptProof.ContentApproved,
+          logger: new ConsoleLogger(LogLevel.trace),
+          indyLedgers,
+        },
+        agentDependencies,
+      )
+      try {
+        await newAgent?.wallet.import(walletConfig, importConfig)
+        await newAgent.wallet.initialize(walletConfig)
+        await startAgent()
+        setLoading(false)
+      } catch (e) {
+        setLoading(false)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t('ImportWallet.InvalidMnemonic'),
+        })
+        console.error('wallet import erro ', e)
+      }
     }
   }
 
