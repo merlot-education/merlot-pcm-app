@@ -26,6 +26,7 @@ export enum Screens {
   ExportWallet = 'ExportWallet',
   ImportWallet = 'ImportWallet',
   ContactDetails = 'ConnectionDetails',
+  ViewMnemonic = 'ViewMnemonic',
 }
 
 export type OnboardingStackParams = {
