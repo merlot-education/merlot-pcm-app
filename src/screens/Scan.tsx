@@ -67,6 +67,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         )
         if (message['~service']) {
           await agent?.receiveMessage(message)
+          console.log('recived message', message)
           navigation.navigate(TabStacks.HomeStack)
         } else {
           navigation.navigate(Screens.ConnectionInvitation, { url })

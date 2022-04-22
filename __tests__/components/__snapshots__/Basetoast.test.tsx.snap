@@ -1,0 +1,385 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BaseToast Component Error renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "flex": 1,
+        "flexDirection": "row",
+      },
+      Object {
+        "backgroundColor": "#ECC8C4",
+        "borderColor": "#B25B59",
+        "width": 675,
+      },
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      Array [
+        Object {
+          "color": "#B25B59",
+          "fontSize": 24,
+        },
+        Object {
+          "marginHorizontal": 15,
+          "marginTop": 15,
+        },
+        Object {
+          "fontFamily": "Material Icons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "flexShrink": 1,
+          "marginRight": 10,
+          "marginVertical": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 18,
+            "fontWeight": "normal",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "color": "#B25B59",
+          },
+        ]
+      }
+    >
+      Error
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          },
+          Object {
+            "marginTop": 10,
+          },
+          Object {
+            "color": "#B25B59",
+          },
+        ]
+      }
+    >
+      This is error message
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BaseToast Component Info renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "flex": 1,
+        "flexDirection": "row",
+      },
+      Object {
+        "backgroundColor": "#CCE8F4",
+        "borderColor": "#4F7C9E",
+        "width": 675,
+      },
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      Array [
+        Object {
+          "color": "#4F7C9E",
+          "fontSize": 24,
+        },
+        Object {
+          "marginHorizontal": 15,
+          "marginTop": 15,
+        },
+        Object {
+          "fontFamily": "Material Icons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "flexShrink": 1,
+          "marginRight": 10,
+          "marginVertical": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 18,
+            "fontWeight": "normal",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "color": "#4F7C9E",
+          },
+        ]
+      }
+    >
+      Info
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          },
+          Object {
+            "marginTop": 10,
+          },
+          Object {
+            "color": "#4F7C9E",
+          },
+        ]
+      }
+    >
+      This is info message
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BaseToast Component Success renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "flex": 1,
+        "flexDirection": "row",
+      },
+      Object {
+        "backgroundColor": "#D2EBCA",
+        "borderColor": "#60775A",
+        "width": 675,
+      },
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      Array [
+        Object {
+          "color": "#60775A",
+          "fontSize": 24,
+        },
+        Object {
+          "marginHorizontal": 15,
+          "marginTop": 15,
+        },
+        Object {
+          "fontFamily": "Material Icons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "flexShrink": 1,
+          "marginRight": 10,
+          "marginVertical": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 18,
+            "fontWeight": "normal",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "color": "#60775A",
+          },
+        ]
+      }
+    >
+      Success
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          },
+          Object {
+            "marginTop": 10,
+          },
+          Object {
+            "color": "#60775A",
+          },
+        ]
+      }
+    >
+      This is Success message
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`BaseToast Component Warn renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "flex-start",
+        "borderRadius": 4,
+        "borderWidth": 2,
+        "flex": 1,
+        "flexDirection": "row",
+      },
+      Object {
+        "backgroundColor": "#F7F3D7",
+        "borderColor": "#AE8E56",
+        "width": 675,
+      },
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    selectable={false}
+    style={
+      Array [
+        Object {
+          "color": "#AE8E56",
+          "fontSize": 24,
+        },
+        Object {
+          "marginHorizontal": 15,
+          "marginTop": 15,
+        },
+        Object {
+          "fontFamily": "Material Icons",
+          "fontStyle": "normal",
+          "fontWeight": "normal",
+        },
+        Object {},
+      ]
+    }
+  >
+    
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "flexShrink": 1,
+          "marginRight": 10,
+          "marginVertical": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 18,
+            "fontWeight": "normal",
+          },
+          Object {
+            "fontWeight": "bold",
+          },
+          Object {
+            "color": "#AE8E56",
+          },
+        ]
+      }
+    >
+      Warn
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          },
+          Object {
+            "marginTop": 10,
+          },
+          Object {
+            "color": "#AE8E56",
+          },
+        ]
+      }
+    >
+      This is warning message
+    </Text>
+  </View>
+</View>
+`;

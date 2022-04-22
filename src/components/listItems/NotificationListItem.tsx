@@ -1,4 +1,8 @@
-import type { CredentialRecord, ProofRecord } from '@aries-framework/core'
+import {
+  CredentialRecord,
+  ProofRecord,
+  RetrievedCredentials,
+} from '@aries-framework/core'
 
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -6,11 +10,16 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { useConnectionById } from '@aries-framework/react-hooks'
+import {
+  useAgent,
+  useConnectionById,
+  useProofById,
+} from '@aries-framework/react-hooks'
+import { Buffer } from 'buffer'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Button, { ButtonType } from '../button/Button'
 import { HomeStackParams, Screens } from '../../types/navigators'
-import { parsedSchema } from '../../utils/helpers'
+import { getCredDefName, parsedSchema } from '../../utils/helpers'
 
 const iconSize = 30
 
@@ -70,9 +79,46 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
   const { t } = useTranslation()
+  const [credDef, setCredDef] = useState('')
   const connection = useConnectionById(
     (notification as ProofRecord)?.connectionId || '',
   )
+  const { agent } = useAgent()
+
+  const getCredentialinfo = async () => {
+    const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
+      notification.id,
+    )
+    transformProofObject(creds)
+  }
+  const transformProofObject = async (creds: RetrievedCredentials) => {
+    const base64Data =
+      proof?.requestMessage?.requestPresentationAttachments[0].data.base64
+    const proofRequest = JSON.parse(
+      Buffer.from(base64Data!, 'base64').toString(),
+    )
+    const requestedAttributesKeys = Object.keys(
+      proofRequest.requested_attributes,
+    )
+    requestedAttributesKeys.forEach(key => {
+      if (creds.requestedAttributes[key].length > 0) {
+        creds.requestedAttributes[key].forEach((cred, index) => {
+          const credentialDefinitionId = getCredDefName(
+            JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
+          )
+          setCredDef(credentialDefinitionId)
+          console.log('cred def id', credDef)
+        })
+      } else {
+        console.log('object456')
+      }
+    })
+  }
+  const proof = useProofById(notification.id)
+  getCredentialinfo()
+  const [retrievedCredentials, setRetrievedCredentials] =
+    useState<RetrievedCredentials>()
+  const reqAttr = retrievedCredentials?.requestedAttributes
 
   let onPress: () => void
   let title = ''
@@ -91,7 +137,13 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     }
     case NotificationType.ProofRequest: {
       title = t('ProofRequest.ProofRequest')
-      body = connection?.theirLabel || ''
+      if (connection === undefined) {
+        body = credDef
+      } else {
+        body = connection?.theirLabel || ''
+      }
+      console.log('Proof Request', notification)
+      console.log('service object', notification)
       onPress = () =>
         navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
       break

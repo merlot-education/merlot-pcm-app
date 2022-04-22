@@ -131,7 +131,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         .stat(res.uri)
         .then(stats => {
           console.log(stats.path)
-          setwalletBackupFIlePath(stats.path)
+          setwalletBackupFIlePath(stats.path.substring(1))
         })
         .catch(err => {
           console.log(err)
@@ -205,7 +205,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         Toast.show({
           type: ToastType.Error,
           text1: t('Toasts.Warning'),
-          text2: t('ImportWallet.InvalidMnemonic'),
+          text2: t(e),
         })
         console.error('wallet import erro ', e)
       }
@@ -241,6 +241,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         <Button
           title={t('Global.ImportWallet')}
           buttonType={ButtonType.Primary}
+          disabled={mnemonic.length === 0 && walletBackupFilePath.length === 0}
           onPress={importWallet}
         />
       </View>
