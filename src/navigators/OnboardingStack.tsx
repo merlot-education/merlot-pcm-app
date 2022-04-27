@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
-import DefaultConnection from '../screens/DefaultConnection'
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
 import Registration from '../screens/Registration'
@@ -78,7 +77,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.CreatePin}
         component={PinCreate}
-        initialParams={{ initAgent }}
+        initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'PIN Setup',
           headerTintColor: ColorPallet.baseColors.white,
@@ -93,18 +92,6 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'Login',
-          headerTintColor: ColorPallet.baseColors.white,
-          headerShown: true,
-          headerLeft: () => false,
-          rightLeft: () => false,
-        })}
-      />
-      <Stack.Screen
-        name={Screens.DefaultConnection}
-        component={DefaultConnection}
-        initialParams={{ setAuthenticated }}
-        options={() => ({
-          title: 'AISBL Connection',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,

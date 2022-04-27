@@ -152,10 +152,6 @@ const translation = {
     "Credentials": "Identifiants",
     "Settings": "Réglages",
   },
-  "DefaultConnection":{
-    "ConnectionNotFound": "Connexion introuvable",
-    "ConnectWith": "Voulez-vous vous connecter avec AISBL ?",
-  },
   "Toasts":{
     "Success": "Succès",
     "Error": "Erreur",
@@ -189,9 +185,6 @@ const translation = {
         "Title": "Votre portefeuille manque d'informations"
       }
     }
-  },
-  "GaiaxConsent": {
-    "WalletCreated": "Votre portefeuille est créé avec succès"
   },
   "Record": {
     "Hide": "Cacher",

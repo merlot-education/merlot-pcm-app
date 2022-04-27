@@ -152,10 +152,6 @@ const translation = {
     "Credentials": "Referenzen",
     "Settings": "Einstellungen",
   },
-  "DefaultConnection":{
-    "ConnectionNotFound": "Verbindung nicht gefunden",
-    "ConnectWith": "Möchten Sie sich mit verbinden AISBL ?",
-  },
   "ProofRequest": {
     "Title": "<b>{{connection}}</b> demande une vérification à partir de votre portefeuille. \n\nIls vous demandent de partager :",
     "OfferDelay": "Angebotsverzögerung",
@@ -189,9 +185,6 @@ const translation = {
     "Error": "Fehler",
     "Info": "Die Info",
     "Warning": "Warnung",
-  },
-  "GaiaxConsent": {
-    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt"
   },
   "Record": {
     "Hide": "Ausblenden",
