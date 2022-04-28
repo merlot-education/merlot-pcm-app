@@ -23,6 +23,9 @@ export enum Screens {
   Language = 'Language',
   ConnectionInvitation = 'ConnectionInvitation',
   ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
+  ExportWallet = 'ExportWallet',
+  ImportWallet = 'ImportWallet',
+  ContactDetails = 'ConnectionDetails',
 }
 
 export type OnboardingStackParams = {
@@ -39,6 +42,10 @@ export type OnboardingStackParams = {
     initAgent?: (email: string, walletPin: string, seed: string) => void
     forgotPin: boolean
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  ImportWallet: {
+    initAgent: (email: string, walletPin: string, seed: string) => void
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   }
   EnterPin: {
     initAgent: (email: string, walletPin: string, seed: string) => void
@@ -59,7 +66,7 @@ export type AuthenticateStackParams = {
 
 export type ContactStackParams = {
   ListContacts: undefined
-  'Contact Details': { connectionId: string }
+  [Screens.ContactDetails]: { connectionId: string }
 }
 
 export type CredentialStackParams = {
@@ -85,6 +92,7 @@ export type SettingStackParams = {
   Settings: undefined
   Language: undefined
   ChangePin: undefined
+  ExportWallet: undefined
 }
 
 export enum TabStacks {

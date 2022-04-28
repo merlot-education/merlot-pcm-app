@@ -1,8 +1,9 @@
-import { ConnectionRecord, ConsoleLogger } from '@aries-framework/core'
-import { useConnections } from '@aries-framework/react-hooks'
-import React, { useEffect, useState } from 'react'
+import { ConnectionRecord } from '@aries-framework/core'
+import { useAgent, useConnections } from '@aries-framework/react-hooks'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
+import { useIsFocused } from '@react-navigation/core'
 import SearchBar from '../components/inputs/SearchBar'
 import { ContactListItem, Text } from '../components'
 import { ColorPallet } from '../theme/theme'
@@ -16,16 +17,25 @@ const styles = StyleSheet.create({
 
 const ListContacts: React.FC = () => {
   const { connections } = useConnections()
+  const { agent } = useAgent()
   const { t } = useTranslation()
   const [searchText, setSearchText] = useState('')
-  const [filteredData, setFilteredData] = useState(connections)
+  const [connectionList, setConnectionList] = useState<ConnectionRecord[]>([])
+
+  const isFocused = useIsFocused()
 
   const [clicked, setClicked] = useState(false)
 
+  const fetchConnectionRecords = useCallback(async () => {
+    const records = await agent?.connections.getAll()
+    setConnectionList(records)
+  }, [agent?.connections])
+
   useEffect(() => {
-    // Should not ever set state during rendering, so do this in useEffect instead.
-    setFilteredData(connections)
-  }, [connections])
+    if (isFocused) {
+      fetchConnectionRecords()
+    }
+  }, [fetchConnectionRecords, isFocused, connections])
 
   const search = text => {
     const filteredData = connections.filter(item => {
@@ -33,7 +43,7 @@ const ListContacts: React.FC = () => {
       const textData = text.toUpperCase()
       return orgLabel.indexOf(textData) > -1
     })
-    setFilteredData(filteredData)
+    setConnectionList(filteredData)
     setSearchText(text)
   }
 
@@ -46,9 +56,11 @@ const ListContacts: React.FC = () => {
         setClicked={setClicked}
       />
       <FlatList
-        data={filteredData}
-        renderItem={({ item }) => <ContactListItem contact={item} />}
-        keyExtractor={(item: ConnectionRecord) => item.did}
+        data={connectionList}
+        renderItem={({ item }) => (
+          <ContactListItem key={item.id} contact={item} />
+        )}
+        keyExtractor={(item: ConnectionRecord) => item.id}
         style={{ backgroundColor: ColorPallet.grayscale.white }}
         contentContainerStyle={{ paddingBottom: 65 }}
         ListEmptyComponent={

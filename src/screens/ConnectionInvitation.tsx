@@ -40,8 +40,6 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
 
   const handleAcceptPress = async (): Promise<void> => {
     const { url } = route.params
-    console.log('****Connection URL****')
-    console.log(url)
     setLoading(true)
     const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
       url,

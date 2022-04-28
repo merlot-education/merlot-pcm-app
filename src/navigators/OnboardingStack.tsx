@@ -12,6 +12,7 @@ import { ColorPallet } from '../theme/theme'
 import { OnboardingStackParams, Screens } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
+import ImportWallet from '../screens/ImportWallet'
 
 const Stack = createStackNavigator<OnboardingStackParams>()
 
@@ -80,6 +81,18 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'PIN Setup',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.ImportWallet}
+        component={ImportWallet}
+        initialParams={{ initAgent, setAuthenticated }}
+        options={() => ({
+          title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
