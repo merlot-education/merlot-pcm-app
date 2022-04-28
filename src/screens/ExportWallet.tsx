@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaView, StyleSheet, PermissionsAndroid } from 'react-native'
+import {
+  SafeAreaView,
+  StyleSheet,
+  PermissionsAndroid,
+  Platform,
+} from 'react-native'
 import Toast from 'react-native-toast-message'
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
-import moment from 'moment'
 import argon2 from 'react-native-argon2'
+import { useNavigation } from '@react-navigation/core'
 import { TextInput } from '../components'
 import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys } from '../constants'
+import { KeychainStorageKeys, salt } from '../constants'
 
 import Button, { ButtonType } from '../components/button/Button'
 import { ColorPallet, TextTheme } from '../theme/theme'
@@ -33,8 +38,46 @@ const style = StyleSheet.create({
 const ExportWallet = () => {
   const { t } = useTranslation()
   const [mnemonic, setMnemonic] = useState('')
-  const { fs } = RNFetchBlob
+  // const { fs } = RNFetchBlob
   const { agent } = useAgent()
+  const nav = useNavigation()
+
+  const askPermission = async () => {
+    if (Platform.OS === 'android') {
+      try {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Permission',
+            message: 'PCM needs to write to storage ',
+            buttonPositive: '',
+          },
+        )
+        const permission = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Permission',
+            message: 'PCM needs to write to storage ',
+            buttonPositive: '',
+          },
+        )
+
+        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+          exportWallet()
+        } else {
+          console.log(
+            'Permission Denied!',
+            'You need to give  permission to see contacts',
+          )
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      exportWallet()
+    }
+  }
+
   const exportWallet = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -45,29 +88,39 @@ const ExportWallet = () => {
           buttonPositive: '',
         },
       )
+      const permission = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: 'Permission',
+          message: 'PCM needs to write to storage ',
+          buttonPositive: '',
+        },
+      )
+
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        const documentDirectory = fs.dirs.DownloadDir
+        const documentDirectory = RNFS.DownloadDirectoryPath
 
         const zipDirectory = `${documentDirectory}/PCM_Backup`
 
-        const destFileExists = await fs.exists(zipDirectory)
+        const destFileExists = await RNFS.exists(zipDirectory)
         if (destFileExists) {
-          await fs.unlink(zipDirectory)
+          await RNFS.unlink(zipDirectory)
         }
 
-        const WALLET_FILE_NAME = `PCM_Wallet_${moment(
-          new Date().toString(),
-        ).format('DD-MMMM-YYYY_hmmssA')}`
+        const date = new Date()
+        const dformat = `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
+        console.log(date.getTime())
+        const WALLET_FILE_NAME = `PCM_Wallet_${dformat}`
 
-        await fs
-          .mkdir(zipDirectory)
+        await RNFS.mkdir(zipDirectory)
           .then(() => console.log('generated'))
           .catch(err => console.log('not generated', err))
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
         const encryptedFileLocation = `${zipDirectory}/${encryptedFileName}`
 
-        const salt =
-          '1234567891011121314151617181920212223242526272829303132333435363'
+        const email = await getValueKeychain({
+          service: KeychainStorageKeys.Email,
+        })
 
         const passphraseEntry = await getValueKeychain({
           service: KeychainStorageKeys.Passphrase,
@@ -87,7 +140,14 @@ const ExportWallet = () => {
           key: encodedHash,
           path: encryptedFileLocation,
         }
+        console.log('export wallet', agent.wallet)
         await agent.wallet.export(exportConfig)
+        Toast.show({
+          type: ToastType.Success,
+          text1: t('ExportWallet.WalletExportedPath'),
+          text2: t(zipDirectory),
+        })
+        nav.goBack()
       } else {
         console.log(
           'Permission Denied!',
@@ -100,17 +160,17 @@ const ExportWallet = () => {
   }
 
   const compareMnemonic = async () => {
-    const mnemonicText = await getValueKeychain({
-      service: 'mnemonicText',
+    const passphraseEntry = await getValueKeychain({
+      service: KeychainStorageKeys.Passphrase,
     })
     if (mnemonic !== '') {
-      if (mnemonic.trim() === mnemonicText?.password.trim()) {
+      if (mnemonic.trim() === passphraseEntry?.password.trim()) {
         Toast.show({
           type: ToastType.Success,
           text1: t('Toasts.Success'),
           text2: t('Settings.ValidMnemonic'),
         })
-        exportWallet()
+        askPermission()
       } else {
         Toast.show({
           type: ToastType.Error,

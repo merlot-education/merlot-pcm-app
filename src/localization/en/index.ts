@@ -68,7 +68,8 @@ const translation = {
     "ReenterNewPin": "Re-Enter New PIN",
     "Create": "Create",
     "ValidOldPin": "Please enter valid old PIN",
-    "WalletCreated": "Your wallet is created successfully."
+    "WalletCreated": "Your wallet is created successfully.",
+    "OR": "OR"
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -109,6 +110,12 @@ const translation = {
     "No": 'No',
     "ExportWallet": "Export Wallet",
   },
+  "ExportWallet":{
+    "WalletExportedPath": "Wallet Exported to this path :"
+  },
+  "ImportWallet":{
+    "SelectWalletFile": "Select Wallet File"
+  },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"
   },
@@ -116,6 +123,11 @@ const translation = {
     "Created": "Created",
     "ConnectionState": "Connection State",
     "AContact": "A contact",
+    "DeleteConnection": "Delete Connection",
+    "DeleteConnectionAlert": "Are you sure you want to delete this connection?",
+    "DeleteConnectionSuccess": "Connection deleted successfully",
+    "DeleteConnectionFailed": "Failed to delete connection",
+    "ConnectionCannotDelete": "Mediator connection cannot be deleted",
   },
   "Credentials": {
     "CredentialsNotFound": "Credentials not found",
@@ -191,6 +203,6 @@ const translation = {
     "Show": "Show",
     "HideAll": "Hide all",
     "Hidden": "Hidden",
-  }
+  },
 }
 export default translation

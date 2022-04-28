@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Keyboard, StyleSheet, View, Alert, BackHandler } from 'react-native'
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  BackHandler,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
@@ -8,8 +15,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import md5 from 'md5'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
+
 import { getValueKeychain, setValueKeychain } from '../utils/keychain'
-import { ColorPallet } from '../theme/theme'
+import { ColorPallet, TextTheme } from '../theme/theme'
 import { Loader, TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
@@ -26,6 +34,10 @@ const style = StyleSheet.create({
   },
   btnContainer: {
     marginTop: 20,
+  },
+  label: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
   },
 })
 
@@ -130,6 +142,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         setEmail(emailEntry.password)
         setPassphrase(passphraseEntry.password)
       }
+      console.log('passphrase', passphraseEntry)
       setSuccessPin(true)
       if (forgotPin) {
         nav.navigate(Screens.EnterPin)
@@ -214,7 +227,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       }
     })
   }
-
   const onSubmit = async () => {
     if (successPin && successBiometric) {
       await startAgent(email, pin)
@@ -282,6 +294,16 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
                 disabled={successBiometric}
               />
             )}
+          </View>
+          <View style={style.btnContainer}>
+            <Button
+              title="Import Wallet"
+              buttonType={ButtonType.Primary}
+              onPress={() => navigation.navigate(Screens.ImportWallet)}
+            />
+          </View>
+          <View style={style.btnContainer}>
+            <Text style={style.label}> {t('PinCreate.OR')}</Text>
           </View>
           <View style={style.btnContainer}>
             <Button

@@ -24,6 +24,7 @@ export enum Screens {
   ConnectionInvitation = 'ConnectionInvitation',
   ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
   ExportWallet = 'ExportWallet',
+  ImportWallet = 'ImportWallet',
   ContactDetails = 'ConnectionDetails',
 }
 
@@ -41,6 +42,10 @@ export type OnboardingStackParams = {
     initAgent?: (email: string, walletPin: string, seed: string) => void
     forgotPin: boolean
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  ImportWallet: {
+    initAgent: (email: string, walletPin: string, seed: string) => void
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   }
   EnterPin: {
     initAgent: (email: string, walletPin: string, seed: string) => void
