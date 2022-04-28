@@ -50,7 +50,8 @@ const translation = {
     'ResendOtp': 'Resend OTP',
     "RegisterAgain": "You have to register again",
     "MnemonicMsg": "This is the phrase that will be used to create your wallet seed please save it securely",
-    "Passphrase": "Passphrase"
+    "Passphrase": "Passphrase",
+    "Mnemonic": "Mnemonic",
   },
   "Terms": {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
