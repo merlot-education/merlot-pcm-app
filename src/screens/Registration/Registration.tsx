@@ -1,28 +1,30 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import {
-  Alert,
   BackHandler,
   Keyboard,
   ScrollView,
   StyleSheet,
   View,
 } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 import Clipboard from '@react-native-clipboard/clipboard'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
-import { setValueKeychain } from '../utils/keychain'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { TextInput, Loader, Text } from '../components'
-import Button, { ButtonType } from '../components/button/Button'
-import { OnboardingStackParams, Screens } from '../types/navigators'
-import * as api from '../api'
-import { ToastType } from '../components/toast/BaseToast'
-import wordsList from '../utils/wordsList'
-import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { TextInput, Loader, Text } from '../../components'
+import Button, { ButtonType } from '../../components/button/Button'
+import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { ToastType } from '../../components/toast/BaseToast'
+import { KeychainStorageKeys } from '../../constants'
+import {
+  getMnemonicArrayFromWords,
+  registerUser,
+  restoreTermsCompleteStage,
+  saveValueInKeychain,
+  validateEmail,
+} from './Registration.utils'
 
 type RegistrationProps = StackScreenProps<
   OnboardingStackParams,
@@ -74,18 +76,8 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   const { t } = useTranslation()
 
   const createMnemonic = useCallback(() => {
-    const wordsArray = []
-    let mnemonic = ''
-    for (let index = 1; index <= 8; index += 1) {
-      let diceNumber = ''
-      for (let mnemonicWord = 0; mnemonicWord < 5; mnemonicWord += 1) {
-        const num = Math.floor(Math.random() * 6) + 1
-        diceNumber += num
-      }
-      const element = wordsList[diceNumber]
-      wordsArray.push(element)
-      mnemonic += `${element} `
-    }
+    const mnemonicWordsList = getMnemonicArrayFromWords(8)
+    const mnemonic = mnemonicWordsList.join(' ')
     setMnemonicText(mnemonic)
   }, [])
 
@@ -93,63 +85,36 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
     createMnemonic()
   }, [createMnemonic])
 
-  const emailCreate = async (emailId: string) => {
-    const description = t('Registration.UserAuthenticationEmail')
-    try {
-      setValueKeychain(description, emailId, {
-        service: 'email',
-      })
-    } catch (e) {
-      Alert.alert(e)
-    }
-  }
-
-  const savePassphrase = async (passphrase: string) => {
-    const description = t('Registration.Passphrase')
-    try {
-      setValueKeychain(description, passphrase, {
-        service: KeychainStorageKeys.Passphrase,
-      })
-    } catch (e) {
-      Alert.alert(e)
-    }
-  }
-
   const copyMnemonic = async () => {
     Clipboard.setString(mnemonicText)
-    const description = t('Registration.MnemonicMsg')
-    try {
-      setValueKeychain(description, mnemonicText, {
-        service: KeychainStorageKeys.mnemonicText,
-      })
-    } catch (e) {
-      Alert.alert(e)
-    }
-  }
-
-  const validateEmail = email => {
-    return email.match(
-      // eslint-disable-next-line no-control-regex
-      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/,
+    await saveValueInKeychain(
+      KeychainStorageKeys.mnemonicText,
+      mnemonicText,
+      t('Registration.MnemonicMsg'),
     )
   }
 
   const confirmEntry = async (email: string) => {
     if (email.length > 0) {
       if (validateEmail(email)) {
-        await emailCreate(email)
+        await saveValueInKeychain(
+          KeychainStorageKeys.Email,
+          email,
+          t('Registration.UserAuthenticationEmail'),
+        )
         if (!forgotPin) {
-          await savePassphrase(mnemonicText)
+          await saveValueInKeychain(
+            KeychainStorageKeys.Passphrase,
+            mnemonicText,
+            t('Registration.Passphrase'),
+          )
         }
         try {
           setLoading(true)
           const {
             data: { otpId },
             message,
-          } = await api.default.auth.register({
-            email,
-            otpId: '',
-          })
+          } = await registerUser(email, '')
           setLoading(false)
           Toast.show({
             type: ToastType.Success,
@@ -191,15 +156,11 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
         text2: t('Registration.EnterEmail'),
       })
     }
-    // navigation.navigate(Screens.CreatePin, { forgotPin })
   }
-  const restoreTermsCompleteStage = async () => {
-    await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)
-  }
+
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        // BackHandler.exitApp()
         await restoreTermsCompleteStage()
         nav.navigate(Screens.Terms)
         return true
@@ -233,7 +194,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
         />
         {!forgotPin && (
           <>
-            <Text style={style.label}>Mnemonic</Text>
+            <Text style={style.label}>{t('Registration.Mnemonic')}</Text>
             <View style={style.boxContainer}>
               <Text style={style.headerText}>{mnemonicText}</Text>
               <Text style={style.bodyText}>
