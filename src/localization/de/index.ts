@@ -109,12 +109,15 @@ const translation = {
     "Yes": "Jawohl",
     "No": 'Nein',
     "ExportWallet": "Brieftasche exportieren",
+    "ViewMnemonic": 'Mnemonik ansehen',
   },
   "ExportWallet":{
     "WalletExportedPath": "Wallet In diesen Pfad exportiert :"
   },
   "ImportWallet":{
-    "SelectWalletFile": "Wählen Sie Wallet-Datei aus"
+    "SelectWalletFile": "Wählen Sie Wallet-Datei aus",
+    "EmptyMnemonic": 'Mnemoniken dürfen nicht leer sein',
+    "InvalidMnemonic": 'Ungültige Mnemonik '
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"

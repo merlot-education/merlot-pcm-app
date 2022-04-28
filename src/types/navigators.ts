@@ -26,6 +26,7 @@ export enum Screens {
   ExportWallet = 'ExportWallet',
   ImportWallet = 'ImportWallet',
   ContactDetails = 'ConnectionDetails',
+  ViewMnemonic = 'ViewMnemonic',
 }
 
 export type OnboardingStackParams = {
@@ -93,6 +94,7 @@ export type SettingStackParams = {
   Language: undefined
   ChangePin: undefined
   ExportWallet: undefined
+  ViewMnemonic: undefined
 }
 
 export enum TabStacks {

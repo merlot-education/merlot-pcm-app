@@ -110,12 +110,15 @@ const translation = {
     "Yes": "Yes",
     "No": 'No',
     "ExportWallet": "Export Wallet",
+    "ViewMnemonic": 'View Mnemonic',
   },
   "ExportWallet":{
     "WalletExportedPath": "Wallet Exported to this path :"
   },
   "ImportWallet":{
-    "SelectWalletFile": "Select Wallet File"
+    "SelectWalletFile": "Select Wallet File",
+    "EmptyMnemonic": 'Mnemonics cannot be empty',
+    "InvalidMnemonic": 'Invalid Mnemonics '
   },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"

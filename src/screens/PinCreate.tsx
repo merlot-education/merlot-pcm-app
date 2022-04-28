@@ -36,8 +36,9 @@ const style = StyleSheet.create({
     marginTop: 20,
   },
   label: {
-    ...TextTheme.normal,
+    ...TextTheme.label,
     fontWeight: 'bold',
+    textAlign: 'center',
   },
 })
 
@@ -240,6 +241,20 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       })
     }
   }
+  const onImportWallet = () => {
+    if (successPin && successBiometric) {
+      navigation.navigate(Screens.ImportWallet)
+    } else if (successPin && !biometricSensorAvailable) {
+      navigation.navigate(Screens.ImportWallet)
+    } else {
+      Toast.show({
+        type: ToastType.Warn,
+        text1: t('Toasts.Warning'),
+        text2: t('Biometric.RegisterPinandBiometric'),
+      })
+    }
+  }
+
   return (
     <SafeAreaView style={[style.container]}>
       <Loader loading={loading} />
@@ -274,15 +289,17 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         }}
         editable={pin.length === 6 && true}
       />
-      <Button
-        title="Setup PIN"
-        buttonType={ButtonType.Primary}
-        disabled={successPin}
-        onPress={() => {
-          Keyboard.dismiss()
-          confirmEntry(pin, pinTwo)
-        }}
-      />
+      <View style={style.btnContainer}>
+        <Button
+          title="Setup PIN"
+          buttonType={ButtonType.Primary}
+          disabled={successPin}
+          onPress={() => {
+            Keyboard.dismiss()
+            confirmEntry(pin, pinTwo)
+          }}
+        />
+      </View>
       {!forgotPin && (
         <>
           <View style={style.btnContainer}>
@@ -299,7 +316,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             <Button
               title="Import Wallet"
               buttonType={ButtonType.Primary}
-              onPress={() => navigation.navigate(Screens.ImportWallet)}
+              onPress={onImportWallet}
             />
           </View>
           <View style={style.btnContainer}>

@@ -63,6 +63,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     ...useCredentialByState(CredentialState.Done),
   ]
 
+  console.log('notification item is', notifications)
   const emptyListComponent = () => (
     <View style={{ marginHorizontal: offset, width: width - 2 * offset }}>
       <InfoTextBox>

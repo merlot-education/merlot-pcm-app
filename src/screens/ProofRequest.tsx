@@ -108,6 +108,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     proof?.connectionId ? proof.connectionId : '',
   )
 
+  console.log('proof val', proof)
   const transformProofObject = async (creds: RetrievedCredentials) => {
     const base64Data =
       proof?.requestMessage?.requestPresentationAttachments[0].data.base64
