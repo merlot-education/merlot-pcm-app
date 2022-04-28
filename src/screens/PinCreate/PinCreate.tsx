@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
   Keyboard,
   StyleSheet,
@@ -10,19 +10,23 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
-import { useNavigation } from '@react-navigation/core'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import md5 from 'md5'
-import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 
-import { getValueKeychain, setValueKeychain } from '../utils/keychain'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { Loader, TextInput } from '../components'
-import Button, { ButtonType } from '../components/button/Button'
-import { KeychainStorageKeys, LocalStorageKeys } from '../constants'
-import { OnboardingStackParams, Screens } from '../types/navigators'
-import { ToastType } from '../components/toast/BaseToast'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { Loader, TextInput } from '../../components'
+import Button, { ButtonType } from '../../components/button/Button'
+import { KeychainStorageKeys } from '../../constants'
+import { OnboardingStackParams, Screens } from '../../types/navigators'
+import {
+  checkIfSensorAvailable,
+  createBiometricKeys,
+  createMD5HashFromString,
+  getValueFromKeychain,
+  saveValueInKeychain,
+  showBiometricPrompt,
+  storeOnboardingCompleteStage,
+} from './PinCreate.utils'
+import { errorToast, successToast, warningToast } from '../../utils/toast'
 
 type PinCreateProps = StackScreenProps<OnboardingStackParams, Screens.CreatePin>
 
@@ -44,7 +48,6 @@ const style = StyleSheet.create({
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const { initAgent, forgotPin, setAuthenticated } = route.params
-  const nav = useNavigation()
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -58,39 +61,31 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const startAgent = async (email: string, pin: string) => {
     try {
-      const hash = email + passphrase.replace(/ /g, '')
-      const seedHash = String(md5(hash))
       setLoading(true)
+      const rawValue = email + passphrase.replace(/ /g, '')
+      const seedHash = createMD5HashFromString(rawValue)
+
       await initAgent(email, pin, seedHash)
       await storeOnboardingCompleteStage()
       setLoading(false)
-      Toast.show({
-        type: ToastType.Success,
-        text1: t('Toasts.Success'),
-        text2: t('PinCreate.WalletCreated'),
-      })
+      successToast(t('PinCreate.WalletCreated'))
       setAuthenticated(true)
     } catch (error) {
       setLoading(false)
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Toasts.Error'),
-        text2: error.message,
-      })
+      errorToast(error.message)
     }
   }
-  const storeOnboardingCompleteStage = async () => {
-    await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
-  }
+
+  const checkBiometricIfPresent = useCallback(async () => {
+    const { available, biometryType } = await checkIfSensorAvailable()
+    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+      setBiometricSensorAvailable(true)
+    }
+  }, [])
 
   useEffect(() => {
-    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-      const { available, biometryType } = resultObject
-      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-        setBiometricSensorAvailable(true)
-      }
-    })
-  })
+    checkBiometricIfPresent()
+  }, [checkBiometricIfPresent])
 
   useEffect(() => {
     const backAction = () => {
@@ -114,7 +109,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     }
 
     const backActionForgotPassword = () => {
-      nav.navigate(Screens.EnterPin)
+      navigation.navigate(Screens.EnterPin)
       return true
     }
     const backHandler = BackHandler.addEventListener(
@@ -123,135 +118,87 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     )
 
     return () => backHandler.remove()
-  }, [forgotPin, nav, navigation])
+  }, [forgotPin, navigation])
 
   const passcodeCreate = async (passcode: string) => {
-    const description = t('PinCreate.UserAuthenticationPin')
     try {
-      setValueKeychain(description, passcode, {
-        service: 'passcode',
-      })
+      const [email, passphrase] = await Promise.all([
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+        }),
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Passphrase))
+        }),
+        new Promise(resolve => {
+          resolve(
+            saveValueInKeychain(
+              KeychainStorageKeys.Passcode,
+              passcode,
+              t('PinCreate.UserAuthenticationPin'),
+            ),
+          )
+        }),
+      ])
 
-      // Change email here
-      const emailEntry = await getValueKeychain({
-        service: KeychainStorageKeys.Email,
-      })
-      const passphraseEntry = await getValueKeychain({
-        service: KeychainStorageKeys.Passphrase,
-      })
-      if (emailEntry && passphraseEntry) {
-        setEmail(emailEntry.password)
-        setPassphrase(passphraseEntry.password)
+      if (email && passphrase) {
+        setEmail(email.password)
+        setPassphrase(passphrase.password)
       }
-      console.log('passphrase', passphraseEntry)
       setSuccessPin(true)
       if (forgotPin) {
-        nav.navigate(Screens.EnterPin)
+        navigation.navigate(Screens.EnterPin)
       }
-      Toast.show({
-        type: ToastType.Success,
-        text1: t('Toasts.Success'),
-        text2: t('PinCreate.PinsSuccess'),
-      })
+      successToast(t('PinCreate.PinsSuccess'))
     } catch (e) {
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Toasts.Error'),
-        text2: e,
-      })
+      errorToast(e)
     }
   }
 
-  const confirmEntry = (pin: string, reEnterPin: string) => {
+  const confirmEntry = async (pin: string, reEnterPin: string) => {
     if (pin.length < 6) {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('PinCreate.PinMustBe6DigitsInLength'),
-      })
+      warningToast(t('PinCreate.PinMustBe6DigitsInLength'))
     } else if (reEnterPin.length < 6) {
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Toasts.Error'),
-        text2: t('PinCreate.ReEnterPinMustBe6DigitsInLength'),
-      })
+      errorToast(t('PinCreate.ReEnterPinMustBe6DigitsInLength'))
     } else if (pin !== reEnterPin) {
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Toasts.Error'),
-        text2: t('PinCreate.PinsEnteredDoNotMatch'),
-      })
+      errorToast(t('PinCreate.PinsEnteredDoNotMatch'))
     } else {
-      passcodeCreate(pin)
+      await passcodeCreate(pin)
     }
   }
-  const biometricEnable = () => {
-    ReactNativeBiometrics.isSensorAvailable().then(resultObject => {
-      const { available, biometryType } = resultObject
-      if (available && biometryType === ReactNativeBiometrics.Biometrics) {
-        ReactNativeBiometrics.simplePrompt({
-          promptMessage: t('Biometric.BiometricConfirm'),
-        })
-          .then(resultObject => {
-            const { success } = resultObject
 
-            if (success) {
-              ReactNativeBiometrics.createKeys().then(() => {
-                setSuccessBiometric(true)
-                Toast.show({
-                  type: ToastType.Success,
-                  text1: t('Toasts.Success'),
-                  text2: t('Biometric.BiometricSuccess'),
-                })
-              })
-            } else {
-              Toast.show({
-                type: ToastType.Warn,
-                text1: t('Toasts.Warning'),
-                text2: t('Biometric.BiometricCancle'),
-              })
-            }
-          })
-          .catch(() => {
-            Toast.show({
-              type: ToastType.Error,
-              text1: t('Toasts.Error'),
-              text2: t('Biometric.BiometricFailed'),
-            })
-          })
+  const biometricEnable = async () => {
+    const { available, biometryType } = await checkIfSensorAvailable()
+    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+      const { success, error } = await showBiometricPrompt()
+      if (success) {
+        await createBiometricKeys()
+        setSuccessBiometric(true)
+        successToast(t('Biometric.BiometricSuccess'))
       } else {
-        Toast.show({
-          type: ToastType.Warn,
-          text1: t('Toasts.Warning'),
-          text2: t('Biometric.BiometricNotSupport'),
-        })
+        warningToast(error)
       }
-    })
+    } else {
+      warningToast(t('Biometric.BiometricNotSupport'))
+    }
   }
+
   const onSubmit = async () => {
     if (successPin && successBiometric) {
       await startAgent(email, pin)
     } else if (successPin && !biometricSensorAvailable) {
       await startAgent(email, pin)
     } else {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('Biometric.RegisterPinandBiometric'),
-      })
+      warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
   }
+
   const onImportWallet = () => {
     if (successPin && successBiometric) {
       navigation.navigate(Screens.ImportWallet)
     } else if (successPin && !biometricSensorAvailable) {
       navigation.navigate(Screens.ImportWallet)
     } else {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('Biometric.RegisterPinandBiometric'),
-      })
+      warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
   }
 
