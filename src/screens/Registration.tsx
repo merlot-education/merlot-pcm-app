@@ -32,12 +32,10 @@ type RegistrationProps = StackScreenProps<
 const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
-    // justifyContent: 'center',
     flex: 1,
   },
   subContainer: {
     backgroundColor: ColorPallet.grayscale.white,
-    // justifyContent: 'center',
     flex: 1,
     margin: 20,
   },
@@ -111,6 +109,18 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
     try {
       setValueKeychain(description, passphrase, {
         service: KeychainStorageKeys.Passphrase,
+      })
+    } catch (e) {
+      Alert.alert(e)
+    }
+  }
+
+  const copyMnemonic = async () => {
+    Clipboard.setString(mnemonicText)
+    const description = t('Registration.MnemonicMsg')
+    try {
+      setValueKeychain(description, mnemonicText, {
+        service: KeychainStorageKeys.mnemonicText,
       })
     } catch (e) {
       Alert.alert(e)
@@ -232,7 +242,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
               <Button
                 title={t('Global.Copy')}
                 buttonType={ButtonType.Primary}
-                onPress={() => Clipboard.setString(mnemonicText)}
+                onPress={copyMnemonic}
               />
             </View>
           </>

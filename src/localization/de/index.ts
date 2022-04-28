@@ -36,6 +36,7 @@ const translation = {
     "from": 'von',
     "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
     "ZeroRecords": 'Keine Aufzeichnungen verfügbar',
+    "ImportWallet": "Brieftasche importieren",
   },
   "Language": {
     "English": "Englisch",
@@ -100,8 +101,19 @@ const translation = {
     "Language": "Sprache",
     "Logout": "Ausloggen",
     "LogoutMsg": "Möchten Sie sich wirklich abmelden",
+    "MnemonicMsg": 'Mnemonik darf nicht leer sein',
+    "EnterMnemonic": 'Geben Sie Mnemonik ein',
+    "ValidMnemonic": 'Gültige Mnemonik',
+    "InvalidMnemonic": 'Ungültige Mnemonik',
     "Yes": "Jawohl",
     "No": 'Nein',
+    "ExportWallet": "Brieftasche exportieren",
+  },
+  "ExportWallet":{
+    "WalletExportedPath": "Wallet In diesen Pfad exportiert :"
+  },
+  "ImportWallet":{
+    "SelectWalletFile": "Wählen Sie Wallet-Datei aus"
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
@@ -110,6 +122,11 @@ const translation = {
     "Created": "Erstellt",
     "ConnectionState": "Verbindungs status",
     "AContact": "Ein Kontakt",
+    "DeleteConnection": "Verbindung löschen",
+    "DeleteConnectionAlert": "Möchten Sie diese Verbindung wirklich löschen?",
+    "DeleteConnectionSuccess": "Verbindung erfolgreich gelöscht",
+    "DeleteConnectionFailed": "Fehler beim Löschen der Verbindung",
+    "ConnectionCannotDelete": "Mediator-Verbindung kann nicht gelöscht werden"
   },
   "Credentials": {
     "CredentialsNotFound": "Anmeldedaten nicht gefunden",

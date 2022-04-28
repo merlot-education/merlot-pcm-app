@@ -1,18 +1,17 @@
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
-import Toast from 'react-native-toast-message'
+import React, { useState } from 'react'
+import { useAgent } from '@aries-framework/react-hooks'
 import { parseUrl } from 'query-string'
-import { Agent, ConnectionState } from '@aries-framework/core'
+import { Agent } from '@aries-framework/core'
 import type { BarCodeReadEvent } from 'react-native-camera'
 import { StyleSheet, View } from 'react-native'
-import { useIsFocused, useNavigation } from '@react-navigation/core'
-import { ToastType } from '../components/toast/BaseToast'
+import { useIsFocused } from '@react-navigation/core'
+import { Buffer } from 'buffer'
 import QRScanner from '../components/inputs/QRScanner'
-import { ScanStackParams, Screens } from '../types/navigators'
+import { ScanStackParams, Screens, TabStacks } from '../types/navigators'
 import QrCodeScanError from '../types/error'
 import { ColorPallet } from '../theme/theme'
+import PCMError from '../types/pcm_error'
 
 const styles = StyleSheet.create({
   container: {
@@ -26,14 +25,10 @@ interface ScanProps {
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const { agent } = useAgent()
-  const { t } = useTranslation()
-  const nav = useNavigation()
   const isFocused = useIsFocused()
 
   const [qrCodeScanError, setQrCodeScanError] =
     useState<QrCodeScanError | null>(null)
-  const [connectionId, setConnectionId] = useState('')
-  const connection = useConnectionById(connectionId)
 
   const isRedirecton = (url: string): boolean => {
     const queryParams = parseUrl(url).query
@@ -54,18 +49,8 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     })
     const message = await res.json()
     await agent?.receiveMessage(message)
+    navigation.navigate(TabStacks.HomeStack)
   }
-
-  useEffect(() => {
-    if (connection?.state === ConnectionState.Complete) {
-      Toast.show({
-        type: ToastType.Success,
-        text1: t('Global.Success'),
-        text2: t('Scan.ConnectionAccepted'),
-      })
-      navigation.navigate(Screens.Home)
-    }
-  }, [connection, navigation, t])
 
   const handleCodeScan = async (event: BarCodeReadEvent) => {
     setQrCodeScanError(null)
@@ -73,11 +58,25 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
       const url = event.data
       if (isRedirecton(url)) {
         await handleRedirection(url, agent)
+      } else if (url.includes('?c_i') || url.includes('?d_m')) {
+        const [, urlData] = url.includes('?c_i')
+          ? url.split('?c_i=')
+          : url.split('?d_m=')
+        const message = JSON.parse(
+          Buffer.from(urlData.trim(), 'base64').toString(),
+        )
+        if (message['~service']) {
+          await agent?.receiveMessage(message)
+          navigation.navigate(TabStacks.HomeStack)
+        } else {
+          navigation.navigate(Screens.ConnectionInvitation, { url })
+        }
       } else {
-        nav.navigate(Screens.ConnectionInvitation, { url })
+        throw new Error('Not a valid URL')
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError(t('Scan.InvalidQrCode'), event.data)
+      console.log('error', e)
+      const error = new QrCodeScanError('Invalid QrCode', event.data)
       setQrCodeScanError(error)
     }
   }

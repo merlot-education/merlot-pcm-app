@@ -36,6 +36,7 @@ const translation = {
     "from": 'à partir de',
     "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
     "ZeroRecords": 'Aucun enregistrement disponible',
+    "ImportWallet": "Importer un portefeuille",
   },
   "Language": {
     "English": "Anglais",
@@ -100,8 +101,19 @@ const translation = {
     "Language": "Langue",
     "Logout": "Se déconnecter",
     "LogoutMsg": "Voulez-vous vraiment vous déconnecter",
+    "MnemonicMsg": 'Le mnémonique ne peut pas être vide',
+    "EnterMnemonic": 'Entrez le mnémonique',
+    "ValidMnemonic": 'Mnémonique valide',
+    "InvalidMnemonic": 'Mnémonique invalide',
     "Yes": "Oui",
     "No": 'Non',
+    "ExportWallet": "Portefeuille d'exportation",
+  },
+  "ExportWallet":{
+    "WalletExportedPath": "Portefeuille exporté vers ce chemin :"
+  },
+  "ImportWallet":{
+    "SelectWalletFile": "Sélectionnez le fichier de portefeuille"
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Nouvelle demande de connexion"
@@ -110,6 +122,11 @@ const translation = {
     "Created": "Créé",
     "ConnectionState": "État de la connexion",
     "AContact": "Un contact",
+    "DeleteConnection": "Supprimer la connexion",
+    "DeleteConnectionAlert": "Êtes-vous sûr de vouloir supprimer cette connexion ?",
+    "DeleteConnectionSuccess": "La connexion a été supprimée avec succès",
+    "DeleteConnectionFailed": "Échec de la suppression de la connexion",
+    "ConnectionCannotDelete": "La connexion du médiateur ne peut pas être supprimée"
   },
   "Credentials": {
     "CredentialsNotFound": "Identifiants introuvables",
