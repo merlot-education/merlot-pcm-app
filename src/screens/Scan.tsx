@@ -11,7 +11,6 @@ import QRScanner from '../components/inputs/QRScanner'
 import { ScanStackParams, Screens, TabStacks } from '../types/navigators'
 import QrCodeScanError from '../types/error'
 import { ColorPallet } from '../theme/theme'
-import PCMError from '../types/pcm_error'
 
 const styles = StyleSheet.create({
   container: {
@@ -67,7 +66,6 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         )
         if (message['~service']) {
           await agent?.receiveMessage(message)
-          console.log('recived message', message)
           navigation.navigate(TabStacks.HomeStack)
         } else {
           navigation.navigate(Screens.ConnectionInvitation, { url })

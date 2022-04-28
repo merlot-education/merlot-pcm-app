@@ -55,7 +55,8 @@ const translation = {
     'ResendOtp': 'OTP erneut senden',
     "RegisterAgain": "Sie müssen sich erneut registrieren",
     "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
-    "Passphrase": "Passphrase"
+    "Passphrase": "Passphrase",
+    "Mnemonic": "Mnemonik",
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",

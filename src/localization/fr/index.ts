@@ -50,7 +50,8 @@ const translation = {
     'ResendOtp': 'Renvoyer OTP',
     "RegisterAgain": "Vous devez vous inscrire à nouveau",
     "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
-    "Passphrase": "Mot de passe"
+    "Passphrase": "Mot de passe",
+    "Mnemonic": "Mnémonique",
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
