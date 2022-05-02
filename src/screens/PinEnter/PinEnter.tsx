@@ -56,7 +56,6 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
     if (email && passphrase) {
       const rawValue = email + passphrase.password.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
-      console.log('email, passcode, seedHash', email, passcode, seedHash)
       initAgent(email.password, passcode.password, seedHash)
     }
   }, [initAgent])
