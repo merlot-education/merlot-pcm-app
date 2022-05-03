@@ -12,13 +12,18 @@ import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
-import { TextInput } from '../components'
-import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys, salt } from '../constants'
+import { TextInput } from '../../components'
+import { ToastType } from '../../components/toast/BaseToast'
+import { KeychainStorageKeys, salt } from '../../constants'
 
-import Button, { ButtonType } from '../components/button/Button'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { getValueKeychain } from '../utils/keychain'
+import Button, { ButtonType } from '../../components/button/Button'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { getValueKeychain } from '../../utils/keychain'
+import {
+  authenticateUser,
+  createHashUsingArgon,
+  getMnemonicFromKeychain,
+} from './ExportWallet.utils'
 
 const style = StyleSheet.create({
   container: {
@@ -160,11 +165,16 @@ const ExportWallet = () => {
   }
 
   const compareMnemonic = async () => {
-    const passphraseEntry = await getValueKeychain({
-      service: KeychainStorageKeys.Passphrase,
-    })
+    const [passphraseEntry] = await Promise.all([
+      new Promise(resolve => {
+        resolve(getMnemonicFromKeychain())
+      }),
+    ])
+
     if (mnemonic !== '') {
-      if (mnemonic.trim() === passphraseEntry?.password.trim()) {
+      const params = [mnemonic, passphraseEntry.password]
+      const result = authenticateUser(params)
+      if (result) {
         Toast.show({
           type: ToastType.Success,
           text1: t('Toasts.Success'),
