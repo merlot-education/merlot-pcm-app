@@ -35,17 +35,21 @@ const styles = StyleSheet.create({
 const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
   const [focused, setFocused] = useState(false)
 
+  const focusInput = () => setFocused(true)
+
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+      <Text testID="label" style={styles.label}>
+        {label}
+      </Text>
       <RNTextInput
         style={[
           styles.textInput,
           focused && { borderColor: ColorPallet.brand.primary },
         ]}
         selectionColor={ColorPallet.brand.primary}
-        onFocus={() => setFocused(true)}
-        onBlur={() => setFocused(false)}
+        onFocus={focusInput}
+        onBlur={focusInput}
         {...textInputProps}
       />
     </View>

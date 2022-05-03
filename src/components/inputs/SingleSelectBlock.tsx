@@ -48,7 +48,7 @@ const SingleSelectBlock: React.FC<Props> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="SingleSelectBlock">
       {selection.map(item => (
         <TouchableOpacity
           key={item.id}
