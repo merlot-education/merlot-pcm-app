@@ -19,11 +19,7 @@ import { KeychainStorageKeys, salt } from '../../constants'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { getValueKeychain } from '../../utils/keychain'
-import {
-  authenticateUser,
-  createHashUsingArgon,
-  getMnemonicFromKeychain,
-} from './ExportWallet.utils'
+import { authenticateUser, getMnemonicFromKeychain } from './ExportWallet.utils'
 
 const style = StyleSheet.create({
   container: {
