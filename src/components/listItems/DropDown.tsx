@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import { TextTheme } from '../../theme/theme'
 
 interface Props {
-  items: [{ value: string; label: string }]
+  items: { value: string; label: string }[]
   onSelectItem: (item: ItemType) => void
 }
 
@@ -25,6 +25,7 @@ const DropDown = ({ items, onSelectItem }: Props) => {
 
   return (
     <DropDownPicker
+      testID="dropdown"
       zIndex={10}
       multiple={false}
       setOpen={setOpen}
