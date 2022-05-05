@@ -21,10 +21,7 @@ const useAgent = () => ({
 })
 const useCredentialById = jest.fn()
 const useProofById = jest.fn()
-// const useConnectionById = jest.fn()
-const useConnectionById = jest.fn().mockResolvedValue( () => 
- getMockConnection({ id: 'test-123', theirLabel: 'Test 123' })
-)
+const useConnectionById = jest.fn()
 
 export {
   useAgent,

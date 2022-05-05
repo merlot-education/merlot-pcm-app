@@ -8,7 +8,7 @@ import {
 } from '@aries-framework/core'
 import { DidCommService } from '@aries-framework/core/build/modules/dids/domain'
 
-export default function getMockConnection({
+export const getMockConnection = ({
   state = ConnectionState.Invited,
   role = ConnectionRole.Invitee,
   id = 'test',
@@ -48,7 +48,7 @@ export default function getMockConnection({
     ],
   }),
   multiUseInvitation = false,
-}: Partial<ConnectionRecordProps> = {}) {
+}: Partial<ConnectionRecordProps> = {}) => {
   return new ConnectionRecord({
     did,
     didDoc,
@@ -65,3 +65,5 @@ export default function getMockConnection({
     multiUseInvitation,
   })
 }
+
+export default getMockConnection

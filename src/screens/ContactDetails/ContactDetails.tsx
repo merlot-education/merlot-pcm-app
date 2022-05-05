@@ -33,7 +33,6 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
   const { t } = useTranslation()
   const { agent } = useAgent()
   const connection = useConnectionById(route?.params?.connectionId)
-  console.log('conn', connection)
   useEffect(() => {
     navigation.setOptions({
       title: connection?.alias ?? connection?.theirLabel,
@@ -73,20 +72,18 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
     }
   }
 
-  console.log('connection', connection)
-
   return (
     <SafeAreaScrollView>
       <Label title="Name" subtitle={connection?.theirLabel} />
       <Label title="Id" subtitle={connection?.id} />
       <Label title="Did" subtitle={connection?.did} />
-      {/* <Label
+      <Label
         title="Created"
         subtitle={connection.createdAt.toLocaleDateString(
           'en-CA',
           dateFormatOptions,
         )}
-      /> */}
+      />
       <Label title="Connection State" subtitle={connection?.state} />
       <TouchableOpacity onPress={showDeleteConnectionAlert}>
         <Text
