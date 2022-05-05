@@ -85,7 +85,10 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
         )}
       />
       <Label title="Connection State" subtitle={connection?.state} />
-      <TouchableOpacity onPress={showDeleteConnectionAlert}>
+      <TouchableOpacity
+        testID="delete-contact"
+        onPress={showDeleteConnectionAlert}
+      >
         <Text
           style={[
             styles.footerText,
