@@ -4,11 +4,10 @@ import { useCredentialById } from '@aries-framework/react-hooks'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { View } from 'react-native'
-import Toast from 'react-native-toast-message'
-import Record from '../components/record/Record'
-import { ToastType } from '../components/toast/BaseToast'
-import CredentialCard from '../components/misc/CredentialCard'
-import { CredentialStackParams, Screens } from '../types/navigators'
+import Record from '../../components/record/Record'
+import CredentialCard from '../../components/misc/CredentialCard'
+import { CredentialStackParams, Screens } from '../../types/navigators'
+import { warningToast, errorToast } from '../../utils/toast'
 
 type CredentialDetailsProps = StackScreenProps<
   CredentialStackParams,
@@ -24,22 +23,12 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   const credential = useCredentialById(credentialId)
   console.log('credentials', credential.metadata)
   if (!route.params.credentialId) {
-    Toast.show({
-      type: ToastType.Error,
-      text1: t('Global.Failure'),
-      text2: t('CredentialOffer.CredentialNotFound'),
-    })
-
+    warningToast(t('CredentialOffer.CredentialNotFound'))
     navigation.goBack()
     return null
   }
   if (!credential) {
-    Toast.show({
-      type: ToastType.Error,
-      text1: t('Global.Failure'),
-      text2: t('CredentialOffer.CredentialNotFound'),
-    })
-
+    errorToast(t('CredentialOffer.CredentialNotFound'))
     navigation.goBack()
     return null
   }
