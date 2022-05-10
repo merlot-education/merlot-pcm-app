@@ -12,7 +12,11 @@ const styles = StyleSheet.create({
 })
 
 const RecordFooter: React.FC = ({ children }) => {
-  return <View style={styles.container}>{children}</View>
+  return (
+    <View style={styles.container} testID="recordFooter">
+      {children}
+    </View>
+  )
 }
 
 export default RecordFooter
