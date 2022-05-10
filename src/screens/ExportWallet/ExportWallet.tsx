@@ -19,7 +19,7 @@ import { KeychainStorageKeys, salt } from '../../constants'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { getValueKeychain } from '../../utils/keychain'
-import { authenticateUser, getMnemonicFromKeychain } from './ExportWallet.utils'
+import { authenticateUser } from './ExportWallet.utils'
 
 const style = StyleSheet.create({
   container: {
@@ -168,6 +168,7 @@ const ExportWallet = () => {
     if (mnemonic !== '') {
       const params = [mnemonic, passphraseEntry.password]
       const result = authenticateUser(params)
+      console.log('mnemmonic', result)
       if (result) {
         Toast.show({
           type: ToastType.Success,

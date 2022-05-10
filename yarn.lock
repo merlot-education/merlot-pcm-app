@@ -33,10 +33,47 @@
     tslint "^6.1.3"
     utility-types "^3.10.0"
 
+<<<<<<< HEAD
 "@aries-framework/core@0.2.0-alpha.66+4146778", "@aries-framework/core@^0.2.0-alpha.50":
   version "0.2.0-alpha.66"
   resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.66.tgz#3d10135cec72bd6c1142f9f8431176b54d1d50a2"
   integrity sha512-0wShImC2R55CTOfxXekGlyU8QaSeqRCBUGAp/cHWleL5ASneSdkesKKIN3QXJXyGsZBop4rR9sfnhsAgMOI79g==
+=======
+"@aries-framework/core@0.2.0-alpha.55+c9bff93":
+  version "0.2.0-alpha.55"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.55.tgz#ee9b937e0c7389c9652728946a3c6a64f5a2d184"
+  integrity sha512-ojmU/2zvIJ1zbioeGdiaHANuekgE2L10NonMjOyNsxMlPlHPo15hWibcbbv+arT2uHoxQwYrJzub09DZ0Q8g+Q==
+  dependencies:
+    "@multiformats/base-x" "^4.0.1"
+    "@stablelib/ed25519" "^1.0.2"
+    "@stablelib/sha256" "^1.0.1"
+    "@types/indy-sdk" "^1.16.16"
+    "@types/node-fetch" "^2.5.10"
+    "@types/ws" "^7.4.6"
+    abort-controller "^3.0.0"
+    bn.js "^5.2.0"
+    borc "^3.0.0"
+    buffer "^6.0.3"
+    class-transformer "0.5.1"
+    class-validator "0.13.1"
+    did-resolver "^3.1.3"
+    lru_map "^0.4.1"
+    luxon "^1.27.0"
+    make-error "^1.3.6"
+    object-inspect "^1.10.3"
+    query-string "^7.0.1"
+    reflect-metadata "^0.1.13"
+    rxjs "^7.2.0"
+    tsyringe "^4.5.0"
+    uuid "^8.3.2"
+    varint "^6.0.0"
+    web-did-resolver "^2.0.8"
+
+"@aries-framework/core@^0.2.0-alpha.50":
+  version "0.2.0-alpha.50"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.50.tgz#622dbabb6ffdb2181d9805aa7d46f329539e5624"
+  integrity sha512-H4atJ3LeAtNFQftbB0HAhPnVaO1u0zOhxtdvkQmMOTr8oQ+dovHAaXDSp6gSTnZlsSX5VEsX2KqAsO4Fu7W7Ig==
+>>>>>>> e3dcbbf42b4e714f5adeafae099a59e2da179e72
   dependencies:
     "@multiformats/base-x" "^4.0.1"
     "@stablelib/ed25519" "^1.0.2"
@@ -1838,6 +1875,15 @@
   version "16.14.26"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.26.tgz#82540a240ba7207ebe87d9579051bc19c9ef7605"
   integrity sha512-c/5CYyciOO4XdFcNhZW1O2woVx86k4T+DO2RorHZL7EhitkNQgSD/SgpdZJAUJa/qjVgOmTM44gHkAdZSXeQuQ==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@^16":
+  version "16.14.25"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.25.tgz#d003f712c7563fdef5a87327f1892825af375608"
+  integrity sha512-cXRVHd7vBT5v1is72mmvmsg9stZrbJO04DJqFeh3Yj2tVKO6vmxg5BI+ybI6Ls7ROXRG3aFbZj9x0WA3ZAoDQw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"

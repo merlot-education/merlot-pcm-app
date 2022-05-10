@@ -109,39 +109,40 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
             t('Registration.Passphrase'),
           )
         }
-        try {
-          setLoading(true)
-          const {
-            data: { otpId },
-            message,
-          } = await registerUser(email, '')
-          setLoading(false)
-          Toast.show({
-            type: ToastType.Success,
-            text1: t('Toasts.Success'),
-            text2: message,
-          })
-          if (forgotPin) {
-            navigation.navigate(Screens.VerifyOtp, {
-              email,
-              forgotPin,
-              otpId,
-            })
-          } else {
-            navigation.navigate(Screens.VerifyOtp, {
-              email,
-              forgotPin,
-              otpId,
-            })
-          }
-        } catch (error) {
-          setLoading(false)
-          Toast.show({
-            type: ToastType.Error,
-            text1: error.name,
-            text2: error.message,
-          })
-        }
+        // try {
+        //   setLoading(true)
+        //   const {
+        //     data: { otpId },
+        //     message,
+        //   } = await registerUser(email, '')
+        //   setLoading(false)
+        //   Toast.show({
+        //     type: ToastType.Success,
+        //     text1: t('Toasts.Success'),
+        //     text2: message,
+        //   })
+        //   if (forgotPin) {
+        //     navigation.navigate(Screens.VerifyOtp, {
+        //       email,
+        //       forgotPin,
+        //       otpId,
+        //     })
+        //   } else {
+        //     navigation.navigate(Screens.VerifyOtp, {
+        //       email,
+        //       forgotPin,
+        //       otpId,
+        //     })
+        //   }
+        // } catch (error) {
+        //   setLoading(false)
+        //   Toast.show({
+        //     type: ToastType.Error,
+        //     text1: error.name,
+        //     text2: error.message,
+        //   })
+        // }
+        navigation.navigate(Screens.CreatePin, { forgotPin })
       } else {
         Toast.show({
           type: ToastType.Warn,

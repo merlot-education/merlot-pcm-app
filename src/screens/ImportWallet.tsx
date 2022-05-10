@@ -8,6 +8,7 @@ import {
   PermissionsAndroid,
   AsyncStorage,
 } from 'react-native'
+import RNFS from 'react-native-fs'
 import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
@@ -126,14 +127,16 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         type: [DocumentPicker.types.allFiles],
         copyTo: 'documentDirectory',
       })
+      // const exportedFileContent = await RNFS.readFile(res.uri, 'base64')
       RNFetchBlob.fs
-        .stat(res.uri)
+        .stat(res.fileCopyUri)
         .then(stats => {
-          console.log(stats.path)
           setwalletBackupFIlePath(stats.path)
+          console.log(stats)
+          // output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
         })
         .catch(err => {
-          console.log('file pick error', err)
+          console.log(err)
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
