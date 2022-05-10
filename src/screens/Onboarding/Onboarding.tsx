@@ -1,15 +1,14 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback } from 'react'
 import { StyleSheet, View, Image, Text, BackHandler } from 'react-native'
 import AppIntroSlider from 'react-native-app-intro-slider'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useTranslation } from 'react-i18next'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import CredentialListImage from '../assets/credential-list.png'
-import ScanToConnectImage from '../assets/scan-share.png'
-import SecureImage from '../assets/secure-image.png'
-import { LocalStorageKeys } from '../constants'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import CredentialListImage from '../../assets/credential-list.png'
+import ScanToConnectImage from '../../assets/scan-share.png'
+import SecureImage from '../../assets/secure-image.png'
+import { storeAppIntroCompleteStage } from './Onboarding.utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -73,8 +72,6 @@ const slides = [
 ]
 
 const Onboarding: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [showRealApp, setShowRealApp] = useState(false)
   const navigation = useNavigation()
   const { t } = useTranslation()
 
@@ -87,7 +84,9 @@ const Onboarding: React.FC = () => {
       </View>
     )
   }
+
   const keyExtractor = (item: Item) => item.title
+
   const renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
@@ -128,20 +127,12 @@ const Onboarding: React.FC = () => {
     // navigation or simply by controlling state
     await storeAppIntroCompleteStage()
     navigation.navigate('Terms')
-    setShowRealApp(true)
   }
 
-  const storeAppIntroCompleteStage = async () => {
-    await AsyncStorage.setItem(
-      LocalStorageKeys.OnboardingCompleteStage,
-      'appIntroComplete',
-    )
-  }
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
         BackHandler.exitApp()
-
         return true
       }
 

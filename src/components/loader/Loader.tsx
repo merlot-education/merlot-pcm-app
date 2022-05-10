@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 
 const Loader: React.FC<LoaderProps> = ({ loading }) => {
   return (
-    <Modal animationType="none" visible={loading} transparent>
+    <Modal testID="loader" animationType="none" visible={loading} transparent>
       <View style={styles.activityIndicatorWrapper}>
         <ActivityIndicator size="small" color={ColorPallet.brand.primary} />
       </View>
