@@ -7,8 +7,6 @@ import {
   CredentialState,
 } from '@aries-framework/core'
 import CredentialDetails from '../CredentialDetails'
-import { useCredentialById } from '../../../../__mocks__/@aries-framework/react-hooks'
-import { getMockCredential } from '../../../utils/credentialtesthelper'
 import CredentialCard from '../../../components/misc/CredentialCard'
 import { Screens } from '../../../types/navigators'
 import AvatarView from '../../../components/misc/AvatarView'
