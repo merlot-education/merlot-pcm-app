@@ -58,12 +58,14 @@ const Record: React.FC<RecordProps> = ({
 
   return (
     <FlatList
+      testID="flat-list"
       ListHeaderComponent={
         <RecordHeader>
           {header()}
           {hideAttributeValues ? (
             <View style={styles.linkContainer}>
               <TouchableOpacity
+                testID="HideAll"
                 style={styles.link}
                 activeOpacity={1}
                 onPress={() => resetShown()}

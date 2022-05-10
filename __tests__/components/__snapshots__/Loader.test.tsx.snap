@@ -4,6 +4,7 @@ exports[`Loader Component Loader renders correctly 1`] = `
 <Modal
   animationType="none"
   hardwareAccelerated={false}
+  testID="loader"
   transparent={true}
   visible={true}
 >

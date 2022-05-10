@@ -64,7 +64,7 @@ const RecordAttribute: React.FC<RecordAttributeProps> = ({
       {attributeLabel ? (
         attributeLabel(attribute)
       ) : (
-        <Text style={TextTheme.label} testID={testIdWithKey('AttributeName')}>
+        <Text style={TextTheme.label} testID="AttributeName">
           {startCase(attribute.name)}
         </Text>
       )}
@@ -74,10 +74,7 @@ const RecordAttribute: React.FC<RecordAttributeProps> = ({
         ) : (
           <>
             <View style={styles.valueText}>
-              <Text
-                style={styles.text}
-                testID={testIdWithKey('AttributeValue')}
-              >
+              <Text style={styles.text} testID="AttributeValue">
                 {shown ? attribute.value : Array(10).fill('\u2022').join('')}
               </Text>
             </View>
@@ -86,7 +83,7 @@ const RecordAttribute: React.FC<RecordAttributeProps> = ({
                 activeOpacity={1}
                 onPress={onToggleViewPressed}
                 style={styles.link}
-                testID={testIdWithKey('ShowHide')}
+                testID="ShowHide"
                 accessible
                 accessibilityLabel={shown ? t('Record.Hide') : t('Record.Show')}
               >

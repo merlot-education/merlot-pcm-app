@@ -33,10 +33,47 @@
     tslint "^6.1.3"
     utility-types "^3.10.0"
 
+<<<<<<< HEAD
 "@aries-framework/core@0.2.0-alpha.61+b281673", "@aries-framework/core@^0.2.0-alpha.50":
   version "0.2.0-alpha.61"
   resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.61.tgz#ab91bb835a6ae37ec29b59fe2b97606196f1db34"
   integrity sha512-MZpi8RLVPCLEX/8xMSc0200X8EY0wveICEZgtzTwkbkum0FRcT0VtBA69Gz9QYyybYBFHQpQb8V762tdSRh/yA==
+=======
+"@aries-framework/core@0.2.0-alpha.55+c9bff93":
+  version "0.2.0-alpha.55"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.55.tgz#ee9b937e0c7389c9652728946a3c6a64f5a2d184"
+  integrity sha512-ojmU/2zvIJ1zbioeGdiaHANuekgE2L10NonMjOyNsxMlPlHPo15hWibcbbv+arT2uHoxQwYrJzub09DZ0Q8g+Q==
+  dependencies:
+    "@multiformats/base-x" "^4.0.1"
+    "@stablelib/ed25519" "^1.0.2"
+    "@stablelib/sha256" "^1.0.1"
+    "@types/indy-sdk" "^1.16.16"
+    "@types/node-fetch" "^2.5.10"
+    "@types/ws" "^7.4.6"
+    abort-controller "^3.0.0"
+    bn.js "^5.2.0"
+    borc "^3.0.0"
+    buffer "^6.0.3"
+    class-transformer "0.5.1"
+    class-validator "0.13.1"
+    did-resolver "^3.1.3"
+    lru_map "^0.4.1"
+    luxon "^1.27.0"
+    make-error "^1.3.6"
+    object-inspect "^1.10.3"
+    query-string "^7.0.1"
+    reflect-metadata "^0.1.13"
+    rxjs "^7.2.0"
+    tsyringe "^4.5.0"
+    uuid "^8.3.2"
+    varint "^6.0.0"
+    web-did-resolver "^2.0.8"
+
+"@aries-framework/core@^0.2.0-alpha.50":
+  version "0.2.0-alpha.50"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.50.tgz#622dbabb6ffdb2181d9805aa7d46f329539e5624"
+  integrity sha512-H4atJ3LeAtNFQftbB0HAhPnVaO1u0zOhxtdvkQmMOTr8oQ+dovHAaXDSp6gSTnZlsSX5VEsX2KqAsO4Fu7W7Ig==
+>>>>>>> e3dcbbf42b4e714f5adeafae099a59e2da179e72
   dependencies:
     "@multiformats/base-x" "^4.0.1"
     "@stablelib/ed25519" "^1.0.2"
@@ -1818,10 +1855,26 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-test-renderer@^16.9.5":
+  version "16.9.5"
+  resolved "https://registry.yarnpkg.com/@types/react-test-renderer/-/react-test-renderer-16.9.5.tgz#edab67da470f7c3e997f58d55dcfe2643cc30a68"
+  integrity sha512-C4cN7C2uSSGOYelp2XfdtJb5TsCP+QiZ+0Bm4U3ZfUswN8oN9O/l86XO/OvBSFCmWY7w75fzsQvZ50eGkFN34A==
+  dependencies:
+    "@types/react" "^16"
+
 "@types/react@*":
   version "18.0.8"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.8.tgz#a051eb380a9fbcaa404550543c58e1cf5ce4ab87"
   integrity sha512-+j2hk9BzCOrrOSJASi5XiOyBbERk9jG5O73Ya4M0env5Ixi6vUNli4qy994AINcEF+1IEHISYFfIT4zwr++LKw==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@^16":
+  version "16.14.25"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.14.25.tgz#d003f712c7563fdef5a87327f1892825af375608"
+  integrity sha512-cXRVHd7vBT5v1is72mmvmsg9stZrbJO04DJqFeh3Yj2tVKO6vmxg5BI+ybI6Ls7ROXRG3aFbZj9x0WA3ZAoDQw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
