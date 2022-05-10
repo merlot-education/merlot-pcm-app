@@ -3,13 +3,17 @@ import { Alert, Keyboard, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
-import Toast from 'react-native-toast-message'
-import { getValueKeychain, setValueKeychain } from '../utils/keychain'
-import { ColorPallet } from '../theme/theme'
-import { TextInput } from '../components'
-import Button, { ButtonType } from '../components/button/Button'
-import { Screens, SettingStackParams } from '../types/navigators'
-import { ToastType } from '../components/toast/BaseToast'
+// import Toast from 'react-native-toast-message'
+import { useAgent } from '@aries-framework/react-hooks'
+// import { getValueKeychain, setValueKeychain } from '../../utils/keychain'
+import { ColorPallet } from '../../theme/theme'
+import { TextInput } from '../../components'
+import Button, { ButtonType } from '../../components/button/Button'
+import { Screens, SettingStackParams } from '../../types/navigators'
+// import { ToastType } from '../../components/toast/BaseToast'
+import { warningToast } from '../../utils/toast'
+import { KeychainStorageKeys } from '../../constants'
+import { getValueFromKeychain, saveValueInKeychain } from './ChangePin.utils'
 
 type ChangePinProps = StackScreenProps<SettingStackParams, Screens.ChangePin>
 
@@ -25,14 +29,43 @@ const ChangePin: React.FC<ChangePinProps> = () => {
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
   const { t } = useTranslation()
+  const { agent } = useAgent()
 
   const passcodeCreate = async (passcode: string) => {
-    const description = t('PinCreate.UserAuthenticationPin')
     try {
-      setValueKeychain(description, passcode, {
-        service: 'passcode',
+      // const email = await getValueKeychain({
+      //   service: 'email',
+      // })
+      // const oldPasscode = await getValueKeychain({
+      //   service: 'passcode',
+      // })
+      const [email, oldPasscode] = await Promise.all([
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+        }),
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
+        }),
+        new Promise(resolve => {
+          resolve(
+            saveValueInKeychain(
+              KeychainStorageKeys.Passcode,
+              passcode,
+              'passcode',
+            ),
+          )
+        }),
+      ])
+      await agent.shutdown()
+      await agent.wallet.rotateKey({
+        id: email.password,
+        key: oldPasscode.password,
+        rekey: passcode,
       })
-
+      await agent.initialize()
+      // await setValueKeychain(description, passcode, {
+      //   service: 'passcode',
+      // })
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
         {
           text: 'Ok',
@@ -48,27 +81,18 @@ const ChangePin: React.FC<ChangePinProps> = () => {
     newPin: string,
     reEnterNewPin: string,
   ) => {
-    const keychainEntry = await getValueKeychain({
-      service: 'passcode',
-    })
+    const [passcode] = await Promise.all([
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
+      }),
+    ])
+
     if (oldPin.length < 6 || newPin.length < 6) {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('PinCreate.PinMustBe6DigitsInLength'),
-      })
+      warningToast(t('PinCreate.PinMustBe6DigitsInLength'))
     } else if (newPin !== reEnterNewPin) {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('PinCreate.PinsEnteredDoNotMatch'),
-      })
-    } else if (keychainEntry.password !== oldPin) {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('PinCreate.ValidOldPin'),
-      })
+      warningToast(t('PinCreate.PinsEnteredDoNotMatch'))
+    } else if (passcode.password !== oldPin) {
+      warningToast(t('PinCreate.ValidOldPin'))
     } else {
       passcodeCreate(newPin)
     }

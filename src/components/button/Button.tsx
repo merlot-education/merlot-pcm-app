@@ -26,6 +26,8 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <AntButton
+      testID="button"
+      accessibilityLabel={title}
       type={buttonType}
       style={buttonStyle}
       disabled={disabled}
