@@ -4,9 +4,10 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/core'
-import SearchBar from '../components/inputs/SearchBar'
-import { ContactListItem, Text } from '../components'
-import { ColorPallet } from '../theme/theme'
+import SearchBar from '../../components/inputs/SearchBar'
+import { ContactListItem, Text } from '../../components'
+import { ColorPallet } from '../../theme/theme'
+import { searchConnectionList } from './ListContacts.utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,11 +39,7 @@ const ListContacts: React.FC = () => {
   }, [fetchConnectionRecords, isFocused, connections])
 
   const search = text => {
-    const filteredData = connections.filter(item => {
-      const orgLabel = item.theirLabel.toUpperCase()
-      const textData = text.toUpperCase()
-      return orgLabel.indexOf(textData) > -1
-    })
+    const filteredData = searchConnectionList(connections, text)
     setConnectionList(filteredData)
     setSearchText(text)
   }
