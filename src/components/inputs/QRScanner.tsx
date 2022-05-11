@@ -83,7 +83,7 @@ const QRScanner: React.FC<Props> = ({
   const invalidQrCodes = new Set<string>()
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="QRScannerTest">
       <RNCamera
         style={styles.container}
         type={RNCamera.Constants.Type.back}
