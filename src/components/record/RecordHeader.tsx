@@ -9,7 +9,11 @@ const styles = StyleSheet.create({
 })
 
 const RecordHeader: React.FC = ({ children }) => {
-  return <View style={styles.container}>{children}</View>
+  return (
+    <View style={styles.container} testID="recordHeader">
+      {children}
+    </View>
+  )
 }
 
 export default RecordHeader

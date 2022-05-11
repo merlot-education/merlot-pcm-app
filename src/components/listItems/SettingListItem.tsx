@@ -27,7 +27,11 @@ const styles = StyleSheet.create({
 
 const SettingListItem: React.FC<Props> = ({ title, onPress }) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      testID="setting-list-item"
+      style={styles.container}
+      onPress={onPress}
+    >
       <Text style={styles.bodyText}>{title}</Text>
       <Icon name="chevron-right" size={25} color={ColorPallet.brand.primary} />
     </TouchableOpacity>

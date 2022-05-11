@@ -29,9 +29,9 @@ const styles = StyleSheet.create({
 
 const ContactListItem: React.FC<Props> = ({ contact }) => {
   const navigation = useNavigation<StackNavigationProp<ContactStackParams>>()
-
   return (
     <Pressable
+      testID="contact-list-item"
       onPress={() =>
         navigation.navigate(Screens.ContactDetails, {
           connectionId: contact.id,
