@@ -42,6 +42,7 @@ interface Props {
   setSearchPhrase: (text: string) => void
   setClicked: (value: boolean) => void
 }
+
 const SearchBar: React.FC<Props> = ({
   clicked,
   searchPhrase,
@@ -67,7 +68,6 @@ const SearchBar: React.FC<Props> = ({
         />
         {/* Input field */}
         <TextInput
-          // label=""
           style={styles.input}
           placeholder="Search"
           value={searchPhrase}
