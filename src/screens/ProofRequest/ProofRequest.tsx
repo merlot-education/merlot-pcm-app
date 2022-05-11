@@ -14,22 +14,21 @@ import {
 import React, { useState, useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { Alert, View, StyleSheet, Text } from 'react-native'
-import Toast from 'react-native-toast-message'
 import { Buffer } from 'buffer'
 import { ItemType } from 'react-native-dropdown-picker'
-import ProofDeclined from '../assets/img/proof-declined.svg'
-import ProofPending from '../assets/img/proof-pending.svg'
-import ProofSuccess from '../assets/img/proof-success.svg'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { HomeStackParams, Screens, Stacks } from '../types/navigators'
-import { Attribute } from '../types/record'
-import { getCredDefName, getSchemaNameFromSchemaId } from '../utils/helpers'
-import { ToastType } from '../components/toast/BaseToast'
-// eslint-disable-next-line import/no-cycle
-import ProofRequestAttribute from '../components/views/ProofRequestAttribute'
-import Button, { ButtonType } from '../components/button/Button'
-import FlowDetailModal from '../components/modals/FlowDetailModal'
-import InfoTextBox from '../components/text/InfoTextBox'
+import ProofDeclined from '../../assets/img/proof-declined.svg'
+import ProofPending from '../../assets/img/proof-pending.svg'
+import ProofSuccess from '../../assets/img/proof-success.svg'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { HomeStackParams, Screens, Stacks } from '../../types/navigators'
+import { Attribute } from '../../types/record'
+import { getCredDefName, getSchemaNameFromSchemaId } from '../../utils/helpers'
+import ProofRequestAttribute from '../../components/views/ProofRequestAttribute'
+import Button, { ButtonType } from '../../components/button/Button'
+import FlowDetailModal from '../../components/modals/FlowDetailModal'
+import InfoTextBox from '../../components/text/InfoTextBox'
+import { errorToast } from '../../utils/toast'
+import { getRetrievedCredential } from './ProofRequest.utils'
 
 type ProofRequestProps = StackScreenProps<HomeStackParams, Screens.ProofRequest>
 
@@ -102,7 +101,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   const [credentialsDisplay, setCredentialsDisplay] = useState<
     CredentialDisplay[]
   >([])
-
   const proof = useProofById(proofId)
   const connection = useConnectionById(
     proof?.connectionId ? proof.connectionId : '',
@@ -306,9 +304,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     const updateRetrievedCredentials = async (proof: ProofRecord) => {
-      const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
-        proof.id,
-      )
+      const creds = await getRetrievedCredential(agent, proof.id)
       if (!creds) {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
@@ -319,11 +315,10 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     }
 
     updateRetrievedCredentials(proof).catch(() => {
-      Toast.show({
-        type: ToastType.Error,
-        text1: 'Unable to update retrieved credentials',
-        text2: 'There was a problem while updating retrieved credentials.',
-      })
+      errorToast(
+        t('ProofRequest.ProofUpdateErrorTitle'),
+        t('ProofRequest.ProofUpdateErrorMessage'),
+      )
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [agent.proofs, proof, t])
@@ -409,11 +404,10 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     } catch (e: unknown) {
       setButtonsVisible(true)
       setPendingModalVisible(false)
-      Toast.show({
-        type: ToastType.Error,
-        text1: 'Unable to accept proof request',
-        text2: 'There was a problem while accepting the proof request.',
-      })
+      errorToast(
+        t('ProofRequest.ProofAcceptErrorTitle'),
+        t('ProofRequest.ProofAcceptErrorMessage'),
+      )
     }
   }
 
@@ -431,11 +425,10 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               setButtonsVisible(false)
               await agent.proofs.declineRequest(proof.id)
             } catch (e: unknown) {
-              Toast.show({
-                type: ToastType.Error,
-                text1: 'Unable to reject proof request',
-                text2: 'There was a problem while rejecting the proof request.',
-              })
+              errorToast(
+                t('ProofRequest.ProofRejectErrorTitle'),
+                t('ProofRequest.ProofRejectErrorMessage'),
+              )
             }
           },
         },

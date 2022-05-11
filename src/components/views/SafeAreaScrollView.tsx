@@ -21,7 +21,10 @@ const styles = StyleSheet.create({
 const SafeAreaScrollView: React.FC<Props> = ({ children }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
+      <ScrollView
+        contentContainerStyle={styles.scrollView}
+        testID="safeareaview"
+      >
         {children}
       </ScrollView>
     </SafeAreaView>
