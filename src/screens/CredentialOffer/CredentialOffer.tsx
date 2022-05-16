@@ -93,6 +93,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
       setPendingModalVisible(false)
       console.log(
         'Unable to accept offer There was a problem while accepting the credential offer.',
+        e,
       )
     }
   }

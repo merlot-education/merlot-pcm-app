@@ -30,14 +30,14 @@ import {
 } from '@aries-framework/core'
 import md5 from 'md5'
 import { StackScreenProps } from '@react-navigation/stack'
-import Button, { ButtonType } from '../components/button/Button'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { TextInput, Loader, Text } from '../components'
-import { getValueKeychain } from '../utils/keychain'
-import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys, LocalStorageKeys, salt } from '../constants'
-import indyLedgers from '../../configs/ledgers/indy'
-import { OnboardingStackParams, Screens } from '../types/navigators'
+import Button, { ButtonType } from '../../components/button/Button'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { TextInput, Loader, Text } from '../../components'
+import { getValueKeychain } from '../../utils/keychain'
+import { ToastType } from '../../components/toast/BaseToast'
+import { KeychainStorageKeys, LocalStorageKeys, salt } from '../../constants'
+import indyLedgers from '../../../configs/ledgers/indy'
+import { OnboardingStackParams, Screens } from '../../types/navigators'
 
 type ImportWalletProps = StackScreenProps<
   OnboardingStackParams,
@@ -75,8 +75,9 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     const pinCode = await getValueKeychain({
       service: 'passcode',
     })
+    console.log('passphrase import', passphrase.password)
     if (email && passphrase) {
-      const hash = email + passphrase.password.replace(/ /g, '')
+      const hash = passphrase.password.replace(/ /g, '')
       const seedHash = String(md5(hash))
       initAgent(email.password, pinCode.password, seedHash)
     }

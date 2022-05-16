@@ -7,14 +7,14 @@ import {
   CredentialState,
 } from '@aries-framework/core'
 import CredentialDetails from '../CredentialDetails'
-import CredentialCard from '../../../components/misc/CredentialCard'
 import { Screens } from '../../../types/navigators'
-import AvatarView from '../../../components/misc/AvatarView'
+import { parsedSchema } from '../../../utils/helpers'
 
 const credentialRecord = new CredentialRecord({
   connectionId: '28790bfe-1345-4c64-b21a-7d98982b3894',
   threadId: 'threadId',
   state: CredentialState.Done,
+  id: '',
   credentialAttributes: [
     new CredentialPreviewAttribute({
       name: 'age',
@@ -53,37 +53,18 @@ describe('CredentialDetails', () => {
   })
 
   it('testing', () => {
-    const { getByText, getByTestId } = render(
+    const { getByText } = render(
       <CredentialDetails
         route={{
-          params: { credentialId: 'credentialRecord.id' },
+          params: { credentialId: credentialRecord.id },
           key: '',
-          name: Screens.ContactDetails,
+          name: Screens.CredentialDetails,
         }}
         navigation={mockedNavigate()}
       />,
     )
+    const name = getByText(parsedSchema(credentialRecord).name)
+
+    expect(name.props.children).toBe(parsedSchema(credentialRecord).name)
   })
-
-  it('should render record header correctly', () => {
-    const { getByTestId } = render(
-      <CredentialCard credential={credentialRecord} />,
-    )
-    const recordHeader = getByTestId('credentialRecord')
-    fireEvent.press(recordHeader)
-  })
-  //   it.each([
-  //     [[credentialRecord], [credentialRecord]],
-  //   ])(
-  //     'should show credential card',
-  //     (credential,  expected) => {
-
-  //       const testCredCard = render (
-  //           <AvatarView name={'testschema'}  />
-  //       )
-
-  //       console.log('card',testCredCard)
-
-  //     },
-  //   )
 })

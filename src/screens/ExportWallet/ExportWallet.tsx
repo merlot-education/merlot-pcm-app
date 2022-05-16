@@ -119,10 +119,6 @@ const ExportWallet = () => {
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
         const encryptedFileLocation = `${zipDirectory}/${encryptedFileName}`
 
-        const email = await getValueKeychain({
-          service: KeychainStorageKeys.Email,
-        })
-
         const passphraseEntry = await getValueKeychain({
           service: KeychainStorageKeys.Passphrase,
         })

@@ -12,7 +12,6 @@ import AvatarView from './AvatarView'
 interface CredentialCardProps {
   credential: CredentialRecord
   style?: ViewStyle
-  testId?: string
 }
 
 const styles = StyleSheet.create({
@@ -33,12 +32,11 @@ const styles = StyleSheet.create({
 const CredentialCard: React.FC<CredentialCardProps> = ({
   credential,
   style = {},
-  testId,
 }) => {
   const { t } = useTranslation()
 
   return (
-    <View style={[styles.container, style]} testID="credentialRecord">
+    <View style={[styles.container, style]}>
       <View style={styles.row}>
         <AvatarView name={parsedSchema(credential).name} />
         <View style={styles.details}>

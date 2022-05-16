@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.52% </span>
+                <span class="strong">6.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/46</span>
+                <span class='fraction'>3/43</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.52% </span>
+                <span class="strong">6.97% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/46</span>
+                <span class='fraction'>3/43</span>
             </div>
         
             
@@ -239,10 +239,7 @@
 <a name='L174'></a><a href='#L174'>174</a>
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L177'></a><a href='#L177'>177</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -265,7 +262,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -277,7 +274,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,7 +314,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,7 +347,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -386,8 +382,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -530,7 +524,6 @@ const NotificationListItem: React.FC&lt;NotificationListItemProps&gt; = <span cl
             JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
           )
 <span class="cstat-no" title="statement not covered" >          setCredDef(credentialDefinitionId)</span>
-<span class="cstat-no" title="statement not covered" >          console.log('cred def id', credDef)</span>
         })
       } else {
 <span class="cstat-no" title="statement not covered" >        console.log('object456')</span>
@@ -565,8 +558,6 @@ const NotificationListItem: React.FC&lt;NotificationListItemProps&gt; = <span cl
       } else {
 <span class="cstat-no" title="statement not covered" >        body = connection?.theirLabel || ''</span>
       }
-<span class="cstat-no" title="statement not covered" >      console.log('Proof Request', notification)</span>
-<span class="cstat-no" title="statement not covered" >      console.log('service object', notification)</span>
 <span class="cstat-no" title="statement not covered" >      onPress = <span class="fstat-no" title="function not covered" >()</span> =&gt;</span>
 <span class="cstat-no" title="statement not covered" >        navigation.navigate(Screens.ProofRequest, { proofId: notification.id })</span>
 <span class="cstat-no" title="statement not covered" >      break</span>
@@ -576,7 +567,7 @@ const NotificationListItem: React.FC&lt;NotificationListItemProps&gt; = <span cl
   }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
-    &lt;View style={styles.container}&gt;
+    &lt;View testID="notification-list-item" style={styles.container}&gt;
       &lt;View style={styles.headerContainer}&gt;
         &lt;View style={[styles.icon]}&gt;
           &lt;Icon
@@ -607,7 +598,7 @@ export default NotificationListItem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon May 09 2022 11:51:55 GMT+0530 (India Standard Time)
+                at Mon May 16 2022 16:41:44 GMT+0530 (India Standard Time)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
