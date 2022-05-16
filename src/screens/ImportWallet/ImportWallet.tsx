@@ -38,6 +38,7 @@ import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, LocalStorageKeys, salt } from '../../constants'
 import indyLedgers from '../../../configs/ledgers/indy'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { createMD5HashFromString } from './ImportWallet.utils'
 
 type ImportWalletProps = StackScreenProps<
   OnboardingStackParams,
@@ -77,8 +78,8 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     })
     console.log('passphrase import', passphrase.password)
     if (email && passphrase) {
-      const hash = passphrase.password.replace(/ /g, '')
-      const seedHash = String(md5(hash))
+      const hash = email + passphrase.password.replace(/ /g, '')
+      const seedHash = createMD5HashFromString(hash)
       initAgent(email.password, pinCode.password, seedHash)
     }
     setAuthenticated(true)

@@ -67,7 +67,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         service: 'passphrase',
       })
       console.log('passphrase text', mnemonic.password)
-      const rawValue = mnemonic.password.replace(/ /g, '')
+      const rawValue = email + mnemonic.password.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
 
       await initAgent(email, pin, seedHash)
@@ -197,8 +197,19 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
   }
+  const showSameEmailAlert = () => {
+    Alert.alert(t('PinCreate.EmailConfirmation'), t('PinCreate.CheckEmail'), [
+      {
+        text: t('Global.ChangeEmail'),
+        style: 'cancel',
+        onPress: () =>
+          navigation.navigate(Screens.Registration, { forgotPin: false }),
+      },
+      { text: t('Global.Next'), onPress: proceedToImport },
+    ])
+  }
 
-  const onImportWallet = () => {
+  const proceedToImport = () => {
     if (successPin && successBiometric) {
       navigation.navigate(Screens.ImportWallet)
     } else if (successPin && !biometricSensorAvailable) {
@@ -206,6 +217,10 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     } else {
       warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
+  }
+
+  const onImportWallet = () => {
+    showSameEmailAlert()
   }
 
   return (

@@ -18,6 +18,7 @@ import CredentialDeclined from '../../assets/img/credential-declined.svg'
 import CredentialPending from '../../assets/img/credential-pending.svg'
 import CredentialSuccess from '../../assets/img/credential-success.svg'
 import Button, { ButtonType } from '../../components/button/Button'
+import { acceptCredential } from './CredentialOffer.utils'
 
 type CredentialOfferProps = StackScreenProps<
   HomeStackParams,
@@ -87,7 +88,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
     try {
       setButtonsVisible(false)
       setPendingModalVisible(true)
-      await agent.credentials.acceptOffer(credential.id)
+      // await agent.credentials.acceptOffer(credential.id)
+      acceptCredential(agent, credential)
     } catch (e: unknown) {
       setButtonsVisible(true)
       setPendingModalVisible(false)
