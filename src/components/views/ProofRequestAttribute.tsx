@@ -2,15 +2,14 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import DropDown from '../listItems/DropDown'
-// eslint-disable-next-line import/no-cycle
-import { CredentialDisplay } from '../../screens/ProofRequest'
+// // eslint-disable-next-line import/no-cycle
+// import { CredentialDisplay } from '../../screens/ProofRequest'
 import Text from '../text/Text'
 import { TextTheme } from '../../theme/theme'
 
 const styles = StyleSheet.create({
   attributeView: {
     borderBottomWidth: 1,
-    // borderColor: barShadowColor,
     paddingVertical: 12,
     alignItems: 'center',
   },
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
 })
 
 interface Props {
-  proofRequest: CredentialDisplay[] | undefined
+  proofRequest: undefined
   onSelectItem: (item: any, key: string) => void
 }
 
@@ -42,7 +41,7 @@ const ProofRequestAttribute: React.FC<Props> = ({
   onSelectItem,
 }: Props) => {
   return (
-    <View>
+    <View testID="proofRequestAttribute">
       {proofRequest?.map((item: any) => (
         <View key={item.names[0]} style={styles.attributeView}>
           {item.names?.map((name: string, index: number) => (

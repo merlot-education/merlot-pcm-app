@@ -52,12 +52,12 @@ const MOCK_CONNECTION_LIST: ConnectionRecord[] = [
     invitation: {
       '@type': 'https://didcomm.org/connections/1.0/invitation',
       '@id': '031d7c03-51d2-488f-b53f-659bccbf03b3',
-      label: 'Ontario private beta',
+      label: 'private beta',
       recipientKeys: ['6PtQuy9St6hD2zJWnfxnN6aBnK3vfY7WU7WhhoZGAaz5'],
-      imageUrl: 'https://www.ontario.ca/img/ontario@2x.png',
-      serviceEndpoint: 'https://ws.issuer-agent1.lab.di.gov.on.ca',
+      imageUrl: '',
+      serviceEndpoint: 'https://ws.app',
     },
-    imageUrl: 'https://www.ontario.ca/img/ontario@2x.png',
+    imageUrl: '',
     multiUseInvitation: false,
     mediatorId: '68bbc5d0-7b1b-4b35-9c40-fd72ccd67f8e',
     theirDid: 'XBudZhfzGFFfcEuGyREGQy',
@@ -74,7 +74,7 @@ const MOCK_CONNECTION_LIST: ConnectionRecord[] = [
       service: [
         {
           id: 'did:sov:XBudZhfzGFFfcEuGyREGQy;indy',
-          serviceEndpoint: 'https://ws.issuer-agent1.lab.di.gov.on.ca',
+          serviceEndpoint: 'https://ws.app',
           type: 'IndyAgent',
           priority: 0,
           recipientKeys: ['HTJdr7YPxKBb4AiapjwLG5asepcVyPJZPdcmixGqP8V3'],
@@ -235,7 +235,7 @@ const MOCK_CONNECTION_LIST: ConnectionRecord[] = [
       '@id': '2b83c729-3a67-44fb-a443-a65ba7a6e80e',
       label: 'CANdy-Dev BPA',
       recipientKeys: ['EaTyGxH6wEjcSmFMRNQqQaXGLMRvSav81RJpxKW92mNc'],
-      serviceEndpoint: 'http://35.183.133.49:8030',
+      serviceEndpoint: 'http://11.111.111.11:8030',
     },
     multiUseInvitation: false,
     mediatorId: '68bbc5d0-7b1b-4b35-9c40-fd72ccd67f8e',
@@ -253,7 +253,7 @@ const MOCK_CONNECTION_LIST: ConnectionRecord[] = [
       service: [
         {
           id: 'did:sov:3T3jC2s4BrG64BevAhjxCE;indy',
-          serviceEndpoint: 'http://35.183.133.49:8030',
+          serviceEndpoint: 'http://11.11.111.11:8030',
           type: 'IndyAgent',
           priority: 0,
           recipientKeys: ['2LRPR6LjqRTzh1DCX6Qd4HbSi5KTLKwuYk8wmh3jdRJF'],

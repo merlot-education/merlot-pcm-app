@@ -2,11 +2,12 @@ import { t } from 'i18next'
 import { View, StyleSheet, Text } from 'react-native'
 import React, { useState } from 'react'
 import { useAgent } from '@aries-framework/react-hooks'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { TabStacks } from '../types/navigators'
-import { Loader } from '../components'
-import Button, { ButtonType } from '../components/button/Button'
-import ConnectionPending from '../assets/img/connection-pending.svg'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { TabStacks } from '../../types/navigators'
+import { Loader } from '../../components'
+import Button, { ButtonType } from '../../components/button/Button'
+import ConnectionPending from '../../assets/img/connection-pending.svg'
+import { getInvitationFromUrl } from './ConnectionInvitation.utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -38,17 +39,10 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
   const { agent } = useAgent()
   const [loading, setLoading] = useState(false)
 
-  console.log('getpublic did', agent?.publicDid?.did)
   const handleAcceptPress = async (): Promise<void> => {
     const { url } = route.params
     setLoading(true)
-    const connectionRecord = await agent?.connections.receiveInvitationFromUrl(
-      url,
-      {
-        autoAcceptConnection: true,
-      },
-    )
-    console.log('public did', agent.publicDid.did)
+    const connectionRecord = await getInvitationFromUrl(agent, url)
     if (!connectionRecord?.id) {
       throw new Error(t('Scan.ConnectionNotFound'))
     }
