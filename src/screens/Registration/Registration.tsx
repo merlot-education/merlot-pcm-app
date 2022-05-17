@@ -161,8 +161,12 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        await restoreTermsCompleteStage()
-        nav.navigate(Screens.Terms)
+        if (forgotPin) {
+          nav.navigate(Screens.EnterPin)
+        } else {
+          await restoreTermsCompleteStage()
+          nav.navigate(Screens.Terms)
+        }
         return true
       }
 
@@ -170,7 +174,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
 
       return () =>
         BackHandler.removeEventListener('hardwareBackPress', onBackPress)
-    }, [nav]),
+    }, [nav, forgotPin]),
   )
 
   return (

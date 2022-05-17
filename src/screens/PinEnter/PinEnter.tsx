@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
+import {
+  Alert,
+  BackHandler,
+  Keyboard,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { StackScreenProps } from '@react-navigation/stack'
+import { useFocusEffect } from '@react-navigation/native'
 import { TextInput, Loader } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
@@ -40,6 +48,20 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   const [loginAttemtsFailed, setLoginAttemtsFailed] = useState(0)
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp()
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, []),
+  )
 
   const startAgent = useCallback(async () => {
     const [email, passphrase, passcode] = await Promise.all([
