@@ -150,7 +150,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       <Text
         style={[style.bodyText, style.verticalSpacer]}
         onPress={() =>
-          navigation.navigate(Screens.CreatePin, { forgotPin: true })
+          navigation.navigate(Screens.Registration, { forgotPin: true })
         }
       >
         {t('Global.ForgotPin')}
