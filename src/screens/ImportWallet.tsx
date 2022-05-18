@@ -88,31 +88,30 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
   const askPermission = async () => {
     if (Platform.OS === 'android') {
       try {
-        const granted = await PermissionsAndroid.request(
+        const granted = PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
           PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Permission',
-            message: 'PCM needs to write to storage ',
-            buttonPositive: '',
-          },
-        )
-        const permission = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Permission',
-            message: 'PCM needs to write to storage ',
-            buttonPositive: '',
-          },
-        )
-
-        if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-          pickBackupFile()
-        } else {
-          console.log(
-            'Permission Denied!',
-            'You need to give  permission to see contacts',
-          )
-        }
+        ]).then(result => {
+          if (
+            result['android.permission.READ_EXTERNAL_STORAGE'] &&
+            result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+          ) {
+            pickBackupFile()
+          } else {
+            console.log(
+              'Permission Denied!',
+              'You need to give  permission to see contacts',
+            )
+          }
+        })
+        // if (granted === PermissionsAndroid.RESULTS.GRANTED ) {
+        //   pickBackupFile()
+        // } else {
+        //   console.log(
+        //     'Permission Denied!',
+        //     'You need to give  permission to see contacts',
+        //   )
+        // }
       } catch (error) {
         console.log(error)
       }
@@ -131,13 +130,14 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         .stat(res.uri)
         .then(stats => {
           console.log(stats.path)
-          setwalletBackupFIlePath(stats.path.substring(1))
+          setwalletBackupFIlePath(stats.path)
         })
         .catch(err => {
-          console.log(err)
+          console.log('file pick error', err)
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
+        console.log('docupemt picker error', err)
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
         throw console.log('Error from zip', err)
@@ -241,7 +241,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         <Button
           title={t('Global.ImportWallet')}
           buttonType={ButtonType.Primary}
-          disabled={mnemonic.length === 0 && walletBackupFilePath.length === 0}
+          disabled={walletBackupFilePath.length === 0 && mnemonic.length === 0}
           onPress={importWallet}
         />
       </View>

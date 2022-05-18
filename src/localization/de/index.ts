@@ -188,6 +188,12 @@ const translation = {
     "SendingTheInformationSecurely": "Diesen Nachweis ablehnen?6",
     "InformationSentSuccessfully": "Diesen Nachweis ablehnen?7",
     "ProofRequestDeclined": "Diesen Nachweis ablehnen?8",
+    "ProofUpdateErrorTitle": "Abgerufene Anmeldeinformationen können nicht aktualisiert werden",
+    "ProofUpdateErrorMessage": "Beim Aktualisieren der abgerufenen Anmeldeinformationen ist ein Problem aufgetreten",
+    "ProofAcceptErrorTitle": "Nachweisanforderung kann nicht angenommen werden",
+    "ProofAcceptErrorMessage": "Beim Akzeptieren der Nachweisanforderung ist ein Problem aufgetreten",
+    "ProofRejectErrorTitle": "Proof-Anfrage kann nicht abgelehnt werden",
+    "ProofRejectErrorMessage": "Beim Ablehnen der Nachweisanforderung ist ein Problem aufgetreten",
     "MissingInformation": {
       "Title": "Die Anfrage kann nicht abgeschlossen werden",
       "AlertMissingInformation": {

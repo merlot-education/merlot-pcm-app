@@ -43,7 +43,13 @@ const InfoTextBox: React.FC<TextBoxProps> = ({ children }) => {
           color={ColorPallet.notification.infoIcon}
         />
       </View>
-      <Text style={styles.headerText}>{children}</Text>
+      <Text
+        style={styles.headerText}
+        testID="infoTextBox"
+        accessibilityLabel={children}
+      >
+        {children}
+      </Text>
     </View>
   )
 }

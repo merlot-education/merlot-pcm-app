@@ -3,14 +3,11 @@ import { Alert, Keyboard, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
-// import Toast from 'react-native-toast-message'
 import { useAgent } from '@aries-framework/react-hooks'
-// import { getValueKeychain, setValueKeychain } from '../../utils/keychain'
 import { ColorPallet } from '../../theme/theme'
-import { TextInput } from '../../components'
+import { Loader, TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
-// import { ToastType } from '../../components/toast/BaseToast'
 import { warningToast } from '../../utils/toast'
 import { KeychainStorageKeys } from '../../constants'
 import { getValueFromKeychain, saveValueInKeychain } from './ChangePin.utils'
@@ -25,20 +22,17 @@ const style = StyleSheet.create({
 })
 
 const ChangePin: React.FC<ChangePinProps> = () => {
+  const [loading, setLoading] = useState(false)
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
+  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const { agent } = useAgent()
 
   const passcodeCreate = async (passcode: string) => {
     try {
-      // const email = await getValueKeychain({
-      //   service: 'email',
-      // })
-      // const oldPasscode = await getValueKeychain({
-      //   service: 'passcode',
-      // })
+      setLoading(true)
       const [email, oldPasscode] = await Promise.all([
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Email))
@@ -56,6 +50,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
           )
         }),
       ])
+      setLoading(true)
       await agent.shutdown()
       await agent.wallet.rotateKey({
         id: email.password,
@@ -63,16 +58,15 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         rekey: passcode,
       })
       await agent.initialize()
-      // await setValueKeychain(description, passcode, {
-      //   service: 'passcode',
-      // })
-      Alert.alert(t('PinCreate.PinsSuccess'), '', [
-        {
-          text: 'Ok',
-        },
-      ])
+      await saveValueInKeychain(
+        KeychainStorageKeys.Passcode,
+        passcode,
+        'passcode',
+      )
+      setLoading(false)
     } catch (e) {
       Alert.alert(e)
+      setLoading(false)
     }
   }
 
@@ -100,6 +94,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}
@@ -131,6 +126,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         label={t('PinCreate.ReenterNewPin')}
         accessible
         accessibilityLabel={t('PinCreate.ReenterNewPin')}
+        placeholder={t('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry

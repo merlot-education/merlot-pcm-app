@@ -3,13 +3,15 @@ import { BackHandler, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import Button, { ButtonType } from '../components/button/Button'
-import CheckBoxRow from '../components/checkbox/CheckBoxRow'
-import InfoTextBox from '../components/text/InfoTextBox'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { Screens } from '../types/navigators'
-import { LocalStorageKeys } from '../constants'
+import Button, { ButtonType } from '../../components/button/Button'
+import CheckBoxRow from '../../components/checkbox/CheckBoxRow'
+import InfoTextBox from '../../components/text/InfoTextBox'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { Screens } from '../../types/navigators'
+import {
+  storeTermsCompleteStage,
+  restoreAppIntroCompleteStage,
+} from './Terms.utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -42,15 +44,7 @@ const Terms: React.FC = () => {
     await storeTermsCompleteStage()
     nav.navigate(Screens.Registration, { forgotPin: false })
   }
-  const storeTermsCompleteStage = async () => {
-    await AsyncStorage.setItem(
-      LocalStorageKeys.OnboardingCompleteStage,
-      'termsComplete',
-    )
-  }
-  const restoreAppIntroCompleteStage = async () => {
-    await AsyncStorage.removeItem(LocalStorageKeys.OnboardingCompleteStage)
-  }
+
   const onBack = async () => {
     await restoreAppIntroCompleteStage()
     nav.navigate(Screens.Onboarding)

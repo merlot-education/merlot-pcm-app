@@ -194,6 +194,12 @@ const translation = {
     "SendingTheInformationSecurely": "Rejeter cette preuve ?6",
     "InformationSentSuccessfully": "Rejeter cette preuve ?7",
     "ProofRequestDeclined": "Rejeter cette preuve ?8",
+    "ProofUpdateErrorTitle": "Impossible de mettre à jour les identifiants récupérés",
+    "ProofUpdateErrorMessage": "Un problème est survenu lors de la mise à jour des informations d'identification récupérées",
+    "ProofAcceptErrorTitle": "Impossible d'accepter la demande de justificatif",
+    "ProofAcceptErrorMessage": "Un problème est survenu lors de l'acceptation de la demande de preuve",
+    "ProofRejectErrorTitle": "Impossible de rejeter la demande de justificatif",
+    "ProofRejectErrorMessage": "Un problème est survenu lors du rejet de la demande de preuve ",
     "MissingInformation": {
       "Title": "La demande ne peut pas être complétée",
       "AlertMissingInformation": {
