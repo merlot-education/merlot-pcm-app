@@ -1,3 +1,8 @@
 const mockT = jest.fn((key: string) => key)
 const useTranslation = jest.fn().mockReturnValue({ t: mockT })
-export { useTranslation }
+const initReactI18next = {
+  type: '3rdParty',
+  init: jest.fn(),
+}
+
+export { useTranslation, initReactI18next }
