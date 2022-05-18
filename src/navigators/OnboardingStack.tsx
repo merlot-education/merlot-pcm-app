@@ -13,6 +13,7 @@ import { OnboardingStackParams, Screens } from '../types/navigators'
 
 import defaultStackOptions from './defaultStackOptions'
 import ImportWallet from '../screens/ImportWallet'
+import CreateWallet from '../screens/CreateWallet/CreateWallet'
 
 const Stack = createStackNavigator<OnboardingStackParams>()
 
@@ -81,6 +82,18 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'PIN Setup',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.CreateWallet}
+        component={CreateWallet}
+        initialParams={{ initAgent, setAuthenticated }}
+        options={() => ({
+          title: 'Save Mnemonic ',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,

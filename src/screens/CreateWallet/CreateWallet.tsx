@@ -75,15 +75,14 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
 
   const createMnemonic = useCallback(() => {
     const mnemonicWordsList = getMnemonicArrayFromWords(8)
-    //  const mnemonic = mnemonicWordsList.join(' ')
-    setMnemonicText(mnemonicWordsList)
+    const mnemonic = mnemonicWordsList.join(' ')
+    setMnemonicText(mnemonic)
   }, [])
 
   useEffect(() => {
     createMnemonic()
   }, [createMnemonic])
 
-  console.log('mnemonic is', mnemonicText)
   const copyMnemonic = async () => {
     Clipboard.setString(mnemonicText)
     await saveValueInKeychain(

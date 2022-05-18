@@ -78,13 +78,13 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     })
     console.log('passphrase import', passphrase.password)
     if (email && passphrase) {
-      const hash = email + passphrase.password.replace(/ /g, '')
+      const hash = email + mnemonic.replace(/ /g, '')
       const seedHash = createMD5HashFromString(hash)
       initAgent(email.password, pinCode.password, seedHash)
     }
     setAuthenticated(true)
     await storeOnboardingCompleteStage()
-  }, [initAgent, setAuthenticated])
+  }, [initAgent, mnemonic, setAuthenticated])
   const storeOnboardingCompleteStage = async () => {
     await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
   }

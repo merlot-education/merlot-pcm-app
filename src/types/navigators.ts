@@ -27,6 +27,7 @@ export enum Screens {
   ImportWallet = 'ImportWallet',
   ContactDetails = 'ConnectionDetails',
   ViewMnemonic = 'ViewMnemonic',
+  CreateWallet = 'CreateWallet',
 }
 
 export type OnboardingStackParams = {
@@ -49,6 +50,10 @@ export type OnboardingStackParams = {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   }
   EnterPin: {
+    initAgent: (email: string, walletPin: string, seed: string) => void
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  CreateWallet: {
     initAgent: (email: string, walletPin: string, seed: string) => void
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   }

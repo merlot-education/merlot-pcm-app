@@ -50,7 +50,7 @@ const translation = {
     "ValidEmail": "Please enter valid email",
     'ResendOtp': 'Resend OTP',
     "RegisterAgain": "You have to register again",
-    "MnemonicMsg": "This is the phrase that will be used to create your wallet seed please save it securely",
+    "MnemonicMsg": "This is the phrase that will be used to create your wallet seed and while exporting wallet , please save it securely. This can be later found in settings screen.",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonic",
   },
