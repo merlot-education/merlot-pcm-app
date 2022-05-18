@@ -95,11 +95,10 @@ const ViewMnemonic: React.FC = () => {
   }, [checkBiometricIfPresent])
 
   const checkPin = async (pin: string) => {
-    const [passcode] = await Promise.all([
-      new Promise(resolve => {
-        resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
-      }),
-    ])
+    const passcode = await getValueKeychain({
+      service: 'passcode',
+    })
+
     const params = [pin, passcode.password]
     const result = authenticateUser(params)
     if (result) {
@@ -110,11 +109,10 @@ const ViewMnemonic: React.FC = () => {
   }
 
   const showMnemonic = async () => {
-    const [passphraseEntry] = await Promise.all([
-      new Promise(resolve => {
-        resolve(getMnemonicFromKeychain())
-      }),
-    ])
+    const passphraseEntry = await getValueKeychain({
+      service: KeychainStorageKeys.Passphrase,
+    })
+
     setMnemonic(passphraseEntry.password)
     setMnemonicView(true)
   }

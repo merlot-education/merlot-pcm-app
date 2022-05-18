@@ -28,6 +28,7 @@ import {
   storeOnboardingCompleteStage,
 } from './PinCreate.utils'
 import { errorToast, successToast, warningToast } from '../../utils/toast'
+import { getValueKeychain } from '../../utils/keychain'
 
 type PinCreateProps = StackScreenProps<OnboardingStackParams, Screens.CreatePin>
 
@@ -64,7 +65,11 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const startAgent = async (email: string, pin: string) => {
     try {
       setLoading(true)
-      const rawValue = email + passphrase.replace(/ /g, '')
+      const mnemonic = await getValueKeychain({
+        service: 'passphrase',
+      })
+      console.log('passphrase text', mnemonic.password)
+      const rawValue = email + mnemonic.password.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
 
       await initAgent(email, pin, seedHash)
@@ -73,6 +78,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       successToast(t('PinCreate.WalletCreated'))
       setAuthenticated(true)
     } catch (error) {
+      console.log('error', error)
       setLoading(false)
       errorToast(error.message)
     }
@@ -235,8 +241,19 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
   }
+  const showSameEmailAlert = () => {
+    Alert.alert(t('PinCreate.EmailConfirmation'), t('PinCreate.CheckEmail'), [
+      {
+        text: t('Global.ChangeEmail'),
+        style: 'cancel',
+        onPress: () =>
+          navigation.navigate(Screens.Registration, { forgotPin: false }),
+      },
+      { text: t('Global.Next'), onPress: proceedToImport },
+    ])
+  }
 
-  const onImportWallet = () => {
+  const proceedToImport = () => {
     if (successPin && successBiometric) {
       navigation.navigate(Screens.ImportWallet)
     } else if (successPin && !biometricSensorAvailable) {
@@ -244,6 +261,10 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     } else {
       warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
+  }
+
+  const onImportWallet = () => {
+    showSameEmailAlert()
   }
 
   return (

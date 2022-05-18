@@ -12,6 +12,7 @@ const translation = {
     "Reject": "Reject",
     "Share": "Share",
     "Decline": "Decline",
+    "ChangeEmail": "Change Email",
     "Back": "Back",
     "Next": "Next",
     "Continue": "Continue",
@@ -70,7 +71,9 @@ const translation = {
     "Create": "Create",
     "ValidOldPin": "Please enter valid old PIN",
     "WalletCreated": "Your wallet is created successfully.",
-    "OR": "OR"
+    "OR": "OR",
+    "EmailConfirmation": "Warning",
+    "CheckEmail": "Email should be same as used for exporting wallet."
   },
   "Biometric": {
     "Biometric": "Biometric",

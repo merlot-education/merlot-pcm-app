@@ -19,7 +19,7 @@ import { KeychainStorageKeys, salt } from '../../constants'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { getValueKeychain } from '../../utils/keychain'
-import { authenticateUser, getMnemonicFromKeychain } from './ExportWallet.utils'
+import { authenticateUser } from './ExportWallet.utils'
 
 const style = StyleSheet.create({
   container: {
@@ -121,10 +121,6 @@ const ExportWallet = () => {
         const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
         const encryptedFileLocation = `${zipDirectory}/${encryptedFileName}`
 
-        const email = await getValueKeychain({
-          service: KeychainStorageKeys.Email,
-        })
-
         const passphraseEntry = await getValueKeychain({
           service: KeychainStorageKeys.Passphrase,
         })
@@ -164,15 +160,14 @@ const ExportWallet = () => {
   }
 
   const compareMnemonic = async () => {
-    const [passphraseEntry] = await Promise.all([
-      new Promise(resolve => {
-        resolve(getMnemonicFromKeychain())
-      }),
-    ])
+    const passphraseEntry = await getValueKeychain({
+      service: KeychainStorageKeys.Passphrase,
+    })
 
     if (mnemonic !== '') {
       const params = [mnemonic, passphraseEntry.password]
       const result = authenticateUser(params)
+      console.log('mnemmonic', result)
       if (result) {
         Toast.show({
           type: ToastType.Success,

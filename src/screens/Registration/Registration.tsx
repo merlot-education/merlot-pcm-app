@@ -142,6 +142,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
             text2: error.message,
           })
         }
+        // navigation.navigate(Screens.CreatePin, { forgotPin })
       } else {
         Toast.show({
           type: ToastType.Warn,

@@ -8,6 +8,7 @@ import {
   PermissionsAndroid,
   AsyncStorage,
 } from 'react-native'
+import RNFS from 'react-native-fs'
 import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
@@ -29,14 +30,15 @@ import {
 } from '@aries-framework/core'
 import md5 from 'md5'
 import { StackScreenProps } from '@react-navigation/stack'
-import Button, { ButtonType } from '../components/button/Button'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { TextInput, Loader, Text } from '../components'
-import { getValueKeychain } from '../utils/keychain'
-import { ToastType } from '../components/toast/BaseToast'
-import { KeychainStorageKeys, LocalStorageKeys, salt } from '../constants'
-import indyLedgers from '../../configs/ledgers/indy'
-import { OnboardingStackParams, Screens } from '../types/navigators'
+import Button, { ButtonType } from '../../components/button/Button'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { TextInput, Loader, Text } from '../../components'
+import { getValueKeychain } from '../../utils/keychain'
+import { ToastType } from '../../components/toast/BaseToast'
+import { KeychainStorageKeys, LocalStorageKeys, salt } from '../../constants'
+import indyLedgers from '../../../configs/ledgers/indy'
+import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { createMD5HashFromString } from './ImportWallet.utils'
 
 type ImportWalletProps = StackScreenProps<
   OnboardingStackParams,
@@ -74,9 +76,10 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     const pinCode = await getValueKeychain({
       service: 'passcode',
     })
+    console.log('passphrase import', passphrase.password)
     if (email && passphrase) {
       const hash = email + passphrase.password.replace(/ /g, '')
-      const seedHash = String(md5(hash))
+      const seedHash = createMD5HashFromString(hash)
       initAgent(email.password, pinCode.password, seedHash)
     }
     setAuthenticated(true)
@@ -126,14 +129,16 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         type: [DocumentPicker.types.allFiles],
         copyTo: 'documentDirectory',
       })
+      // const exportedFileContent = await RNFS.readFile(res.uri, 'base64')
       RNFetchBlob.fs
-        .stat(res.uri)
+        .stat(res.fileCopyUri)
         .then(stats => {
-          console.log(stats.path)
           setwalletBackupFIlePath(stats.path)
+          console.log(stats)
+          // output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
         })
         .catch(err => {
-          console.log('file pick error', err)
+          console.log(err)
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {

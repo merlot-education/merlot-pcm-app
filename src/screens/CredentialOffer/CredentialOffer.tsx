@@ -8,16 +8,17 @@ import {
 } from '@aries-framework/react-hooks'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { HomeStackParams, Screens, TabStacks } from '../types/navigators'
-import Title from '../components/text/Title'
-import FlowDetailModal from '../components/modals/FlowDetailModal'
-import Record from '../components/record/Record'
-import CredentialCard from '../components/misc/CredentialCard'
-import CredentialDeclined from '../assets/img/credential-declined.svg'
-import CredentialPending from '../assets/img/credential-pending.svg'
-import CredentialSuccess from '../assets/img/credential-success.svg'
-import Button, { ButtonType } from '../components/button/Button'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { HomeStackParams, Screens, TabStacks } from '../../types/navigators'
+import Title from '../../components/text/Title'
+import FlowDetailModal from '../../components/modals/FlowDetailModal'
+import Record from '../../components/record/Record'
+import CredentialCard from '../../components/misc/CredentialCard'
+import CredentialDeclined from '../../assets/img/credential-declined.svg'
+import CredentialPending from '../../assets/img/credential-pending.svg'
+import CredentialSuccess from '../../assets/img/credential-success.svg'
+import Button, { ButtonType } from '../../components/button/Button'
+import { acceptCredential } from './CredentialOffer.utils'
 
 type CredentialOfferProps = StackScreenProps<
   HomeStackParams,
@@ -87,12 +88,14 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
     try {
       setButtonsVisible(false)
       setPendingModalVisible(true)
-      await agent.credentials.acceptOffer(credential.id)
+      // await agent.credentials.acceptOffer(credential.id)
+      acceptCredential(agent, credential)
     } catch (e: unknown) {
       setButtonsVisible(true)
       setPendingModalVisible(false)
       console.log(
         'Unable to accept offer There was a problem while accepting the credential offer.',
+        e,
       )
     }
   }
