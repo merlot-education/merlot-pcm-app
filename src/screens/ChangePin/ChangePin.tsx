@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useAgent } from '@aries-framework/react-hooks'
 import { ColorPallet } from '../../theme/theme'
-import { TextInput } from '../../components'
+import { Loader, TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
 import { warningToast } from '../../utils/toast'
@@ -25,11 +25,13 @@ const ChangePin: React.FC<ChangePinProps> = () => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
+  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const { agent } = useAgent()
 
   const passcodeCreate = async (passcode: string) => {
     try {
+      setLoading(true)
       const [email, oldPasscode] = await Promise.all([
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Email))
@@ -59,13 +61,10 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         passcode,
         'passcode',
       )
-      Alert.alert(t('PinCreate.PinsSuccess'), '', [
-        {
-          text: 'Ok',
-        },
-      ])
+      setLoading(false)
     } catch (e) {
       Alert.alert(e)
+      setLoading(false)
     }
   }
 
@@ -93,6 +92,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}
@@ -124,6 +124,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         label={t('PinCreate.ReenterNewPin')}
         accessible
         accessibilityLabel={t('PinCreate.ReenterNewPin')}
+        placeholder={t('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry

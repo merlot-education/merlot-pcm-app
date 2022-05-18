@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
+import { useAgent } from '@aries-framework/react-hooks'
 
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { Loader, TextInput } from '../../components'
@@ -58,6 +59,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const [email, setEmail] = useState('')
   const [passphrase, setPassphrase] = useState('')
   const { t } = useTranslation()
+  const { agent } = useAgent()
 
   const startAgent = async (email: string, pin: string) => {
     try {
@@ -86,6 +88,36 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   useEffect(() => {
     checkBiometricIfPresent()
   }, [checkBiometricIfPresent])
+
+  const startAgentForgotPin = useCallback(async () => {
+    const [email, passphrase, passcode] = await Promise.all([
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+      }),
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Passphrase))
+      }),
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
+      }),
+    ])
+    if (email && passphrase) {
+      const rawValue = email + passphrase.password.replace(/ /g, '')
+      const seedHash = createMD5HashFromString(rawValue)
+      initAgent(email.password, passcode.password, seedHash)
+      setLoading(false)
+    }
+  }, [initAgent])
+
+  const forgotPinEffect = useCallback(async () => {
+    if (forgotPin) {
+      await startAgentForgotPin()
+    }
+  }, [forgotPin, startAgentForgotPin])
+
+  useEffect(() => {
+    forgotPinEffect()
+  }, [forgotPinEffect])
 
   useEffect(() => {
     const backAction = () => {
@@ -122,12 +154,15 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const passcodeCreate = async (passcode: string) => {
     try {
-      const [email, passphrase] = await Promise.all([
+      const [email, passphrase, oldPasscode] = await Promise.all([
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Email))
         }),
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Passphrase))
+        }),
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
         }),
         new Promise(resolve => {
           resolve(
@@ -144,10 +179,19 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         setEmail(email.password)
         setPassphrase(passphrase.password)
       }
-      setSuccessPin(true)
       if (forgotPin) {
+        setLoading(true)
+        await agent.shutdown()
+        await agent.wallet.rotateKey({
+          id: email.password,
+          key: oldPasscode.password,
+          rekey: passcode,
+        })
+        await agent.initialize()
+        setLoading(false)
         navigation.navigate(Screens.EnterPin)
       }
+      setSuccessPin(true)
       successToast(t('PinCreate.PinsSuccess'))
     } catch (e) {
       errorToast(e)

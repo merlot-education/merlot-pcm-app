@@ -121,7 +121,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       setLoginAttemtsFailed(loginAttemtsFailed + 1)
       if (loginAttemtsFailed === 5) {
         Alert.alert(t('Registration.RegisterAgain'))
-        navigation.navigate(Screens.Registration, { forgotPin: false })
+        navigation.navigate(Screens.EnterPin, { forgotPin: false })
         await removeOnboardingCompleteStage()
       }
     }
@@ -150,7 +150,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       <Text
         style={[style.bodyText, style.verticalSpacer]}
         onPress={() =>
-          navigation.navigate(Screens.Registration, { forgotPin: true })
+          navigation.navigate(Screens.CreatePin, { forgotPin: true })
         }
       >
         {t('Global.ForgotPin')}
