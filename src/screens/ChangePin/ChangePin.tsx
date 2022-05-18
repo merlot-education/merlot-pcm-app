@@ -7,7 +7,7 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { useAgent } from '@aries-framework/react-hooks'
 // import { getValueKeychain, setValueKeychain } from '../../utils/keychain'
 import { ColorPallet } from '../../theme/theme'
-import { TextInput } from '../../components'
+import { Loader, TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
 // import { ToastType } from '../../components/toast/BaseToast'
@@ -25,6 +25,7 @@ const style = StyleSheet.create({
 })
 
 const ChangePin: React.FC<ChangePinProps> = () => {
+  const [loading, setLoading] = useState(false)
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
@@ -56,6 +57,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
           )
         }),
       ])
+      setLoading(true)
       await agent.shutdown()
       await agent.wallet.rotateKey({
         id: email.password,
@@ -66,6 +68,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       // await setValueKeychain(description, passcode, {
       //   service: 'passcode',
       // })
+      setLoading(false)
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
         {
           text: 'Ok',
@@ -100,6 +103,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
   return (
     <SafeAreaView style={[style.container]}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}

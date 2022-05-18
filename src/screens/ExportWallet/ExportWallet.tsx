@@ -12,7 +12,7 @@ import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
-import { TextInput } from '../../components'
+import { Loader, TextInput } from '../../components'
 import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, salt } from '../../constants'
 
@@ -38,6 +38,7 @@ const style = StyleSheet.create({
 
 const ExportWallet = () => {
   const { t } = useTranslation()
+  const [loading, setLoading] = useState(false)
   const [mnemonic, setMnemonic] = useState('')
   // const { fs } = RNFetchBlob
   const { agent } = useAgent()
@@ -99,6 +100,7 @@ const ExportWallet = () => {
       )
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        setLoading(true)
         const documentDirectory = RNFS.DownloadDirectoryPath
 
         const zipDirectory = `${documentDirectory}/PCM_Backup`
@@ -148,6 +150,7 @@ const ExportWallet = () => {
           text1: t('ExportWallet.WalletExportedPath'),
           text2: t(zipDirectory),
         })
+        setLoading(false)
         nav.goBack()
       } else {
         console.log(
@@ -195,6 +198,7 @@ const ExportWallet = () => {
 
   return (
     <SafeAreaView style={style.container}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Settings.EnterMnemonic')}
         placeholder={t('Settings.EnterMnemonic')}
