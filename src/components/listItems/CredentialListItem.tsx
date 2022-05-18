@@ -17,6 +17,7 @@ const CredentialListItem: React.FC<CredentialListItemProps> = ({
 
   return (
     <Pressable
+      testID="credential-list-item"
       onPress={() =>
         navigation.navigate(Screens.CredentialDetails, {
           credentialId: credential.id,

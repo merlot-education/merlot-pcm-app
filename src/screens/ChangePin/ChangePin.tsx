@@ -3,14 +3,11 @@ import { Alert, Keyboard, StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
-// import Toast from 'react-native-toast-message'
 import { useAgent } from '@aries-framework/react-hooks'
-// import { getValueKeychain, setValueKeychain } from '../../utils/keychain'
 import { ColorPallet } from '../../theme/theme'
 import { Loader, TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
-// import { ToastType } from '../../components/toast/BaseToast'
 import { warningToast } from '../../utils/toast'
 import { KeychainStorageKeys } from '../../constants'
 import { getValueFromKeychain, saveValueInKeychain } from './ChangePin.utils'
@@ -34,12 +31,6 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
   const passcodeCreate = async (passcode: string) => {
     try {
-      // const email = await getValueKeychain({
-      //   service: 'email',
-      // })
-      // const oldPasscode = await getValueKeychain({
-      //   service: 'passcode',
-      // })
       const [email, oldPasscode] = await Promise.all([
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Email))
@@ -65,10 +56,11 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         rekey: passcode,
       })
       await agent.initialize()
-      // await setValueKeychain(description, passcode, {
-      //   service: 'passcode',
-      // })
-      setLoading(false)
+      await saveValueInKeychain(
+        KeychainStorageKeys.Passcode,
+        passcode,
+        'passcode',
+      )
       Alert.alert(t('PinCreate.PinsSuccess'), '', [
         {
           text: 'Ok',

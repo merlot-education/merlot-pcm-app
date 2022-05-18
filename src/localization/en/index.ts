@@ -195,6 +195,12 @@ const translation = {
     "SendingTheInformationSecurely": "Sending the information securely",
     "InformationSentSuccessfully": "Information sent successfully",
     "ProofRequestDeclined": "Proof request declined",
+    "ProofUpdateErrorTitle": "Unable to update retrieved credentials",
+    "ProofUpdateErrorMessage": "There was a problem while updating retrieved credentials",
+    "ProofAcceptErrorTitle": "Unable to accept proof request",
+    "ProofAcceptErrorMessage": "There was a problem while accepting the proof request",
+    "ProofRejectErrorTitle": "Unable to reject proof request",
+    "ProofRejectErrorMessage": "There was a problem while rejecting the proof request",
     "MissingInformation": {
       "Title": "The request cannot be completed",
       "AlertMissingInformation": {

@@ -21,7 +21,11 @@ const styles = StyleSheet.create({
 const CloseButton: React.FC<Props> = ({ onPress }) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onPress}>
+      <TouchableOpacity
+        testID="closeButton"
+        style={styles.button}
+        onPress={onPress}
+      >
         <Icon name="close" size={24} color={ColorPallet.baseColors.white} />
       </TouchableOpacity>
     </View>

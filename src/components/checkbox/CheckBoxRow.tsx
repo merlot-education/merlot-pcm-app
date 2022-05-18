@@ -34,9 +34,10 @@ const CheckBoxRow: React.FC<Props> = ({
   const accessible = !!(accessibilityLabel && accessibilityLabel !== '')
 
   return (
-    <View style={style.container}>
+    <View style={style.container} testID="checkBoxRowView">
       <TouchableOpacity
         style={style.container}
+        testID="checkBoxRow"
         accessible={accessible}
         accessibilityLabel={accessibilityLabel}
         onPress={onPress}

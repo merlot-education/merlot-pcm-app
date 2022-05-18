@@ -107,7 +107,6 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
             JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
           )
           setCredDef(credentialDefinitionId)
-          console.log('cred def id', credDef)
         })
       } else {
         console.log('object456')
@@ -142,8 +141,6 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
       } else {
         body = connection?.theirLabel || ''
       }
-      console.log('Proof Request', notification)
-      console.log('service object', notification)
       onPress = () =>
         navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
       break
@@ -153,7 +150,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   }
 
   return (
-    <View style={styles.container}>
+    <View testID="notification-list-item" style={styles.container}>
       <View style={styles.headerContainer}>
         <View style={[styles.icon]}>
           <Icon
