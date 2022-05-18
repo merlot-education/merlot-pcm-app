@@ -1,16 +1,13 @@
 import { CredentialState, CredentialRecord } from '@aries-framework/core'
-import {
-  useCredentialByState,
-  useCredentials,
-} from '@aries-framework/react-hooks'
+import { useCredentialByState } from '@aries-framework/react-hooks'
 import React, { useEffect, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FlatList, View, StyleSheet } from 'react-native'
-import { Text } from '../components'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import CredentialListItem from '../components/listItems/CredentialListItem'
-import SearchBar from '../components/inputs/SearchBar'
-import { parsedSchema } from '../utils/helpers'
+import { Text } from '../../components'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import CredentialListItem from '../../components/listItems/CredentialListItem'
+import SearchBar from '../../components/inputs/SearchBar'
+import searchCredentialsList from './ListCredentials.utils'
 
 const styles = StyleSheet.create({
   container: {

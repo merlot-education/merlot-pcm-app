@@ -22,6 +22,7 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   const { t } = useTranslation()
   const { credentialId } = route.params
   const credential = useCredentialById(credentialId)
+  console.log('credentials', credential.metadata)
   if (!route.params.credentialId) {
     Toast.show({
       type: ToastType.Error,
