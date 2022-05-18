@@ -48,7 +48,7 @@ const style = StyleSheet.create({
 })
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
-  const { initAgent, forgotPin, setAuthenticated } = route.params
+  const { forgotPin } = route.params
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -56,31 +56,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const [successPin, setSuccessPin] = useState(false)
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [passphrase, setPassphrase] = useState('')
   const { t } = useTranslation()
-
-  const startAgent = async (email: string, pin: string) => {
-    try {
-      setLoading(true)
-      const mnemonic = await getValueKeychain({
-        service: 'passphrase',
-      })
-      console.log('passphrase text', mnemonic.password)
-      const rawValue = email + mnemonic.password.replace(/ /g, '')
-      const seedHash = createMD5HashFromString(rawValue)
-
-      await initAgent(email, pin, seedHash)
-      await storeOnboardingCompleteStage()
-      setLoading(false)
-      successToast(t('PinCreate.WalletCreated'))
-      setAuthenticated(true)
-    } catch (error) {
-      console.log('error', error)
-      setLoading(false)
-      errorToast(error.message)
-    }
-  }
 
   const checkBiometricIfPresent = useCallback(async () => {
     const { available, biometryType } = await checkIfSensorAvailable()
@@ -145,11 +121,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
           )
         }),
       ])
-
-      if (email && passphrase) {
-        setEmail(email.password)
-        setPassphrase(passphrase.password)
-      }
       setSuccessPin(true)
       if (forgotPin) {
         navigation.navigate(Screens.EnterPin)
@@ -190,9 +161,9 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const onSubmit = async () => {
     if (successPin && successBiometric) {
-      await startAgent(email, pin)
+      navigation.navigate(Screens.CreateWallet)
     } else if (successPin && !biometricSensorAvailable) {
-      await startAgent(email, pin)
+      navigation.navigate(Screens.CreateWallet)
     } else {
       warningToast(t('PinCreate.RegisterPinandBiometric'))
     }
