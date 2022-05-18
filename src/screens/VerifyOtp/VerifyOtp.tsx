@@ -4,12 +4,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { TextInput, Loader } from '../components'
-import Button, { ButtonType } from '../components/button/Button'
-import { OnboardingStackParams, Screens } from '../types/navigators'
-import * as api from '../api'
-import { ToastType } from '../components/toast/BaseToast'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { TextInput, Loader } from '../../components'
+import Button, { ButtonType } from '../../components/button/Button'
+import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { ToastType } from '../../components/toast/BaseToast'
+import { verifyOtp, registerUser } from './VerifyOtp.utils'
 
 type VerifyOtpProps = StackScreenProps<OnboardingStackParams, Screens.VerifyOtp>
 
@@ -17,7 +17,6 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
-    // justifyContent: 'center',
     flex: 1,
   },
   bodyText: {
@@ -76,7 +75,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     const {
       data: { otpId },
       message,
-    } = await api.default.auth.register({ email, otpId: verifyOTPId })
+    } = await registerUser(email, verifyOTPId)
     setLoading(false)
     setVerifyOTPId(otpId)
     Toast.show({
@@ -86,7 +85,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     })
   }
 
-  const confirmEntry = async (otpCode: string) => {
+  const verifyOtpSubmit = async (otpCode: string) => {
     if (otpCode.length < 6) {
       Toast.show({
         type: ToastType.Warn,
@@ -94,12 +93,9 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         text2: t('Global.Otp'),
       })
     } else {
-      const params = {
-        otpId: verifyOTPId,
-        otp: parseInt(otpCode, 10),
-      }
+      const otp = parseInt(otpCode, 10)
       setLoading(true)
-      const { data, message } = await api.default.auth.verifyOtp(params)
+      const { data, message } = await verifyOtp(verifyOTPId, otp)
       setLoading(false)
       if (data) {
         Toast.show({
@@ -140,18 +136,20 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       <Text
         style={[style.bodyText, style.verticalSpacer]}
       >{`00.${resendButtonDisabledTime}`}</Text>
-      <Text
-        style={[style.bodyText, style.verticalSpacer]}
-        onPress={onResendOtpButtonPress}
-      >
-        {t('Registration.ResendOtp')}
-      </Text>
+      {resendButtonDisabledTime === 0 && (
+        <Text
+          style={[style.bodyText, style.verticalSpacer]}
+          onPress={onResendOtpButtonPress}
+        >
+          {t('Registration.ResendOtp')}
+        </Text>
+      )}
       <Button
         title={t('Global.Verify')}
         buttonType={ButtonType.Primary}
         onPress={() => {
           Keyboard.dismiss()
-          confirmEntry(otp)
+          verifyOtpSubmit(otp)
         }}
       />
     </SafeAreaView>
