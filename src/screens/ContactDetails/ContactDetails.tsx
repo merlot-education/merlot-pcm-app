@@ -4,12 +4,11 @@ import React, { useEffect } from 'react'
 
 import { TouchableOpacity, StyleSheet, Text, Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import Toast from 'react-native-toast-message'
-import { SafeAreaScrollView, Label } from '../components'
-import { ContactStackParams, Screens } from '../types/navigators'
-import { dateFormatOptions } from '../constants'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { ToastType } from '../components/toast/BaseToast'
+import { SafeAreaScrollView, Label } from '../../components'
+import { ContactStackParams, Screens } from '../../types/navigators'
+import { dateFormatOptions } from '../../constants'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { errorToast, successToast } from '../../utils/toast'
 
 type ContactDetailsProps = StackScreenProps<
   ContactStackParams,
@@ -34,7 +33,6 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
   const { t } = useTranslation()
   const { agent } = useAgent()
   const connection = useConnectionById(route?.params?.connectionId)
-
   useEffect(() => {
     navigation.setOptions({
       title: connection?.alias ?? connection?.theirLabel,
@@ -59,30 +57,18 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
     try {
       // Get the mediator connection from the connections list
       if (connection.theirLabel === 'Indicio Public Mediator') {
-        Toast.show({
-          type: ToastType.Error,
-          text1: t('Toasts.Error'),
-          text2: t('ContactDetails.ConnectionCannotDelete'),
-        })
+        errorToast(t('ContactDetails.ConnectionCannotDelete'))
         return
       }
 
       // Delete the connection by id
       await agent.connections.deleteById(connection.id)
 
-      Toast.show({
-        type: ToastType.Success,
-        text1: t('Toasts.Success'),
-        text2: t('ContactDetails.DeleteConnectionSuccess'),
-      })
+      successToast(t('ContactDetails.DeleteConnectionSuccess'))
       navigation.navigate(Screens.ListContacts)
     } catch (error) {
       console.log('error', error)
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Toasts.Error'),
-        text2: t('ContactDetails.DeleteConnectionFailed'),
-      })
+      errorToast(t('ContactDetails.DeleteConnectionFailed'))
     }
   }
 
@@ -99,7 +85,10 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
         )}
       />
       <Label title="Connection State" subtitle={connection?.state} />
-      <TouchableOpacity onPress={showDeleteConnectionAlert}>
+      <TouchableOpacity
+        testID="delete-contact"
+        onPress={showDeleteConnectionAlert}
+      >
         <Text
           style={[
             styles.footerText,

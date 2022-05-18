@@ -22,6 +22,7 @@ const style = StyleSheet.create({
 })
 
 const ChangePin: React.FC<ChangePinProps> = () => {
+  const [loading, setLoading] = useState(false)
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
@@ -49,6 +50,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
           )
         }),
       ])
+      setLoading(true)
       await agent.shutdown()
       await agent.wallet.rotateKey({
         id: email.password,

@@ -17,7 +17,7 @@ const ContactStack: React.FC = () => {
         name={Screens.ListContacts}
         component={ListContacts}
         options={() => ({
-          title: 'Connection',
+          title: 'Connections',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
