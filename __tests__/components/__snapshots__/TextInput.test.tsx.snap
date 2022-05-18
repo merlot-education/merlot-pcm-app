@@ -28,7 +28,7 @@ exports[`TextInput Component TextInput renders correctly 1`] = `
       Array [
         Object {
           "backgroundColor": "#FFFFFF",
-          "borderColor": undefined,
+          "borderColor": "#2D6E35",
           "borderRadius": 4,
           "borderWidth": 2,
           "color": "#1E9BF2",
