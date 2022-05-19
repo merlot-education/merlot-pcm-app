@@ -62,28 +62,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const { t } = useTranslation()
   const { agent } = useAgent()
 
-  const startAgent = async (email: string, pin: string) => {
-    try {
-      setLoading(true)
-      const mnemonic = await getValueKeychain({
-        service: 'passphrase',
-      })
-      console.log('passphrase text', mnemonic.password)
-      const rawValue = email + mnemonic.password.replace(/ /g, '')
-      const seedHash = createMD5HashFromString(rawValue)
-
-      await initAgent(email, pin, seedHash)
-      await storeOnboardingCompleteStage()
-      setLoading(false)
-      successToast(t('PinCreate.WalletCreated'))
-      setAuthenticated(true)
-    } catch (error) {
-      console.log('error', error)
-      setLoading(false)
-      errorToast(error.message)
-    }
-  }
-
   const checkBiometricIfPresent = useCallback(async () => {
     const { available, biometryType } = await checkIfSensorAvailable()
     if (available && biometryType === ReactNativeBiometrics.Biometrics) {
@@ -234,9 +212,11 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const onSubmit = async () => {
     if (successPin && successBiometric) {
-      await startAgent(email, pin)
+      // await startAgent(email, pin)
+      navigation.navigate(Screens.CreateWallet)
     } else if (successPin && !biometricSensorAvailable) {
-      await startAgent(email, pin)
+      // await startAgent(email, pin)
+      navigation.navigate(Screens.CreateWallet)
     } else {
       warningToast(t('PinCreate.RegisterPinandBiometric'))
     }

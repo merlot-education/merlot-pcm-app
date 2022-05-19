@@ -9,8 +9,8 @@ import {
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
-import { Agent, CredentialState } from '@aries-framework/core'
-import { useAgent, useCredentialByState } from '@aries-framework/react-hooks'
+import { CredentialState } from '@aries-framework/core'
+import { useCredentialByState } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import useNotifications from '../hooks/notifcations'
 import { HomeStackParams, Screens } from '../types/navigators'
@@ -57,14 +57,13 @@ const styles = StyleSheet.create({
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
   const { t } = useTranslation()
-  const { agent } = useAgent()
   const { notifications } = useNotifications()
   const credentials = [
     ...useCredentialByState(CredentialState.CredentialReceived),
     ...useCredentialByState(CredentialState.Done),
   ]
 
-  // console.log('export wallet', agent.wallet)
+  console.log('export wallet')
   const emptyListComponent = () => (
     <View style={{ marginHorizontal: offset, width: width - 2 * offset }}>
       <InfoTextBox>

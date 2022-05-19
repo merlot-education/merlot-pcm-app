@@ -76,6 +76,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
   const createMnemonic = useCallback(() => {
     const mnemonicWordsList = getMnemonicArrayFromWords(8)
     const mnemonic = mnemonicWordsList.join(' ')
+    // eslint-disable-next-line no-console
     setMnemonicText(mnemonic)
   }, [])
 
@@ -105,7 +106,10 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
   const startAgent = async (email: string, pin: string) => {
     try {
       setLoading(true)
-      console.log('passphrase text', mnemonicText)
+      const passphrase = await getValueKeychain({
+        service: 'Passphrase',
+      })
+      console.log('passphrase text', passphrase.password)
       const rawValue = email + mnemonicText.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
 
