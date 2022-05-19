@@ -26,7 +26,6 @@ const ChangePin: React.FC<ChangePinProps> = () => {
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const { agent } = useAgent()
 

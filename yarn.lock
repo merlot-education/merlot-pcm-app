@@ -33,10 +33,42 @@
     tslint "^6.1.3"
     utility-types "^3.10.0"
 
-"@aries-framework/core@0.2.0-alpha.73+020e6ef", "@aries-framework/core@^0.2.0-alpha.50":
-  version "0.2.0-alpha.73"
-  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.73.tgz#8d51312572b36df93d1b4e0a53ff04c4d4b25b35"
-  integrity sha512-N2Xg6k4weqO7x0XhnqVs9wI0U2+NYFwvOJ+kCla/VgQgNt18dvpIuq8G+WLhWeKAbVgt+zslyunLPOJuzZKsew==
+"@aries-framework/core@0.2.0-alpha.20+fb19ff5":
+  version "0.2.0-alpha.20"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.20.tgz#65b612ca510312c8293e1f8121e0c30464e3f1f4"
+  integrity sha512-BGk9uPMvQTvLbx7KMthRYxjJuwGTscSKs2cId69QO9yyNIUhvlVK5synDVU7NibW8/YZ0eClxWaFNMov4HLGvA==
+  dependencies:
+    "@multiformats/base-x" "^4.0.1"
+    "@stablelib/ed25519" "^1.0.2"
+    "@stablelib/sha256" "^1.0.1"
+    "@types/indy-sdk" "^1.16.12"
+    "@types/node-fetch" "^2.5.10"
+    "@types/ws" "^7.4.4"
+    abort-controller "^3.0.0"
+    bn.js "^5.2.0"
+    borc "^3.0.0"
+    buffer "^6.0.3"
+    class-transformer "0.5.1"
+    class-validator "0.13.1"
+    did-resolver "^3.1.3"
+    lru_map "^0.4.1"
+    luxon "^1.27.0"
+    make-error "^1.3.6"
+    multibase "^4.0.4"
+    multiformats "^9.4.14"
+    multihashes "^4.0.2"
+    object-inspect "^1.10.3"
+    query-string "^7.0.1"
+    reflect-metadata "^0.1.13"
+    rxjs "^7.1.0"
+    tsyringe "^4.5.0"
+    uuid "^8.3.2"
+    web-did-resolver "^2.0.8"
+
+"@aries-framework/core@0.2.0-alpha.50":
+  version "0.2.0-alpha.50"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.50.tgz#622dbabb6ffdb2181d9805aa7d46f329539e5624"
+  integrity sha512-H4atJ3LeAtNFQftbB0HAhPnVaO1u0zOhxtdvkQmMOTr8oQ+dovHAaXDSp6gSTnZlsSX5VEsX2KqAsO4Fu7W7Ig==
   dependencies:
     "@multiformats/base-x" "^4.0.1"
     "@stablelib/ed25519" "^1.0.2"
@@ -68,12 +100,12 @@
   resolved "https://registry.yarnpkg.com/@aries-framework/react-hooks/-/react-hooks-0.2.0.tgz#371dfcbad523527fa88a439331a1f71019cb5767"
   integrity sha512-husiwP3hlBCpuaQ6z87r4mRPbC1owGUn/VxmlHUk+iLKkXr6t5Djx1/dwl/OrPp5MBPPU2iGfy8GiT3vGBCUEA==
 
-"@aries-framework/react-native@^0.2.0-alpha.20":
-  version "0.2.0-alpha.73"
-  resolved "https://registry.yarnpkg.com/@aries-framework/react-native/-/react-native-0.2.0-alpha.73.tgz#758501932b27ae52a2cf1adfc4ba2aee9bd56467"
-  integrity sha512-UMulsZdJijwSNDLJX3X2PxO54mxefSwYuD9xfS2v0jOwOsMIA+bT9JSgTkYAo2W3uNDR0CmAnCMZR+GfR+ZPKQ==
+"@aries-framework/react-native@0.2.0-alpha.20":
+  version "0.2.0-alpha.20"
+  resolved "https://registry.yarnpkg.com/@aries-framework/react-native/-/react-native-0.2.0-alpha.20.tgz#38d7d4d2714e0bb75bf882d8ac4aacb96c155168"
+  integrity sha512-KuX12lNkmOs+EQK4VQ0K23/AsAXcySXKt91JAfxm1U0wxhA6bXKnoFmUBsPOSQ3qUMw2n8JkeEjpeKRTDDMxeA==
   dependencies:
-    "@aries-framework/core" "0.2.0-alpha.73+020e6ef"
+    "@aries-framework/core" "0.2.0-alpha.20+fb19ff5"
     "@azure/core-asynciterator-polyfill" "^1.0.0"
     events "^3.3.0"
 
@@ -1187,9 +1219,9 @@
     fastq "^1.6.0"
 
 "@react-native-async-storage/async-storage@^1.16.1":
-  version "1.17.4"
-  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.17.4.tgz#f03837565f085c487bc9e8a9f1862c3e4e3f8fb6"
-  integrity sha512-c6GglKBRaWkjNyYd0FM8f0/neQEcwQom4MjZNqYSsIz55LcddJb7W8GM/n2dkzZ0JnaMylMX3+Vo+fpmkFEGTQ==
+  version "1.17.5"
+  resolved "https://registry.yarnpkg.com/@react-native-async-storage/async-storage/-/async-storage-1.17.5.tgz#8cc3edd305d09a3c252d88921f0d2846a0444f25"
+  integrity sha512-0XT5zZa3mh8XfAFYytq9hPyI6w0FJEBED4pjeLc17pkNF9tND86fsTX2pQFr15uV0nvfYeHisbd/mM7bpGrWKA==
   dependencies:
     merge-options "^3.0.4"
 
@@ -5633,9 +5665,9 @@ levn@~0.3.0:
     type-check "~0.3.2"
 
 libphonenumber-js@^1.9.7:
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.0.tgz#7aad4bf298c369058a29b3b5ccea272d71cd6142"
-  integrity sha512-Np9Ry5CDCtgMB1rvFbzTc5CfPKftSY6YoY2CV3aPc21zgalvUzrgd5KVnXuRWbI5SLZBOzG2yLphFNX2GhF7Fw==
+  version "1.10.3"
+  resolved "https://registry.yarnpkg.com/libphonenumber-js/-/libphonenumber-js-1.10.3.tgz#f4f360c348e1fd3ca9380cfafd2896f44d3db3a9"
+  integrity sha512-wRZyH4gAcFGnyfLImnZq5Qga2BxSEBfczs0xE8L6KmtE5BolI3utujMtS9sCmWFN/F0OGiHeNsfx8x4WLOAmKQ==
 
 lilconfig@2.0.4:
   version "2.0.4"
