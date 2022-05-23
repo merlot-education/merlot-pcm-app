@@ -11,12 +11,12 @@ import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { CredentialState } from '@aries-framework/core'
 import { useCredentialByState } from '@aries-framework/react-hooks'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import useNotifications from '../hooks/notifcations'
-import { HomeStackParams, Screens } from '../types/navigators'
-import InfoTextBox from '../components/text/InfoTextBox'
-import { NotificationListItem } from '../components'
-import { NotificationType } from '../components/listItems/NotificationListItem'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import useNotifications from '../../hooks/notifcations'
+import { HomeStackParams, Screens } from '../../types/navigators'
+import InfoTextBox from '../../components/text/InfoTextBox'
+import { NotificationListItem } from '../../components'
+import { NotificationType } from '../../components/listItems/NotificationListItem'
 
 const { width } = Dimensions.get('window')
 
@@ -62,8 +62,6 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     ...useCredentialByState(CredentialState.CredentialReceived),
     ...useCredentialByState(CredentialState.Done),
   ]
-
-  console.log('export wallet')
   const emptyListComponent = () => (
     <View style={{ marginHorizontal: offset, width: width - 2 * offset }}>
       <InfoTextBox>

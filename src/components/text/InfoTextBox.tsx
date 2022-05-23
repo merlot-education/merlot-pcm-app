@@ -45,8 +45,8 @@ const InfoTextBox: React.FC<TextBoxProps> = ({ children }) => {
       </View>
       <Text
         style={styles.headerText}
-        testID="infoTextBox"
-        accessibilityLabel={children}
+        testID="InfoTextBox"
+        accessibilityLabel="InfoTextBox"
       >
         {children}
       </Text>

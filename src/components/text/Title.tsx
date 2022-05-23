@@ -19,8 +19,8 @@ const Title: React.FC<Props> = ({ children, style }) => {
   return (
     <Text
       style={[styles.title, style]}
-      testID="title"
-      accessibilityLabel={children}
+      testID="Title"
+      accessibilityLabel="Title"
     >
       {children}
     </Text>
