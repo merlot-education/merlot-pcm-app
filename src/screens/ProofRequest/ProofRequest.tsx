@@ -294,7 +294,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     const updateRetrievedCredentials = async (proof: ProofRecord) => {
-      const creds = await getRetrievedCredential(agent, proof.id)
+      const creds = await getRetrievedCredential(agent, proof)
       if (!creds) {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
