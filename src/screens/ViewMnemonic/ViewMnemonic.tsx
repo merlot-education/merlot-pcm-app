@@ -60,8 +60,8 @@ const ViewMnemonic: React.FC = () => {
   const { t } = useTranslation()
 
   const checkBiometricIfPresent = useCallback(async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       const { success, error } = await showBiometricPrompt()
       if (success) {
         showMnemonic()

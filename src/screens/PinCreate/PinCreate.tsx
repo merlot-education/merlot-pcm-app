@@ -60,8 +60,8 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const { agent } = useAgent()
 
   const checkBiometricIfPresent = useCallback(async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       setBiometricSensorAvailable(true)
     }
   }, [])
@@ -192,8 +192,8 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   }
 
   const biometricEnable = async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       const { success, error } = await showBiometricPrompt()
       if (success) {
         await createBiometricKeys()

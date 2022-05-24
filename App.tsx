@@ -9,6 +9,7 @@ import { ColorPallet, customTheme } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
 import { initStoredLanguage } from './src/localization'
 import toastConfig from './src/components/toast/ToastConfig'
+import { Platform } from 'react-native'
 
 const navigationTheme = {
   dark: false,
@@ -37,7 +38,10 @@ const App = () => {
         <AgentProvider agent={agent}>
           <NavigationContainer theme={navigationTheme}>
             <RootStack setAgent={setupAgent} />
-            <Toast topOffset={5} config={toastConfig} />
+            <Toast
+              topOffset={Platform.OS === 'android' ? 5 : 50}
+              config={toastConfig}
+            />
           </NavigationContainer>
         </AgentProvider>
       </AntDesignProvider>
