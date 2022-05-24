@@ -31,6 +31,8 @@ import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, LocalStorageKeys, salt } from '../../constants'
 import indyLedgers from '../../../configs/ledgers/indy'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { createMD5HashFromString } from './ImportWallet.utils'
+import { saveValueInKeychain } from '../ChangePin/ChangePin.utils'
 
 type ImportWalletProps = StackScreenProps<
   OnboardingStackParams,
@@ -145,15 +147,20 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         key: keychainEntry.password,
       }
 
+      const rawValue = emailEntry.password + mnemonic.replace(/ /g, '')
+      const seedHash = createMD5HashFromString(rawValue)
+
       const newAgent = new Agent(
         {
           label: emailEntry.password, // added email as label
           mediatorConnectionsInvite: Config.MEDIATOR_URL,
+          walletConfig,
           mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
           autoAcceptConnections: true,
           autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
           autoAcceptProofs: AutoAcceptProof.ContentApproved,
-          logger: new ConsoleLogger(LogLevel.trace),
+          logger: new ConsoleLogger(LogLevel.debug),
+          publicDidSeed: seedHash,
           indyLedgers,
         },
         agentDependencies,
@@ -168,8 +175,14 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
       try {
         await newAgent?.wallet.import(walletConfig, importConfig)
         await newAgent.wallet.initialize(walletConfig)
+        await newAgent.initialize()
         await storeOnboardingCompleteStage()
         setAgent(newAgent)
+        await saveValueInKeychain(
+          KeychainStorageKeys.Passphrase,
+          mnemonic,
+          t('Registration.MnemonicMsg'),
+        )
         setAuthenticated(true)
         setLoading(false)
       } catch (e) {
