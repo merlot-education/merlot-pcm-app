@@ -34,7 +34,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         publicDidSeed: seed,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
         autoAcceptProofs: AutoAcceptProof.ContentApproved,
-        logger: new ConsoleLogger(LogLevel.trace),
+        logger: new ConsoleLogger(LogLevel.debug),
         indyLedgers,
       },
       agentDependencies,
