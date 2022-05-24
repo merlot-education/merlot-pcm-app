@@ -4,10 +4,19 @@ import md5 from 'md5'
 import i18next from 'i18next'
 import { LocalStorageKeys } from '../../constants'
 import { getValueKeychain } from '../../utils/keychain'
+import api from '../../api'
 
 export const getValueFromKeychain = async (key: string) => {
   const data = await getValueKeychain({
     service: key,
+  })
+  return data
+}
+
+export const registerUser = async (email: string, otpId: string) => {
+  const data = await api.auth.register({
+    email,
+    otpId,
   })
   return data
 }

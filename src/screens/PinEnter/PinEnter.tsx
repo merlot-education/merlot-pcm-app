@@ -22,8 +22,9 @@ import {
   createMD5HashFromString,
   getValueFromKeychain,
   showBiometricPrompt,
+  registerUser,
 } from './PinEnter.utils'
-import { warningToast } from '../../utils/toast'
+import { warningToast, errorToast, successToast } from '../../utils/toast'
 
 type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>
 
@@ -127,6 +128,31 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
     }
   }
 
+  const forgotPin = async () => {
+    const [email] = await Promise.all([
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+      }),
+    ])
+    try {
+      setLoading(true)
+      const {
+        data: { otpId },
+        message,
+      } = await registerUser(email.password, '')
+      setLoading(false)
+      successToast(message)
+      navigation.navigate(Screens.VerifyOtp, {
+        email: email.password,
+        forgotPin: true,
+        otpId,
+      })
+    } catch (error) {
+      setLoading(false)
+      errorToast(error.message)
+    }
+  }
+
   return (
     <SafeAreaView style={[style.container]}>
       <Loader loading={loading} />
@@ -147,12 +173,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           }
         }}
       />
-      <Text
-        style={[style.bodyText, style.verticalSpacer]}
-        onPress={() =>
-          navigation.navigate(Screens.Registration, { forgotPin: true })
-        }
-      >
+      <Text style={[style.bodyText, style.verticalSpacer]} onPress={forgotPin}>
         {t('Global.ForgotPin')}
       </Text>
       <Button
