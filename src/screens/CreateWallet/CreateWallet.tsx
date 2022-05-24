@@ -72,11 +72,16 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
 
-  const createMnemonic = useCallback(() => {
+  const createMnemonic = useCallback(async () => {
     const mnemonicWordsList = getMnemonicArrayFromWords(8)
     const mnemonic = mnemonicWordsList.join(' ')
     setMnemonicText(mnemonic)
-  }, [])
+    await saveValueInKeychain(
+      KeychainStorageKeys.Passphrase,
+      mnemonic,
+      t('Registration.MnemonicMsg'),
+    )
+  }, [t])
 
   useEffect(() => {
     createMnemonic()
@@ -84,11 +89,6 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
 
   const copyMnemonic = async () => {
     Clipboard.setString(mnemonicText)
-    await saveValueInKeychain(
-      KeychainStorageKeys.Passphrase,
-      mnemonicText,
-      t('Registration.MnemonicMsg'),
-    )
   }
 
   const createWallet = async () => {

@@ -6,7 +6,6 @@ import {
   Keyboard,
   Platform,
   PermissionsAndroid,
-  AsyncStorage,
 } from 'react-native'
 import RNFS from 'react-native-fs'
 import RNFetchBlob from 'rn-fetch-blob'
@@ -30,6 +29,7 @@ import {
 } from '@aries-framework/core'
 import md5 from 'md5'
 import { StackScreenProps } from '@react-navigation/stack'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { TextInput, Loader, Text } from '../../components'
