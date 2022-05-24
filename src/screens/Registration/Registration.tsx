@@ -70,28 +70,9 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   const { forgotPin } = route.params
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [mnemonicText, setMnemonicText] = useState('')
+
   const nav = useNavigation()
   const { t } = useTranslation()
-
-  const createMnemonic = useCallback(() => {
-    const mnemonicWordsList = getMnemonicArrayFromWords(8)
-    const mnemonic = mnemonicWordsList.join(' ')
-    setMnemonicText(mnemonic)
-  }, [])
-
-  useEffect(() => {
-    createMnemonic()
-  }, [createMnemonic])
-
-  const copyMnemonic = async () => {
-    Clipboard.setString(mnemonicText)
-    await saveValueInKeychain(
-      KeychainStorageKeys.mnemonicText,
-      mnemonicText,
-      t('Registration.MnemonicMsg'),
-    )
-  }
 
   const confirmEntry = async (email: string) => {
     if (email.length > 0) {
@@ -101,13 +82,6 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
           email,
           t('Registration.UserAuthenticationEmail'),
         )
-        if (!forgotPin) {
-          await saveValueInKeychain(
-            KeychainStorageKeys.Passphrase,
-            mnemonicText,
-            t('Registration.Passphrase'),
-          )
-        }
         try {
           setLoading(true)
           const {
@@ -160,8 +134,12 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        await restoreTermsCompleteStage()
-        nav.navigate(Screens.Terms)
+        if (forgotPin) {
+          nav.navigate(Screens.EnterPin)
+        } else {
+          await restoreTermsCompleteStage()
+          nav.navigate(Screens.Terms)
+        }
         return true
       }
 
@@ -169,7 +147,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
 
       return () =>
         BackHandler.removeEventListener('hardwareBackPress', onBackPress)
-    }, [nav]),
+    }, [nav, forgotPin]),
   )
 
   return (
@@ -191,22 +169,6 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        {!forgotPin && (
-          <>
-            <Text style={style.label}>{t('Registration.Mnemonic')}</Text>
-            <View style={style.boxContainer}>
-              <Text style={style.headerText}>{mnemonicText}</Text>
-              <Text style={style.bodyText}>
-                {t('Registration.MnemonicMsg')}
-              </Text>
-              <Button
-                title={t('Global.Copy')}
-                buttonType={ButtonType.Primary}
-                onPress={copyMnemonic}
-              />
-            </View>
-          </>
-        )}
         <Button
           title={t('Global.Submit')}
           buttonType={ButtonType.Primary}

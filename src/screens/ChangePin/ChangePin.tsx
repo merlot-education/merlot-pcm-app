@@ -21,6 +21,7 @@ const style = StyleSheet.create({
 })
 
 const ChangePin: React.FC<ChangePinProps> = () => {
+  const [loading, setLoading] = useState(false)
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [pinThree, setPinThree] = useState('')
@@ -29,6 +30,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
   const passcodeCreate = async (passcode: string) => {
     try {
+      setLoading(true)
       const [email, oldPasscode] = await Promise.all([
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Email))
@@ -46,6 +48,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
           )
         }),
       ])
+      setLoading(true)
       await agent.shutdown()
       await agent.wallet.rotateKey({
         id: email.password,
@@ -58,13 +61,10 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         passcode,
         'passcode',
       )
-      Alert.alert(t('PinCreate.PinsSuccess'), '', [
-        {
-          text: 'Ok',
-        },
-      ])
+      setLoading(false)
     } catch (e) {
       Alert.alert(e)
+      setLoading(false)
     }
   }
 
@@ -91,7 +91,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
   }
 
   return (
-    <View style={[style.container]}>
+    <View style={style.container}>
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}
@@ -123,6 +123,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         label={t('PinCreate.ReenterNewPin')}
         accessible
         accessibilityLabel={t('PinCreate.ReenterNewPin')}
+        placeholder={t('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry

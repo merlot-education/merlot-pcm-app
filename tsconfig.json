@@ -11,7 +11,7 @@
     "strict": true,
     "target": "esnext",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
   },
   "exclude": [
     "node_modules",

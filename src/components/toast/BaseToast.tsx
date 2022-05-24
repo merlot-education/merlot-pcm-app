@@ -107,10 +107,18 @@ const BaseToast: React.FC<BaseToastProps> = ({ title, body, toastType }) => {
         size={iconSize}
       />
       <View style={[styles.textContainer]}>
-        <Text style={[TextTheme.normal, styles.title, { color: textColor }]}>
+        <Text
+          style={[TextTheme.normal, styles.title, { color: textColor }]}
+          testID="toastTitle"
+          accessibilityLabel={title}
+        >
           {title}
         </Text>
-        <Text style={[TextTheme.label, styles.body, { color: textColor }]}>
+        <Text
+          style={[TextTheme.label, styles.body, { color: textColor }]}
+          testID="toastBpdy"
+          accessibilityLabel={body}
+        >
           {body}
         </Text>
       </View>

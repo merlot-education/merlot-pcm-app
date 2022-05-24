@@ -16,7 +16,15 @@ const styles = StyleSheet.create({
 })
 
 const Title: React.FC<Props> = ({ children, style }) => {
-  return <Text style={[styles.title, style]}>{children}</Text>
+  return (
+    <Text
+      style={[styles.title, style]}
+      testID="Title"
+      accessibilityLabel="Title"
+    >
+      {children}
+    </Text>
+  )
 }
 
 export default Title

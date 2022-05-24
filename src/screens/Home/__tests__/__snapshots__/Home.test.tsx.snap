@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`displays a home screen renders correctly 1`] = `
+<View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "space-between",
+        "paddingHorizontal": 25,
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#1E9BF2",
+            "fontSize": 21,
+            "fontWeight": "bold",
+          },
+          Object {
+            "marginBottom": 20,
+            "marginTop": 25,
+          },
+        ]
+      }
+    >
+      Home.Notifications
+      
+    </Text>
+  </View>
+  <RCTScrollView
+    ListEmptyComponent={
+      <View
+        style={
+          Object {
+            "marginHorizontal": 25,
+            "width": 700,
+          }
+        }
+      >
+        <InfoTextBox>
+          <Text
+            style={
+              Array [
+                Object {
+                  "color": "#1E9BF2",
+                  "fontSize": 18,
+                  "fontWeight": "normal",
+                },
+              ]
+            }
+          >
+            Home.NoNewUpdates
+          </Text>
+        </InfoTextBox>
+      </View>
+    }
+    data={Array []}
+    decelerationRate="fast"
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={true}
+    keyExtractor={[Function]}
+    onContentSizeChange={[Function]}
+    onLayout={[Function]}
+    onMomentumScrollBegin={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    removeClippedSubviews={false}
+    renderItem={[Function]}
+    scrollEnabled={false}
+    scrollEventThrottle={50}
+    showsHorizontalScrollIndicator={false}
+    snapToOffsets={
+      Array [
+        0,
+      ]
+    }
+    stickyHeaderIndices={Array []}
+    viewabilityConfigCallbackPairs={Array []}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={
+          Object {
+            "marginHorizontal": 25,
+            "width": 700,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "backgroundColor": "#CCE8F4",
+              "borderColor": "#4F7C9E",
+              "borderRadius": 5,
+              "borderWidth": 1,
+              "flexDirection": "row",
+              "padding": 10,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignSelf": "center",
+                "marginRight": 10,
+              }
+            }
+          >
+            <Text
+              allowFontScaling={false}
+              selectable={false}
+              style={
+                Array [
+                  Object {
+                    "color": "#4F7C9E",
+                    "fontSize": 30,
+                  },
+                  undefined,
+                  Object {
+                    "fontFamily": "Material Icons",
+                    "fontStyle": "normal",
+                    "fontWeight": "normal",
+                  },
+                  Object {},
+                ]
+              }
+            >
+              
+            </Text>
+          </View>
+          <Text
+            accessibilityLabel="InfoTextBox"
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "#4F7C9E",
+                "flexShrink": 1,
+                "fontSize": 18,
+                "fontWeight": "bold",
+              }
+            }
+            testID="InfoTextBox"
+          >
+            <Text
+              style={
+                Array [
+                  Object {
+                    "color": "#1E9BF2",
+                    "fontSize": 18,
+                    "fontWeight": "normal",
+                  },
+                ]
+              }
+            >
+              Home.NoNewUpdates
+            </Text>
+          </Text>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>
+  <View
+    style={
+      Object {
+        "paddingHorizontal": 25,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "justifyContent": "center",
+            "marginHorizontal": 60,
+            "marginTop": 35,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1E9BF2",
+              "fontSize": 32,
+              "fontWeight": "bold",
+            },
+            Object {
+              "marginBottom": 35,
+              "marginTop": 25,
+            },
+          ]
+        }
+      >
+        Home.Welcome
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#1E9BF2",
+              "fontSize": 18,
+              "fontWeight": "normal",
+            },
+            Object {
+              "marginTop": 25,
+              "textAlign": "center",
+            },
+          ]
+        }
+      >
+        Home.NoCredentials
+      </Text>
+    </View>
+  </View>
+</View>
+`;
