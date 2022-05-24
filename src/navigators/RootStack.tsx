@@ -59,6 +59,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     <OnboardingStack
       initAgent={initAgent}
       setAuthenticated={setAuthenticated}
+      setAgent={setAgent}
     />
   )
 }

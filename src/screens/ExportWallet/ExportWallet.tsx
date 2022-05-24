@@ -110,7 +110,7 @@ const ExportWallet = () => {
           mode: 'argon2i',
         })
 
-        const { rawHash, encodedHash } = result
+        const { encodedHash } = result
 
         const exportConfig: WalletExportImportConfig = {
           key: encodedHash,
