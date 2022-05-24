@@ -25,10 +25,8 @@ import {
   getValueFromKeychain,
   saveValueInKeychain,
   showBiometricPrompt,
-  storeOnboardingCompleteStage,
 } from './PinCreate.utils'
 import { errorToast, successToast, warningToast } from '../../utils/toast'
-import { getValueKeychain } from '../../utils/keychain'
 
 type PinCreateProps = StackScreenProps<OnboardingStackParams, Screens.CreatePin>
 
@@ -49,7 +47,7 @@ const style = StyleSheet.create({
 })
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
-  const { initAgent, forgotPin, setAuthenticated } = route.params
+  const { initAgent, forgotPin } = route.params
   const [pin, setPin] = useState('')
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -212,10 +210,8 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const onSubmit = async () => {
     if (successPin && successBiometric) {
-      // await startAgent(email, pin)
       navigation.navigate(Screens.CreateWallet)
     } else if (successPin && !biometricSensorAvailable) {
-      // await startAgent(email, pin)
       navigation.navigate(Screens.CreateWallet)
     } else {
       warningToast(t('PinCreate.RegisterPinandBiometric'))

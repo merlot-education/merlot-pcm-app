@@ -67,7 +67,6 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
       successToast(t('ContactDetails.DeleteConnectionSuccess'))
       navigation.navigate(Screens.ListContacts)
     } catch (error) {
-      console.log('error', error)
       errorToast(t('ContactDetails.DeleteConnectionFailed'))
     }
   }

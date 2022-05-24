@@ -32,7 +32,6 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
   const isRedirecton = (url: string): boolean => {
     const queryParams = parseUrl(url).query
-    console.log(url)
     return !(queryParams.c_i || queryParams.d_m)
   }
 
@@ -69,7 +68,6 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         throw new Error('Not a valid URL')
       }
     } catch (e: unknown) {
-      console.log('error', e)
       const error = new QrCodeScanError('Invalid QrCode', event.data)
       setQrCodeScanError(error)
     }

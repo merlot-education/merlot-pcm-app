@@ -1,7 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useCallback, useEffect, useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { t } from 'i18next'
 import {
   SafeAreaView,
   ScrollView,
@@ -67,7 +66,7 @@ const style = StyleSheet.create({
   },
 })
 
-const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
+const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
   const { initAgent, setAuthenticated } = route.params
   const [mnemonicText, setMnemonicText] = useState('')
   const [loading, setLoading] = useState(false)
@@ -76,7 +75,6 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
   const createMnemonic = useCallback(() => {
     const mnemonicWordsList = getMnemonicArrayFromWords(8)
     const mnemonic = mnemonicWordsList.join(' ')
-    // eslint-disable-next-line no-console
     setMnemonicText(mnemonic)
   }, [])
 
@@ -106,10 +104,6 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
   const startAgent = async (email: string, pin: string) => {
     try {
       setLoading(true)
-      const passphrase = await getValueKeychain({
-        service: 'Passphrase',
-      })
-      console.log('passphrase text', passphrase.password)
       const rawValue = email + mnemonicText.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
 
@@ -119,7 +113,6 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
       successToast(t('PinCreate.WalletCreated'))
       setAuthenticated(true)
     } catch (error) {
-      console.log('error', error)
       setLoading(false)
       errorToast(error.message)
     }

@@ -134,7 +134,6 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         .stat(res.fileCopyUri)
         .then(stats => {
           setwalletBackupFIlePath(stats.path)
-          console.log(stats)
           // output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
         })
         .catch(err => {
@@ -173,7 +172,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         mode: 'argon2i',
       })
 
-      const { rawHash, encodedHash } = result
+      const { encodedHash } = result
 
       const importConfig: WalletExportImportConfig = {
         key: encodedHash,
@@ -183,9 +182,6 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         id: emailEntry.password,
         key: keychainEntry.password,
       }
-      console.log('export wallet', agent)
-      console.log('wallet congif', walletConfig)
-      console.log('import congif', importConfig)
 
       const newAgent = new Agent(
         {
@@ -212,7 +208,6 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
           text1: t('Toasts.Warning'),
           text2: t(e),
         })
-        console.error('wallet import erro ', e)
       }
     }
   }

@@ -50,7 +50,6 @@ const ListCredentials: React.FC = () => {
     const filteredData = credentials.filter(item => {
       const orgLabel = parsedSchema(item).name.toUpperCase()
       const textData = text.toUpperCase()
-      console.log('fileterd data', orgLabel, textData)
       return orgLabel.indexOf(textData) > -1
     })
 
