@@ -4,6 +4,7 @@ import { Agent } from '@aries-framework/core'
 import { Provider as AntDesignProvider } from '@ant-design/react-native'
 import AgentProvider from '@aries-framework/react-hooks'
 import Toast from 'react-native-toast-message'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { ColorPallet, customTheme } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
 import { initStoredLanguage } from './src/localization'
@@ -31,14 +32,16 @@ const App = () => {
   }
 
   return (
-    <AntDesignProvider theme={customTheme}>
-      <AgentProvider agent={agent}>
-        <NavigationContainer theme={navigationTheme}>
-          <RootStack setAgent={setupAgent} />
-          <Toast topOffset={5} config={toastConfig} />
-        </NavigationContainer>
-      </AgentProvider>
-    </AntDesignProvider>
+    <SafeAreaProvider>
+      <AntDesignProvider theme={customTheme}>
+        <AgentProvider agent={agent}>
+          <NavigationContainer theme={navigationTheme}>
+            <RootStack setAgent={setupAgent} />
+            <Toast topOffset={5} config={toastConfig} />
+          </NavigationContainer>
+        </AgentProvider>
+      </AntDesignProvider>
+    </SafeAreaProvider>
   )
 }
 

@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  SafeAreaView,
-  StyleSheet,
-  PermissionsAndroid,
-  Platform,
-} from 'react-native'
+import { StyleSheet, PermissionsAndroid, Platform, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
@@ -38,7 +33,6 @@ const style = StyleSheet.create({
 const ExportWallet = () => {
   const { t } = useTranslation()
   const [mnemonic, setMnemonic] = useState('')
-  // const { fs } = RNFetchBlob
   const { agent } = useAgent()
   const nav = useNavigation()
 
@@ -188,7 +182,7 @@ const ExportWallet = () => {
   }
 
   return (
-    <SafeAreaView style={style.container}>
+    <View style={style.container}>
       <TextInput
         label={t('Settings.EnterMnemonic')}
         placeholder={t('Settings.EnterMnemonic')}
@@ -205,7 +199,7 @@ const ExportWallet = () => {
         buttonType={ButtonType.Primary}
         onPress={compareMnemonic}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

@@ -6,7 +6,6 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -174,7 +173,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   )
 
   return (
-    <SafeAreaView style={style.container}>
+    <View style={style.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={style.subContainer}
@@ -217,7 +216,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
           }}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

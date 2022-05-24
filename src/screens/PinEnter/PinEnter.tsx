@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
+import { Alert, Keyboard, StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -106,7 +106,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
@@ -141,7 +141,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           checkPin(pin)
         }}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

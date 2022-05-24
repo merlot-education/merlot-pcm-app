@@ -7,7 +7,6 @@ import {
   Alert,
   BackHandler,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -203,7 +202,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
@@ -278,7 +277,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
           </View>
         </>
       )}
-    </SafeAreaView>
+    </View>
   )
 }
 

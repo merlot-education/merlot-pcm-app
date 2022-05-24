@@ -1,18 +1,10 @@
-import { t } from 'i18next'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  Alert,
-  Keyboard,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { Alert, Keyboard, StyleSheet, Text, View } from 'react-native'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import Toast from 'react-native-toast-message'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Loader, TextInput } from '../components'
+import { TextInput } from '../components'
 import Button, { ButtonType } from '../components/button/Button'
 import { ToastType } from '../components/toast/BaseToast'
 import { KeychainStorageKeys } from '../constants'
@@ -63,7 +55,6 @@ const ViewMnemonic: React.FC = () => {
   const [biometricFailed, setBiometricFailed] = useState(false)
   const [showMnemonicView, setMnemonicView] = useState(false)
   const [mnemonicText, setMnemonic] = useState('')
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
 
   const biometricEnable = useCallback(() => {
@@ -147,13 +138,14 @@ const ViewMnemonic: React.FC = () => {
     setMnemonic(passphraseEntry.password)
     setMnemonicView(true)
   }
+
   const copyMnemonic = async () => {
     Clipboard.setString(mnemonicText)
     const description = t('Registration.MnemonicMsg')
   }
+
   return (
-    <SafeAreaView style={[style.container]}>
-      <Loader loading={loading} />
+    <View style={[style.container]}>
       {!showMnemonicView && (
         <>
           <TextInput
@@ -197,7 +189,7 @@ const ViewMnemonic: React.FC = () => {
           </View>
         </>
       )}
-    </SafeAreaView>
+    </View>
   )
 }
 export default ViewMnemonic

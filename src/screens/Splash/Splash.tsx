@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { SafeAreaView, StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { StackScreenProps } from '@react-navigation/stack'
 import { Screens, OnboardingStackParams } from '../../types/navigators'
 import { ColorPallet } from '../../theme/theme'
@@ -42,7 +42,7 @@ const Splash: React.FC<SplashProps> = ({ navigation }) => {
     checkStack()
   })
 
-  return <SafeAreaView style={styles.container} />
+  return <View style={styles.container} />
 }
 
 export default Splash

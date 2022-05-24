@@ -3,7 +3,6 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import Button, { ButtonType } from '../button/Button'
@@ -77,7 +76,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
 
   return (
     <Modal testID="notificationModal" visible={modalVisible} transparent>
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         {homeHidden ? null : (
           <View style={styles.iconContainer}>
             <TouchableOpacity
@@ -113,7 +112,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
             />
           </View>
         )}
-      </SafeAreaView>
+      </View>
     </Modal>
   )
 }
