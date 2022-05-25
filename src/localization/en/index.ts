@@ -65,7 +65,7 @@ const translation = {
     "ReEnterPinMustBe6DigitsInLength": 'Reenter PIN must be 6 digits in length',
     "PinsEnteredDoNotMatch": "Pin entered do not match", 
     "PinsSuccess": "PIN created successfully", 
-    "PinChange": "PIN change successfully",
+    "PinChange": "PIN changed successfully",
     "NewPinMatchwithOld": 'New Pin is same as a old pin',       
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
