@@ -1,13 +1,6 @@
 import { t } from 'i18next'
-import React, { useCallback, useState } from 'react'
-import {
-  View,
-  StyleSheet,
-  Keyboard,
-  Platform,
-  PermissionsAndroid,
-} from 'react-native'
-import RNFS from 'react-native-fs'
+import React, { useState } from 'react'
+import { View, StyleSheet, Keyboard, PermissionsAndroid } from 'react-native'
 import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
@@ -16,7 +9,6 @@ import {
   WalletExportImportConfig,
   WalletConfig,
 } from '@aries-framework/core/build/types'
-import { useAgent } from '@aries-framework/react-hooks'
 import { agentDependencies } from '@aries-framework/react-native'
 import Config from 'react-native-config'
 import {
@@ -24,10 +16,11 @@ import {
   AutoAcceptCredential,
   AutoAcceptProof,
   ConsoleLogger,
+  HttpOutboundTransport,
   LogLevel,
   MediatorPickupStrategy,
+  WsOutboundTransport,
 } from '@aries-framework/core'
-import md5 from 'md5'
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Button, { ButtonType } from '../../components/button/Button'
@@ -39,6 +32,7 @@ import { KeychainStorageKeys, LocalStorageKeys, salt } from '../../constants'
 import indyLedgers from '../../../configs/ledgers/indy'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
 import { createMD5HashFromString } from './ImportWallet.utils'
+import { saveValueInKeychain } from '../ChangePin/ChangePin.utils'
 
 type ImportWalletProps = StackScreenProps<
   OnboardingStackParams,
@@ -60,67 +54,36 @@ const styles = StyleSheet.create({
 })
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
-  const { initAgent, setAuthenticated } = route.params
+  const { setAgent, setAuthenticated } = route.params
   const [mnemonic, setMnemonic] = useState('')
   const [walletBackupFilePath, setwalletBackupFIlePath] = useState('')
-  const { agent } = useAgent()
   const [loading, setLoading] = useState(false)
 
-  const startAgent = useCallback(async () => {
-    const email = await getValueKeychain({
-      service: 'email',
-    })
-    const passphrase = await getValueKeychain({
-      service: 'passphrase',
-    })
-    const pinCode = await getValueKeychain({
-      service: 'passcode',
-    })
-    console.log('passphrase import', passphrase.password)
-    if (email && passphrase) {
-      const hash = email + mnemonic.replace(/ /g, '')
-      const seedHash = createMD5HashFromString(hash)
-      initAgent(email.password, pinCode.password, seedHash)
-    }
-    setAuthenticated(true)
-    await storeOnboardingCompleteStage()
-  }, [initAgent, mnemonic, setAuthenticated])
   const storeOnboardingCompleteStage = async () => {
     await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
   }
+
   const askPermission = async () => {
-    if (Platform.OS === 'android') {
-      try {
-        const granted = PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        ]).then(result => {
-          if (
-            result['android.permission.READ_EXTERNAL_STORAGE'] &&
-            result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
-          ) {
-            pickBackupFile()
-          } else {
-            console.log(
-              'Permission Denied!',
-              'You need to give  permission to see contacts',
-            )
-          }
-        })
-        // if (granted === PermissionsAndroid.RESULTS.GRANTED ) {
-        //   pickBackupFile()
-        // } else {
-        //   console.log(
-        //     'Permission Denied!',
-        //     'You need to give  permission to see contacts',
-        //   )
-        // }
-      } catch (error) {
+    PermissionsAndroid.requestMultiple([
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+    ])
+      .then(result => {
+        if (
+          result['android.permission.READ_EXTERNAL_STORAGE'] &&
+          result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
+        ) {
+          pickBackupFile()
+        } else {
+          console.log(
+            'Permission Denied!',
+            'You need to give  permission to see contacts',
+          )
+        }
+      })
+      .catch(error => {
         console.log(error)
-      }
-    } else {
-      pickBackupFile()
-    }
+      })
   }
 
   const pickBackupFile = async () => {
@@ -178,28 +141,49 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         key: encodedHash,
         path: walletBackupFilePath,
       }
+
       const walletConfig: WalletConfig = {
         id: emailEntry.password,
         key: keychainEntry.password,
       }
 
+      const rawValue = emailEntry.password + mnemonic.replace(/ /g, '')
+      const seedHash = createMD5HashFromString(rawValue)
+
       const newAgent = new Agent(
         {
           label: emailEntry.password, // added email as label
           mediatorConnectionsInvite: Config.MEDIATOR_URL,
+          walletConfig,
           mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
           autoAcceptConnections: true,
           autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
           autoAcceptProofs: AutoAcceptProof.ContentApproved,
-          logger: new ConsoleLogger(LogLevel.trace),
+          logger: new ConsoleLogger(LogLevel.debug),
+          publicDidSeed: seedHash,
           indyLedgers,
         },
         agentDependencies,
       )
+
+      const wsTransport = new WsOutboundTransport()
+      const httpTransport = new HttpOutboundTransport()
+
+      newAgent.registerOutboundTransport(wsTransport)
+      newAgent.registerOutboundTransport(httpTransport)
+
       try {
         await newAgent?.wallet.import(walletConfig, importConfig)
         await newAgent.wallet.initialize(walletConfig)
-        await startAgent()
+        await newAgent.initialize()
+        await storeOnboardingCompleteStage()
+        setAgent(newAgent)
+        await saveValueInKeychain(
+          KeychainStorageKeys.Passphrase,
+          mnemonic,
+          t('Registration.MnemonicMsg'),
+        )
+        setAuthenticated(true)
         setLoading(false)
       } catch (e) {
         setLoading(false)

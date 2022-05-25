@@ -7,7 +7,7 @@ import { ColorPallet } from '../../theme/theme'
 import { TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
-import { warningToast } from '../../utils/toast'
+import { warningToast, successToast } from '../../utils/toast'
 import { KeychainStorageKeys } from '../../constants'
 import { getValueFromKeychain, saveValueInKeychain } from './ChangePin.utils'
 
@@ -62,6 +62,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         'passcode',
       )
       setLoading(false)
+      successToast(t('PinCreate.PinChange'))
     } catch (e) {
       Alert.alert(e)
       setLoading(false)
@@ -85,6 +86,8 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       warningToast(t('PinCreate.PinsEnteredDoNotMatch'))
     } else if (passcode.password !== oldPin) {
       warningToast(t('PinCreate.ValidOldPin'))
+    } else if (newPin === oldPin) {
+      warningToast(t('PinCreate.NewPinMatchwithOld'))
     } else {
       passcodeCreate(newPin)
     }
