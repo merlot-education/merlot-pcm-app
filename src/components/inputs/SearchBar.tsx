@@ -76,19 +76,6 @@ const SearchBar: React.FC<Props> = ({
             setClicked(true)
           }}
         />
-        {/* cross Icon, depending on whether the search bar is clicked or not */}
-        {clicked && (
-          <Icon
-            name="close"
-            size={20}
-            color="black"
-            style={{ alignSelf: 'center' }}
-            onPress={() => {
-              setSearchPhrase('')
-              setClicked(false)
-            }}
-          />
-        )}
       </View>
       {/* cancel button, depending on whether the search bar is clicked or not */}
       {clicked && (
