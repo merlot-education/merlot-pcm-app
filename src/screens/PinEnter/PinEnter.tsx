@@ -3,9 +3,9 @@ import {
   Alert,
   BackHandler,
   Keyboard,
-  SafeAreaView,
   StyleSheet,
   Text,
+  View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
@@ -84,8 +84,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   }, [initAgent])
 
   const checkBiometricIfPresent = useCallback(async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       const { success, error } = await showBiometricPrompt()
       if (success) {
         setLoading(true)
@@ -154,7 +154,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   }
 
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
@@ -184,7 +184,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           checkPin(pin)
         }}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

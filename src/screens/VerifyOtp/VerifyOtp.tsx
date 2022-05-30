@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Keyboard, StyleSheet, Text } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Keyboard, StyleSheet, Text, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -119,7 +118,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     }
   }
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.Otp')}
@@ -152,7 +151,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
           verifyOtpSubmit(otp)
         }}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

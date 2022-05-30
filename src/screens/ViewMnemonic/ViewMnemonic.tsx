@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Keyboard, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Keyboard, StyleSheet, Text, View } from 'react-native'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { Loader, TextInput } from '../../components'
+import { TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { KeychainStorageKeys } from '../../constants'
 import { ColorPallet, TextTheme } from '../../theme/theme'
@@ -57,17 +57,14 @@ const ViewMnemonic: React.FC = () => {
   const [pin, setPin] = useState('')
   const [showMnemonicView, setMnemonicView] = useState(false)
   const [mnemonicText, setMnemonic] = useState('')
-  const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
 
   const checkBiometricIfPresent = useCallback(async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       const { success, error } = await showBiometricPrompt()
       if (success) {
-        setLoading(true)
         showMnemonic()
-        setLoading(false)
       } else if (error) {
         warningToast(error)
       } else {
@@ -104,12 +101,13 @@ const ViewMnemonic: React.FC = () => {
     setMnemonic(passphraseEntry.password)
     setMnemonicView(true)
   }
+
   const copyMnemonic = async () => {
     Clipboard.setString(mnemonicText)
   }
+
   return (
-    <SafeAreaView style={[style.container]}>
-      <Loader loading={loading} />
+    <View style={[style.container]}>
       {!showMnemonicView && (
         <>
           <TextInput
@@ -153,7 +151,7 @@ const ViewMnemonic: React.FC = () => {
           </View>
         </>
       )}
-    </SafeAreaView>
+    </View>
   )
 }
 export default ViewMnemonic

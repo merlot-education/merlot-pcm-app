@@ -1,6 +1,11 @@
 import React, { useCallback, useState } from 'react'
-import { BackHandler, Keyboard, ScrollView, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  BackHandler,
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
@@ -110,7 +115,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
   )
 
   return (
-    <SafeAreaView style={style.container}>
+    <View style={style.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={style.subContainer}
@@ -137,7 +142,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
           }}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

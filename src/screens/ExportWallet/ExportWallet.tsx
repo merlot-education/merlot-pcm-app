@@ -1,18 +1,13 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  SafeAreaView,
-  StyleSheet,
-  PermissionsAndroid,
-  Platform,
-} from 'react-native'
+import { StyleSheet, PermissionsAndroid, Platform, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
-import { Loader, TextInput } from '../../components'
+import { TextInput } from '../../components'
 import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, salt } from '../../constants'
 
@@ -168,8 +163,7 @@ const ExportWallet = () => {
   }
 
   return (
-    <SafeAreaView style={style.container}>
-      <Loader loading={loading} />
+    <View style={style.container}>
       <TextInput
         label={t('Settings.EnterMnemonic')}
         placeholder={t('Settings.EnterMnemonic')}
@@ -186,7 +180,7 @@ const ExportWallet = () => {
         buttonType={ButtonType.Primary}
         onPress={compareMnemonic}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 
