@@ -1,7 +1,6 @@
 import { t } from 'i18next'
 import React, { useState } from 'react'
-import { View, StyleSheet, Keyboard, PermissionsAndroid } from 'react-native'
-import RNFetchBlob from 'rn-fetch-blob'
+import { View, StyleSheet, Keyboard } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
 import argon2 from 'react-native-argon2'
@@ -23,6 +22,7 @@ import {
 } from '@aries-framework/core'
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import RNFS from 'react-native-fs'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { TextInput, Loader, Text } from '../../components'
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
 })
 
-const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
+const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
   const { setAgent, setAuthenticated } = route.params
   const [mnemonic, setMnemonic] = useState('')
   const [walletBackupFilePath, setwalletBackupFIlePath] = useState('')
@@ -63,41 +63,17 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
   }
 
-  const askPermission = async () => {
-    PermissionsAndroid.requestMultiple([
-      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    ])
-      .then(result => {
-        if (
-          result['android.permission.READ_EXTERNAL_STORAGE'] &&
-          result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
-        ) {
-          pickBackupFile()
-        } else {
-          console.log(
-            'Permission Denied!',
-            'You need to give  permission to see contacts',
-          )
-        }
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
   const pickBackupFile = async () => {
     try {
       const res = await DocumentPicker.pickSingle({
         type: [DocumentPicker.types.allFiles],
         copyTo: 'documentDirectory',
       })
-      // const exportedFileContent = await RNFS.readFile(res.uri, 'base64')
-      RNFetchBlob.fs
-        .stat(res.fileCopyUri)
+
+      RNFS.stat(res.uri)
         .then(stats => {
-          setwalletBackupFIlePath(stats.path)
-          // output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
+          // https://github.com/react-native-image-picker/react-native-image-picker/issues/107#issuecomment-443420588
+          setwalletBackupFIlePath(stats.path.replace('file://', ''))
         })
         .catch(err => {
           console.log(err)
@@ -111,6 +87,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
       }
     }
   }
+
   const importWallet = async () => {
     if (mnemonic.length === 0) {
       Toast.show({
@@ -190,7 +167,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         Toast.show({
           type: ToastType.Error,
           text1: t('Toasts.Warning'),
-          text2: t(e),
+          text2: 'Wallet restore failed',
         })
       }
     }
@@ -205,7 +182,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
           buttonType={ButtonType.Primary}
           onPress={() => {
             Keyboard.dismiss()
-            askPermission()
+            pickBackupFile()
           }}
         />
       </View>

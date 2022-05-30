@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   BackHandler,
   Keyboard,
@@ -7,23 +7,20 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
-import Clipboard from '@react-native-clipboard/clipboard'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import { TextInput, Loader, Text } from '../../components'
+import { TextInput, Loader } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
-import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys } from '../../constants'
 import {
-  getMnemonicArrayFromWords,
   registerUser,
   restoreTermsCompleteStage,
   saveValueInKeychain,
   validateEmail,
 } from './Registration.utils'
+import { warningToast, errorToast, successToast } from '../../utils/toast'
 
 type RegistrationProps = StackScreenProps<
   OnboardingStackParams,
@@ -66,8 +63,7 @@ const style = StyleSheet.create({
   },
 })
 
-const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
-  const { forgotPin } = route.params
+const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
 
@@ -89,57 +85,25 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
             message,
           } = await registerUser(email, '')
           setLoading(false)
-          Toast.show({
-            type: ToastType.Success,
-            text1: t('Toasts.Success'),
-            text2: message,
-          })
-          if (forgotPin) {
-            navigation.navigate(Screens.VerifyOtp, {
-              email,
-              forgotPin,
-              otpId,
-            })
-          } else {
-            navigation.navigate(Screens.VerifyOtp, {
-              email,
-              forgotPin,
-              otpId,
-            })
-          }
+          successToast(message)
+          navigation.navigate(Screens.VerifyOtp, { email, otpId })
         } catch (error) {
           setLoading(false)
-          Toast.show({
-            type: ToastType.Error,
-            text1: error.name,
-            text2: error.message,
-          })
+          errorToast(error.message)
         }
       } else {
-        Toast.show({
-          type: ToastType.Warn,
-          text1: t('Toasts.Warning'),
-          text2: t('Registration.ValidEmail'),
-        })
+        warningToast(t('Registration.ValidEmail'))
       }
     } else {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('Registration.EnterEmail'),
-      })
+      warningToast(t('Registration.EnterEmail'))
     }
   }
 
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        if (forgotPin) {
-          nav.navigate(Screens.EnterPin)
-        } else {
-          await restoreTermsCompleteStage()
-          nav.navigate(Screens.Terms)
-        }
+        await restoreTermsCompleteStage()
+        nav.navigate(Screens.Terms)
         return true
       }
 
@@ -147,7 +111,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
 
       return () =>
         BackHandler.removeEventListener('hardwareBackPress', onBackPress)
-    }, [nav, forgotPin]),
+    }, [nav]),
   )
 
   return (

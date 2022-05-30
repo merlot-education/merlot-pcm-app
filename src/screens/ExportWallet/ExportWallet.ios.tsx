@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, PermissionsAndroid, Platform, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
-import { TextInput } from '../../components'
+import { Loader, TextInput } from '../../components'
 import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, salt } from '../../constants'
 
@@ -40,16 +40,6 @@ const ExportWallet = () => {
 
   const exportWallet = async () => {
     try {
-      // const granted = await PermissionsAndroid.request(
-      //   PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      //   {
-      //     title: 'Permission',
-      //     message: 'PCM needs to write to storage ',
-      //     buttonPositive: '',
-      //   },
-      // )
-
-      // if (granted === PermissionsAndroid.RESULTS.GRANTED) {
       setLoading(true)
       const documentDirectory = RNFS.DocumentDirectoryPath
 
@@ -82,12 +72,13 @@ const ExportWallet = () => {
         mode: 'argon2i',
       })
 
-      const { rawHash, encodedHash } = result
+      const { encodedHash } = result
 
       const exportConfig: WalletExportImportConfig = {
         key: encodedHash,
         path: encryptedFileLocation,
       }
+
       await agent.wallet.export(exportConfig)
       Toast.show({
         type: ToastType.Success,
@@ -96,12 +87,6 @@ const ExportWallet = () => {
       })
       setLoading(false)
       nav.goBack()
-      // } else {
-      //   console.log(
-      //     'Permission Denied!',
-      //     'You need to give  permission to see contacts',
-      //   )
-      // }
     } catch (err) {
       console.log(err)
     }
@@ -140,6 +125,7 @@ const ExportWallet = () => {
 
   return (
     <View style={style.container}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Settings.EnterMnemonic')}
         placeholder={t('Settings.EnterMnemonic')}
