@@ -7,7 +7,6 @@ import {
   Alert,
   BackHandler,
 } from 'react-native'
-import ReactNativeBiometrics from 'react-native-biometrics'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useAgent } from '@aries-framework/react-hooks'
@@ -54,8 +53,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const [successPin, setSuccessPin] = useState(false)
   const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [email, setEmail] = useState('')
-  const [passphrase, setPassphrase] = useState('')
   const { t } = useTranslation()
   const { agent } = useAgent()
 
@@ -135,12 +132,9 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const passcodeCreate = async (passcode: string) => {
     try {
-      const [email, passphrase, oldPasscode] = await Promise.all([
+      const [email, oldPasscode] = await Promise.all([
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Email))
-        }),
-        new Promise(resolve => {
-          resolve(getValueFromKeychain(KeychainStorageKeys.Passphrase))
         }),
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
@@ -156,10 +150,6 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         }),
       ])
 
-      if (email && passphrase) {
-        setEmail(email.password)
-        setPassphrase(passphrase.password)
-      }
       if (forgotPin) {
         setLoading(true)
         await agent.shutdown()
@@ -213,7 +203,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     } else if (successPin && !biometricSensorAvailable) {
       navigation.navigate(Screens.CreateWallet)
     } else {
-      warningToast(t('PinCreate.RegisterPinandBiometric'))
+      warningToast(t('Biometric.RegisterPinandBiometric'))
     }
   }
   const showSameEmailAlert = () => {
@@ -234,7 +224,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     } else if (successPin && !biometricSensorAvailable) {
       navigation.navigate(Screens.ImportWallet)
     } else {
-      warningToast(t('PinCreate.RegisterPinandBiometric'))
+      warningToast(t('Biometric.RegisterPinandBiometric'))
     }
   }
 
