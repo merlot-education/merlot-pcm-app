@@ -14,7 +14,11 @@ type Props = {
 }
 
 const Text: React.FC<Props> = ({ children, style }) => {
-  return <T style={[styles.text, style]}>{children}</T>
+  return (
+    <T style={[styles.text, style]} testID="text" accessibilityLabel={children}>
+      {children}
+    </T>
+  )
 }
 
 export default Text
