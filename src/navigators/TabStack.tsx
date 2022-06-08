@@ -55,6 +55,7 @@ const TabBarLabel = ({ color, focused, label }: TabBarlabelProps) => {
           ? ColorPallet.brand.primary
           : ColorPallet.grayscale.white,
       }}
+      numberOfLines={1}
     >
       {label}
     </Text>

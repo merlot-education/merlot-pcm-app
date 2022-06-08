@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { BackHandler, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { BackHandler, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
@@ -72,7 +72,7 @@ const Terms: React.FC = () => {
     }, [backCount, nav]),
   )
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
         <InfoTextBox>{t('Terms.AcceptTerms')}</InfoTextBox>
         <Text style={[styles.bodyText, styles.verticalSpacer]}>
@@ -102,7 +102,7 @@ const Terms: React.FC = () => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 

@@ -7,7 +7,7 @@ import { Text } from '../../components'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import CredentialListItem from '../../components/listItems/CredentialListItem'
 import SearchBar from '../../components/inputs/SearchBar'
-import searchCredentialsList from './ListCredentials.utils'
+import { parsedSchema } from '../../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -24,11 +24,6 @@ const styles = StyleSheet.create({
 })
 
 const ListCredentials: React.FC = () => {
-  // const credentials = [
-  //   ...useCredentialByState(CredentialState.CredentialReceived),
-  //   ...useCredentialByState(CredentialState.Done),
-  // ]
-
   const credentials = useCredentialByState(CredentialState.Done)
 
   const { t } = useTranslation()
@@ -37,17 +32,22 @@ const ListCredentials: React.FC = () => {
   const [filteredData, setFilteredData] = useState(credentials)
 
   const refreshFilteredData = useCallback(() => {
-    setFilteredData(credentials)
-  }, [credentials])
+    setFilteredData(filteredData)
+  }, [filteredData])
   // Should not ever set state during rendering, so do this in useEffect instead.
   useEffect(() => {
     if (filteredData.length < credentials.length) {
       refreshFilteredData()
     }
-  }, [credentials.length, filteredData.length, refreshFilteredData])
+  }, [filteredData, credentials.length, refreshFilteredData])
 
   const search = text => {
-    const filteredData = searchCredentialsList(credentials, text)
+    const filteredData = credentials.filter(item => {
+      const orgLabel = parsedSchema(item).name.toUpperCase()
+      const textData = text.toUpperCase()
+      return orgLabel.indexOf(textData) > -1
+    })
+
     setFilteredData(filteredData)
     setSearchPhrase(text)
   }
