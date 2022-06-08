@@ -4,10 +4,7 @@ import {
   CredentialRecord,
   CredentialState,
 } from '@aries-framework/core'
-import MOCK_CREDENTIALS_LIST from './ListCredentials.constants'
 import * as Utils from './ListCredentials.utils'
-import { useCredentialById } from '../../../__mocks__/@aries-framework/react-hooks'
-import { getMockConnection } from '../../utils/testhelpers'
 
 const credentialRecord = new CredentialRecord({
   connectionId: '28790bfe-1345-4c64-b21a-7d98982b3894',

@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import { Alert, Keyboard, SafeAreaView, StyleSheet, Text } from 'react-native'
+import {
+  Alert,
+  BackHandler,
+  Keyboard,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
 import ReactNativeBiometrics from 'react-native-biometrics'
 import { StackScreenProps } from '@react-navigation/stack'
+import { useFocusEffect } from '@react-navigation/native'
 import { TextInput, Loader } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
@@ -14,8 +22,9 @@ import {
   createMD5HashFromString,
   getValueFromKeychain,
   showBiometricPrompt,
+  registerUser,
 } from './PinEnter.utils'
-import { warningToast } from '../../utils/toast'
+import { warningToast, errorToast, successToast } from '../../utils/toast'
 
 type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>
 
@@ -41,6 +50,20 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
 
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        BackHandler.exitApp()
+        return true
+      }
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress)
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
+    }, []),
+  )
+
   const startAgent = useCallback(async () => {
     const [email, passphrase, passcode] = await Promise.all([
       new Promise(resolve => {
@@ -61,8 +84,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   }, [initAgent])
 
   const checkBiometricIfPresent = useCallback(async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       const { success, error } = await showBiometricPrompt()
       if (success) {
         setLoading(true)
@@ -99,14 +122,39 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       setLoginAttemtsFailed(loginAttemtsFailed + 1)
       if (loginAttemtsFailed === 5) {
         Alert.alert(t('Registration.RegisterAgain'))
-        navigation.navigate(Screens.Registration, { forgotPin: false })
+        navigation.navigate(Screens.EnterPin, { forgotPin: false })
         await removeOnboardingCompleteStage()
       }
     }
   }
 
+  const forgotPin = async () => {
+    const [email] = await Promise.all([
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+      }),
+    ])
+    try {
+      setLoading(true)
+      const {
+        data: { otpId },
+        message,
+      } = await registerUser(email.password, '')
+      setLoading(false)
+      successToast(message)
+      navigation.navigate(Screens.VerifyOtp, {
+        email: email.password,
+        forgotPin: true,
+        otpId,
+      })
+    } catch (error) {
+      setLoading(false)
+      errorToast(error.message)
+    }
+  }
+
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
@@ -125,12 +173,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           }
         }}
       />
-      <Text
-        style={[style.bodyText, style.verticalSpacer]}
-        onPress={() =>
-          navigation.navigate(Screens.Registration, { forgotPin: true })
-        }
-      >
+      <Text style={[style.bodyText, style.verticalSpacer]} onPress={forgotPin}>
         {t('Global.ForgotPin')}
       </Text>
       <Button
@@ -141,7 +184,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           checkPin(pin)
         }}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

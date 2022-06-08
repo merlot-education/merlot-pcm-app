@@ -7,30 +7,24 @@ import Title from '../Title'
 
 describe('Text Component', () => {
   it('should render highlight text correctly', () => {
-    const { container, getByLabelText } = render(
+    const { getByLabelText } = render(
       <HighlightTextBox>HighlightTextBox</HighlightTextBox>,
     )
-    expect(container).toMatchSnapshot()
     expect(getByLabelText('HighlightTextBox')).toBeTruthy()
   })
 
   it('should render info text correctly', () => {
-    const { container, getByLabelText } = render(
-      <InfoTextBox>InfoTextBox</InfoTextBox>,
-    )
-    expect(container).toMatchSnapshot()
+    const { getByLabelText } = render(<InfoTextBox>InfoTextBox</InfoTextBox>)
     expect(getByLabelText('InfoTextBox')).toBeTruthy()
   })
 
   it('should render text correctly', () => {
-    const { container, getByLabelText } = render(<Text>Text</Text>)
-    expect(container).toMatchSnapshot()
+    const { getByLabelText } = render(<Text>Text</Text>)
     expect(getByLabelText('Text')).toBeTruthy()
   })
 
   it('should render title correctly', () => {
-    const { container, getByLabelText } = render(<Title>Title</Title>)
-    expect(container).toMatchSnapshot()
+    const { getByLabelText } = render(<Title>Title</Title>)
     expect(getByLabelText('Title')).toBeTruthy()
   })
 })

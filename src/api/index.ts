@@ -3,7 +3,7 @@ import Config from 'react-native-config'
 import auth from './auth'
 
 const instance = axios.create({
-  baseURL: Config.BASE_URL,
+  baseURL: Config.NOTIFICATION_URL,
   headers: {
     'Content-Type': 'application/json',
   },

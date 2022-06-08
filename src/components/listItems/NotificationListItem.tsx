@@ -108,8 +108,6 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
           )
           setCredDef(credentialDefinitionId)
         })
-      } else {
-        console.log('object456')
       }
     })
   }

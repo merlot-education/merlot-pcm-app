@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   BackHandler,
   Keyboard,
@@ -6,25 +6,21 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { useTranslation } from 'react-i18next'
-import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
-import Clipboard from '@react-native-clipboard/clipboard'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import { TextInput, Loader, Text } from '../../components'
+import { TextInput, Loader } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
-import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys } from '../../constants'
 import {
-  getMnemonicArrayFromWords,
   registerUser,
   restoreTermsCompleteStage,
   saveValueInKeychain,
   validateEmail,
 } from './Registration.utils'
+import { warningToast, errorToast, successToast } from '../../utils/toast'
 
 type RegistrationProps = StackScreenProps<
   OnboardingStackParams,
@@ -67,32 +63,12 @@ const style = StyleSheet.create({
   },
 })
 
-const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
-  const { forgotPin } = route.params
+const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [mnemonicText, setMnemonicText] = useState('')
+
   const nav = useNavigation()
   const { t } = useTranslation()
-
-  const createMnemonic = useCallback(() => {
-    const mnemonicWordsList = getMnemonicArrayFromWords(8)
-    const mnemonic = mnemonicWordsList.join(' ')
-    setMnemonicText(mnemonic)
-  }, [])
-
-  useEffect(() => {
-    createMnemonic()
-  }, [createMnemonic])
-
-  const copyMnemonic = async () => {
-    Clipboard.setString(mnemonicText)
-    await saveValueInKeychain(
-      KeychainStorageKeys.mnemonicText,
-      mnemonicText,
-      t('Registration.MnemonicMsg'),
-    )
-  }
 
   const confirmEntry = async (email: string) => {
     if (email.length > 0) {
@@ -102,13 +78,6 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
           email,
           t('Registration.UserAuthenticationEmail'),
         )
-        if (!forgotPin) {
-          await saveValueInKeychain(
-            KeychainStorageKeys.Passphrase,
-            mnemonicText,
-            t('Registration.Passphrase'),
-          )
-        }
         try {
           setLoading(true)
           const {
@@ -116,45 +85,17 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
             message,
           } = await registerUser(email, '')
           setLoading(false)
-          Toast.show({
-            type: ToastType.Success,
-            text1: t('Toasts.Success'),
-            text2: message,
-          })
-          if (forgotPin) {
-            navigation.navigate(Screens.VerifyOtp, {
-              email,
-              forgotPin,
-              otpId,
-            })
-          } else {
-            navigation.navigate(Screens.VerifyOtp, {
-              email,
-              forgotPin,
-              otpId,
-            })
-          }
+          successToast(message)
+          navigation.navigate(Screens.VerifyOtp, { email, otpId })
         } catch (error) {
           setLoading(false)
-          Toast.show({
-            type: ToastType.Error,
-            text1: error.name,
-            text2: error.message,
-          })
+          errorToast(error.message)
         }
       } else {
-        Toast.show({
-          type: ToastType.Warn,
-          text1: t('Toasts.Warning'),
-          text2: t('Registration.ValidEmail'),
-        })
+        warningToast(t('Registration.ValidEmail'))
       }
     } else {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('Registration.EnterEmail'),
-      })
+      warningToast(t('Registration.EnterEmail'))
     }
   }
 
@@ -174,7 +115,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
   )
 
   return (
-    <SafeAreaView style={style.container}>
+    <View style={style.container}>
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={style.subContainer}
@@ -192,22 +133,6 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
           keyboardType="email-address"
           autoCapitalize="none"
         />
-        {!forgotPin && (
-          <>
-            <Text style={style.label}>{t('Registration.Mnemonic')}</Text>
-            <View style={style.boxContainer}>
-              <Text style={style.headerText}>{mnemonicText}</Text>
-              <Text style={style.bodyText}>
-                {t('Registration.MnemonicMsg')}
-              </Text>
-              <Button
-                title={t('Global.Copy')}
-                buttonType={ButtonType.Primary}
-                onPress={copyMnemonic}
-              />
-            </View>
-          </>
-        )}
         <Button
           title={t('Global.Submit')}
           buttonType={ButtonType.Primary}
@@ -217,7 +142,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation, route }) => {
           }}
         />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   )
 }
 
