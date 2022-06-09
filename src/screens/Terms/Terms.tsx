@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { BackHandler, StyleSheet, Text, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { BackHandler, StyleSheet, Text, View, ScrollView } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
 import Button, { ButtonType } from '../../components/button/Button'
@@ -14,22 +13,30 @@ import {
 } from './Terms.utils'
 
 const styles = StyleSheet.create({
+  scrollView: {
+    height: 200,
+  },
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
+    flex: 1,
   },
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
   },
-  controlsWrapper: {
-    marginTop: 15,
-  },
   verticalSpacer: {
     marginVertical: 20,
+    height: 420,
   },
   topSpacer: {
     paddingTop: 10,
+  },
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: 'white',
+    width: '100%',
   },
 })
 
@@ -52,7 +59,6 @@ const Terms: React.FC = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        // BackHandler.exitApp()
         // eslint-disable-next-line no-plusplus
         backCount++
         if (backCount === 1) {
@@ -73,35 +79,33 @@ const Terms: React.FC = () => {
   )
   return (
     <View style={styles.container}>
-      <ScrollView>
+      <ScrollView style={styles.scrollView}>
         <InfoTextBox>{t('Terms.AcceptTerms')}</InfoTextBox>
         <Text style={[styles.bodyText, styles.verticalSpacer]}>
           {t('Terms.TermsAndConditions')}
         </Text>
-        <View style={styles.controlsWrapper}>
-          <CheckBoxRow
-            title={t('Terms.Attestation')}
-            accessibilityLabel="I Agree"
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-          />
-          <View style={styles.topSpacer}>
-            <Button
-              title={t('Global.Continue')}
-              onPress={onSubmitPressed}
-              disabled={!checked}
-              buttonType={ButtonType.Primary}
-            />
-          </View>
-          <View style={styles.topSpacer}>
-            <Button
-              title={t('Global.Back')}
-              onPress={onBack}
-              buttonType={ButtonType.Ghost}
-            />
-          </View>
-        </View>
       </ScrollView>
+      <View style={styles.bottom}>
+        <CheckBoxRow
+          title={t('Terms.Attestation')}
+          accessibilityLabel="I Agree"
+          checked={checked}
+          onPress={() => setChecked(!checked)}
+        />
+        <Button
+          title={t('Global.Continue')}
+          onPress={onSubmitPressed}
+          disabled={!checked}
+          buttonType={ButtonType.Primary}
+        />
+        <View style={styles.topSpacer}>
+          <Button
+            title={t('Global.Back')}
+            onPress={onBack}
+            buttonType={ButtonType.Ghost}
+          />
+        </View>
+      </View>
     </View>
   )
 }
