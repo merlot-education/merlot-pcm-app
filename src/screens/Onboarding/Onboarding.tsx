@@ -66,7 +66,7 @@ const slides = [
   {
     key: 3,
     title: 'Secure Storage',
-    text: "I'm already out of descriptions",
+    text: 'Store your credentials securely in wallet',
     image: SecureImage,
   },
 ]
