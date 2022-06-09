@@ -29,6 +29,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
   const [qrCodeScanError, setQrCodeScanError] =
     useState<QrCodeScanError | null>(null)
+  const [urlInput, setUrl] = useState('')
 
   const isRedirecton = (url: string): boolean => {
     const queryParams = parseUrl(url).query
@@ -88,6 +89,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     }
   }
 
+  const inputSubmitUrl = async () => {
+    navigation.navigate(Screens.ConnectionInvitation, { url: urlInput })
+  }
+
   return (
     <View style={[styles.container]}>
       {isFocused && (
@@ -95,6 +100,8 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           handleCodeScan={handleCodeScan}
           error={qrCodeScanError}
           enableCameraOnError
+          onChangeText={setUrl}
+          textInputSubmit={inputSubmitUrl}
         />
       )}
     </View>
