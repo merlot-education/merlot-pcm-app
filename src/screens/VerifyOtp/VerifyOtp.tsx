@@ -28,7 +28,7 @@ const style = StyleSheet.create({
   },
 })
 
-const RESEND_OTP_TIME_LIMIT = 30 // 30 secs
+const RESEND_OTP_TIME_LIMIT = 60 // 60 secs
 
 let resendOtpTimerInterval
 
@@ -132,9 +132,9 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         value={otp}
         onChangeText={setOtp}
       />
-      <Text
-        style={[style.bodyText, style.verticalSpacer]}
-      >{`00.${resendButtonDisabledTime}`}</Text>
+      <Text style={[style.bodyText, style.verticalSpacer]}>
+        {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}
+      </Text>
       {resendButtonDisabledTime === 0 && (
         <Text
           style={[style.bodyText, style.verticalSpacer]}

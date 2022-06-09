@@ -57,6 +57,7 @@ const translation = {
     "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonik",
+    "SecondCounter": 'Zweite links'
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
