@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
     height: 48,
     justifyContent: 'center',
     alignItems: 'center',
+    alignSelf: 'flex-start',
     borderWidth: 1,
     borderColor: ColorPallet.baseColors.white,
     borderRadius: 24,
-    marginBottom: 50,
   },
   icon: {
     marginLeft: 2,
