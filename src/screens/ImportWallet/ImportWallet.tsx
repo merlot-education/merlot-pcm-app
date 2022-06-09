@@ -1,6 +1,12 @@
 import { t } from 'i18next'
-import React, { useState } from 'react'
-import { View, StyleSheet, Keyboard, PermissionsAndroid } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import {
+  View,
+  StyleSheet,
+  Keyboard,
+  PermissionsAndroid,
+  BackHandler,
+} from 'react-native'
 import RNFetchBlob from 'rn-fetch-blob'
 import DocumentPicker from 'react-native-document-picker'
 import Toast from 'react-native-toast-message'
@@ -23,6 +29,7 @@ import {
 } from '@aries-framework/core'
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { TextInput, Loader, Text } from '../../components'
@@ -63,6 +70,20 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
     await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true')
   }
 
+  useEffect(() => {
+    const handleBackButtonClick = () => {
+      navigation.goBack()
+      return true
+    }
+    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick)
+    return () => {
+      BackHandler.removeEventListener(
+        'hardwareBackPress',
+        handleBackButtonClick,
+      )
+    }
+  }, [navigation])
+
   const askPermission = async () => {
     PermissionsAndroid.requestMultiple([
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
@@ -74,11 +95,6 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
           result['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted'
         ) {
           pickBackupFile()
-        } else {
-          console.log(
-            'Permission Denied!',
-            'You need to give  permission to see contacts',
-          )
         }
       })
       .catch(error => {

@@ -11,7 +11,6 @@ import QRScanner from '../../components/inputs/QRScanner'
 import { ScanStackParams, Screens, TabStacks } from '../../types/navigators'
 import QrCodeScanError from '../../types/error'
 import { ColorPallet } from '../../theme/theme'
-import { receiveMessageAgent } from './Scan.utils'
 
 const styles = StyleSheet.create({
   container: {
