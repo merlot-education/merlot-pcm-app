@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import {
   View,
   Text,
@@ -34,6 +34,17 @@ const styles = StyleSheet.create({
 
 const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
   const [focused, setFocused] = useState(false)
+  const ref = useRef<RNTextInput>(null)
+
+  useEffect(() => {
+    if (focused) {
+      setTimeout(() => {
+        if (ref.current) {
+          ref.current.focus()
+        }
+      }, 40)
+    }
+  })
 
   const focusInput = () => setFocused(true)
 
@@ -43,6 +54,7 @@ const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
         {label}
       </Text>
       <RNTextInput
+        ref={ref}
         style={[
           styles.textInput,
           focused && { borderColor: ColorPallet.brand.primary },

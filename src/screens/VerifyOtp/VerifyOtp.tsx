@@ -131,6 +131,10 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         keyboardType="number-pad"
         value={otp}
         onChangeText={setOtp}
+        onSubmitEditing={() => {
+          Keyboard.dismiss()
+          verifyOtpSubmit(otp)
+        }}
       />
       <Text style={[style.bodyText, style.verticalSpacer]}>
         {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}

@@ -79,7 +79,7 @@ const Terms: React.FC = () => {
   )
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView}>
+      <ScrollView>
         <InfoTextBox>{t('Terms.AcceptTerms')}</InfoTextBox>
         <Text style={[styles.bodyText, styles.verticalSpacer]}>
           {t('Terms.TermsAndConditions')}
