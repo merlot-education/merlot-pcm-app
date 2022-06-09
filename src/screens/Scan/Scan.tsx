@@ -39,10 +39,25 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     url: string,
     agent?: Agent,
   ): Promise<void> => {
-    const res = await receiveMessageAgent(url)
-    const message = await res.json()
-    await agent?.receiveMessage(message)
-    navigation.navigate(TabStacks.HomeStack)
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      if (res.url) {
+        const [url] = res.url.split('%')
+        navigation.navigate(Screens.ConnectionInvitation, { url })
+      } else {
+        const message = await res.json()
+        await agent?.receiveMessage(message)
+        navigation.navigate(TabStacks.HomeStack)
+      }
+    } catch (error) {
+      console.log('handleRedirection error', error)
+    }
   }
 
   const handleCodeScan = async (event: BarCodeReadEvent) => {
