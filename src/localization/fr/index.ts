@@ -52,6 +52,7 @@ const translation = {
     "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
     "Passphrase": "Mot de passe",
     "Mnemonic": "Mnémonique",
+    "SecondCounter": 'Deuxième à gauche'
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
