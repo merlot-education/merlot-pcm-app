@@ -56,7 +56,7 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
   const deleteConnection = async () => {
     try {
       // Get the mediator connection from the connections list
-      if (connection.theirLabel === 'Indicio Public Mediator') {
+      if (connection.theirLabel.toUpperCase().includes('MEDIATOR')) {
         errorToast(t('ContactDetails.ConnectionCannotDelete'))
         return
       }

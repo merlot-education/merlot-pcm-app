@@ -11,7 +11,6 @@ import QRScanner from '../../components/inputs/QRScanner'
 import { ScanStackParams, Screens, TabStacks } from '../../types/navigators'
 import QrCodeScanError from '../../types/error'
 import { ColorPallet } from '../../theme/theme'
-import { receiveMessageAgent } from './Scan.utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -29,6 +28,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
   const [qrCodeScanError, setQrCodeScanError] =
     useState<QrCodeScanError | null>(null)
+  const [urlInput, setUrl] = useState('')
 
   const isRedirecton = (url: string): boolean => {
     const queryParams = parseUrl(url).query
@@ -39,10 +39,25 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     url: string,
     agent?: Agent,
   ): Promise<void> => {
-    const res = await receiveMessageAgent(url)
-    const message = await res.json()
-    await agent?.receiveMessage(message)
-    navigation.navigate(TabStacks.HomeStack)
+    try {
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+      if (res.url) {
+        const [url] = res.url.split('%')
+        navigation.navigate(Screens.ConnectionInvitation, { url })
+      } else {
+        const message = await res.json()
+        await agent?.receiveMessage(message)
+        navigation.navigate(TabStacks.HomeStack)
+      }
+    } catch (error) {
+      console.log('handleRedirection error', error)
+    }
   }
 
   const handleCodeScan = async (event: BarCodeReadEvent) => {
@@ -73,6 +88,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     }
   }
 
+  const inputSubmitUrl = async () => {
+    navigation.navigate(Screens.ConnectionInvitation, { url: urlInput })
+  }
+
   return (
     <View style={[styles.container]}>
       {isFocused && (
@@ -80,6 +99,8 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           handleCodeScan={handleCodeScan}
           error={qrCodeScanError}
           enableCameraOnError
+          onChangeText={setUrl}
+          textInputSubmit={inputSubmitUrl}
         />
       )}
     </View>

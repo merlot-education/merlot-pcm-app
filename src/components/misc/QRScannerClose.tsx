@@ -9,12 +9,10 @@ interface Props {
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignSelf: 'center',
   },
   button: {
-    padding: 20,
+    padding: 0,
   },
 })
 
