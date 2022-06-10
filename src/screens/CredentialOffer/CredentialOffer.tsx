@@ -1,13 +1,18 @@
 import { StackScreenProps } from '@react-navigation/stack'
-import { ConnectionRecord, CredentialState } from '@aries-framework/core'
+import {
+  AriesFrameworkError,
+  ConnectionRecord,
+  CredentialState,
+} from '@aries-framework/core'
 import { StyleSheet, Alert, View, Text } from 'react-native'
 import {
   useAgent,
   useConnectionById,
   useCredentialById,
 } from '@aries-framework/react-hooks'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import Toast from 'react-native-toast-message'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { HomeStackParams, Screens, TabStacks } from '../../types/navigators'
 import Title from '../../components/text/Title'
@@ -18,7 +23,8 @@ import CredentialDeclined from '../../assets/img/credential-declined.svg'
 import CredentialPending from '../../assets/img/credential-pending.svg'
 import CredentialSuccess from '../../assets/img/credential-success.svg'
 import Button, { ButtonType } from '../../components/button/Button'
-import { acceptCredential } from './CredentialOffer.utils'
+import { credentialDefinition } from '../../utils/helpers'
+import { ToastType } from '../../components/toast/BaseToast'
 
 type CredentialOfferProps = StackScreenProps<
   HomeStackParams,
@@ -58,6 +64,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
 
   const credential = useCredentialById(credentialId)
 
+  const connection = useConnectionById(credential.connectionId)
+
   if (!agent) {
     throw new Error('Unable to fetch agent from AFJ')
   }
@@ -72,6 +80,34 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
     }
   }, [credential])
 
+  const saveCredentialInGenericRecords = useCallback(async () => {
+    if (credential.state === CredentialState.Done) {
+      const tags = {
+        connectionId: connection.id,
+        credentialRecordId: credential.credentials[0].credentialRecordId,
+        type: 'credential',
+      }
+      const attributes = {}
+      credential.credentialAttributes.forEach(attribute => {
+        attributes[attribute.name] = attribute.value
+      })
+      const record = {
+        status: 'issued',
+        timestamp: new Date().getTime(),
+        connectionLabel: connection.theirLabel ?? 'Connection less credential',
+        credentialLabel: credentialDefinition(credential).split(':')[4],
+        attributes,
+      }
+      const content = { records: [record] }
+      await agent.genericRecords.save({ content, tags })
+    }
+  }, [
+    agent?.genericRecords,
+    connection?.id,
+    connection?.theirLabel,
+    credential,
+  ])
+
   useEffect(() => {
     if (
       credential.state === CredentialState.CredentialReceived ||
@@ -82,20 +118,28 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
       }
       setSuccessModalVisible(true)
     }
-  }, [credential, pendingModalVisible])
+    if (credential.state === CredentialState.Done) {
+      saveCredentialInGenericRecords()
+    }
+  }, [credential, pendingModalVisible, saveCredentialInGenericRecords])
 
   const handleAcceptPress = async () => {
     try {
       setButtonsVisible(false)
       setPendingModalVisible(true)
-      // await agent.credentials.acceptOffer(credential.id)
-      acceptCredential(agent, credential)
-    } catch (e: unknown) {
+      await agent.credentials.acceptOffer({ credentialRecordId: credential.id })
+    } catch (error: unknown) {
+      const credentialError = error as AriesFrameworkError
       setButtonsVisible(true)
       setPendingModalVisible(false)
+      Toast.show({
+        type: ToastType.Error,
+        text1: credentialError.name,
+        text2: credentialError.message,
+      })
       console.log(
         'Unable to accept offer There was a problem while accepting the credential offer.',
-        e,
+        credentialError,
       )
     }
   }
@@ -125,10 +169,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
     )
   }
 
-  const connection = useConnectionById(credential.connectionId)
-
   const getConnectionName = (connection: ConnectionRecord) => {
-    return connection?.alias || connection?.invitation?.label
+    return connection?.alias || connection?.theirLabel
   }
 
   return (

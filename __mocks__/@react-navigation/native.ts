@@ -1,3 +1,3 @@
 const useFocusEffect = jest.fn()
 
-export { useFocusEffect }
+export default { useFocusEffect }

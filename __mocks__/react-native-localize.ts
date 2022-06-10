@@ -57,4 +57,4 @@ const findBestAvailableLanguage = () => ({
   isRTL: false,
 })
 
-export { findBestAvailableLanguage }
+export default { findBestAvailableLanguage }

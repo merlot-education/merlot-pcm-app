@@ -11,8 +11,10 @@ import { getInvitationFromUrl } from './ConnectionInvitation.utils'
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
+    justifyContent: 'center',
   },
   bodyText: {
     ...TextTheme.normal,

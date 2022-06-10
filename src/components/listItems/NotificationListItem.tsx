@@ -1,5 +1,5 @@
 import {
-  CredentialRecord,
+  CredentialExchangeRecord,
   ProofRecord,
   RetrievedCredentials,
 } from '@aries-framework/core'
@@ -30,7 +30,7 @@ export enum NotificationType {
 
 interface NotificationListItemProps {
   notificationType: NotificationType
-  notification: CredentialRecord | ProofRecord
+  notification: CredentialExchangeRecord | ProofRecord
 }
 
 const styles = StyleSheet.create({
@@ -79,43 +79,9 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
   const { t } = useTranslation()
-  const [credDef, setCredDef] = useState('')
   const connection = useConnectionById(
     (notification as ProofRecord)?.connectionId || '',
   )
-  const { agent } = useAgent()
-
-  const getCredentialinfo = async () => {
-    const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
-      notification.id,
-    )
-    transformProofObject(creds)
-  }
-  const transformProofObject = async (creds: RetrievedCredentials) => {
-    const base64Data =
-      proof?.requestMessage?.requestPresentationAttachments[0].data.base64
-    const proofRequest = JSON.parse(
-      Buffer.from(base64Data!, 'base64').toString(),
-    )
-    const requestedAttributesKeys = Object.keys(
-      proofRequest.requested_attributes,
-    )
-    requestedAttributesKeys.forEach(key => {
-      if (creds.requestedAttributes[key].length > 0) {
-        creds.requestedAttributes[key].forEach((cred, index) => {
-          const credentialDefinitionId = getCredDefName(
-            JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
-          )
-          setCredDef(credentialDefinitionId)
-        })
-      }
-    })
-  }
-  const proof = useProofById(notification.id)
-  getCredentialinfo()
-  const [retrievedCredentials, setRetrievedCredentials] =
-    useState<RetrievedCredentials>()
-  const reqAttr = retrievedCredentials?.requestedAttributes
 
   let onPress: () => void
   let title = ''
@@ -123,7 +89,9 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 
   switch (notificationType) {
     case NotificationType.CredentialOffer: {
-      const { name, version } = parsedSchema(notification as CredentialRecord)
+      const { name, version } = parsedSchema(
+        notification as CredentialExchangeRecord,
+      )
       onPress = () =>
         navigation.navigate(Screens.CredentialOffer, {
           credentialId: notification.id,
@@ -134,11 +102,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     }
     case NotificationType.ProofRequest: {
       title = t('ProofRequest.ProofRequest')
-      if (connection === undefined) {
-        body = credDef
-      } else {
-        body = connection?.theirLabel || ''
-      }
+      body = connection?.theirLabel ?? 'Connectionless proof request'
       onPress = () =>
         navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
       break

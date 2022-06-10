@@ -1,13 +1,12 @@
-import { ProofRecord } from '@aries-framework/core'
+import { Agent, ProofRecord } from '@aries-framework/core'
 
 export const getRetrievedCredential = async (
-  agent: any,
+  agent: Agent,
   proof: ProofRecord,
 ) => {
-  const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
-    proof.id,
-  )
-  return creds
+  const retrievedCredentials =
+    await agent.proofs.getRequestedCredentialsForProofRequest(proof.id)
+  return retrievedCredentials
 }
 
 export default { getRetrievedCredential }

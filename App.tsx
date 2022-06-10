@@ -5,11 +5,11 @@ import { Provider as AntDesignProvider } from '@ant-design/react-native'
 import AgentProvider from '@aries-framework/react-hooks'
 import Toast from 'react-native-toast-message'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { Platform } from 'react-native'
 import { ColorPallet, customTheme } from './src/theme/theme'
 import RootStack from './src/navigators/RootStack'
 import { initStoredLanguage } from './src/localization'
 import toastConfig from './src/components/toast/ToastConfig'
-import { Platform } from 'react-native'
 
 const navigationTheme = {
   dark: false,

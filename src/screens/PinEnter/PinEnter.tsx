@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import ReactNativeBiometrics from 'react-native-biometrics'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 import { TextInput, Loader } from '../../components'
@@ -179,10 +178,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       <Button
         title={t('Global.Submit')}
         buttonType={ButtonType.Primary}
-        onPress={() => {
-          Keyboard.dismiss()
-          checkPin(pin)
-        }}
+        onPress={() => checkPin(pin)}
       />
     </View>
   )

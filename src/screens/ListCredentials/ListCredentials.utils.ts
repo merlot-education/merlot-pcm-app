@@ -1,8 +1,8 @@
-import { CredentialRecord } from '@aries-framework/core'
+import { CredentialExchangeRecord } from '@aries-framework/core'
 import { parsedSchema } from '../../utils/helpers'
 
 const searchCredentialsList = (
-  credentialsList: CredentialRecord[],
+  credentialsList: CredentialExchangeRecord[],
   searchText: string,
 ) => {
   const filteredData = credentialsList.filter(item => {

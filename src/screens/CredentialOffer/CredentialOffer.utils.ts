@@ -1,12 +1,13 @@
-import { Agent, CredentialRecord } from '@aries-framework/core'
-import { useAgent } from '@aries-framework/react-hooks'
+import { Agent, CredentialExchangeRecord } from '@aries-framework/core'
 
 export const acceptCredential = async (
   agent: Agent,
-  credential: CredentialRecord,
+  credential: CredentialExchangeRecord,
 ) => {
-  const credentialrecord = await agent.credentials.acceptOffer(credential.id)
-  return credentialrecord
+  const credentialRecord = await agent.credentials.acceptOffer({
+    credentialRecordId: credential.id,
+  })
+  return credentialRecord
 }
 
 export default { acceptCredential }

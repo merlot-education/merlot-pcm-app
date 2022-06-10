@@ -1,7 +1,12 @@
-export const getInvitationFromUrl = async (agent, url): Promise<string[]> => {
-  const data = await agent?.connections.receiveInvitationFromUrl(url, {
-    autoAcceptConnection: true,
+import { Agent, ConnectionRecord } from '@aries-framework/core'
+
+export const getInvitationFromUrl = async (
+  agent: Agent,
+  url: string,
+): Promise<ConnectionRecord> => {
+  const { connectionRecord } = await agent.oob.receiveInvitationFromUrl(url, {
+    autoAcceptInvitation: true,
   })
-  return data
+  return connectionRecord
 }
 export default getInvitationFromUrl

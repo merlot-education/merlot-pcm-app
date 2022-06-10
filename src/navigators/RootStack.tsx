@@ -35,6 +35,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
         autoAcceptProofs: AutoAcceptProof.ContentApproved,
         logger: new ConsoleLogger(LogLevel.debug),
+        autoUpdateStorageOnStartup: true,
         indyLedgers,
       },
       agentDependencies,

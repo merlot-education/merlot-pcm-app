@@ -1,6 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-bitwise */
-import { CredentialMetadataKeys, CredentialRecord } from '@aries-framework/core'
+import {
+  CredentialMetadataKeys,
+  CredentialExchangeRecord,
+} from '@aries-framework/core'
 import React from 'react'
 import {
   useConnectionById,
@@ -57,27 +60,29 @@ export function parseCredDef(credentialDefinitionId?: string): {
 }
 
 export function credentialSchema(
-  credential: CredentialRecord,
+  credential: CredentialExchangeRecord,
 ): string | undefined {
   return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
     ?.schemaId
 }
 
 export function credentialDefinition(
-  credential: CredentialRecord,
+  credential: CredentialExchangeRecord,
 ): string | undefined {
   return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
     ?.credentialDefinitionId
 }
 
-export function parsedSchema(credential: CredentialRecord): {
+export function parsedSchema(credential: CredentialExchangeRecord): {
   name: string
   version: string
 } {
   return parseSchema(credentialSchema(credential))
 }
 
-export function parsedCredentialDefinition(credential: CredentialRecord): {
+export function parsedCredentialDefinition(
+  credential: CredentialExchangeRecord,
+): {
   name: string
 } {
   return parseCredDef(credentialDefinition(credential))

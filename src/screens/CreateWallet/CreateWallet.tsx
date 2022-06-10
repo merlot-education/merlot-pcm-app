@@ -92,6 +92,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
   }
 
   const createWallet = async () => {
+    setLoading(true)
     const email = await getValueKeychain({
       service: 'email',
     })
@@ -99,19 +100,18 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
       service: 'passcode',
     })
     await startAgent(email.password, pinCode.password)
+    setLoading(false)
+    setAuthenticated(true)
   }
 
   const startAgent = async (email: string, pin: string) => {
     try {
-      setLoading(true)
       const rawValue = email + mnemonicText.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
 
       await initAgent(email, pin, seedHash)
       await storeOnboardingCompleteStage()
-      setLoading(false)
       successToast(t('PinCreate.WalletCreated'))
-      setAuthenticated(true)
     } catch (error) {
       setLoading(false)
       errorToast(error.message)
@@ -140,10 +140,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
         <Button
           title={t('Global.Next')}
           buttonType={ButtonType.Primary}
-          onPress={() => {
-            Keyboard.dismiss()
-            createWallet()
-          }}
+          onPress={createWallet}
         />
       </ScrollView>
     </SafeAreaView>

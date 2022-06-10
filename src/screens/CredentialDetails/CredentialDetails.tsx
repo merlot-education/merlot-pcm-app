@@ -1,13 +1,104 @@
 import type { StackScreenProps } from '@react-navigation/stack'
 
-import { useCredentialById } from '@aries-framework/react-hooks'
-import React from 'react'
+import { useAgent, useCredentialById } from '@aries-framework/react-hooks'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { View } from 'react-native'
-import Record from '../../components/record/Record'
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  FlatList,
+  ScrollView,
+} from 'react-native'
 import CredentialCard from '../../components/misc/CredentialCard'
 import { CredentialStackParams, Screens } from '../../types/navigators'
 import { warningToast, errorToast } from '../../utils/toast'
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import Accordion from '../../components/accordion/Accordion'
+import { credentialDefinition } from '../../utils/helpers'
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: ColorPallet.baseColors.white,
+    borderRadius: 10,
+    elevation: 3,
+    padding: 10,
+    marginVertical: 10,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  cardIos: {
+    backgroundColor: ColorPallet.baseColors.white,
+    shadowColor: ColorPallet.baseColors.black,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    borderRadius: 10,
+    padding: 10,
+    marginVertical: 10,
+    width: '90%',
+    alignSelf: 'center',
+  },
+  text: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  safeArea: {
+    flex: 1,
+  },
+  heading: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+  },
+  hidden: {
+    height: 0,
+  },
+  list: {
+    overflow: 'hidden',
+  },
+  sectionTitle: {
+    ...TextTheme.normal,
+    fontWeight: 'bold',
+    color: ColorPallet.baseColors.black,
+    marginLeft: '5%',
+  },
+  sectionSubTitle: {
+    ...TextTheme.caption,
+    color: ColorPallet.baseColors.black,
+    marginLeft: '5%',
+  },
+  sectionDescription: {
+    ...TextTheme.caption,
+    color: ColorPallet.baseColors.black,
+    height: 30,
+    marginLeft: '5%',
+  },
+  divider: {
+    borderBottomColor: ColorPallet.baseColors.lightGrey,
+    borderBottomWidth: 1,
+    width: '100%',
+  },
+  credentialCardView: {
+    marginHorizontal: 15,
+    marginTop: 16,
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    marginVertical: 5,
+  },
+  attribute: {
+    width: '50%',
+  },
+  scrollView: {
+    paddingBottom: 30,
+  },
+})
 
 type CredentialDetailsProps = StackScreenProps<
   CredentialStackParams,
@@ -21,6 +112,39 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   const { t } = useTranslation()
   const { credentialId } = route.params
   const credential = useCredentialById(credentialId)
+  const { agent } = useAgent()
+  const [history, setHistory] = useState([])
+
+  const getCredentialHistory = useCallback(async () => {
+    try {
+      const data = await agent.genericRecords.findAllByQuery({
+        credentialRecordId: credential.credentials[0].credentialRecordId,
+      })
+
+      const history = []
+
+      // Add all credential records to the history
+      data.forEach(record => history.push(...record.content.records))
+
+      // Filter out the credential records which have property credentialLabel
+      const filteredHistory = history.filter(record => record?.credentialLabel)
+
+      // Sort history by timestamp
+      const sortedHistory = filteredHistory.sort(
+        (x, y) =>
+          new Date(y.timestamp).valueOf() - new Date(x.timestamp).valueOf(),
+      )
+
+      setHistory(sortedHistory)
+    } catch (error) {
+      errorToast(t('credential.get.error'))
+    }
+  }, [agent, credential, t])
+
+  useEffect(() => {
+    getCredentialHistory()
+  }, [getCredentialHistory])
+
   if (!route.params.credentialId) {
     warningToast(t('CredentialOffer.CredentialNotFound'))
     navigation.goBack()
@@ -33,31 +157,61 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   }
 
   return (
-    <Record
-      header={() => (
-        <CredentialCard
-          credential={credential}
-          style={{ marginHorizontal: 15, marginTop: 16 }}
-        />
-      )}
-      footer={() => (
-        <View style={{ marginBottom: 30 }}>
-          {/* <TouchableOpacity activeOpacity={1}>
-            <Text
-              style={[
-                styles.footerText,
-                styles.link,
-                { color: ColorPallet.semantic.error },
-              ]}
-            >
-              {t('CredentialDetails.RemoveFromWallet')}
-            </Text>
-          </TouchableOpacity> */}
-        </View>
-      )}
-      attributes={credential.credentialAttributes}
-      hideAttributeValues
-    />
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <CredentialCard
+        credential={credential}
+        style={styles.credentialCardView}
+      />
+      <View style={Platform.OS === 'android' ? styles.card : styles.cardIos}>
+        <Accordion title="Info" innerAccordion={false}>
+          <View>
+            <View style={styles.innerContainer}>
+              <Text style={styles.attribute}>Credential </Text>
+              <Text style={styles.attribute}>
+                {credentialDefinition(credential).split(':')[4]}
+              </Text>
+            </View>
+            <View style={styles.divider} />
+            {credential.credentialAttributes.map(item => {
+              return (
+                <View style={styles.innerContainer}>
+                  <Text style={styles.attribute}>{item.name}</Text>
+                  <Text style={styles.attribute}>{item.value}</Text>
+                </View>
+              )
+            })}
+          </View>
+        </Accordion>
+      </View>
+      <View style={Platform.OS === 'android' ? styles.card : styles.cardIos}>
+        <Accordion title="Activities" innerAccordion={false}>
+          {history.map((item, index) => {
+            return (
+              <View>
+                <Accordion
+                  title={item.connectionLabel}
+                  date={new Date(item.timestamp)}
+                  status={item.status}
+                  innerAccordion
+                >
+                  {Object.entries(item.attributes).map(([key, value]) => {
+                    return (
+                      <View style={styles.innerContainer}>
+                        <Text style={styles.attribute}>{key}</Text>
+                        <Text style={styles.attribute}>{value.toString()}</Text>
+                      </View>
+                    )
+                  })}
+                </Accordion>
+                {history.length - 1 !== index && (
+                  <View style={styles.divider} />
+                )}
+              </View>
+            )
+          })}
+        </Accordion>
+      </View>
+    </ScrollView>
   )
 }
 

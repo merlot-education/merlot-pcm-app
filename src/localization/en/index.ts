@@ -53,7 +53,7 @@ const translation = {
     "MnemonicMsg": "This is the phrase that will be used to create your wallet seed and while exporting wallet , please save it securely. This can be later found in settings screen.",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonic",
-    "SecondCounter": 'Second Left'
+    "SecondCounter": 'Seconds Left'
   },
   "Terms": {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
