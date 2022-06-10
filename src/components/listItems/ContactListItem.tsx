@@ -40,7 +40,7 @@ const ContactListItem: React.FC<Props> = ({ contact }) => {
       key={contact.id}
       style={styles.container}
     >
-      <Title>{contact?.alias || contact?.invitation?.label}</Title>
+      <Title>{contact?.alias || contact?.theirLabel}</Title>
       <Text>DID : {contact.did}</Text>
       <Text>State : {contact.state}</Text>
       <Text style={styles.date}>

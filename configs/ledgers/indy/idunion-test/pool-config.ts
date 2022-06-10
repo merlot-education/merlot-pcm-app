@@ -3,7 +3,7 @@ import { IndyPoolConfig } from '@aries-framework/core/build/modules/ledger/IndyP
 import genesisFile from './genesis-file'
 
 const config: IndyPoolConfig = {
-  id: 'IndicioTestNet',
+  id: 'IDunionTest',
   genesisTransactions: genesisFile,
   isProduction: false,
 }

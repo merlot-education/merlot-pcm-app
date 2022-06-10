@@ -1,8 +1,8 @@
 import React from 'react'
 import {
   CredentialMetadataKeys,
-  CredentialPreviewAttribute,
-  CredentialRecord,
+  V1CredentialPreview,
+  CredentialExchangeRecord,
   CredentialState,
 } from '@aries-framework/core'
 import { Alert } from 'react-native'
@@ -10,12 +10,12 @@ import { render } from '@testing-library/react-native'
 import CredentialCard from '../CredentialCard'
 import { parsedSchema } from '../../../utils/helpers'
 
-const credentialRecord = new CredentialRecord({
+const credentialRecord = new CredentialExchangeRecord({
   connectionId: '28790bfe-1345-4c64-b21a-7d98982b3894',
   threadId: 'threadId',
   state: CredentialState.Done,
   credentialAttributes: [
-    new CredentialPreviewAttribute({
+    new V1CredentialPreview({
       name: 'age',
       value: '25',
     }),

@@ -1,4 +1,4 @@
-import { CredentialRecord } from '@aries-framework/core'
+import { CredentialExchangeRecord } from '@aries-framework/core'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View, ViewStyle } from 'react-native'
@@ -10,7 +10,7 @@ import { parsedSchema } from '../../utils/helpers'
 import AvatarView from './AvatarView'
 
 interface CredentialCardProps {
-  credential: CredentialRecord
+  credential: CredentialExchangeRecord
   style?: ViewStyle
 }
 

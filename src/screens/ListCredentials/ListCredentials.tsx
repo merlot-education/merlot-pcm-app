@@ -1,4 +1,7 @@
-import { CredentialState, CredentialRecord } from '@aries-framework/core'
+import {
+  CredentialState,
+  CredentialExchangeRecord,
+} from '@aries-framework/core'
 import { useCredentialByState } from '@aries-framework/react-hooks'
 import React, { useEffect, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -69,7 +72,7 @@ const ListCredentials: React.FC = () => {
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
         data={filteredData}
-        keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
+        keyExtractor={(item: CredentialExchangeRecord) => item?.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (
           <View

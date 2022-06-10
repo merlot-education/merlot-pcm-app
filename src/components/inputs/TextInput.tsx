@@ -44,7 +44,7 @@ const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
         }
       }, 40)
     }
-  })
+  }, [focused])
 
   const focusInput = () => setFocused(true)
 

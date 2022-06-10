@@ -271,10 +271,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
           title="Setup PIN"
           buttonType={ButtonType.Primary}
           disabled={successPin}
-          onPress={() => {
-            Keyboard.dismiss()
-            confirmEntry(pin, pinTwo)
-          }}
+          onPress={() => confirmEntry(pin, pinTwo)}
         />
       </View>
       {!forgotPin && (
