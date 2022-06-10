@@ -1,7 +1,5 @@
 # PCM App
 
-PCM is a Aries mobile agent app. This is a project that has been created to focus the community's efforts towards a central open source project. Various different organizations and people have expressed interest in a open source community project to help focus efforts to help prevent duplication of work between projects. PCM is also intended to help get complex or specific use-case projects started faster by cloning and having a basis of an Aries agent.
-
 ## Code
 
 This project utilizes [Aries Framework Javascript (AFJ)](https://github.com/hyperledger/aries-framework-javascript) and [indy-sdk-react-native](https://github.com/hyperledger/indy-sdk-react-native).
@@ -23,9 +21,8 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
    - (iOS) Install [Cocoa Pods](https://cocoapods.org/)
 2. Clone the PCM repo and install its dependencies:
    ```sh
-   git clone https://code.vereign.com/gaiax/pcm/app/-/tree/develop
-   cd APP
-   npm install
+   git clone https://code.vereign.com/gaiax/pcm/app
+   yarn install
    ```
 3. (iOS) iOS specific install:
    - Install iOS Pods:
@@ -40,23 +37,23 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
 ## Configure
 
 In the root directory add an `.env.development` file containing:
+NOTIFICATION_URL=http:www.example.com/notification_manager
+MEDIATOR_URL=https://www.example.com/mediator
+
 
 ## Run
 
 - Launch the metro bundler:
   ```sh
-  npm run start
   yarn start
   ```
 - Open a second terminal and run:
   - (Android)
     ```sh
-    npm run android:dev
     yarn android:dev
     ```
   - (iOS)
     ```sh
-    npm run ios:dev
     yarn ios:dev
     ```
   - (iOS) Via Xcode:
@@ -69,7 +66,6 @@ In the root directory add an `.env.development` file containing:
 #### Mediator
 
 In order to use PCM, you must have a mediator to use with the app. PCM is configured to use 'Implicit' mediation and requires a mediator that supports the [coordinate-mediation protocol](https://github.com/hyperledger/aries-rfcs/tree/main/features/0211-route-coordination).
-Bifold by default utilizes the [Indicio Public Mediator](https://indicio-tech.github.io/mediator/), which utilizes ACA-Py. For running your own ACA-Py mediator more details can be found [here](https://github.com/hyperledger/aries-cloudagent-python/blob/main/Mediation.md).
 
 ## Troubleshooting
 
@@ -85,7 +81,7 @@ If you end up changing dependencies or structures, you may need to perform the f
 
 ```sh
 rm -rf node_modules
-npm install
+yarn install
 ```
 
 Clean the Android build:
@@ -99,12 +95,12 @@ cd ..
 Start and clean the Metro cache:
 
 ```sh
-npm run start
+yarn start
 ```
 
 In your second terminal, you can now run:
 
 ```sh
-npm run android
+yarn android
 ```
 
