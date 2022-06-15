@@ -8,6 +8,10 @@ const Images = {
   credentialsIcon: require('./credentials-icon.png'),
   scanIcon: require('./scan-icon.png'),
   settingsIcon: require('./settings-icon.png'),
+  emailIcon: require('./email.png'),
+  wrongOtpIcon: require('./wrong-otp.png'),
+  correctOtpIcon: require('./correct-otp.png'),
+  loaderIcon: require('./loader.png'),
 }
 
 export default Images

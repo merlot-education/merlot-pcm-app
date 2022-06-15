@@ -1,26 +1,59 @@
-import React from 'react'
-import { Modal, View, ActivityIndicator, StyleSheet } from 'react-native'
+import React, { useEffect, useMemo } from 'react'
+import { Animated, Easing, Modal, StyleSheet } from 'react-native'
+import Images from '../../assets'
 import { ColorPallet } from '../../theme/theme'
 
-interface LoaderProps {
-  loading?: boolean
+type Props = {
+  loading: boolean
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   activityIndicatorWrapper: {
-    backgroundColor: 'rgba(52, 52, 52, 0.8)',
+    backgroundColor: `${ColorPallet.baseColors.black}20`,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
 })
 
-const Loader: React.FC<LoaderProps> = ({ loading }) => {
+const Loader: React.FC<Props> = ({ loading }) => {
+  const spinValue = useMemo(() => new Animated.Value(0), [])
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.timing(spinValue, {
+        toValue: 1,
+        duration: 1000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    ).start()
+  }, [spinValue])
+
+  const spin = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '360deg'],
+  })
   return (
-    <Modal testID="loader" animationType="none" visible={loading} transparent>
-      <View style={styles.activityIndicatorWrapper}>
-        <ActivityIndicator size="small" color={ColorPallet.brand.primary} />
-      </View>
+    <Modal visible={loading} transparent style={styles.container}>
+      <Animated.View style={styles.activityIndicatorWrapper}>
+        <Animated.Image
+          style={{
+            flex: 1,
+            alignSelf: 'center',
+            height: 70,
+            width: 70,
+            transform: [{ rotate: spin }],
+          }}
+          resizeMode="contain"
+          source={Images.loaderIcon}
+        />
+      </Animated.View>
     </Modal>
   )
 }

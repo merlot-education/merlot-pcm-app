@@ -8,6 +8,7 @@ export interface TextBoxProps {
   children: string | React.ReactNode
   showTopIcon?: boolean
   showBottomIcon?: boolean
+  errorMsg?: string
 }
 
 const iconSize = 30
@@ -17,7 +18,6 @@ const styles = StyleSheet.create({
     backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 20,
     padding: 20,
-    minHeight: 250,
   },
   headerText: {
     ...TextTheme.normal,
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   bottomIconContainer: {
-    alignSelf: 'center',
+    alignSelf: 'flex-start',
   },
   bottomIcon: {
     width: 60,
@@ -37,6 +37,7 @@ const InfoCard: React.FC<TextBoxProps> = ({
   children,
   showTopIcon = false,
   showBottomIcon = false,
+  errorMsg = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -48,13 +49,19 @@ const InfoCard: React.FC<TextBoxProps> = ({
           />
         </View>
       )}
-      <Text
-        style={styles.headerText}
-        testID="InfoCard"
-        accessibilityLabel="InfoCard"
-      >
-        {children}
-      </Text>
+      {errorMsg.length > 0 ? (
+        <View style={styles.bottomIconContainer}>
+          <Text style={styles.headerText}>{errorMsg && errorMsg}</Text>
+        </View>
+      ) : (
+        <Text
+          style={styles.headerText}
+          testID="InfoCard"
+          accessibilityLabel="InfoCard"
+        >
+          {children}
+        </Text>
+      )}
       {showBottomIcon && (
         <View style={styles.bottomIconContainer}>
           <Image source={Images.termsIcon} style={styles.bottomIcon} />

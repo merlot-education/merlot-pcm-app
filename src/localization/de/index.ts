@@ -57,7 +57,11 @@ const translation = {
     "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonik",
-    "SecondCounter": 'Zweite links'
+    "SecondCounter": 'Zweite links',
+    "EmailInfo": 'Wir müssen otp an diese E-Mail senden.Bitte geben Sie eine gültige E-Mail-Adresse ein',
+    "OtpInfo": 'Geben Sie das otp ein, das wir bei der Registrierung per E-Mail gesendet haben',
+    'OtpInvalid': 'Bitte geben Sie ein gültiges otp ein',
+    'OtpSuccess': 'Sie haben Ihr otp erfolgreich verifiziert'
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",

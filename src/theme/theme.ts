@@ -179,6 +179,7 @@ interface FontAttributes {
     | '800'
     | '900'
   color: string
+  fontFamily: string
 }
 
 interface TextTheme {
@@ -208,36 +209,43 @@ export const TextTheme: TextTheme = {
     fontSize: 38,
     fontWeight: 'bold',
     color: ColorPallet.brand.primary,
+    fontFamily: 'TitilliumWeb-SemiBold',
   },
   headingTwo: {
     fontSize: 32,
     fontWeight: 'bold',
+    fontFamily: 'TitilliumWeb-SemiBold',
     color: ColorPallet.baseColors.black,
   },
   headingThree: {
     fontSize: 26,
     fontWeight: 'bold',
     color: ColorPallet.brand.primary,
+    fontFamily: 'TitilliumWeb-SemiBold',
   },
   headingFour: {
     fontSize: 21,
     fontWeight: 'bold',
+    fontFamily: 'TitilliumWeb-SemiBold',
     color: ColorPallet.baseColors.black,
   },
   normal: {
     fontSize: 17,
     fontWeight: 'normal',
+    fontFamily: 'TitilliumWeb-Regular',
     color: ColorPallet.baseColors.black,
   },
   label: {
     fontSize: 14,
     fontWeight: 'bold',
     color: ColorPallet.brand.primary,
+    fontFamily: 'TitilliumWeb-SemiBold',
   },
   caption: {
     fontSize: 14,
     fontWeight: 'normal',
     color: ColorPallet.brand.primary,
+    fontFamily: 'TitilliumWeb-Regular',
   },
 }
 
