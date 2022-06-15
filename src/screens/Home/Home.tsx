@@ -64,8 +64,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   ]
   const emptyListComponent = () => (
     <View style={{ marginHorizontal: offset, width: width - 2 * offset }}>
-      <InfoTextBox>
-        <Text style={[TextTheme.normal]}>{t('Home.NoNewUpdates')}</Text>
+      <InfoTextBox showIcon>
+        <Text style={TextTheme.normal}>{t('Home.NoNewUpdates')}</Text>
       </InfoTextBox>
     </View>
   )

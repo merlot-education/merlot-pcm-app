@@ -8,22 +8,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '95%',
   },
-  searchbarUnclicked: {
+  searchBar: {
     marginLeft: 15,
     marginRight: 15,
     height: 50,
     flexDirection: 'row',
     width: '95%',
-    backgroundColor: ColorPallet.grayscale.searchGray,
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 10,
   },
-  searchbarClicked: {
+  searchBarClicked: {
     marginLeft: 15,
     marginRight: 10,
     height: 50,
     flexDirection: 'row',
     width: '70%',
-    backgroundColor: ColorPallet.grayscale.searchGray,
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 10,
   },
   input: {
@@ -51,9 +51,7 @@ const SearchBar: React.FC<Props> = ({
 }) => {
   return (
     <View style={styles.container}>
-      <View
-        style={clicked ? styles.searchbarClicked : styles.searchbarUnclicked}
-      >
+      <View style={clicked ? styles.searchBarClicked : styles.searchBar}>
         {/* search Icon */}
         <Icon
           name="search"
@@ -82,6 +80,7 @@ const SearchBar: React.FC<Props> = ({
         <View style={styles.buttonStyle}>
           <Button
             title="Cancel"
+            color={ColorPallet.brand.secondary}
             onPress={() => {
               Keyboard.dismiss()
               setClicked(false)

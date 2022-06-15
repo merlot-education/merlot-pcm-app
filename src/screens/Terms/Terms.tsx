@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import { BackHandler, StyleSheet, Text, View, ScrollView } from 'react-native'
+import { BackHandler, StyleSheet, View, ScrollView } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
-import Button, { ButtonType } from '../../components/button/Button'
 import CheckBoxRow from '../../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../../components/text/InfoTextBox'
 import { ColorPallet, TextTheme } from '../../theme/theme'
@@ -11,6 +10,7 @@ import {
   storeTermsCompleteStage,
   restoreAppIntroCompleteStage,
 } from './Terms.utils'
+import { InfoCard, ScreenNavigatorButtons } from '../../components'
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -80,10 +80,10 @@ const Terms: React.FC = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <InfoTextBox>{t('Terms.AcceptTerms')}</InfoTextBox>
-        <Text style={[styles.bodyText, styles.verticalSpacer]}>
-          {t('Terms.TermsAndConditions')}
-        </Text>
+        <InfoTextBox showIcon>{t('Terms.AcceptTerms')}</InfoTextBox>
+        <View style={styles.verticalSpacer}>
+          <InfoCard showBottomIcon>{t('Terms.TermsAndConditions')}</InfoCard>
+        </View>
       </ScrollView>
       <View style={styles.bottom}>
         <CheckBoxRow
@@ -92,19 +92,11 @@ const Terms: React.FC = () => {
           checked={checked}
           onPress={() => setChecked(!checked)}
         />
-        <Button
-          title={t('Global.Continue')}
-          onPress={onSubmitPressed}
-          disabled={!checked}
-          buttonType={ButtonType.Primary}
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={onSubmitPressed}
+          isRightDisabled={!checked}
         />
-        <View style={styles.topSpacer}>
-          <Button
-            title={t('Global.Back')}
-            onPress={onBack}
-            buttonType={ButtonType.Ghost}
-          />
-        </View>
       </View>
     </View>
   )

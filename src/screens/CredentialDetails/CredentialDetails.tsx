@@ -3,14 +3,7 @@ import type { StackScreenProps } from '@react-navigation/stack'
 import { useAgent, useCredentialById } from '@aries-framework/react-hooks'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  FlatList,
-  ScrollView,
-} from 'react-native'
+import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native'
 import CredentialCard from '../../components/misc/CredentialCard'
 import { CredentialStackParams, Screens } from '../../types/navigators'
 import { warningToast, errorToast } from '../../utils/toast'
@@ -94,6 +87,7 @@ const styles = StyleSheet.create({
   },
   attribute: {
     width: '50%',
+    color: ColorPallet.baseColors.black,
   },
   scrollView: {
     paddingBottom: 30,
@@ -117,14 +111,14 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
 
   const getCredentialHistory = useCallback(async () => {
     try {
-      const data = await agent.genericRecords.findAllByQuery({
+      const data = await agent?.genericRecords.findAllByQuery({
         credentialRecordId: credential.credentials[0].credentialRecordId,
       })
 
       const history = []
 
       // Add all credential records to the history
-      data.forEach(record => history.push(...record.content.records))
+      data?.forEach(record => history.push(...record.content.records))
 
       // Filter out the credential records which have property credentialLabel
       const filteredHistory = history.filter(record => record?.credentialLabel)
@@ -168,7 +162,7 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
             <View style={styles.innerContainer}>
               <Text style={styles.attribute}>Credential </Text>
               <Text style={styles.attribute}>
-                {credentialDefinition(credential).split(':')[4]}
+                {credentialDefinition(credential)?.split(':')[4]}
               </Text>
             </View>
             <View style={styles.divider} />

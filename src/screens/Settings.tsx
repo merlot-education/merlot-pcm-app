@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
-    color: ColorPallet.brand.primary,
+    color: ColorPallet.baseColors.black,
   },
   rowGroup: {
     borderRadius: borderRadius * 2,

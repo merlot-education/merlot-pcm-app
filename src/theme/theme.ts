@@ -21,6 +21,7 @@ interface FontAttributes {
 
 interface BrandColors {
   primary: string
+  secondary: string
   highlight: string
   primaryBackground: string
   secondaryBackground: string
@@ -59,7 +60,6 @@ interface GrayscaleColors {
   lightGrey: string
   veryLightGrey: string
   white: string
-  searchGray: string
 }
 
 interface BaseScaleColors {
@@ -92,7 +92,8 @@ export const zeroOpacity = 0.0
 export const borderWidth = 2
 
 const BrandColors: BrandColors = {
-  primary: '#1E9BF2',
+  primary: '#000094',
+  secondary: '#465AFF',
   highlight: '#FCBA19',
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
@@ -129,9 +130,8 @@ const GrayscaleColors: GrayscaleColors = {
   darkGrey: '#313132',
   mediumGrey: '#606060',
   lightGrey: '#d3d3d3',
-  veryLightGrey: '#f2f2f2',
+  veryLightGrey: '#F2F2F2',
   white: '#FFFFFF',
-  searchGray: '#d9dbda',
 }
 
 const BaseScaleColors: BaseScaleColors = {
@@ -212,7 +212,7 @@ export const TextTheme: TextTheme = {
   headingTwo: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: ColorPallet.brand.primary,
+    color: ColorPallet.baseColors.black,
   },
   headingThree: {
     fontSize: 26,
@@ -222,12 +222,12 @@ export const TextTheme: TextTheme = {
   headingFour: {
     fontSize: 21,
     fontWeight: 'bold',
-    color: ColorPallet.brand.primary,
+    color: ColorPallet.baseColors.black,
   },
   normal: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 'normal',
-    color: ColorPallet.brand.primary,
+    color: ColorPallet.baseColors.black,
   },
   label: {
     fontSize: 14,
@@ -265,7 +265,7 @@ interface SingleSelectBlockTheme {
 }
 
 export const ContactTheme: ContactTheme = {
-  background: BaseScaleColors.lightGrey,
+  background: GrayscaleColors.veryLightGrey,
 }
 
 export const SingleSelectBlockTheme: SingleSelectBlockTheme = {
