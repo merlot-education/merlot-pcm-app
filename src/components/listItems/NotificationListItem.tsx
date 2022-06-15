@@ -1,25 +1,16 @@
-import {
-  CredentialExchangeRecord,
-  ProofRecord,
-  RetrievedCredentials,
-} from '@aries-framework/core'
+import { CredentialExchangeRecord, ProofRecord } from '@aries-framework/core'
 
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View, Text } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import {
-  useAgent,
-  useConnectionById,
-  useProofById,
-} from '@aries-framework/react-hooks'
-import { Buffer } from 'buffer'
+import { StyleSheet, View, Text, Image } from 'react-native'
+import { useConnectionById } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Button, { ButtonType } from '../button/Button'
 import { HomeStackParams, Screens } from '../../types/navigators'
-import { getCredDefName, parsedSchema } from '../../utils/helpers'
+import { parsedSchema } from '../../utils/helpers'
+import Images from '../../assets'
 
 const iconSize = 30
 
@@ -35,10 +26,8 @@ interface NotificationListItemProps {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorPallet.notification.info,
-    borderColor: ColorPallet.notification.infoBorder,
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 5,
-    borderWidth: 1,
     padding: 10,
   },
   headerContainer: {
@@ -58,14 +47,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: ColorPallet.notification.infoText,
   },
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
     marginVertical: 15,
     paddingBottom: 10,
-    color: ColorPallet.notification.infoText,
   },
   icon: {
     marginRight: 10,
@@ -114,11 +101,10 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   return (
     <View testID="notification-list-item" style={styles.container}>
       <View style={styles.headerContainer}>
-        <View style={[styles.icon]}>
-          <Icon
-            name="info"
-            size={iconSize}
-            color={ColorPallet.notification.infoIcon}
+        <View style={styles.icon}>
+          <Image
+            source={Images.infoIcon}
+            style={{ width: iconSize, height: iconSize }}
           />
         </View>
         <Text style={styles.headerText}>{title}</Text>

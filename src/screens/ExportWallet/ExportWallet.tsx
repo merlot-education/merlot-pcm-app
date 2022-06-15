@@ -7,7 +7,7 @@ import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
-import { TextInput } from '../../components'
+import { Loader, TextInput } from '../../components'
 import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, salt } from '../../constants'
 
@@ -164,6 +164,7 @@ const ExportWallet = () => {
 
   return (
     <View style={style.container}>
+      <Loader loading={loading} />
       <TextInput
         label={t('Settings.EnterMnemonic')}
         placeholder={t('Settings.EnterMnemonic')}

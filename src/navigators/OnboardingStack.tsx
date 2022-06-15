@@ -32,7 +32,10 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
   return (
     <Stack.Navigator
       initialRouteName={Screens.Splash}
-      screenOptions={{ ...defaultStackOptions, headerShown: false }}
+      screenOptions={{
+        ...defaultStackOptions,
+        headerShown: false,
+      }}
     >
       <Stack.Screen name={Screens.Splash} component={Splash} />
       <Stack.Screen

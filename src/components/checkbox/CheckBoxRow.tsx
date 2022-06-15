@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import Images from '../../assets'
 
 import { ColorPallet, TextTheme } from '../../theme/theme'
 
@@ -11,7 +12,7 @@ interface Props {
   onPress: () => void
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
@@ -22,6 +23,11 @@ const style = StyleSheet.create({
     flexShrink: 1,
     ...TextTheme.normal,
     marginLeft: 10,
+    color: ColorPallet.baseColors.black,
+  },
+  bottomIcon: {
+    width: 60,
+    height: 60,
   },
 })
 
@@ -34,24 +40,24 @@ const CheckBoxRow: React.FC<Props> = ({
   const accessible = !!(accessibilityLabel && accessibilityLabel !== '')
 
   return (
-    <View style={style.container} testID="checkBoxRowView">
+    <View style={styles.container} testID="checkBoxRowView">
       <TouchableOpacity
-        style={style.container}
+        style={styles.container}
         testID="checkBoxRow"
         accessible={accessible}
         accessibilityLabel={accessibilityLabel}
         onPress={onPress}
       >
         {checked ? (
-          <Icon name="check-box" size={36} color={ColorPallet.brand.primary} />
+          <Image source={Images.termsAcceptedIcon} style={styles.bottomIcon} />
         ) : (
           <Icon
             name="check-box-outline-blank"
             size={36}
-            color={ColorPallet.brand.primary}
+            color={ColorPallet.brand.secondary}
           />
         )}
-        <Text style={[style.text]}>{title}</Text>
+        <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
     </View>
   )

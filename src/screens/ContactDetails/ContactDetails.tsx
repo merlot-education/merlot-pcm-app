@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   attribute: {
     width: '50%',
+    color: ColorPallet.baseColors.black,
   },
   attributeContainer: {
     flexDirection: 'row',
@@ -70,14 +71,14 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
 
   const getConnectionHistory = useCallback(async () => {
     // Get credential records for a specific connection
-    const credentialData = await agent.genericRecords.findAllByQuery({
-      connectionId: connection.id,
+    const credentialData = await agent?.genericRecords.findAllByQuery({
+      connectionId: connection?.id,
       type: 'credential',
     })
 
     // Get proof records for a specific connection
-    const proofData = await agent.genericRecords.findAllByQuery({
-      connectionId: connection.id,
+    const proofData = await agent?.genericRecords.findAllByQuery({
+      connectionId: connection?.id,
       type: 'proof',
     })
 
@@ -91,7 +92,7 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
 
     // Combine credential and proof records into one array and filter with connection label
     const history = [...credentialRecords, ...proofRecords].filter(
-      record => record.connectionLabel === connection.theirLabel,
+      record => record.connectionLabel === connection?.theirLabel,
     )
 
     // Sort history by timestamp
@@ -99,9 +100,10 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
       (x, y) =>
         new Date(y.timestamp).valueOf() - new Date(x.timestamp).valueOf(),
     )
-
-    setHistory(sortedHistory)
-  }, [agent.genericRecords, connection])
+    if (sortedHistory) {
+      setHistory(sortedHistory)
+    }
+  }, [agent?.genericRecords, connection])
 
   useEffect(() => {
     getConnectionHistory()
@@ -123,17 +125,13 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
 
   const deleteConnection = async () => {
     try {
-      // Get the mediator connection from the connections list
-      if (connection.theirLabel.toUpperCase().includes('MEDIATOR')) {
-        errorToast(t('ContactDetails.ConnectionCannotDelete'))
-        return
+      if (connection) {
+        // Delete the connection by id
+        await agent?.connections.deleteById(connection?.id)
+
+        successToast(t('ContactDetails.DeleteConnectionSuccess'))
+        navigation.navigate(Screens.ListContacts)
       }
-
-      // Delete the connection by id
-      await agent.connections.deleteById(connection.id)
-
-      successToast(t('ContactDetails.DeleteConnectionSuccess'))
-      navigation.navigate(Screens.ListContacts)
     } catch (error) {
       errorToast(t('ContactDetails.DeleteConnectionFailed'))
     }
@@ -146,26 +144,28 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
       <Label title="Did" subtitle={connection?.did} />
       <Label
         title="Created"
-        subtitle={connection.createdAt.toLocaleDateString(
+        subtitle={connection?.createdAt.toLocaleDateString(
           'en-CA',
           dateFormatOptions,
         )}
       />
       <Label title="Connection State" subtitle={connection?.state} />
-      <TouchableOpacity
-        testID="delete-contact"
-        onPress={showDeleteConnectionAlert}
-      >
-        <Text
-          style={[
-            styles.footerText,
-            styles.link,
-            { color: ColorPallet.semantic.error },
-          ]}
+      {!connection?.theirLabel?.toUpperCase().includes('MEDIATOR') && (
+        <TouchableOpacity
+          testID="delete-contact"
+          onPress={showDeleteConnectionAlert}
         >
-          {t('ContactDetails.DeleteConnection')}
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={[
+              styles.footerText,
+              styles.link,
+              { color: ColorPallet.semantic.error },
+            ]}
+          >
+            {t('ContactDetails.DeleteConnection')}
+          </Text>
+        </TouchableOpacity>
+      )}
 
       <FlatList
         data={history}
