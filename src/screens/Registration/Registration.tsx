@@ -1,17 +1,15 @@
 import React, { useCallback, useState } from 'react'
-import {
-  BackHandler,
-  Keyboard,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native'
+import { BackHandler, StyleSheet, View, Image, Keyboard } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import { TextInput, Loader } from '../../components'
-import Button, { ButtonType } from '../../components/button/Button'
+import {
+  TextInput,
+  Loader,
+  InfoCard,
+  ScreenNavigatorButtons,
+} from '../../components'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
 import { KeychainStorageKeys } from '../../constants'
 import {
@@ -20,7 +18,7 @@ import {
   saveValueInKeychain,
   validateEmail,
 } from './Registration.utils'
-import { warningToast, errorToast, successToast } from '../../utils/toast'
+import Images from '../../assets'
 
 type RegistrationProps = StackScreenProps<
   OnboardingStackParams,
@@ -31,7 +29,10 @@ const style = StyleSheet.create({
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     flex: 1,
+    justifyContent: 'space-between',
+    margin: 20,
   },
+
   subContainer: {
     backgroundColor: ColorPallet.grayscale.white,
     flex: 1,
@@ -52,6 +53,11 @@ const style = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
   },
+  emailImg: {
+    height: 120,
+    width: 60,
+    alignSelf: 'center',
+  },
   label: {
     ...TextTheme.normal,
     fontWeight: 'bold',
@@ -66,7 +72,7 @@ const style = StyleSheet.create({
 const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const [error, setError] = useState('')
   const nav = useNavigation()
   const { t } = useTranslation()
 
@@ -85,18 +91,24 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
             message,
           } = await registerUser(email, '')
           setLoading(false)
-          successToast(message)
+          // successToast(message)
+          setError(message)
           navigation.navigate(Screens.VerifyOtp, { email, otpId })
         } catch (error) {
           setLoading(false)
-          errorToast(error.message)
+          // errorToast(error.message)
+          setError(error.message)
         }
       } else {
-        warningToast(t('Registration.ValidEmail'))
+        setError(t('Registration.ValidEmail'))
       }
     } else {
-      warningToast(t('Registration.EnterEmail'))
+      setError(t('Registration.EnterEmail'))
     }
+  }
+
+  const onBack = async () => {
+    nav.navigate(Screens.Terms)
   }
 
   useFocusEffect(
@@ -116,32 +128,30 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
 
   return (
     <View style={style.container}>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={style.subContainer}
-      >
-        <Loader loading={loading} />
-        <TextInput
-          label={t('Global.Email')}
-          placeholder={t('Global.Email')}
-          placeholderTextColor={ColorPallet.brand.primary}
-          accessible
-          accessibilityLabel={t('Global.Email')}
-          autoFocus
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
-        <Button
-          title={t('Global.Submit')}
-          buttonType={ButtonType.Primary}
-          onPress={() => {
-            Keyboard.dismiss()
-            confirmEntry(email)
-          }}
-        />
-      </ScrollView>
+      <Loader loading={loading} />
+      <TextInput
+        label={t('Global.Email')}
+        placeholder={t('Global.Email')}
+        placeholderTextColor={ColorPallet.brand.primary}
+        accessible
+        accessibilityLabel={t('Global.Email')}
+        autoFocus
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <Image source={Images.emailIcon} style={style.emailImg} />
+      <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+        {t('Registration.EmailInfo')}
+      </InfoCard>
+      <ScreenNavigatorButtons
+        onLeftPress={onBack}
+        onRightPress={() => {
+          Keyboard.dismiss()
+          confirmEntry(email)
+        }}
+      />
     </View>
   )
 }

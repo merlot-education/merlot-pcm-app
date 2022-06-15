@@ -53,7 +53,11 @@ const translation = {
     "MnemonicMsg": "This is the phrase that will be used to create your wallet seed and while exporting wallet , please save it securely. This can be later found in settings screen.",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonic",
-    "SecondCounter": 'Seconds Left'
+    "SecondCounter": 'Seconds Left',
+    "EmailInfo": 'We have to send otp on this email.Please enter a valid email',
+    "OtpInfo": 'Enter the otp we have send on register email',
+    'OtpInvalid': 'Please enter valid otp',
+    'OtpSuccess': 'You have successfully verify your otp'
   },
   "Terms": {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
