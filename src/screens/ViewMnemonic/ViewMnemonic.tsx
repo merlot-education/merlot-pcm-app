@@ -120,6 +120,7 @@ const ViewMnemonic: React.FC = () => {
             keyboardType="numeric"
             secureTextEntry
             value={pin}
+            returnKeyType="done"
             onChangeText={(pin: string) => {
               setPin(pin.replace(/[^0-9]/g, ''))
               if (pin.length === 6) {

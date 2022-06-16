@@ -219,6 +219,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             keyboardType="number-pad"
             value={pin}
             onChangeText={setPin}
+            returnKeyType="done"
           />
           <TextInput
             label={t('PinCreate.ReenterPin')}
@@ -229,6 +230,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             maxLength={6}
             secureTextEntry
             keyboardType="number-pad"
+            returnKeyType="done"
             value={pinTwo}
             onChangeText={(text: string) => {
               setPinTwo(text)

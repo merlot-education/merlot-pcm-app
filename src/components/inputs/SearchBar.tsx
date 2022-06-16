@@ -67,6 +67,7 @@ const SearchBar: React.FC<Props> = ({
         {/* Input field */}
         <TextInput
           style={styles.input}
+          returnKeyType="done"
           placeholder="Search"
           value={searchPhrase}
           onChangeText={setSearchPhrase}

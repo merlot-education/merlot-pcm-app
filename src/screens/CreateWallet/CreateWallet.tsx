@@ -80,6 +80,8 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
       await initAgent(email, pin, seedHash)
       await storeOnboardingCompleteStage()
       successToast(t('PinCreate.WalletCreated'))
+
+      navigation.navigate(Screens.WalletInitialized)
     } catch (error) {
       setLoading(false)
       errorToast(error.message)
@@ -96,7 +98,6 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
     })
     await startAgent(email.password, pinCode.password)
     setLoading(false)
-    navigation.navigate(Screens.WalletInitialized)
   }
 
   return (
@@ -117,7 +118,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
       </View>
       <ScreenNavigatorButtons
         onLeftPress={onBack}
-        onRightPress={() => createWallet()}
+        onRightPress={createWallet}
       />
     </View>
   )

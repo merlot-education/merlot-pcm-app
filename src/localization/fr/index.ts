@@ -90,7 +90,7 @@ const translation = {
     "BiometricCancle": "Invite biométrique annulée par l'utilisateur",
     "BiometricNotSupport": "Biométrie non prise en charge",
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
-    "BiometricInfo": 'Enregistrez lutilisation de Fingureid pour la connexion'
+    "BiometricInfo": 'Enregistrez lutilisation de Biometric pour la connexion'
   },
   "Initialization":{
     "CompleteInitialization":"Complétez votre initialisation",

@@ -89,7 +89,7 @@ const translation = {
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
     "RegisterPinandBiometric": 'PIN und Biometrie registrieren',
-    "BiometricInfo": 'Registrieren Sie die Fingureid-Nutzung für die Anmeldung'
+    "BiometricInfo": 'Registrieren Sie die Biometric-Nutzung für die Anmeldung'
   },
   "Initialization":{
     "CompleteInitialization":"Schließen Sie Ihre Initialisierung ab",
