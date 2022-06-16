@@ -2,29 +2,31 @@ import React, { useState, useEffect, useCallback } from 'react'
 import {
   Keyboard,
   StyleSheet,
-  Text,
   View,
-  Alert,
+  Image,
   BackHandler,
+  Alert,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useAgent } from '@aries-framework/react-hooks'
 
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import { Loader, TextInput } from '../../components'
-import Button, { ButtonType } from '../../components/button/Button'
+import {
+  Loader,
+  TextInput,
+  InfoCard,
+  ScreenNavigatorButtons,
+} from '../../components'
 import { KeychainStorageKeys } from '../../constants'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
 import {
   checkIfSensorAvailable,
-  createBiometricKeys,
-  createMD5HashFromString,
   getValueFromKeychain,
   saveValueInKeychain,
-  showBiometricPrompt,
+  createMD5HashFromString,
 } from './PinCreate.utils'
-import { errorToast, successToast, warningToast } from '../../utils/toast'
+import Images from '../../assets'
 
 type PinCreateProps = StackScreenProps<OnboardingStackParams, Screens.CreatePin>
 
@@ -33,6 +35,7 @@ const style = StyleSheet.create({
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
     flex: 1,
+    justifyContent: 'space-between',
   },
   btnContainer: {
     marginTop: 20,
@@ -42,6 +45,17 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  pinImg: {
+    height: 95,
+    width: 70,
+    marginTop: 20,
+    alignSelf: 'flex-end',
+  },
+  pinImgView: {
+    justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+  },
 })
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
@@ -50,11 +64,10 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   const [pinTwo, setPinTwo] = useState('')
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
     useState(false)
-  const [successPin, setSuccessPin] = useState(false)
-  const [successBiometric, setSuccessBiometric] = useState(false)
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
   const { agent } = useAgent()
+  const [error, setError] = useState('')
 
   const checkBiometricIfPresent = useCallback(async () => {
     const { available } = await checkIfSensorAvailable()
@@ -97,6 +110,49 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     forgotPinEffect()
   }, [forgotPinEffect])
 
+  const passcodeCreate = async (passcode: string) => {
+    try {
+      const [email, oldPasscode] = await Promise.all([
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+        }),
+        new Promise(resolve => {
+          resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
+        }),
+        new Promise(resolve => {
+          resolve(
+            saveValueInKeychain(
+              KeychainStorageKeys.Passcode,
+              passcode,
+              t('PinCreate.UserAuthenticationPin'),
+            ),
+          )
+        }),
+      ])
+
+      if (forgotPin) {
+        setLoading(true)
+        await agent.shutdown()
+        await agent.wallet.rotateKey({
+          id: email.password,
+          key: oldPasscode.password,
+          rekey: passcode,
+        })
+        await agent.initialize()
+        setLoading(false)
+        navigation.navigate(Screens.EnterPin)
+      } else if (biometricSensorAvailable) {
+        navigation.navigate(Screens.Biometric)
+      } else {
+        navigation.navigate(Screens.CreateWallet)
+      }
+
+      setError(t('PinCreate.PinsSuccess'))
+    } catch (e) {
+      setError(e)
+    }
+  }
+
   useEffect(() => {
     const backAction = () => {
       Alert.alert(
@@ -130,181 +186,72 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     return () => backHandler.remove()
   }, [forgotPin, navigation])
 
-  const passcodeCreate = async (passcode: string) => {
-    try {
-      const [email, oldPasscode] = await Promise.all([
-        new Promise(resolve => {
-          resolve(getValueFromKeychain(KeychainStorageKeys.Email))
-        }),
-        new Promise(resolve => {
-          resolve(getValueFromKeychain(KeychainStorageKeys.Passcode))
-        }),
-        new Promise(resolve => {
-          resolve(
-            saveValueInKeychain(
-              KeychainStorageKeys.Passcode,
-              passcode,
-              t('PinCreate.UserAuthenticationPin'),
-            ),
-          )
-        }),
-      ])
-
-      if (forgotPin) {
-        setLoading(true)
-        await agent.shutdown()
-        await agent.wallet.rotateKey({
-          id: email.password,
-          key: oldPasscode.password,
-          rekey: passcode,
-        })
-        await agent.initialize()
-        setLoading(false)
-        navigation.navigate(Screens.EnterPin)
-      }
-      setSuccessPin(true)
-      successToast(t('PinCreate.PinsSuccess'))
-    } catch (e) {
-      errorToast(e)
-    }
-  }
-
   const confirmEntry = async (pin: string, reEnterPin: string) => {
     if (pin.length < 6) {
-      warningToast(t('PinCreate.PinMustBe6DigitsInLength'))
+      setError(t('PinCreate.PinMustBe6DigitsInLength'))
     } else if (reEnterPin.length < 6) {
-      errorToast(t('PinCreate.ReEnterPinMustBe6DigitsInLength'))
+      setError(t('PinCreate.ReEnterPinMustBe6DigitsInLength'))
     } else if (pin !== reEnterPin) {
-      errorToast(t('PinCreate.PinsEnteredDoNotMatch'))
+      setError(t('PinCreate.PinsEnteredDoNotMatch'))
     } else {
       await passcodeCreate(pin)
     }
   }
 
-  const biometricEnable = async () => {
-    const { available } = await checkIfSensorAvailable()
-    if (available) {
-      const { success, error } = await showBiometricPrompt()
-      if (success) {
-        await createBiometricKeys()
-        setSuccessBiometric(true)
-        successToast(t('Biometric.BiometricSuccess'))
-      } else {
-        warningToast(error)
-      }
-    } else {
-      warningToast(t('Biometric.BiometricNotSupport'))
-    }
-  }
-
-  const onSubmit = async () => {
-    if (successPin && successBiometric) {
-      navigation.navigate(Screens.CreateWallet)
-    } else if (successPin && !biometricSensorAvailable) {
-      navigation.navigate(Screens.CreateWallet)
-    } else {
-      warningToast(t('Biometric.RegisterPinandBiometric'))
-    }
-  }
-  const showSameEmailAlert = () => {
-    Alert.alert(t('PinCreate.EmailConfirmation'), t('PinCreate.CheckEmail'), [
-      {
-        text: t('Global.ChangeEmail'),
-        style: 'cancel',
-        onPress: () =>
-          navigation.navigate(Screens.Registration, { forgotPin: false }),
-      },
-      { text: t('Global.Next'), onPress: proceedToImport },
-    ])
-  }
-
-  const proceedToImport = () => {
-    if (successPin && successBiometric) {
-      navigation.navigate(Screens.ImportWallet)
-    } else if (successPin && !biometricSensorAvailable) {
-      navigation.navigate(Screens.ImportWallet)
-    } else {
-      warningToast(t('Biometric.RegisterPinandBiometric'))
-    }
-  }
-
-  const onImportWallet = () => {
-    showSameEmailAlert()
+  const onBack = async () => {
+    navigation.navigate(Screens.Registration)
   }
 
   return (
     <View style={[style.container]}>
       <Loader loading={loading} />
-      <TextInput
-        label={t('Global.EnterPin')}
-        placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={ColorPallet.baseColors.lightGrey}
-        accessible
-        accessibilityLabel={t('Global.EnterPin')}
-        maxLength={6}
-        autoFocus
-        secureTextEntry
-        keyboardType="number-pad"
-        value={pin}
-        onChangeText={setPin}
-      />
-      <TextInput
-        label={t('PinCreate.ReenterPin')}
-        accessible
-        accessibilityLabel={t('PinCreate.ReenterPin')}
-        placeholder={t('Global.6DigitPin')}
-        placeholderTextColor={ColorPallet.baseColors.lightGrey}
-        maxLength={6}
-        secureTextEntry
-        keyboardType="number-pad"
-        value={pinTwo}
-        onChangeText={(text: string) => {
-          setPinTwo(text)
-          if (text.length === 6) {
-            Keyboard.dismiss()
-          }
-        }}
-        editable={pin.length === 6 && true}
-      />
-      <View style={style.btnContainer}>
-        <Button
-          title="Setup PIN"
-          buttonType={ButtonType.Primary}
-          disabled={successPin}
-          onPress={() => confirmEntry(pin, pinTwo)}
-        />
+      <View style={{ flexDirection: 'row' }}>
+        <View style={{ width: '70%' }}>
+          <TextInput
+            label={t('Global.EnterPin')}
+            placeholder={t('Global.6DigitPin')}
+            placeholderTextColor={ColorPallet.baseColors.lightGrey}
+            accessible
+            accessibilityLabel={t('Global.EnterPin')}
+            maxLength={6}
+            autoFocus
+            secureTextEntry
+            keyboardType="number-pad"
+            value={pin}
+            onChangeText={setPin}
+          />
+          <TextInput
+            label={t('PinCreate.ReenterPin')}
+            accessible
+            accessibilityLabel={t('PinCreate.ReenterPin')}
+            placeholder={t('Global.6DigitPin')}
+            placeholderTextColor={ColorPallet.baseColors.lightGrey}
+            maxLength={6}
+            secureTextEntry
+            keyboardType="number-pad"
+            value={pinTwo}
+            onChangeText={(text: string) => {
+              setPinTwo(text)
+              if (text.length === 6) {
+                Keyboard.dismiss()
+              }
+            }}
+            editable={pin.length === 6 && true}
+          />
+        </View>
+        <View style={style.pinImgView}>
+          <Image source={Images.pinIcon} style={style.pinImg} />
+        </View>
       </View>
-      {!forgotPin && (
-        <>
-          <View style={style.btnContainer}>
-            {biometricSensorAvailable && (
-              <Button
-                title="Setup Biometric"
-                buttonType={ButtonType.Primary}
-                onPress={biometricEnable}
-                disabled={successBiometric}
-              />
-            )}
-          </View>
-          <View style={style.btnContainer}>
-            <Button
-              title="Import Wallet"
-              buttonType={ButtonType.Primary}
-              onPress={onImportWallet}
-            />
-          </View>
-          <View style={style.btnContainer}>
-            <Text style={style.label}> {t('PinCreate.OR')}</Text>
-          </View>
-          <View style={style.btnContainer}>
-            <Button
-              title="Create Wallet"
-              buttonType={ButtonType.Primary}
-              onPress={onSubmit}
-            />
-          </View>
-        </>
-      )}
+      <View>
+        <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+          {t('PinCreate.PinInfo')}
+        </InfoCard>
+      </View>
+      <ScreenNavigatorButtons
+        onLeftPress={onBack}
+        onRightPress={() => confirmEntry(pin, pinTwo)}
+      />
     </View>
   )
 }

@@ -29,6 +29,7 @@ export enum Screens {
   ContactDetails = 'ConnectionDetails',
   ViewMnemonic = 'ViewMnemonic',
   CreateWallet = 'CreateWallet',
+  Biometric = 'Biometric',
 }
 
 export type OnboardingStackParams = {
@@ -42,6 +43,11 @@ export type OnboardingStackParams = {
     otpId: string
   }
   CreatePin: {
+    initAgent?: (email: string, walletPin: string, seed: string) => void
+    forgotPin: boolean
+    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
+  }
+  Biometric: {
     initAgent?: (email: string, walletPin: string, seed: string) => void
     forgotPin: boolean
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>

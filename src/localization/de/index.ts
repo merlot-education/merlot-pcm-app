@@ -77,7 +77,8 @@ const translation = {
     "ReenterNewPin": "Neue PIN erneut eingeben",
     "Create": "Schaffen",
     "ValidOldPin": "Bitte gültige alte PIN eingeben",
-    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt."
+    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt.",
+    "PinInfo": 'Dieser Pin wird für die Anmeldung verwendet',
   },
   "Biometric": {
     "Biometric": "Biometrisch",
@@ -86,7 +87,8 @@ const translation = {
     "BiometricFailed": "Biometrie fehlgeschlagen",
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
-    "RegisterPinandBiometric": 'PIN und Biometrie registrieren'
+    "RegisterPinandBiometric": 'PIN und Biometrie registrieren',
+    "BiometricInfo": 'Registrieren Sie die fingerid-Nutzung für die Anmeldung',
   },
   "Home": {
     "Welcome": "Willkommen",

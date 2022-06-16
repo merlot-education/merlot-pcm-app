@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import { Keyboard, StyleSheet, Text, View, Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import {
@@ -11,7 +10,6 @@ import {
   ScreenNavigatorButtons,
 } from '../../components'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
-import { ToastType } from '../../components/toast/BaseToast'
 import { verifyOtp, registerUser } from './VerifyOtp.utils'
 import Images from '../../assets'
 

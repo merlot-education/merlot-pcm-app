@@ -1,0 +1,78 @@
+import React, { useState } from 'react'
+import { StyleSheet, View, Image } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { StackScreenProps } from '@react-navigation/stack'
+
+import { ColorPallet, TextTheme } from '../../theme/theme'
+import { InfoCard, ScreenNavigatorButtons } from '../../components'
+import { OnboardingStackParams, Screens } from '../../types/navigators'
+import {
+  checkIfSensorAvailable,
+  createBiometricKeys,
+  showBiometricPrompt,
+} from './Biometric.utils'
+import Images from '../../assets'
+
+type BiometricProps = StackScreenProps<OnboardingStackParams, Screens.Biometric>
+
+const style = StyleSheet.create({
+  container: {
+    backgroundColor: ColorPallet.grayscale.white,
+    margin: 20,
+    flex: 1,
+    justifyContent: 'space-between',
+  },
+  btnContainer: {
+    marginTop: 20,
+  },
+  label: {
+    ...TextTheme.label,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  biometricIconImg: {
+    height: 150,
+    width: '40%',
+    alignSelf: 'center',
+  },
+})
+
+const Biometric: React.FC<BiometricProps> = ({ navigation }) => {
+  const [error, setError] = useState('')
+  const { t } = useTranslation()
+
+  const biometricEnable = async () => {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
+      const { success, error } = await showBiometricPrompt()
+      if (success) {
+        await createBiometricKeys()
+        setError(t('Biometric.BiometricSuccess'))
+        navigation.navigate(Screens.CreateWallet)
+      } else {
+        setError(error)
+      }
+    } else {
+      setError(t('Biometric.BiometricNotSupport'))
+    }
+  }
+
+  const onBack = async () => {
+    navigation.navigate(Screens.CreatePin)
+  }
+
+  return (
+    <View style={[style.container]}>
+      <Image source={Images.biometricIcon} style={style.biometricIconImg} />
+      <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+        {t('Biometric.BiometricInfo')}
+      </InfoCard>
+      <ScreenNavigatorButtons
+        onLeftPress={onBack}
+        onRightPress={biometricEnable}
+      />
+    </View>
+  )
+}
+
+export default Biometric
