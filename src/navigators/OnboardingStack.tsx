@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 import { Agent } from '@aries-framework/core'
 import PinCreate from '../screens/PinCreate'
+import Biometric from '../screens/Biometric'
 import PinEnter from '../screens/PinEnter'
 import Registration from '../screens/Registration'
 import Splash from '../screens/Splash'
@@ -88,6 +89,18 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'PIN Setup',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.Biometric}
+        component={Biometric}
+        initialParams={{ initAgent, setAuthenticated }}
+        options={() => ({
+          title: 'Biometric',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,

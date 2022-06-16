@@ -77,7 +77,8 @@ const translation = {
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
     "WalletCreated": "Votre portefeuille est créé avec succès",
-    "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité'
+    "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
+    "PinInfo": 'Cette broche utilisée pour la connexion',
   },
   "Biometric": {
     "Biometric": "Biométrique",
@@ -87,6 +88,7 @@ const translation = {
     "BiometricCancle": "Invite biométrique annulée par l'utilisateur",
     "BiometricNotSupport": "Biométrie non prise en charge",
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
+    "BiometricInfo": 'Enregistrer lutilisation du fingerid pour la connexion',
   },
   "Home": {
     "Welcome": "Bienvenue",

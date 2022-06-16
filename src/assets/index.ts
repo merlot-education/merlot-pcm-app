@@ -12,6 +12,8 @@ const Images = {
   wrongOtpIcon: require('./wrong-otp.png'),
   correctOtpIcon: require('./correct-otp.png'),
   loaderIcon: require('./loader.png'),
+  pinIcon: require('./pin.png'),
+  biometricIcon: require('./biometric.png'),
 }
 
 export default Images

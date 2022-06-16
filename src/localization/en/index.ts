@@ -81,7 +81,8 @@ const translation = {
     "WalletCreated": "Your wallet is created successfully.",
     "OR": "OR",
     "EmailConfirmation": "Warning",
-    "CheckEmail": "Email should be same as used for exporting wallet."
+    "CheckEmail": "Email should be same as used for exporting wallet.",
+    "PinInfo": 'This pin used for login'
   },
   "Biometric": {
     "Biometric": "Biometric",
@@ -90,7 +91,8 @@ const translation = {
     "BiometricFailed": "Biometrics failed",
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
-    "RegisterPinandBiometric": 'Register PIN and Biometric'
+    "RegisterPinandBiometric": 'Register PIN and Biometric',
+    "BiometricInfo": 'Register fingerid use for login'
   },
   "Home": {
     "Welcome": "Welcome",

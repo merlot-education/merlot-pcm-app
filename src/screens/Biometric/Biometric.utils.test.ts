@@ -1,4 +1,4 @@
-import * as Utils from './PinCreate.utils'
+import * as Utils from './Biometric.utils'
 
 describe('PinCreate.utils', () => {
   describe('storeOnboardingCompleteStage', () => {
