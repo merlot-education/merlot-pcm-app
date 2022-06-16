@@ -11,6 +11,7 @@ import {
 } from '@aries-framework/core'
 import Config from 'react-native-config'
 import { agentDependencies } from '@aries-framework/react-native'
+import UserInactivity from 'react-native-user-inactivity'
 import indyLedgers from '../../configs/ledgers/indy'
 import MainStack from './MainStack'
 import OnboardingStack from './OnboardingStack'
@@ -22,7 +23,8 @@ interface Props {
 
 const RootStack: React.FC<Props> = ({ setAgent }) => {
   const [authenticated, setAuthenticated] = useState(false)
-
+  const [active, setActive] = useState(true)
+  const [timer, setTimer] = useState(2000)
   const initAgent = async (email: string, walletPin: string, seed: string) => {
     const newAgent = new Agent(
       {
@@ -53,9 +55,19 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
 
   const setAuthenticatedValue = useMemo(() => ({ value: setAuthenticated }), [])
   return authenticated ? (
-    <MainStackContext.Provider value={setAuthenticatedValue}>
-      <MainStack />
-    </MainStackContext.Provider>
+    <>
+      {/* <UserInactivity
+        timeForInactivity={timer}
+        onAction={isActive => {
+          setActive(isActive)
+        }}
+        style={{ flex: 1, paddingTop: '10%' }}
+        
+      /> */}
+      <MainStackContext.Provider value={setAuthenticatedValue}>
+        <MainStack />
+      </MainStackContext.Provider>
+    </>
   ) : (
     <OnboardingStack
       initAgent={initAgent}

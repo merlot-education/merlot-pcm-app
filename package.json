@@ -59,6 +59,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^12.3.0",
     "react-native-toast-message": "^2.1.1",
+    "react-native-user-inactivity": "^1.2.0",
     "react-native-vector-icons": "^9.1.0",
     "rn-fetch-blob": "^0.12.0"
   },
