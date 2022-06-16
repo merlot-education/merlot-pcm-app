@@ -64,7 +64,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       onAction={() => {
         Toast.show({
           type: ToastType.Info,
-          text1: t('Global.Information'),
+          text1: t('Toasts.Info'),
           text2: t('Global.UserInactivity'),
         })
         setAuthenticated(false)
