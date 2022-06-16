@@ -37,6 +37,7 @@ const translation = {
     "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
     "ZeroRecords": 'Aucun enregistrement disponible',
     "ImportWallet": "Importer un portefeuille",
+    "UserInactivity": "Déconnexion en raison de l'inactivité",
   },
   "Language": {
     "English": "Anglais",
