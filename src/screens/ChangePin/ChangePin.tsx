@@ -107,6 +107,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         keyboardType="number-pad"
         value={pin}
         onChangeText={setPin}
+        returnKeyType="done"
       />
       <TextInput
         label={t('Global.EnterNewPin')}
@@ -117,6 +118,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         maxLength={6}
         secureTextEntry
         keyboardType="number-pad"
+        returnKeyType="done"
         value={pinTwo}
         onChangeText={(text: string) => {
           setPinTwo(text)
@@ -131,6 +133,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         maxLength={6}
         secureTextEntry
         keyboardType="number-pad"
+        returnKeyType="done"
         value={pinThree}
         onChangeText={(text: string) => {
           setPinThree(text)

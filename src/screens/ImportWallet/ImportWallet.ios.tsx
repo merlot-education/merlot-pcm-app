@@ -197,6 +197,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
         value={mnemonic}
         onChangeText={setMnemonic}
         autoCapitalize="none"
+        returnKeyType="done"
       />
       <View style={styles.btnContainer}>
         <Button

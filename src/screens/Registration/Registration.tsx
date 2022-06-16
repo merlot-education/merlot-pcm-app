@@ -140,6 +140,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
         onChangeText={setEmail}
         keyboardType="email-address"
         autoCapitalize="none"
+        returnKeyType="done"
       />
       <Image source={Images.emailIcon} style={style.emailImg} />
       <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>

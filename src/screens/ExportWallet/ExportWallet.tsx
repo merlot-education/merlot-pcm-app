@@ -175,6 +175,7 @@ const ExportWallet = () => {
         value={mnemonic}
         onChangeText={setMnemonic}
         autoCapitalize="none"
+        returnKeyType="done"
       />
       <Button
         title={t('Settings.ExportWallet')}

@@ -88,7 +88,7 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
     <View style={[style.container]} testID="Initialization-id">
       <View style={[style.textContainer]}>
         <Text style={TextTheme.normal}>
-          {t('Initialization.CompleteItInitialization')}
+          {t('Initialization.CompleteInitialization')}
         </Text>
       </View>
       <View style={[style.flexColumnContainer]}>

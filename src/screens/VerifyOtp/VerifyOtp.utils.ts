@@ -8,7 +8,7 @@ export const registerUser = async (email: string, otpId: string) => {
   return data
 }
 
-export const verifyOtp = async (otpId: string, otp: string) => {
+export const verifyOtp = async (otpId: string, otp: number) => {
   const data = await api.auth.verifyOtp({
     otpId,
     otp,

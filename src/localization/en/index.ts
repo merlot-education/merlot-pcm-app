@@ -93,14 +93,14 @@ const translation = {
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
     "RegisterPinandBiometric": 'Register PIN and Biometric',
-    "BiometricInfo": 'Register Fingureid use for login'
+    "BiometricInfo": 'Register Biometric use for login'
   },
   "Initialization":{
     "CompleteInitialization":"Complete your Initialization",
-    "InitializationInfo":"Neues Wallet initialisieren oder altes Wallet importieren",
+    "InitializationInfo":"Initialize new wallet or import old wallet",
   },
   "Mnemonic":{
-    "MnemonicTitle":"To complete the initialisation please create an Mnemonic"
+    "MnemonicTitle":"To complete the initialization please create a Mnemonic"
   },
   "Home": {
     "Welcome": "Welcome",

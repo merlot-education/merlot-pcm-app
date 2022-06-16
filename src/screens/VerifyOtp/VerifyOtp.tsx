@@ -47,7 +47,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   const [verifyOTPId, setVerifyOTPId] = useState(otpId)
   const [otpCorrect, setOtpCorrect] = useState(false)
   const [otpWrong, setOtpWrong] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState('')
 
   const { t } = useTranslation()
 
@@ -79,32 +79,25 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     }
   })
 
-  const verifyOtpSubmit = useCallback(
-    async (otpCode: string) => {
-      const otp = parseInt(otpCode, 10)
-      setLoading(true)
-      const { data } = await verifyOtp(verifyOTPId, otp)
-      setLoading(false)
-      if (data) {
-        setOtpCorrect(true)
-        setOtpWrong(false)
-        setError(t('Registration.OtpSuccess'))
-      } else {
-        setLoading(false)
-        setOtpWrong(true)
-        setOtpCorrect(false)
-        setError(t('Registration.OtpInvalid'))
-      }
-    },
-    [t, verifyOTPId],
-  )
-
-  useEffect(() => {
-    if (otp.length === 6) {
-      verifyOtpSubmit(otp)
+  const verifyOtpSubmit = async () => {
+    Keyboard.dismiss()
+    if (otp.length !== 6) {
+      return
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [otp.length === 6, verifyOtpSubmit])
+    const otpCode = parseInt(otp, 10)
+    setLoading(true)
+    const { data } = await verifyOtp(verifyOTPId, otpCode)
+    setLoading(false)
+    if (data) {
+      setOtpCorrect(true)
+      setOtpWrong(false)
+      setError(t('Registration.OtpSuccess'))
+    } else {
+      setOtpWrong(true)
+      setOtpCorrect(false)
+      setError(t('Registration.OtpInvalid'))
+    }
+  }
 
   const onResendOtpButtonPress = async () => {
     setResendButtonDisabledTime(RESEND_OTP_TIME_LIMIT)
@@ -135,12 +128,10 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         maxLength={6}
         autoFocus
         keyboardType="number-pad"
+        returnKeyType="done"
         value={otp}
         onChangeText={setOtp}
-        onSubmitEditing={() => {
-          Keyboard.dismiss()
-          verifyOtpSubmit(otp)
-        }}
+        onSubmitEditing={verifyOtpSubmit}
       />
       <Text style={[style.bodyText, style.verticalSpacer]}>
         {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}
@@ -166,9 +157,9 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       </View>
       <ScreenNavigatorButtons
         onLeftPress={onBack}
-        onRightPress={() => {
+        onRightPress={() =>
           navigation.navigate(Screens.CreatePin, { forgotPin })
-        }}
+        }
         isRightDisabled={!otpCorrect}
       />
     </View>
