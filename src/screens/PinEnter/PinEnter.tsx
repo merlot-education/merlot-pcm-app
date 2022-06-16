@@ -3,12 +3,11 @@ import {
   Alert,
   BackHandler,
   Keyboard,
-  SafeAreaView,
   StyleSheet,
   Text,
+  View,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
-import ReactNativeBiometrics from 'react-native-biometrics'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useFocusEffect } from '@react-navigation/native'
 import { TextInput, Loader } from '../../components'
@@ -22,8 +21,9 @@ import {
   createMD5HashFromString,
   getValueFromKeychain,
   showBiometricPrompt,
+  registerUser,
 } from './PinEnter.utils'
-import { warningToast } from '../../utils/toast'
+import { warningToast, errorToast, successToast } from '../../utils/toast'
 
 type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>
 
@@ -83,8 +83,8 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   }, [initAgent])
 
   const checkBiometricIfPresent = useCallback(async () => {
-    const { available, biometryType } = await checkIfSensorAvailable()
-    if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+    const { available } = await checkIfSensorAvailable()
+    if (available) {
       const { success, error } = await showBiometricPrompt()
       if (success) {
         setLoading(true)
@@ -127,8 +127,33 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
     }
   }
 
+  const forgotPin = async () => {
+    const [email] = await Promise.all([
+      new Promise(resolve => {
+        resolve(getValueFromKeychain(KeychainStorageKeys.Email))
+      }),
+    ])
+    try {
+      setLoading(true)
+      const {
+        data: { otpId },
+        message,
+      } = await registerUser(email.password, '')
+      setLoading(false)
+      successToast(message)
+      navigation.navigate(Screens.VerifyOtp, {
+        email: email.password,
+        forgotPin: true,
+        otpId,
+      })
+    } catch (error) {
+      setLoading(false)
+      errorToast(error.message)
+    }
+  }
+
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.EnterPin')}
@@ -147,23 +172,15 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           }
         }}
       />
-      <Text
-        style={[style.bodyText, style.verticalSpacer]}
-        onPress={() =>
-          navigation.navigate(Screens.Registration, { forgotPin: true })
-        }
-      >
+      <Text style={[style.bodyText, style.verticalSpacer]} onPress={forgotPin}>
         {t('Global.ForgotPin')}
       </Text>
       <Button
         title={t('Global.Submit')}
         buttonType={ButtonType.Primary}
-        onPress={() => {
-          Keyboard.dismiss()
-          checkPin(pin)
-        }}
+        onPress={() => checkPin(pin)}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

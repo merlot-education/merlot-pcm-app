@@ -1,6 +1,5 @@
 import React from 'react'
 import { ScrollView, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 import { ColorPallet } from '../../theme/theme'
 
@@ -20,14 +19,9 @@ const styles = StyleSheet.create({
 
 const SafeAreaScrollView: React.FC<Props> = ({ children }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
-        contentContainerStyle={styles.scrollView}
-        testID="safeareaview"
-      >
-        {children}
-      </ScrollView>
-    </SafeAreaView>
+    <ScrollView contentContainerStyle={styles.scrollView} testID="safeareaview">
+      {children}
+    </ScrollView>
   )
 }
 

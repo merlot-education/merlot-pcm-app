@@ -54,7 +54,6 @@ if (
 ) {
   translationToUse = bestLanguageMatch.languageTag
 }
-// console.log('first', i18n)
 i18n.use(initReactI18next).init({
   debug: true,
   lng: translationToUse,

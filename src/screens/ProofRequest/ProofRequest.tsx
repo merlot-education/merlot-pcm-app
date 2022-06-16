@@ -16,6 +16,7 @@ import { Trans, useTranslation } from 'react-i18next'
 import { Alert, View, StyleSheet, Text } from 'react-native'
 import { Buffer } from 'buffer'
 import { ItemType } from 'react-native-dropdown-picker'
+import { uuid } from '@aries-framework/core/build/utils/uuid'
 import ProofDeclined from '../../assets/img/proof-declined.svg'
 import ProofPending from '../../assets/img/proof-pending.svg'
 import ProofSuccess from '../../assets/img/proof-success.svg'
@@ -106,7 +107,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     proof?.connectionId ? proof.connectionId : '',
   )
 
-  console.log('proof val', proof)
   const transformProofObject = async (creds: RetrievedCredentials) => {
     const base64Data =
       proof?.requestMessage?.requestPresentationAttachments[0].data.base64
@@ -156,7 +156,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         }
         displayObject.push(object)
       } else {
-        console.log('object456')
         // TODO: handle not matching with proof request
         proofRequest.requested_attributes[key].restrictions.forEach(
           restriction => {
@@ -164,10 +163,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               Object.prototype.hasOwnProperty.call(restriction, 'schema_name')
             ) {
               names.forEach((name: string) => {
-                console.log(
-                  'first',
-                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
-                )
                 setMissingAttributes(prevState => [
                   ...prevState,
                   `${name} ${t('Global.from')}  ${restriction.schema_name}`,
@@ -180,10 +175,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                 restriction.schema_id,
               )
               names.forEach((name: string) => {
-                console.log(
-                  'first123',
-                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
-                )
                 setMissingAttributes(prevState => [
                   ...prevState,
                   `${name} ${t('Global.from')}  ${schemaName}`,
@@ -198,100 +189,94 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         )
         setIsShowError(true)
       }
-      requestedPredicatesKeys.forEach(key => {
-        const names = proofRequest.requested_predicates[key].name
-          ? [proofRequest.requested_predicates[key].name]
-          : proofRequest.requested_predicates[key].names
-
-        if (creds.requestedPredicates[key].length > 0) {
-          const credentialList: CredentialList[] = []
-
-          creds.requestedAttributes[key].forEach((cred, index) => {
-            const credentialDefinitionId = getCredDefName(
-              JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
-            )
-            credentialList.push({
-              isSelected: index === 0,
-              label: credentialDefinitionId,
-              value: JSON.parse(JSON.stringify(cred.credentialInfo)).referent,
-            })
-          })
-
-          const showNames: string[] = []
-          const showValues: string[] = []
-
-          names.forEach((name: string) => {
-            showNames.push(
-              `${name + proofRequest.requested_predicates[key].p_type} ${
-                proofRequest.requested_predicates[key].p_value
-              }`,
-            )
-            showValues.push(
-              JSON.parse(
-                JSON.stringify(
-                  creds.requestedPredicates[key][0].credentialInfo,
-                ),
-              ).attrs[name],
-            )
-          })
-
-          const object = {
-            key,
-            names: showNames,
-            values: showValues,
-            credentials: credentialList,
-          }
-          displayObject.push(object)
-        } else {
-          proofRequest.requested_predicates[key].restrictions.forEach(
-            restriction => {
-              if (
-                Object.prototype.hasOwnProperty.call(restriction, 'schema_name')
-              ) {
-                names.forEach((name: string) => {
-                  setMissingAttributes(prevState => [
-                    ...prevState,
-                    `${`${
-                      name + proofRequest.requested_predicates[key].p_type
-                    } ${proofRequest.requested_predicates[key].p_value}`} ${t(
-                      'Global.from',
-                    )}  ${restriction.schema_name}`,
-                  ])
-                })
-              } else if (
-                Object.prototype.hasOwnProperty.call(restriction, 'schema_id')
-              ) {
-                const schemaName = getSchemaNameFromSchemaId(
-                  restriction.schema_id,
-                )
-                names.forEach((name: string) => {
-                  setMissingAttributes(prevState => [
-                    ...prevState,
-                    `${`${
-                      name + proofRequest.requested_predicates[key].p_type
-                    } ${proofRequest.requested_predicates[key].p_value}`} ${t(
-                      'Global.from',
-                    )} ${schemaName}`,
-                  ])
-                })
-              } else {
-                names.forEach((name: string) => {
-                  setMissingAttributes(prevState => [
-                    ...prevState,
-                    `${name + proofRequest.requested_predicates[key].p_type} ${
-                      proofRequest.requested_predicates[key].p_value
-                    }`,
-                  ])
-                })
-              }
-            },
-          )
-          setIsShowError(true)
-        }
-      })
-      setCredentialsDisplay(displayObject)
-      // setIsLoading(false)
     })
+
+    requestedPredicatesKeys.forEach(key => {
+      const names = proofRequest.requested_predicates[key].name
+        ? [proofRequest.requested_predicates[key].name]
+        : proofRequest.requested_predicates[key].names
+
+      if (creds.requestedPredicates[key].length > 0) {
+        const credentialList: CredentialList[] = []
+
+        creds.requestedPredicates[key].forEach((cred, index) => {
+          const credentialDefinitionId = getCredDefName(
+            JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
+          )
+          credentialList.push({
+            isSelected: index === 0,
+            label: credentialDefinitionId,
+            value: JSON.parse(JSON.stringify(cred.credentialInfo)).referent,
+          })
+        })
+
+        const showNames: string[] = []
+        const showValues: string[] = []
+
+        names.forEach((name: string) => {
+          showNames.push(
+            `${`${name} ${proofRequest.requested_predicates[key].p_type}`} ${
+              proofRequest.requested_predicates[key].p_value
+            }`,
+          )
+          showValues.push(
+            JSON.parse(
+              JSON.stringify(creds.requestedPredicates[key][0].credentialInfo),
+            ).attrs[name],
+          )
+        })
+
+        const object = {
+          key,
+          names: showNames,
+          values: showValues,
+          credentials: credentialList,
+        }
+        displayObject.push(object)
+      } else {
+        proofRequest.requested_predicates[key].restrictions.forEach(
+          restriction => {
+            if (
+              Object.prototype.hasOwnProperty.call(restriction, 'schema_name')
+            ) {
+              names.forEach((name: string) => {
+                setMissingAttributes(prevState => [
+                  ...prevState,
+                  `${`${name + proofRequest.requested_predicates[key].p_type} ${
+                    proofRequest.requested_predicates[key].p_value
+                  }`} ${t('Global.from')}  ${restriction.schema_name}`,
+                ])
+              })
+            } else if (
+              Object.prototype.hasOwnProperty.call(restriction, 'schema_id')
+            ) {
+              const schemaName = getSchemaNameFromSchemaId(
+                restriction.schema_id,
+              )
+              names.forEach((name: string) => {
+                setMissingAttributes(prevState => [
+                  ...prevState,
+                  `${`${name + proofRequest.requested_predicates[key].p_type} ${
+                    proofRequest.requested_predicates[key].p_value
+                  }`} ${t('Global.from')} ${schemaName}`,
+                ])
+              })
+            } else {
+              names.forEach((name: string) => {
+                setMissingAttributes(prevState => [
+                  ...prevState,
+                  `${name + proofRequest.requested_predicates[key].p_type} ${
+                    proofRequest.requested_predicates[key].p_value
+                  }`,
+                ])
+              })
+            }
+          },
+        )
+        setIsShowError(true)
+      }
+    })
+    setCredentialsDisplay(displayObject)
   }
 
   if (!agent) {
@@ -304,14 +289,12 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
   useEffect(() => {
     const updateRetrievedCredentials = async (proof: ProofRecord) => {
-      const creds = await getRetrievedCredential(agent, proof.id)
+      const creds = await getRetrievedCredential(agent, proof)
       if (!creds) {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
       transformProofObject(creds)
-      // setCredentials(creds)
       setRetrievedCredentials(creds)
-      // setAttributeCredentials(Object.entries(creds?.requestedAttributes || {}))
     }
 
     updateRetrievedCredentials(proof).catch(() => {
@@ -399,6 +382,77 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
       }
       await agent.proofs.acceptRequest(proof.id, automaticRequestedCreds)
+
+      // eslint-disable-next-line no-restricted-syntax
+      for await (const iterator of credentialsDisplay) {
+        const cred = iterator.credentials.find(item => item.isSelected)
+        const attributes = {}
+        iterator.names.forEach((name, index) => {
+          attributes[name] = iterator.values[index]
+        })
+        const record = {
+          status: 'presented',
+          timestamp: new Date().getTime(),
+          connectionLabel: connection?.theirLabel ?? 'Connection less proof',
+          attributes,
+        }
+
+        // Get old record if exists
+        const oldRecords = await agent.genericRecords.findAllByQuery({
+          credentialRecordId: cred.value,
+        })
+
+        // If old record exists, update it
+        oldRecords[0].content = {
+          records: [...oldRecords[0].content.records, record],
+        }
+
+        // Update record
+        await agent.genericRecords.update(oldRecords[0])
+      }
+
+      // eslint-disable-next-line no-restricted-syntax
+      for await (const iterator of credentialsDisplay) {
+        const cred = iterator.credentials.find(item => item.isSelected)
+        const tags = {
+          connectionId: connection?.id ?? uuid(),
+          credentialRecordId: cred.value,
+          type: 'proof',
+        }
+        const attributes = {}
+        iterator.names.forEach((name, index) => {
+          attributes[name] = iterator.values[index]
+        })
+
+        // Create record object for proof
+        const record = {
+          status: 'presented',
+          timestamp: new Date().getTime(),
+          connectionLabel: connection?.theirLabel ?? 'Connection less proof',
+          credentialLabel: cred.label,
+          attributes,
+        }
+
+        // Get old record if exists
+        const oldRecords = await agent.genericRecords.findAllByQuery({
+          credentialRecordId: cred.value,
+          type: 'proof',
+        })
+
+        // Create record if not exists
+        if (oldRecords.length > 0) {
+          oldRecords[0].content = {
+            records: [...oldRecords[0].content.records, record],
+          }
+          await agent.genericRecords.update(oldRecords[0])
+        } else {
+          await agent.genericRecords.save({
+            tags,
+            content: { records: [record] },
+          })
+        }
+      }
+
       setPendingModalVisible(false)
       setSuccessModalVisible(true)
     } catch (e: unknown) {
@@ -468,8 +522,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     setCredentialsDisplay(updatedCredentialsDisplay)
   }
 
-  console.log('object890', missingAttributes)
-
   return (
     <View style={styles.container}>
       {isShowError ? (
@@ -503,13 +555,13 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           <Text
             style={TextTheme.normal}
             accessibilityLabel={t('ProofRequest.Title', {
-              connection: connection?.alias || connection?.invitation?.label,
+              connection: connection?.theirLabel ?? 'Verifier',
             })}
           >
             <Trans
               i18nKey="ProofRequest.Title"
               values={{
-                connection: connection?.alias || connection?.invitation?.label,
+                connection: connection?.theirLabel ?? 'Verifier',
               }}
               components={{
                 b: <Text style={{ fontWeight: 'bold' }} />,

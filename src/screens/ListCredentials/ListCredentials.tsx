@@ -1,4 +1,7 @@
-import { CredentialState, CredentialRecord } from '@aries-framework/core'
+import {
+  CredentialState,
+  CredentialExchangeRecord,
+} from '@aries-framework/core'
 import { useCredentialByState } from '@aries-framework/react-hooks'
 import React, { useEffect, useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -7,7 +10,7 @@ import { Text } from '../../components'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import CredentialListItem from '../../components/listItems/CredentialListItem'
 import SearchBar from '../../components/inputs/SearchBar'
-import searchCredentialsList from './ListCredentials.utils'
+import { parsedSchema } from '../../utils/helpers'
 
 const styles = StyleSheet.create({
   container: {
@@ -24,11 +27,6 @@ const styles = StyleSheet.create({
 })
 
 const ListCredentials: React.FC = () => {
-  // const credentials = [
-  //   ...useCredentialByState(CredentialState.CredentialReceived),
-  //   ...useCredentialByState(CredentialState.Done),
-  // ]
-
   const credentials = useCredentialByState(CredentialState.Done)
 
   const { t } = useTranslation()
@@ -50,7 +48,6 @@ const ListCredentials: React.FC = () => {
     const filteredData = credentials.filter(item => {
       const orgLabel = parsedSchema(item).name.toUpperCase()
       const textData = text.toUpperCase()
-      console.log('fileterd data', orgLabel, textData)
       return orgLabel.indexOf(textData) > -1
     })
 
@@ -75,7 +72,7 @@ const ListCredentials: React.FC = () => {
       <FlatList
         style={{ backgroundColor: ColorPallet.grayscale.white }}
         data={filteredData}
-        keyExtractor={(item: CredentialRecord) => item.credentialId || item.id}
+        keyExtractor={(item: CredentialExchangeRecord) => item?.id}
         ListEmptyComponent={emptyListComponent}
         renderItem={({ item, index }) => (
           <View

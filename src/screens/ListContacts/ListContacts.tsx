@@ -29,7 +29,9 @@ const ListContacts: React.FC = () => {
 
   const fetchConnectionRecords = useCallback(async () => {
     const records = await agent?.connections.getAll()
-    setConnectionList(records)
+    if (records) {
+      setConnectionList(records)
+    }
   }, [agent?.connections])
 
   useEffect(() => {

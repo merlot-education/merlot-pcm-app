@@ -1,7 +1,6 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useCallback, useEffect, useState } from 'react'
 import Clipboard from '@react-native-clipboard/clipboard'
-import { t } from 'i18next'
 import {
   SafeAreaView,
   ScrollView,
@@ -67,18 +66,22 @@ const style = StyleSheet.create({
   },
 })
 
-const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
+const CreateWallet: React.FC<CreateWalletProps> = ({ route }) => {
   const { initAgent, setAuthenticated } = route.params
   const [mnemonicText, setMnemonicText] = useState('')
   const [loading, setLoading] = useState(false)
   const { t } = useTranslation()
 
-  const createMnemonic = useCallback(() => {
+  const createMnemonic = useCallback(async () => {
     const mnemonicWordsList = getMnemonicArrayFromWords(8)
     const mnemonic = mnemonicWordsList.join(' ')
-    // eslint-disable-next-line no-console
     setMnemonicText(mnemonic)
-  }, [])
+    await saveValueInKeychain(
+      KeychainStorageKeys.Passphrase,
+      mnemonic,
+      t('Registration.MnemonicMsg'),
+    )
+  }, [t])
 
   useEffect(() => {
     createMnemonic()
@@ -86,14 +89,10 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
 
   const copyMnemonic = async () => {
     Clipboard.setString(mnemonicText)
-    await saveValueInKeychain(
-      KeychainStorageKeys.Passphrase,
-      mnemonicText,
-      t('Registration.MnemonicMsg'),
-    )
   }
 
   const createWallet = async () => {
+    setLoading(true)
     const email = await getValueKeychain({
       service: 'email',
     })
@@ -101,25 +100,19 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
       service: 'passcode',
     })
     await startAgent(email.password, pinCode.password)
+    setLoading(false)
+    setAuthenticated(true)
   }
 
   const startAgent = async (email: string, pin: string) => {
     try {
-      setLoading(true)
-      const passphrase = await getValueKeychain({
-        service: 'Passphrase',
-      })
-      console.log('passphrase text', passphrase.password)
       const rawValue = email + mnemonicText.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
 
       await initAgent(email, pin, seedHash)
       await storeOnboardingCompleteStage()
-      setLoading(false)
       successToast(t('PinCreate.WalletCreated'))
-      setAuthenticated(true)
     } catch (error) {
-      console.log('error', error)
       setLoading(false)
       errorToast(error.message)
     }
@@ -147,10 +140,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
         <Button
           title={t('Global.Next')}
           buttonType={ButtonType.Primary}
-          onPress={() => {
-            Keyboard.dismiss()
-            createWallet()
-          }}
+          onPress={createWallet}
         />
       </ScrollView>
     </SafeAreaView>

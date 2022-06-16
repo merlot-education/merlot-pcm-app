@@ -1,4 +1,4 @@
-import { CredentialRecord } from '@aries-framework/core'
+import { CredentialExchangeRecord } from '@aries-framework/core'
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
 import React from 'react'
@@ -7,7 +7,7 @@ import CredentialCard from '../misc/CredentialCard'
 import { CredentialStackParams, Screens } from '../../types/navigators'
 
 interface CredentialListItemProps {
-  credential: CredentialRecord
+  credential: CredentialExchangeRecord
 }
 
 const CredentialListItem: React.FC<CredentialListItemProps> = ({

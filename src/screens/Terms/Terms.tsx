@@ -1,9 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import { BackHandler, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { BackHandler, StyleSheet, View, ScrollView } from 'react-native'
 import { useFocusEffect, useNavigation } from '@react-navigation/core'
 import { useTranslation } from 'react-i18next'
-import Button, { ButtonType } from '../../components/button/Button'
 import CheckBoxRow from '../../components/checkbox/CheckBoxRow'
 import InfoTextBox from '../../components/text/InfoTextBox'
 import { ColorPallet, TextTheme } from '../../theme/theme'
@@ -12,24 +10,33 @@ import {
   storeTermsCompleteStage,
   restoreAppIntroCompleteStage,
 } from './Terms.utils'
+import { InfoCard, ScreenNavigatorButtons } from '../../components'
 
 const styles = StyleSheet.create({
+  scrollView: {
+    height: 200,
+  },
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
+    flex: 1,
   },
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
   },
-  controlsWrapper: {
-    marginTop: 15,
-  },
   verticalSpacer: {
     marginVertical: 20,
+    height: 420,
   },
   topSpacer: {
     paddingTop: 10,
+  },
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    backgroundColor: 'white',
+    width: '100%',
   },
 })
 
@@ -52,7 +59,6 @@ const Terms: React.FC = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        // BackHandler.exitApp()
         // eslint-disable-next-line no-plusplus
         backCount++
         if (backCount === 1) {
@@ -72,37 +78,27 @@ const Terms: React.FC = () => {
     }, [backCount, nav]),
   )
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView>
-        <InfoTextBox>{t('Terms.AcceptTerms')}</InfoTextBox>
-        <Text style={[styles.bodyText, styles.verticalSpacer]}>
-          {t('Terms.TermsAndConditions')}
-        </Text>
-        <View style={styles.controlsWrapper}>
-          <CheckBoxRow
-            title={t('Terms.Attestation')}
-            accessibilityLabel="I Agree"
-            checked={checked}
-            onPress={() => setChecked(!checked)}
-          />
-          <View style={styles.topSpacer}>
-            <Button
-              title={t('Global.Continue')}
-              onPress={onSubmitPressed}
-              disabled={!checked}
-              buttonType={ButtonType.Primary}
-            />
-          </View>
-          <View style={styles.topSpacer}>
-            <Button
-              title={t('Global.Back')}
-              onPress={onBack}
-              buttonType={ButtonType.Ghost}
-            />
-          </View>
+        <InfoTextBox showIcon>{t('Terms.AcceptTerms')}</InfoTextBox>
+        <View style={styles.verticalSpacer}>
+          <InfoCard showBottomIcon>{t('Terms.TermsAndConditions')}</InfoCard>
         </View>
       </ScrollView>
-    </SafeAreaView>
+      <View style={styles.bottom}>
+        <CheckBoxRow
+          title={t('Terms.Attestation')}
+          accessibilityLabel="I Agree"
+          checked={checked}
+          onPress={() => setChecked(!checked)}
+        />
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={onSubmitPressed}
+          isRightDisabled={!checked}
+        />
+      </View>
+    </View>
   )
 }
 

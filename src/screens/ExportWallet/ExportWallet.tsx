@@ -1,11 +1,6 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import {
-  SafeAreaView,
-  StyleSheet,
-  PermissionsAndroid,
-  Platform,
-} from 'react-native'
+import { StyleSheet, PermissionsAndroid, Platform, View } from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
@@ -40,7 +35,6 @@ const ExportWallet = () => {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
   const [mnemonic, setMnemonic] = useState('')
-  // const { fs } = RNFetchBlob
   const { agent } = useAgent()
   const nav = useNavigation()
 
@@ -55,22 +49,9 @@ const ExportWallet = () => {
             buttonPositive: '',
           },
         )
-        const permission = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-          {
-            title: 'Permission',
-            message: 'PCM needs to write to storage ',
-            buttonPositive: '',
-          },
-        )
 
         if (granted === PermissionsAndroid.RESULTS.GRANTED) {
           exportWallet()
-        } else {
-          console.log(
-            'Permission Denied!',
-            'You need to give  permission to see contacts',
-          )
         }
       } catch (error) {
         console.log(error)
@@ -83,14 +64,6 @@ const ExportWallet = () => {
   const exportWallet = async () => {
     try {
       const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        {
-          title: 'Permission',
-          message: 'PCM needs to write to storage ',
-          buttonPositive: '',
-        },
-      )
-      const permission = await PermissionsAndroid.request(
         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
         {
           title: 'Permission',
@@ -112,7 +85,6 @@ const ExportWallet = () => {
 
         const date = new Date()
         const dformat = `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
-        console.log(date.getTime())
         const WALLET_FILE_NAME = `PCM_Wallet_${dformat}`
 
         await RNFS.mkdir(zipDirectory)
@@ -133,7 +105,7 @@ const ExportWallet = () => {
           mode: 'argon2i',
         })
 
-        const { rawHash, encodedHash } = result
+        const { encodedHash } = result
 
         const exportConfig: WalletExportImportConfig = {
           key: encodedHash,
@@ -167,7 +139,6 @@ const ExportWallet = () => {
     if (mnemonic !== '') {
       const params = [mnemonic, passphraseEntry.password]
       const result = authenticateUser(params)
-      console.log('mnemmonic', result)
       if (result) {
         Toast.show({
           type: ToastType.Success,
@@ -192,7 +163,7 @@ const ExportWallet = () => {
   }
 
   return (
-    <SafeAreaView style={style.container}>
+    <View style={style.container}>
       <Loader loading={loading} />
       <TextInput
         label={t('Settings.EnterMnemonic')}
@@ -210,7 +181,7 @@ const ExportWallet = () => {
         buttonType={ButtonType.Primary}
         onPress={compareMnemonic}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

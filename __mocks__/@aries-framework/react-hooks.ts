@@ -1,8 +1,9 @@
-import { CredentialRecord, ProofRecord } from '@aries-framework/core'
-import { getMockConnection } from '../../src/utils/testhelpers'
+import { CredentialExchangeRecord, ProofRecord } from '@aries-framework/core'
 
 const useCredentials = jest.fn().mockReturnValue({ credentials: [] } as any)
-const useCredentialByState = jest.fn().mockReturnValue([] as CredentialRecord[])
+const useCredentialByState = jest
+  .fn()
+  .mockReturnValue([] as CredentialExchangeRecord[])
 const useProofByState = jest.fn().mockReturnValue([] as ProofRecord[])
 const mockCredentialModule = {
   acceptOffer: jest.fn(),

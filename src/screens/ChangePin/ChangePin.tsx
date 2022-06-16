@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import { Alert, Keyboard, StyleSheet } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import { Alert, Keyboard, StyleSheet, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useAgent } from '@aries-framework/react-hooks'
 import { ColorPallet } from '../../theme/theme'
-import { Loader, TextInput } from '../../components'
+import { TextInput } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
-import { warningToast } from '../../utils/toast'
+import { warningToast, successToast } from '../../utils/toast'
 import { KeychainStorageKeys } from '../../constants'
 import { getValueFromKeychain, saveValueInKeychain } from './ChangePin.utils'
 
@@ -63,6 +62,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         'passcode',
       )
       setLoading(false)
+      successToast(t('PinCreate.PinChange'))
     } catch (e) {
       Alert.alert(e)
       setLoading(false)
@@ -86,14 +86,15 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       warningToast(t('PinCreate.PinsEnteredDoNotMatch'))
     } else if (passcode.password !== oldPin) {
       warningToast(t('PinCreate.ValidOldPin'))
+    } else if (newPin === oldPin) {
+      warningToast(t('PinCreate.NewPinMatchwithOld'))
     } else {
       passcodeCreate(newPin)
     }
   }
 
   return (
-    <SafeAreaView style={[style.container]}>
-      <Loader loading={loading} />
+    <View style={style.container}>
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}
@@ -146,7 +147,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
           confirmEntry(pin, pinTwo, pinThree)
         }}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

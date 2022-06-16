@@ -1,25 +1,16 @@
-import {
-  CredentialRecord,
-  ProofRecord,
-  RetrievedCredentials,
-} from '@aries-framework/core'
+import { CredentialExchangeRecord, ProofRecord } from '@aries-framework/core'
 
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View, Text } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import {
-  useAgent,
-  useConnectionById,
-  useProofById,
-} from '@aries-framework/react-hooks'
-import { Buffer } from 'buffer'
+import { StyleSheet, View, Text, Image } from 'react-native'
+import { useConnectionById } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Button, { ButtonType } from '../button/Button'
 import { HomeStackParams, Screens } from '../../types/navigators'
-import { getCredDefName, parsedSchema } from '../../utils/helpers'
+import { parsedSchema } from '../../utils/helpers'
+import Images from '../../assets'
 
 const iconSize = 30
 
@@ -30,15 +21,13 @@ export enum NotificationType {
 
 interface NotificationListItemProps {
   notificationType: NotificationType
-  notification: CredentialRecord | ProofRecord
+  notification: CredentialExchangeRecord | ProofRecord
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: ColorPallet.notification.info,
-    borderColor: ColorPallet.notification.infoBorder,
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 5,
-    borderWidth: 1,
     padding: 10,
   },
   headerContainer: {
@@ -58,14 +47,12 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     fontWeight: 'bold',
     alignSelf: 'center',
-    color: ColorPallet.notification.infoText,
   },
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
     marginVertical: 15,
     paddingBottom: 10,
-    color: ColorPallet.notification.infoText,
   },
   icon: {
     marginRight: 10,
@@ -79,45 +66,9 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
   const { t } = useTranslation()
-  const [credDef, setCredDef] = useState('')
   const connection = useConnectionById(
     (notification as ProofRecord)?.connectionId || '',
   )
-  const { agent } = useAgent()
-
-  const getCredentialinfo = async () => {
-    const creds = await agent.proofs.getRequestedCredentialsForProofRequest(
-      notification.id,
-    )
-    transformProofObject(creds)
-  }
-  const transformProofObject = async (creds: RetrievedCredentials) => {
-    const base64Data =
-      proof?.requestMessage?.requestPresentationAttachments[0].data.base64
-    const proofRequest = JSON.parse(
-      Buffer.from(base64Data!, 'base64').toString(),
-    )
-    const requestedAttributesKeys = Object.keys(
-      proofRequest.requested_attributes,
-    )
-    requestedAttributesKeys.forEach(key => {
-      if (creds.requestedAttributes[key].length > 0) {
-        creds.requestedAttributes[key].forEach((cred, index) => {
-          const credentialDefinitionId = getCredDefName(
-            JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
-          )
-          setCredDef(credentialDefinitionId)
-        })
-      } else {
-        console.log('object456')
-      }
-    })
-  }
-  const proof = useProofById(notification.id)
-  getCredentialinfo()
-  const [retrievedCredentials, setRetrievedCredentials] =
-    useState<RetrievedCredentials>()
-  const reqAttr = retrievedCredentials?.requestedAttributes
 
   let onPress: () => void
   let title = ''
@@ -125,7 +76,9 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 
   switch (notificationType) {
     case NotificationType.CredentialOffer: {
-      const { name, version } = parsedSchema(notification as CredentialRecord)
+      const { name, version } = parsedSchema(
+        notification as CredentialExchangeRecord,
+      )
       onPress = () =>
         navigation.navigate(Screens.CredentialOffer, {
           credentialId: notification.id,
@@ -136,11 +89,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
     }
     case NotificationType.ProofRequest: {
       title = t('ProofRequest.ProofRequest')
-      if (connection === undefined) {
-        body = credDef
-      } else {
-        body = connection?.theirLabel || ''
-      }
+      body = connection?.theirLabel ?? 'Connectionless proof request'
       onPress = () =>
         navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
       break
@@ -152,11 +101,10 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
   return (
     <View testID="notification-list-item" style={styles.container}>
       <View style={styles.headerContainer}>
-        <View style={[styles.icon]}>
-          <Icon
-            name="info"
-            size={iconSize}
-            color={ColorPallet.notification.infoIcon}
+        <View style={styles.icon}>
+          <Image
+            source={Images.infoIcon}
+            style={{ width: iconSize, height: iconSize }}
           />
         </View>
         <Text style={styles.headerText}>{title}</Text>

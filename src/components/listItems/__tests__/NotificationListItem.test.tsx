@@ -1,6 +1,6 @@
 import {
-  CredentialPreviewAttribute,
-  CredentialRecord,
+  V1CredentialPreview,
+  CredentialExchangeRecord,
   CredentialState,
   INDY_PROOF_REQUEST_ATTACHMENT_ID,
   ProofRecord,
@@ -17,13 +17,13 @@ import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 import NotificationListItem, { NotificationType } from '../NotificationListItem'
 
-const credentialRecord = new CredentialRecord({
+const credentialRecord = new CredentialExchangeRecord({
   connectionId: '34da4abe-7578-464f-909c-ee19a3bdf7ac',
   threadId: 'threadId',
   state: CredentialState.Done,
   credentialId: '30ba35ab-7823-4123-8bdf-7a112a366d3b',
   credentialAttributes: [
-    new CredentialPreviewAttribute({
+    new V1CredentialPreview({
       name: 'age',
       value: '25',
     }),

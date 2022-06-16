@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { Keyboard, StyleSheet, Text } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useState, useEffect, useCallback } from 'react'
+import { Keyboard, StyleSheet, Text, View, Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import Toast from 'react-native-toast-message'
 import { StackScreenProps } from '@react-navigation/stack'
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import { TextInput, Loader } from '../../components'
-import Button, { ButtonType } from '../../components/button/Button'
+import {
+  TextInput,
+  Loader,
+  InfoCard,
+  ScreenNavigatorButtons,
+} from '../../components'
 import { OnboardingStackParams, Screens } from '../../types/navigators'
 import { ToastType } from '../../components/toast/BaseToast'
 import { verifyOtp, registerUser } from './VerifyOtp.utils'
+import Images from '../../assets'
 
 type VerifyOtpProps = StackScreenProps<OnboardingStackParams, Screens.VerifyOtp>
 
@@ -18,18 +22,23 @@ const style = StyleSheet.create({
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
     flex: 1,
+    justifyContent: 'space-between',
   },
   bodyText: {
     ...TextTheme.normal,
     flexShrink: 1,
   },
   verticalSpacer: {
-    marginVertical: 20,
     textAlign: 'center',
+  },
+  emailImg: {
+    height: 95,
+    width: 95,
+    alignSelf: 'center',
   },
 })
 
-const RESEND_OTP_TIME_LIMIT = 30 // 30 secs
+const RESEND_OTP_TIME_LIMIT = 60 // 60 secs
 
 let resendOtpTimerInterval
 
@@ -38,6 +47,10 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
   const [verifyOTPId, setVerifyOTPId] = useState(otpId)
+  const [otpCorrect, setOtpCorrect] = useState(false)
+  const [otpWrong, setOtpWrong] = useState(false)
+  const [error, setError] = useState(false)
+
   const { t } = useTranslation()
 
   // in secs, if value is greater than 0 then button will be disabled
@@ -68,6 +81,33 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     }
   })
 
+  const verifyOtpSubmit = useCallback(
+    async (otpCode: string) => {
+      const otp = parseInt(otpCode, 10)
+      setLoading(true)
+      const { data } = await verifyOtp(verifyOTPId, otp)
+      setLoading(false)
+      if (data) {
+        setOtpCorrect(true)
+        setOtpWrong(false)
+        setError(t('Registration.OtpSuccess'))
+      } else {
+        setLoading(false)
+        setOtpWrong(true)
+        setOtpCorrect(false)
+        setError(t('Registration.OtpInvalid'))
+      }
+    },
+    [t, verifyOTPId],
+  )
+
+  useEffect(() => {
+    if (otp.length === 6) {
+      verifyOtpSubmit(otp)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [otp.length === 6, verifyOtpSubmit])
+
   const onResendOtpButtonPress = async () => {
     setResendButtonDisabledTime(RESEND_OTP_TIME_LIMIT)
     startResendOtpTimer()
@@ -78,48 +118,15 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     } = await registerUser(email, verifyOTPId)
     setLoading(false)
     setVerifyOTPId(otpId)
-    Toast.show({
-      type: ToastType.Success,
-      text1: t('Toasts.Success'),
-      text2: message,
-    })
+    setError(message)
   }
 
-  const verifyOtpSubmit = async (otpCode: string) => {
-    if (otpCode.length < 6) {
-      Toast.show({
-        type: ToastType.Warn,
-        text1: t('Toasts.Error'),
-        text2: t('Global.Otp'),
-      })
-    } else {
-      const otp = parseInt(otpCode, 10)
-      setLoading(true)
-      const { data, message } = await verifyOtp(verifyOTPId, otp)
-      setLoading(false)
-      if (data) {
-        Toast.show({
-          type: ToastType.Success,
-          text1: t('Toasts.Success'),
-          text2: message,
-        })
-        if (forgotPin) {
-          navigation.navigate(Screens.CreatePin, { forgotPin })
-        } else {
-          navigation.navigate(Screens.CreatePin, { forgotPin })
-        }
-      } else {
-        setLoading(false)
-        Toast.show({
-          type: ToastType.Error,
-          text1: t('Toasts.Error'),
-          text2: 'Invalid OTP',
-        })
-      }
-    }
+  const onBack = async () => {
+    navigation.navigate(Screens.Registration)
   }
+
   return (
-    <SafeAreaView style={[style.container]}>
+    <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
         label={t('Global.Otp')}
@@ -132,10 +139,14 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         keyboardType="number-pad"
         value={otp}
         onChangeText={setOtp}
+        onSubmitEditing={() => {
+          Keyboard.dismiss()
+          verifyOtpSubmit(otp)
+        }}
       />
-      <Text
-        style={[style.bodyText, style.verticalSpacer]}
-      >{`00.${resendButtonDisabledTime}`}</Text>
+      <Text style={[style.bodyText, style.verticalSpacer]}>
+        {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}
+      </Text>
       {resendButtonDisabledTime === 0 && (
         <Text
           style={[style.bodyText, style.verticalSpacer]}
@@ -144,15 +155,25 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
           {t('Registration.ResendOtp')}
         </Text>
       )}
-      <Button
-        title={t('Global.Verify')}
-        buttonType={ButtonType.Primary}
-        onPress={() => {
-          Keyboard.dismiss()
-          verifyOtpSubmit(otp)
+      {otpWrong && (
+        <Image source={Images.wrongOtpIcon} style={style.emailImg} />
+      )}
+      {otpCorrect && (
+        <Image source={Images.correctOtpIcon} style={style.emailImg} />
+      )}
+      <View>
+        <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+          {t('Registration.OtpInfo')}
+        </InfoCard>
+      </View>
+      <ScreenNavigatorButtons
+        onLeftPress={onBack}
+        onRightPress={() => {
+          navigation.navigate(Screens.CreatePin, { forgotPin })
         }}
+        isRightDisabled={!otpCorrect}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

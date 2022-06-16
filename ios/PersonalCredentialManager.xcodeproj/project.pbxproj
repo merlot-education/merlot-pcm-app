@@ -12,9 +12,12 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2E37625A2FEB309252476BF6 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 091A1491DF75DD968A5150E9 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */; };
+		45C868E35EB249A298F128C4 /* TitilliumWeb-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34AF55BBFD0A4B44AB7DBE8B /* TitilliumWeb-Regular.ttf */; };
 		7BA9C4503A9B4E6D8132A42C /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1035D30535C64F25B3B6EF5A /* antoutline.ttf */; };
+		7D1BB02F91E54B0297C6C67D /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF7CF2CD60574ADD8E0AFAD9 /* TitilliumWeb-SemiBold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B89EBF06EC1149C6A7A0B91E /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E329655F7F8247C4AA1220C1 /* antfill.ttf */; };
+		BD211E3DFD554642A53882D4 /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDFADC7BA94A49E8BD7C41B7 /* TitilliumWeb-Light.ttf */; };
 		DC33090B1DF45ECB1D2860CA /* libPods-PersonalCredentialManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC50D12952522A41C0E258DC /* libPods-PersonalCredentialManager.a */; };
 		FE5B187A27BB9E9700E39BA4 /* Indy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B187927BB9E9700E39BA4 /* Indy.framework */; platformFilter = ios; };
 		FE5B187B27BB9E9800E39BA4 /* Indy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B187927BB9E9700E39BA4 /* Indy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -50,7 +53,7 @@
 		00E356F21AD99517003FC87E /* PersonalCredentialManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PersonalCredentialManagerTests.m; sourceTree = "<group>"; };
 		03B2BF05DABF47D5860D21AA /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		091A1491DF75DD968A5150E9 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		1035D30535C64F25B3B6EF5A /* antoutline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = antoutline.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; };
+		1035D30535C64F25B3B6EF5A /* antoutline.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antoutline.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antoutline.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* PersonalCredentialManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PersonalCredentialManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = PersonalCredentialManager/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = PersonalCredentialManager/AppDelegate.m; sourceTree = "<group>"; };
@@ -62,6 +65,7 @@
 		218161BE833B396A7D0D9676 /* Pods-PersonalCredentialManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager.release.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager/Pods-PersonalCredentialManager.release.xcconfig"; sourceTree = "<group>"; };
 		22925182963E43AABAFC6DE1 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		275E4CE3DED9814301FB39F2 /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager-PersonalCredentialManagerTests/Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		34AF55BBFD0A4B44AB7DBE8B /* TitilliumWeb-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Regular.ttf"; path = "../src/assets/fonts/TitilliumWeb-Regular.ttf"; sourceTree = "<group>"; };
 		3CF1B5970F764466AA5B532C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		42E4200B2E44481BAB5535A4 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		56C06A0D868D49B28D5EE2DB /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
@@ -75,11 +79,13 @@
 		B511E1FF35794D8384EEB91B /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		BA90FEF376154B83B2B914CF /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		C1ED828338A44A30836FBA4C /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		CDFADC7BA94A49E8BD7C41B7 /* TitilliumWeb-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Light.ttf"; path = "../src/assets/fonts/TitilliumWeb-Light.ttf"; sourceTree = "<group>"; };
 		D3FD2AA880404D3FBE7B5654 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		DC50D12952522A41C0E258DC /* libPods-PersonalCredentialManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E329655F7F8247C4AA1220C1 /* antfill.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = antfill.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; };
+		E329655F7F8247C4AA1220C1 /* antfill.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = antfill.ttf; path = "../node_modules/@ant-design/icons-react-native/fonts/antfill.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EDCB2B460766460B81E66726 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		EF7CF2CD60574ADD8E0AFAD9 /* TitilliumWeb-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-SemiBold.ttf"; path = "../src/assets/fonts/TitilliumWeb-SemiBold.ttf"; sourceTree = "<group>"; };
 		FE5B187927BB9E9700E39BA4 /* Indy.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Indy.framework; path = Pods/Frameworks/Indy.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -166,6 +172,9 @@
 				3CF1B5970F764466AA5B532C /* Zocial.ttf */,
 				E329655F7F8247C4AA1220C1 /* antfill.ttf */,
 				1035D30535C64F25B3B6EF5A /* antoutline.ttf */,
+				CDFADC7BA94A49E8BD7C41B7 /* TitilliumWeb-Light.ttf */,
+				34AF55BBFD0A4B44AB7DBE8B /* TitilliumWeb-Regular.ttf */,
+				EF7CF2CD60574ADD8E0AFAD9 /* TitilliumWeb-SemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -223,7 +232,6 @@
 				0E4D50E56EB8EF1AAF057A86 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
 				8BBDCBCC11364DD3C71D2506 /* [CP] Embed Pods Frameworks */,
 				62916F6CCDBEE7EA7711C309 /* [CP] Copy Pods Resources */,
 			);
@@ -297,13 +305,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		00E356EC1AD99517003FC87E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -312,6 +313,9 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B89EBF06EC1149C6A7A0B91E /* antfill.ttf in Resources */,
 				7BA9C4503A9B4E6D8132A42C /* antoutline.ttf in Resources */,
+				BD211E3DFD554642A53882D4 /* TitilliumWeb-Light.ttf in Resources */,
+				45C868E35EB249A298F128C4 /* TitilliumWeb-Regular.ttf in Resources */,
+				7D1BB02F91E54B0297C6C67D /* TitilliumWeb-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -551,8 +555,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 8UD6K7Y37V;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -563,6 +569,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -570,6 +577,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
 				PRODUCT_NAME = PersonalCredentialManager;
+				PROVISIONING_PROFILE_SPECIFIER = "PCM-Development";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -582,8 +590,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 8UD6K7Y37V;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Frameworks",
@@ -593,6 +604,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -600,6 +612,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
 				PRODUCT_NAME = PersonalCredentialManager;
+				PROVISIONING_PROFILE_SPECIFIER = "PCM-Development";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -638,7 +651,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -704,7 +717,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

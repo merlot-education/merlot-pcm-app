@@ -1,9 +1,8 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Image, ImageProps } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import useNotifications from '../hooks/notifcations'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
@@ -11,50 +10,46 @@ import SettingStack from './SettingStack'
 import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
+import Images from '../assets'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 
 type TabBarIconProps = {
   focused: boolean
-  color: string
-  size?: number
-  activeIconName: string
-  inactiveIconName: string
+  imageName: ImageProps['source']
 }
 
-type TabBarlabelProps = {
-  focused: boolean
-  color?: string
+type TabBarLabelProps = {
   label: string
 }
 
-const TabBarIcon = ({
-  color,
-  focused,
-  activeIconName,
-  inactiveIconName,
-  size = 30,
-}: TabBarIconProps) => {
+const TabBarIcon = ({ imageName, focused }: TabBarIconProps) => {
   return (
-    <Icon
-      name={focused ? activeIconName : inactiveIconName}
-      color={color}
-      size={size}
+    <Image
+      source={imageName}
+      style={
+        !focused
+          ? styles.tabBarIcon
+          : [
+              styles.tabBarIcon,
+              { backgroundColor: ColorPallet.baseColors.white },
+            ]
+      }
+      resizeMode="contain"
     />
   )
 }
 
-const TabBarLabel = ({ color, focused, label }: TabBarlabelProps) => {
+const TabBarLabel = ({ label }: TabBarLabelProps) => {
   return (
     <Text
       style={{
         ...TextTheme.label,
         fontWeight: 'normal',
         paddingBottom: 5,
-        color: focused
-          ? ColorPallet.brand.primary
-          : ColorPallet.grayscale.white,
+        color: ColorPallet.grayscale.white,
       }}
+      numberOfLines={1}
     >
       {label}
     </Text>
@@ -64,11 +59,10 @@ const TabBarLabel = ({ color, focused, label }: TabBarlabelProps) => {
 const ScannerIcon = () => {
   return (
     <View style={styles.scannerIconWrapper}>
-      <Icon
-        name="qrcode-scan"
-        color={ColorPallet.grayscale.white}
-        size={32}
-        style={{ paddingLeft: 0.5, paddingTop: 0.5 }}
+      <Image
+        source={Images.scanIcon}
+        style={styles.scanIcon}
+        resizeMode="contain"
       />
     </View>
   )
@@ -76,23 +70,27 @@ const ScannerIcon = () => {
 
 const styles = StyleSheet.create({
   tabBarStyle: {
-    height: 60,
-    backgroundColor: ColorPallet.grayscale.mediumGrey,
-    shadowOffset: { width: 0, height: -3 },
-    shadowRadius: 6,
-    shadowColor: ColorPallet.grayscale.black,
-    shadowOpacity: 0.1,
+    height: 70,
+    backgroundColor: ColorPallet.brand.primary,
     borderTopWidth: 0,
     paddingBottom: 0,
   },
   scannerIconWrapper: {
     height: 60,
     width: 60,
-    backgroundColor: ColorPallet.brand.primary,
-    top: -20,
-    borderRadius: 60,
+    backgroundColor: ColorPallet.baseColors.white,
+    top: -10,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  tabBarIcon: {
+    height: 40,
+    width: 40,
+  },
+  scanIcon: {
+    height: 40,
+    width: 40,
   },
 })
 
@@ -107,8 +105,8 @@ const TabStack: React.FC = () => {
       <MainTabNavigator.Navigator
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
-          tabBarActiveTintColor: ColorPallet.brand.primary,
-          tabBarInactiveTintColor: ColorPallet.grayscale.white,
+          tabBarActiveTintColor: ColorPallet.baseColors.white,
+          tabBarInactiveTintColor: ColorPallet.brand.primary,
           header: () => null,
           tabBarHideOnKeyboard: true,
           unmountOnBlur: true,
@@ -118,20 +116,16 @@ const TabStack: React.FC = () => {
           name={TabStacks.HomeStack}
           component={HomeStack}
           options={{
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                activeIconName="home"
-                inactiveIconName="home-outline"
-                color={color}
-                focused={focused}
-              />
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon focused={focused} imageName={Images.homeIcon} />
             ),
-            tabBarLabel: ({ focused }) => (
-              <TabBarLabel label={t('TabStack.Home')} focused={focused} />
-            ),
+            tabBarLabel: () => <TabBarLabel label={t('TabStack.Home')} />,
             tabBarBadge: total || null,
             tabBarBadgeStyle: {
               backgroundColor: ColorPallet.semantic.error,
+            },
+            tabBarIconStyle: {
+              backgroundColor: ColorPallet.baseColors.white,
             },
             unmountOnBlur: true,
           }}
@@ -141,19 +135,14 @@ const TabStack: React.FC = () => {
           component={ContactStack}
           options={{
             headerTitle: 'Connection',
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ focused }) => (
               <TabBarIcon
-                activeIconName="account-group"
-                inactiveIconName="account-group-outline"
-                color={color}
                 focused={focused}
+                imageName={Images.connectionsIcon}
               />
             ),
-            tabBarLabel: ({ focused }) => (
-              <TabBarLabel
-                label={t('TabStack.Connections')}
-                focused={focused}
-              />
+            tabBarLabel: () => (
+              <TabBarLabel label={t('TabStack.Connections')} />
             ),
             unmountOnBlur: true,
           }}
@@ -162,9 +151,7 @@ const TabStack: React.FC = () => {
           name={TabStacks.ScanStack}
           options={{
             tabBarIcon: () => <ScannerIcon />,
-            tabBarLabel: ({ focused }) => (
-              <TabBarLabel label={t('TabStack.Scan')} focused={focused} />
-            ),
+            tabBarLabel: () => <TabBarLabel label={t('TabStack.Scan')} />,
             tabBarAccessibilityLabel: t('TabStack.Scan'),
           }}
           listeners={({ navigation }) => ({
@@ -181,19 +168,14 @@ const TabStack: React.FC = () => {
           name={TabStacks.CredentialStack}
           component={CredentialStack}
           options={{
-            tabBarIcon: ({ color, focused }) => (
+            tabBarIcon: ({ focused }) => (
               <TabBarIcon
-                activeIconName="wallet"
-                inactiveIconName="wallet-outline"
-                color={color}
                 focused={focused}
+                imageName={Images.credentialsIcon}
               />
             ),
-            tabBarLabel: ({ focused }) => (
-              <TabBarLabel
-                label={t('TabStack.Credentials')}
-                focused={focused}
-              />
+            tabBarLabel: () => (
+              <TabBarLabel label={t('TabStack.Credentials')} />
             ),
             unmountOnBlur: true,
           }}
@@ -202,17 +184,10 @@ const TabStack: React.FC = () => {
           name={TabStacks.SettingsStack}
           component={SettingStack}
           options={{
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon
-                activeIconName="account-cog"
-                inactiveIconName="account-cog-outline"
-                color={color}
-                focused={focused}
-              />
+            tabBarIcon: ({ focused }) => (
+              <TabBarIcon focused={focused} imageName={Images.settingsIcon} />
             ),
-            tabBarLabel: ({ focused }) => (
-              <TabBarLabel label={t('TabStack.Settings')} focused={focused} />
-            ),
+            tabBarLabel: () => <TabBarLabel label={t('TabStack.Settings')} />,
             unmountOnBlur: true,
           }}
         />

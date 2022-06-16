@@ -1,6 +1,6 @@
-import { CredentialRecord } from '@aries-framework/core'
+import { CredentialExchangeRecord } from '@aries-framework/core'
 
-const MOCK_CREDENTIALS_LIST: CredentialRecord[] = [
+const MOCK_CREDENTIALS_LIST: CredentialExchangeRecord[] = [
   {
     _tags: {
       connectionId: '07089a4a-7aba-497b-b8bc-c2e1a0934865',

@@ -52,6 +52,11 @@ const translation = {
     "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
     "Passphrase": "Mot de passe",
     "Mnemonic": "Mnémonique",
+    "SecondCounter": 'Deuxième à gauche',
+    "EmailInfo": 'Nous devons envoyer otp sur cet e-mail.Veuillez entrer un e-mail valide',
+    "OtpInfo": 'Entrez lotp que nous avons envoyé lors de lenregistrement de le-mail',
+    'OtpInvalid': 'Veuillez entrer un mot de passe valide',
+    'OtpSuccess': 'Vous avez vérifié avec succès votre otp'
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
@@ -63,7 +68,9 @@ const translation = {
     "PinMustBe6DigitsInLength": "La broche doit comporter 6 chiffres",
     "ReEnterPinMustBe6DigitsInLength": 'Die erneute Eingabe der PIN muss 6 Ziffern lang sein',
     "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",
-    "PinsSuccess": "Épingle créée avec succès",    
+    "PinsSuccess": "Épingle créée avec succès",
+    "PinChange": "Changement de code PIN réussi",
+    "NewPinMatchwithOld": 'La nouvelle broche est identique à une ancienne broche',         
     "6DigitPin": "Broche à 6 chiffres",
     "ReenterPin": "Locataire le code PIN",
     "Create": "Créer",

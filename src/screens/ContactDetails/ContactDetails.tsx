@@ -1,14 +1,22 @@
 import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
 import { StackScreenProps } from '@react-navigation/stack'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
-import { TouchableOpacity, StyleSheet, Text, Alert } from 'react-native'
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  Alert,
+  View,
+  FlatList,
+} from 'react-native'
 import { useTranslation } from 'react-i18next'
-import { SafeAreaScrollView, Label } from '../../components'
+import { Label } from '../../components'
 import { ContactStackParams, Screens } from '../../types/navigators'
 import { dateFormatOptions } from '../../constants'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { errorToast, successToast } from '../../utils/toast'
+import Accordion from '../../components/accordion/Accordion'
 
 type ContactDetailsProps = StackScreenProps<
   ContactStackParams,
@@ -16,6 +24,10 @@ type ContactDetailsProps = StackScreenProps<
 >
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
   footerText: {
     ...TextTheme.normal,
     padding: 10,
@@ -23,6 +35,23 @@ const styles = StyleSheet.create({
   link: {
     ...TextTheme.normal,
     color: ColorPallet.brand.link,
+  },
+  cardContainer: {
+    padding: 10,
+    paddingBottom: 35,
+  },
+  divider: {
+    borderBottomColor: ColorPallet.baseColors.lightGrey,
+    borderBottomWidth: 1,
+    width: '100%',
+  },
+  attribute: {
+    width: '50%',
+    color: ColorPallet.baseColors.black,
+  },
+  attributeContainer: {
+    flexDirection: 'row',
+    marginVertical: 5,
   },
 })
 
@@ -33,11 +62,52 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
   const { t } = useTranslation()
   const { agent } = useAgent()
   const connection = useConnectionById(route?.params?.connectionId)
+  const [history, setHistory] = useState([])
   useEffect(() => {
     navigation.setOptions({
       title: connection?.alias ?? connection?.theirLabel,
     })
   }, [connection, navigation])
+
+  const getConnectionHistory = useCallback(async () => {
+    // Get credential records for a specific connection
+    const credentialData = await agent?.genericRecords.findAllByQuery({
+      connectionId: connection?.id,
+      type: 'credential',
+    })
+
+    // Get proof records for a specific connection
+    const proofData = await agent?.genericRecords.findAllByQuery({
+      connectionId: connection?.id,
+      type: 'proof',
+    })
+
+    // Set empty array if no data is returned
+    const credentialRecords =
+      credentialData.length > 0 ? credentialData[0].content.records : []
+
+    // Set empty array if no data is returned
+    const proofRecords =
+      proofData.length > 0 ? proofData[0].content.records : []
+
+    // Combine credential and proof records into one array and filter with connection label
+    const history = [...credentialRecords, ...proofRecords].filter(
+      record => record.connectionLabel === connection?.theirLabel,
+    )
+
+    // Sort history by timestamp
+    const sortedHistory = history.sort(
+      (x, y) =>
+        new Date(y.timestamp).valueOf() - new Date(x.timestamp).valueOf(),
+    )
+    if (sortedHistory) {
+      setHistory(sortedHistory)
+    }
+  }, [agent?.genericRecords, connection])
+
+  useEffect(() => {
+    getConnectionHistory()
+  }, [getConnectionHistory])
 
   const showDeleteConnectionAlert = () => {
     Alert.alert(
@@ -55,51 +125,75 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
 
   const deleteConnection = async () => {
     try {
-      // Get the mediator connection from the connections list
-      if (connection.theirLabel === 'Indicio Public Mediator') {
-        errorToast(t('ContactDetails.ConnectionCannotDelete'))
-        return
+      if (connection) {
+        // Delete the connection by id
+        await agent?.connections.deleteById(connection?.id)
+
+        successToast(t('ContactDetails.DeleteConnectionSuccess'))
+        navigation.navigate(Screens.ListContacts)
       }
-
-      // Delete the connection by id
-      await agent.connections.deleteById(connection.id)
-
-      successToast(t('ContactDetails.DeleteConnectionSuccess'))
-      navigation.navigate(Screens.ListContacts)
     } catch (error) {
-      console.log('error', error)
       errorToast(t('ContactDetails.DeleteConnectionFailed'))
     }
   }
 
   return (
-    <SafeAreaScrollView>
+    <View style={styles.container}>
       <Label title="Name" subtitle={connection?.theirLabel} />
       <Label title="Id" subtitle={connection?.id} />
       <Label title="Did" subtitle={connection?.did} />
       <Label
         title="Created"
-        subtitle={connection.createdAt.toLocaleDateString(
+        subtitle={connection?.createdAt.toLocaleDateString(
           'en-CA',
           dateFormatOptions,
         )}
       />
       <Label title="Connection State" subtitle={connection?.state} />
-      <TouchableOpacity
-        testID="delete-contact"
-        onPress={showDeleteConnectionAlert}
-      >
-        <Text
-          style={[
-            styles.footerText,
-            styles.link,
-            { color: ColorPallet.semantic.error },
-          ]}
+      {!connection?.theirLabel?.toUpperCase().includes('MEDIATOR') && (
+        <TouchableOpacity
+          testID="delete-contact"
+          onPress={showDeleteConnectionAlert}
         >
-          {t('ContactDetails.DeleteConnection')}
-        </Text>
-      </TouchableOpacity>
-    </SafeAreaScrollView>
+          <Text
+            style={[
+              styles.footerText,
+              styles.link,
+              { color: ColorPallet.semantic.error },
+            ]}
+          >
+            {t('ContactDetails.DeleteConnection')}
+          </Text>
+        </TouchableOpacity>
+      )}
+
+      <FlatList
+        data={history}
+        contentContainerStyle={styles.cardContainer}
+        renderItem={({ item }) => (
+          <View key={item.timestamp.toString()}>
+            <Accordion
+              title={item.connectionLabel}
+              date={new Date(item.timestamp)}
+              status={item.status}
+              innerAccordion
+              key={item.timestamp.toString()}
+            >
+              {Object.entries(item.attributes).map(([key, value]) => {
+                return (
+                  <View style={styles.attributeContainer}>
+                    <Text style={styles.attribute}>{key}</Text>
+                    <Text style={styles.attribute}>{value.toString()}</Text>
+                  </View>
+                )
+              })}
+            </Accordion>
+            <View style={styles.divider} />
+          </View>
+        )}
+        keyExtractor={item => item.timestamp.toString()}
+      />
+    </View>
   )
 }
 

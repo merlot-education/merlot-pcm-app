@@ -1,3 +1,4 @@
+import { Agent } from '@aries-framework/core'
 import { NavigatorScreenParams } from '@react-navigation/core'
 
 export enum Screens {
@@ -46,8 +47,8 @@ export type OnboardingStackParams = {
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
   }
   ImportWallet: {
-    initAgent: (email: string, walletPin: string, seed: string) => void
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+    setAgent: (agent: Agent) => void
   }
   EnterPin: {
     initAgent: (email: string, walletPin: string, seed: string) => void

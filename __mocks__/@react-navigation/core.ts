@@ -18,4 +18,4 @@ const useNavigation = () => {
   return navigation
 }
 
-export { useNavigation }
+export default { useNavigation }

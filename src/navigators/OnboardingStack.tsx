@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
+import { Agent } from '@aries-framework/core'
 import PinCreate from '../screens/PinCreate'
 import PinEnter from '../screens/PinEnter'
 import Registration from '../screens/Registration'
@@ -20,16 +21,21 @@ const Stack = createStackNavigator<OnboardingStackParams>()
 type OnboardingStackProps = {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, walletPin: string, seed: string) => void
+  setAgent: (agent: Agent) => void
 }
 
 const OnboardingStack: React.FC<OnboardingStackProps> = ({
   setAuthenticated,
   initAgent,
+  setAgent,
 }) => {
   return (
     <Stack.Navigator
       initialRouteName={Screens.Splash}
-      screenOptions={{ ...defaultStackOptions, headerShown: false }}
+      screenOptions={{
+        ...defaultStackOptions,
+        headerShown: false,
+      }}
     >
       <Stack.Screen name={Screens.Splash} component={Splash} />
       <Stack.Screen
@@ -103,7 +109,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.ImportWallet}
         component={ImportWallet}
-        initialParams={{ initAgent, setAuthenticated }}
+        initialParams={{ initAgent, setAuthenticated, setAgent }}
         options={() => ({
           title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,

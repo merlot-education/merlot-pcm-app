@@ -53,6 +53,11 @@ const translation = {
     "MnemonicMsg": "This is the phrase that will be used to create your wallet seed and while exporting wallet , please save it securely. This can be later found in settings screen.",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonic",
+    "SecondCounter": 'Seconds Left',
+    "EmailInfo": 'We have to send otp on this email.Please enter a valid email',
+    "OtpInfo": 'Enter the otp we have send on register email',
+    'OtpInvalid': 'Please enter valid otp',
+    'OtpSuccess': 'You have successfully verify your otp'
   },
   "Terms": {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
@@ -64,7 +69,9 @@ const translation = {
     "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
     "ReEnterPinMustBe6DigitsInLength": 'Reenter PIN must be 6 digits in length',
     "PinsEnteredDoNotMatch": "Pin entered do not match", 
-    "PinsSuccess": "PIN created successfully",    
+    "PinsSuccess": "PIN created successfully", 
+    "PinChange": "PIN changed successfully",
+    "NewPinMatchwithOld": 'New Pin is same as a old pin',       
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
     "ReenterNewPin": "Re-Enter New PIN",

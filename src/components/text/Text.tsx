@@ -15,7 +15,7 @@ type Props = {
 
 const Text: React.FC<Props> = ({ children, style }) => {
   return (
-    <T style={[styles.text, style]} testID="text" accessibilityLabel={children}>
+    <T style={[styles.text, style]} testID="Text" accessibilityLabel="Text">
       {children}
     </T>
   )

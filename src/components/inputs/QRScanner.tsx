@@ -7,9 +7,15 @@ import {
   View,
   StyleSheet,
   Text,
+  Platform,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  Dimensions,
 } from 'react-native'
 import { BarCodeReadEvent, RNCamera } from 'react-native-camera'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import QRScannerClose from '../misc/QRScannerClose'
 import QRScannerTorch from '../misc/QRScannerTorch'
 import QrCodeScanError from '../../types/error'
@@ -17,9 +23,13 @@ import { ColorPallet } from '../../theme/theme'
 
 interface Props {
   handleCodeScan: (event: BarCodeReadEvent) => Promise<void>
+  textInputSubmit?: () => void
   error?: QrCodeScanError | null
   enableCameraOnError?: boolean
+  url?: string
+  onChangeText: any
 }
+const { width, height } = Dimensions.get('window')
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +60,34 @@ const styles = StyleSheet.create({
     color: ColorPallet.baseColors.white,
     padding: 4,
   },
+  submitIconStyle: {
+    alignSelf: 'center',
+  },
+  bottomView: {
+    flex: 1,
+    marginTop: -80,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: ColorPallet.baseColors.white,
+    width: '100%',
+  },
+  textInputStyle: {
+    width: width - 100,
+    paddingTop: 5,
+    color: '#000000',
+    alignItems: 'center',
+    fontSize: Platform.OS === 'ios' ? height / 50 : height / 45,
+    justifyContent: 'center',
+    height: Platform.OS === 'ios' ? height / 19 : height / 18,
+    borderBottomWidth: 1,
+    borderBottomColor: 'black',
+    alignSelf: 'center',
+    marginVertical: 20,
+  },
+  rowTextInputView: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
 })
 
 const CameraViewContainer: React.FC<{ portrait: boolean }> = ({
@@ -59,7 +97,6 @@ const CameraViewContainer: React.FC<{ portrait: boolean }> = ({
   return (
     <View
       style={{
-        flex: 1,
         flexDirection: portrait ? 'column' : 'row',
         alignItems: 'center',
       }}
@@ -73,10 +110,14 @@ const QRScanner: React.FC<Props> = ({
   handleCodeScan,
   error,
   enableCameraOnError,
+  url,
+  onChangeText,
+  textInputSubmit,
 }) => {
   const navigation = useNavigation()
   const [cameraActive, setCameraActive] = useState(true)
   const [torchActive, setTorchActive] = useState(false)
+
   const { width, height } = useWindowDimensions()
   const portraitMode = height > width
   const { t } = useTranslation()
@@ -118,7 +159,22 @@ const QRScanner: React.FC<Props> = ({
         }}
       >
         <CameraViewContainer portrait={portraitMode}>
-          <QRScannerClose onPress={() => navigation.goBack()} />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              padding: 20,
+              width: '100%',
+              position: 'absolute',
+              top: 10,
+            }}
+          >
+            <QRScannerTorch
+              active={torchActive}
+              onPress={() => setTorchActive(!torchActive)}
+            />
+            <QRScannerClose onPress={() => navigation.goBack()} />
+          </View>
           {error && (
             <View style={styles.errorContainer}>
               <Icon style={styles.icon} name="cancel" size={30} />
@@ -128,12 +184,34 @@ const QRScanner: React.FC<Props> = ({
           <View style={styles.viewFinderContainer}>
             <View style={styles.viewFinder} />
           </View>
-          <QRScannerTorch
-            active={torchActive}
-            onPress={() => setTorchActive(!torchActive)}
-          />
         </CameraViewContainer>
       </RNCamera>
+      <View style={styles.bottomView}>
+        <KeyboardAvoidingView
+          behavior="padding"
+          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+          enabled={Platform.OS === 'ios'}
+          style={styles.rowTextInputView}
+        >
+          <TextInput
+            style={styles.textInputStyle}
+            placeholder="url"
+            value={url}
+            onChangeText={onChangeText}
+            placeholderTextColor={ColorPallet.baseColors.black}
+          />
+          <TouchableOpacity
+            onPress={textInputSubmit}
+            style={styles.submitIconStyle}
+          >
+            <AntDesign
+              name="right"
+              color={ColorPallet.baseColors.black}
+              size={Platform.OS === 'ios' ? height / 30 : height / 28}
+            />
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      </View>
     </View>
   )
 }

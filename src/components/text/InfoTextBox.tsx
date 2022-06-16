@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { Image, StyleSheet, Text, View } from 'react-native'
 
 import { ColorPallet, TextTheme } from '../../theme/theme'
+import Images from '../../assets'
 
 export interface TextBoxProps {
   children: string | React.ReactNode
+  showIcon?: boolean
 }
 
 const iconSize = 30
@@ -14,16 +15,13 @@ const offset = 10
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    backgroundColor: ColorPallet.notification.info,
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 5,
-    borderWidth: 1,
-    borderColor: ColorPallet.notification.infoBorder,
     padding: 10,
   },
   headerText: {
     ...TextTheme.normal,
-    color: ColorPallet.notification.infoText,
-    fontWeight: 'bold',
+    color: ColorPallet.baseColors.black,
     flexShrink: 1,
     alignSelf: 'center',
   },
@@ -31,19 +29,30 @@ const styles = StyleSheet.create({
     marginRight: offset,
     alignSelf: 'center',
   },
+  infoIcon: {
+    width: iconSize,
+    height: iconSize,
+  },
 })
 
-const InfoTextBox: React.FC<TextBoxProps> = ({ children }) => {
+const InfoTextBox: React.FC<TextBoxProps> = ({
+  children,
+  showIcon = false,
+}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.icon}>
-        <Icon
-          name="info"
-          size={iconSize}
-          color={ColorPallet.notification.infoIcon}
-        />
-      </View>
-      <Text style={styles.headerText}>{children}</Text>
+      {showIcon && (
+        <View style={styles.icon}>
+          <Image source={Images.infoIcon} style={styles.infoIcon} />
+        </View>
+      )}
+      <Text
+        style={styles.headerText}
+        testID="InfoTextBox"
+        accessibilityLabel="InfoTextBox"
+      >
+        {children}
+      </Text>
     </View>
   )
 }

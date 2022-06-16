@@ -1,9 +1,8 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/core'
-import { fireEvent, render, shallow } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import { ConnectionState } from '@aries-framework/core'
 import { Alert } from 'react-native'
-import { useAgent } from '@aries-framework/react-hooks'
 import { Screens } from '../../../types/navigators'
 import ContactDetails from '../ContactDetails'
 import { useConnectionById } from '../../../../__mocks__/@aries-framework/react-hooks'
@@ -25,8 +24,6 @@ describe('ContactDetails', () => {
   })
 
   it('testing', () => {
-    const navigation = useNavigation()
-    const { agent } = useAgent()
     useConnectionById.mockImplementation(() =>
       getMockConnection({
         id: 'tesid',

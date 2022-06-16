@@ -1,5 +1,5 @@
 import {
-  CredentialRecord,
+  CredentialExchangeRecord,
   CredentialState,
   ProofRecord,
   ProofState,
@@ -11,7 +11,7 @@ import {
 
 interface Notifications {
   total: number
-  notifications: Array<CredentialRecord | ProofRecord>
+  notifications: Array<CredentialExchangeRecord | ProofRecord>
 }
 
 const useNotifications = (): Notifications => {
