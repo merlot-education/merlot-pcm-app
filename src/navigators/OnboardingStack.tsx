@@ -16,6 +16,8 @@ import { OnboardingStackParams, Screens } from '../types/navigators'
 import defaultStackOptions from './defaultStackOptions'
 import ImportWallet from '../screens/ImportWallet'
 import CreateWallet from '../screens/CreateWallet/CreateWallet'
+import Initialization from '../screens/Initialization'
+import WalletInitialized from '../screens/WalletInitialized'
 
 const Stack = createStackNavigator<OnboardingStackParams>()
 
@@ -108,11 +110,34 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         })}
       />
       <Stack.Screen
+        name={Screens.Initialization}
+        component={Initialization}
+        options={() => ({
+          title: 'Initialization',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
         name={Screens.CreateWallet}
         component={CreateWallet}
-        initialParams={{ initAgent, setAuthenticated }}
+        initialParams={{ initAgent }}
         options={() => ({
-          title: 'Save Mnemonic ',
+          title: 'Initialization',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.WalletInitialized}
+        component={WalletInitialized}
+        initialParams={{ setAuthenticated }}
+        options={() => ({
+          title: 'Registration ',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -122,7 +147,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.ImportWallet}
         component={ImportWallet}
-        initialParams={{ initAgent, setAuthenticated, setAgent }}
+        initialParams={{ setAuthenticated, setAgent }}
         options={() => ({
           title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,

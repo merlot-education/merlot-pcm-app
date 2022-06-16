@@ -58,7 +58,8 @@ const translation = {
     "EmailInfo": 'We have to send otp on this email.Please enter a valid email',
     "OtpInfo": 'Enter the otp we have send on register email',
     'OtpInvalid': 'Please enter valid otp',
-    'OtpSuccess': 'You have successfully verify your otp'
+    'OtpSuccess': 'You have successfully verify your otp',
+    'WalletInitialized':'Your wallet was successfully initialized.',
   },
   "Terms": {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
@@ -92,7 +93,14 @@ const translation = {
     "BiometricCancle": "User cancelled biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
     "RegisterPinandBiometric": 'Register PIN and Biometric',
-    "BiometricInfo": 'Register fingerid use for login'
+    "BiometricInfo": 'Register Fingureid use for login'
+  },
+  "Initialization":{
+    "CompleteInitialization":"Complete your Initialization",
+    "InitializationInfo":"Neues Wallet initialisieren oder altes Wallet importieren",
+  },
+  "Mnemonic":{
+    "MnemonicTitle":"To complete the initialisation please create an Mnemonic"
   },
   "Home": {
     "Welcome": "Welcome",
