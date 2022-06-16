@@ -37,6 +37,7 @@ const translation = {
     "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
     "ZeroRecords": 'Keine Aufzeichnungen verfügbar',
     "ImportWallet": "Brieftasche importieren",
+    "UserInactivity": "Abmelden aufgrund von Inaktivität",
   },
   "Language": {
     "English": "Englisch",

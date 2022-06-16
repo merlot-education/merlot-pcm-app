@@ -38,6 +38,7 @@ const translation = {
     "ThisDecisionCannotBeChanged.": "This decision cannot be changed.",
     "ZeroRecords": 'No records available',
     "ImportWallet": "Import Wallet",
+    "UserInactivity": "Logging out due to inactivity",
   },
   "Language": {
     "English": "English",
