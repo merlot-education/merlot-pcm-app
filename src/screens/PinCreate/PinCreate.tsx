@@ -144,7 +144,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       } else if (biometricSensorAvailable) {
         navigation.navigate(Screens.Biometric)
       } else {
-        navigation.navigate(Screens.CreateWallet)
+        navigation.navigate(Screens.Initialization)
       }
 
       setError(t('PinCreate.PinsSuccess'))

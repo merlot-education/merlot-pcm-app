@@ -5,10 +5,8 @@ import AppIntroSlider from 'react-native-app-intro-slider'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useTranslation } from 'react-i18next'
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import CredentialListImage from '../../assets/credential-list.png'
-import ScanToConnectImage from '../../assets/scan-share.png'
-import SecureImage from '../../assets/secure-image.png'
 import { storeAppIntroCompleteStage } from './Onboarding.utils'
+import Images from '../../assets'
 
 const styles = StyleSheet.create({
   container: {
@@ -55,19 +53,19 @@ const slides = [
     key: 1,
     title: 'Credentials List',
     text: 'Get the list of issued credentials',
-    image: CredentialListImage,
+    image: Images.credentialListImage,
   },
   {
     key: 2,
     title: 'Scan to connect',
     text: 'Scan QR to connect to organizations',
-    image: ScanToConnectImage,
+    image: Images.scanToConnectImage,
   },
   {
     key: 3,
     title: 'Secure Storage',
     text: 'Store your credentials securely in wallet',
-    image: SecureImage,
+    image: Images.secureImage,
   },
 ]
 
@@ -117,8 +115,8 @@ const Onboarding: React.FC = () => {
   }
   const renderPrevButton = () => {
     return (
-      <View>
-        <Text style={styles.textButton}> {t('Global.Previous')}</Text>
+      <View style={styles.buttonCircle}>
+        <Icon name="west" color={ColorPallet.grayscale.white} size={28} />
       </View>
     )
   }

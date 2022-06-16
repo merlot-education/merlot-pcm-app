@@ -37,6 +37,7 @@ const translation = {
     "ThisDecisionCannotBeChanged.": "Diese Entscheidung kann nicht geändert werden.",
     "ZeroRecords": 'Keine Aufzeichnungen verfügbar',
     "ImportWallet": "Brieftasche importieren",
+    'WalletInitialized':'Ihre Brieftasche wurde erfolgreich initialisiert',
     "UserInactivity": "Abmelden aufgrund von Inaktivität",
   },
   "Language": {
@@ -88,7 +89,14 @@ const translation = {
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
     "RegisterPinandBiometric": 'PIN und Biometrie registrieren',
-    "BiometricInfo": 'Registrieren Sie die fingerid-Nutzung für die Anmeldung',
+    "BiometricInfo": 'Registrieren Sie die Fingureid-Nutzung für die Anmeldung'
+  },
+  "Initialization":{
+    "CompleteInitialization":"Schließen Sie Ihre Initialisierung ab",
+    "InitializationInfo":"Initialiser le nouveau portefeuille ou importer l'ancien portefeuille",
+  },
+  "Mnemonic":{
+    "MnemonicTitle":"Pour terminer l'initialisation, veuillez créer un Mnémonique"
   },
   "Home": {
     "Welcome": "Willkommen",

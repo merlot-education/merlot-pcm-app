@@ -48,7 +48,7 @@ const Biometric: React.FC<BiometricProps> = ({ navigation }) => {
       if (success) {
         await createBiometricKeys()
         setError(t('Biometric.BiometricSuccess'))
-        navigation.navigate(Screens.CreateWallet)
+        navigation.navigate(Screens.Initialization)
       } else {
         setError(error)
       }

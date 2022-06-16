@@ -9,6 +9,7 @@ export enum Screens {
   CreatePin = 'CreatePin',
   Splash = 'Splash',
   EnterPin = 'EnterPin',
+  Initialization = 'Initialization',
   Home = 'Home',
   Connect = 'Connect',
   Consent = 'Consent',
@@ -30,12 +31,14 @@ export enum Screens {
   ViewMnemonic = 'ViewMnemonic',
   CreateWallet = 'CreateWallet',
   Biometric = 'Biometric',
+  WalletInitialized = 'WalletInitialized',
 }
 
 export type OnboardingStackParams = {
   Splash: undefined
   Onboarding: undefined
   Terms: undefined
+  Initialization: undefined
   Registration: { forgotPin: boolean }
   VerifyOtp: {
     email: string
@@ -62,6 +65,8 @@ export type OnboardingStackParams = {
   }
   CreateWallet: {
     initAgent: (email: string, walletPin: string, seed: string) => void
+  }
+  WalletInitialized: {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   }
 }
