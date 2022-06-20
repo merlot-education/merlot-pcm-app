@@ -62,15 +62,27 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
     navigation.navigate(Screens.CreateWallet)
   }
   const showSameEmailAlert = () => {
-    Alert.alert(t('PinCreate.EmailConfirmation'), t('PinCreate.CheckEmail'), [
+    Alert.alert(
+      t('PinCreate.EmailConfirmation'),
+      t('PinCreate.CheckEmail'),
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('No button clicked'),
+          style: 'cancel',
+        },
+        { text: t('Global.Next'), onPress: proceedToImport },
+        {
+          text: t('Global.ChangeEmail'),
+          style: 'cancel',
+          onPress: () =>
+            navigation.navigate(Screens.Registration, { forgotPin: false }),
+        },
+      ],
       {
-        text: t('Global.ChangeEmail'),
-        style: 'cancel',
-        onPress: () =>
-          navigation.navigate(Screens.Registration, { forgotPin: false }),
+        cancelable: true,
       },
-      { text: t('Global.Next'), onPress: proceedToImport },
-    ])
+    )
   }
 
   const proceedToImport = () => {
