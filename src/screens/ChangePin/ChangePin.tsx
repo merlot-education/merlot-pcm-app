@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
 import { useAgent } from '@aries-framework/react-hooks'
 import { ColorPallet } from '../../theme/theme'
-import { TextInput } from '../../components'
+import { TextInput, Loader } from '../../components'
 import Button, { ButtonType } from '../../components/button/Button'
 import { Screens, SettingStackParams } from '../../types/navigators'
 import { warningToast, successToast } from '../../utils/toast'
@@ -95,6 +95,8 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
   return (
     <View style={style.container}>
+      <Loader loading={loading} />
+
       <TextInput
         label={t('Global.OldPin')}
         placeholder={t('Global.6DigitPin')}
