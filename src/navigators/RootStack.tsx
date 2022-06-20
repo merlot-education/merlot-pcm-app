@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import {
   Agent,
   AutoAcceptCredential,
@@ -56,19 +56,30 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     setAgent(newAgent)
   }
 
+  useEffect(() => {
+    if (authenticated) {
+      setActive(true)
+    }
+  }, [authenticated])
+
+  useEffect(() => {
+    if (!active) {
+      setAuthenticated(false)
+      Toast.show({
+        type: ToastType.Info,
+        text1: t('Toasts.Info'),
+        text2: t('Global.UserInactivity'),
+      })
+    }
+  }, [active, t])
+
   const setAuthenticatedValue = useMemo(() => ({ value: setAuthenticated }), [])
   return authenticated ? (
     <UserInactivity
       isActive={active}
       timeForInactivity={300000}
-      onAction={() => {
-        Toast.show({
-          type: ToastType.Info,
-          text1: t('Toasts.Info'),
-          text2: t('Global.UserInactivity'),
-        })
-        setAuthenticated(false)
-        setActive(isActive => !isActive)
+      onAction={isActive => {
+        setActive(isActive)
       }}
     >
       <MainStackContext.Provider value={setAuthenticatedValue}>
