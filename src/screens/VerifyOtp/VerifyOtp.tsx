@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Keyboard, StyleSheet, Text, View, Image } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { StackScreenProps } from '@react-navigation/stack'
@@ -112,8 +112,12 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     setError(message)
   }
 
-  const onBack = async () => {
-    navigation.navigate(Screens.Registration)
+  const onBack = () => {
+    if (forgotPin) {
+      navigation.navigate(Screens.EnterPin)
+    } else {
+      navigation.navigate(Screens.Registration)
+    }
   }
 
   return (

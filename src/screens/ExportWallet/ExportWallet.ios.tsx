@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View } from 'react-native'
 import Toast from 'react-native-toast-message'
-import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
 import { useAgent } from '@aries-framework/react-hooks'
 import argon2 from 'react-native-argon2'
 import { useNavigation } from '@react-navigation/core'
+import RNFetchBlob from 'rn-fetch-blob'
+import Share from 'react-native-share'
 import { Loader, TextInput } from '../../components'
 import { ToastType } from '../../components/toast/BaseToast'
 import { KeychainStorageKeys, salt } from '../../constants'
@@ -41,20 +42,24 @@ const ExportWallet = () => {
   const exportWallet = async () => {
     try {
       setLoading(true)
-      const documentDirectory = RNFS.DocumentDirectoryPath
+
+      const { fs } = RNFetchBlob
+
+      const documentDirectory = fs.dirs.DocumentDir
 
       const zipDirectory = `${documentDirectory}/PCM_Backup`
 
-      const destFileExists = await RNFS.exists(zipDirectory)
+      const destFileExists = await fs.exists(zipDirectory)
       if (destFileExists) {
-        await RNFS.unlink(zipDirectory)
+        await fs.unlink(zipDirectory)
       }
 
       const date = new Date()
       const dformat = `${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`
       const WALLET_FILE_NAME = `PCM_Wallet_${dformat}`
 
-      await RNFS.mkdir(zipDirectory)
+      await fs
+        .mkdir(zipDirectory)
         .then(() => console.log('generated'))
         .catch(err => console.log('not generated', err))
       const encryptedFileName = `${WALLET_FILE_NAME}.wallet`
@@ -79,15 +84,26 @@ const ExportWallet = () => {
         path: encryptedFileLocation,
       }
 
-      await agent.wallet.export(exportConfig)
-      Toast.show({
-        type: ToastType.Success,
-        text1: t('ExportWallet.WalletExportedPath'),
-        text2: t(zipDirectory),
+      await agent?.wallet.export(exportConfig)
+
+      const { success, message } = await Share.open({
+        title: 'Share file',
+        failOnCancel: false,
+        saveToFiles: true,
+        url: encryptedFileLocation,
       })
+
+      if (success) {
+        Toast.show({
+          type: ToastType.Success,
+          text1: t('ExportWallet.WalletExportedPath'),
+          text2: message,
+        })
+      }
       setLoading(false)
       nav.goBack()
     } catch (err) {
+      setLoading(false)
       console.log(err)
     }
   }
@@ -106,7 +122,7 @@ const ExportWallet = () => {
           text1: t('Toasts.Success'),
           text2: t('Settings.ValidMnemonic'),
         })
-        exportWallet()
+        await exportWallet()
       } else {
         Toast.show({
           type: ToastType.Error,

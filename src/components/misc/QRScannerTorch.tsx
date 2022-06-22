@@ -3,8 +3,9 @@ import { TouchableOpacity, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { ColorPallet } from '../../theme/theme'
 
-interface Props {
+type Props = {
   active: boolean
+  onPress: () => void
 }
 
 const styles = StyleSheet.create({
@@ -24,9 +25,10 @@ const styles = StyleSheet.create({
   },
 })
 
-const TorchButton: React.FC<Props> = ({ active, children }) => {
+const TorchButton: React.FC<Props> = ({ active, onPress, children }) => {
   return (
     <TouchableOpacity
+      onPress={onPress}
       style={[
         styles.container,
         { backgroundColor: active ? ColorPallet.baseColors.white : undefined },
@@ -37,7 +39,7 @@ const TorchButton: React.FC<Props> = ({ active, children }) => {
   )
 }
 
-const TorchIcon: React.FC<Props> = ({ active }) => {
+const TorchIcon: React.FC<{ active: boolean }> = ({ active }) => {
   return (
     <Icon
       name={active ? 'flash-on' : 'flash-off'}
@@ -50,9 +52,9 @@ const TorchIcon: React.FC<Props> = ({ active }) => {
   )
 }
 
-const QRScannerTorch: React.FC<Props> = ({ active }) => {
+const QRScannerTorch: React.FC<Props> = ({ active, onPress }) => {
   return (
-    <TorchButton active={active}>
+    <TorchButton active={active} onPress={onPress}>
       <TorchIcon active={active} />
     </TorchButton>
   )
