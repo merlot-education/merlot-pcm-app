@@ -95,7 +95,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     if (email && passphrase) {
       const rawValue = email + passphrase.password.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
-      initAgent(email.password, passcode.password, seedHash)
+      await initAgent(email.password, passcode.password, seedHash)
       setLoading(false)
     }
   }, [initAgent])

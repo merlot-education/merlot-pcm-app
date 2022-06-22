@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import {
   Agent,
   AutoAcceptCredential,
@@ -14,6 +14,7 @@ import { agentDependencies } from '@aries-framework/react-native'
 import UserInactivity from 'react-native-user-inactivity'
 import Toast from 'react-native-toast-message'
 import { useTranslation } from 'react-i18next'
+import { useAgent } from '@aries-framework/react-hooks'
 import indyLedgers from '../../configs/ledgers/indy'
 import MainStack from './MainStack'
 import OnboardingStack from './OnboardingStack'
@@ -28,6 +29,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
   const { t } = useTranslation()
   const [authenticated, setAuthenticated] = useState(false)
   const [active, setActive] = useState(true)
+  const { agent } = useAgent()
   const initAgent = async (email: string, walletPin: string, seed: string) => {
     const newAgent = new Agent(
       {
@@ -39,7 +41,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         publicDidSeed: seed,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
         autoAcceptProofs: AutoAcceptProof.ContentApproved,
-        logger: new ConsoleLogger(LogLevel.debug),
+        logger: new ConsoleLogger(LogLevel.trace),
         autoUpdateStorageOnStartup: true,
         indyLedgers,
       },
@@ -54,33 +56,32 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
 
     await newAgent.initialize()
     setAgent(newAgent)
+    setActive(true)
   }
 
-  useEffect(() => {
-    if (authenticated) {
-      setActive(true)
-    }
-  }, [authenticated])
-
-  useEffect(() => {
+  const shutDownAgent = useCallback(async () => {
     if (!active) {
       setAuthenticated(false)
+      await agent?.shutdown()
       Toast.show({
         type: ToastType.Info,
         text1: t('Toasts.Info'),
         text2: t('Global.UserInactivity'),
       })
     }
-  }, [active, t])
+  }, [active, agent, t])
+
+  useEffect(() => {
+    shutDownAgent()
+  }, [shutDownAgent])
 
   const setAuthenticatedValue = useMemo(() => ({ value: setAuthenticated }), [])
+
   return authenticated ? (
     <UserInactivity
       isActive={active}
       timeForInactivity={300000}
-      onAction={isActive => {
-        setActive(isActive)
-      }}
+      onAction={isActive => setActive(isActive)}
     >
       <MainStackContext.Provider value={setAuthenticatedValue}>
         <MainStack />
@@ -91,6 +92,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       initAgent={initAgent}
       setAuthenticated={setAuthenticated}
       setAgent={setAgent}
+      setActive={setActive}
     />
   )
 }
