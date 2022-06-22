@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
   const { t } = useTranslation()
-  const { setAgent, setAuthenticated } = route.params
+  const { setAgent, setAuthenticated, setActive } = route.params
   const [mnemonic, setMnemonic] = useState('')
   const [walletBackupFilePath, setWalletBackupFilePath] = useState('')
   const [loading, setLoading] = useState(false)
