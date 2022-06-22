@@ -80,10 +80,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           navigation.navigate(Screens.ConnectionInvitation, { url })
         }
       } else {
-        throw new Error('Not a valid URL')
+        throw new Error('QRScanner.NotAValidURL')
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError('Invalid QrCode', event.data)
+      const error = new QrCodeScanError('QRScanner.InvalidQrCode', event.data)
       setQrCodeScanError(error)
     }
   }
@@ -107,10 +107,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           navigation.navigate(Screens.ConnectionInvitation, { url })
         }
       } else {
-        throw new Error('Not a valid URL')
+        throw new Error('QRScanner.NotAValidURL')
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError('Invalid Url', urlInput)
+      const error = new QrCodeScanError('QRScanner.InvalidQrCode', urlInput)
       setQrCodeScanError(error)
     }
   }

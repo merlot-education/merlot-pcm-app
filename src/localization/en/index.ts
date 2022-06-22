@@ -235,5 +235,11 @@ const translation = {
     "HideAll": "Hide all",
     "Hidden": "Hidden",
   },
+  "QRScanner":{
+    "PermissionToUseCamera":"Permission To Use Camera",
+    "PermissionMessage":"We need your permission to use your camera",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"Invalid QrCode",
+  },
 }
 export default translation

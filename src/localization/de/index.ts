@@ -234,6 +234,12 @@ const translation = {
     "Show": "Zeigen",
     "HideAll": "Versteck alles",
     "Hidden": "Versteckt",
-  }
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Erlaubnis zur Verwendung der Kamera",
+    "PermissionMessage":"Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"QrCode invalide",
+  },
 }
 export default translation

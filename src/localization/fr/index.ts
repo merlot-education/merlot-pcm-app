@@ -235,6 +235,12 @@ const translation = {
     "Show": "Montrer",
     "HideAll": "Cacher tout",
     "Hidden": "Caché",
-  }
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Autorisation d'utiliser l'appareil photo",
+    "PermissionMessage":"Nous avons besoin de votre autorisation pour utiliser votre appareil photo",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"QrCode invalide",
+  },
 }
 export default translation
