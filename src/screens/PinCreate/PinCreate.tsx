@@ -152,39 +152,35 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       setError(e)
     }
   }
+  const backAction = useCallback(() => {
+    Alert.alert('Already authenticated!', 'Are you sure you want to go back?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {
+        text: 'YES',
+        onPress: () =>
+          navigation.navigate(Screens.Registration, { forgotPin: false }),
+      },
+    ])
+    return true
+  }, [navigation])
+
+  const backActionForgotPassword = useCallback(() => {
+    navigation.navigate(Screens.EnterPin)
+    return true
+  }, [navigation])
 
   useEffect(() => {
-    const backAction = () => {
-      Alert.alert(
-        'Already authenticated!',
-        'Are you sure you want to go back?',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => null,
-            style: 'cancel',
-          },
-          {
-            text: 'YES',
-            onPress: () =>
-              navigation.navigate(Screens.Registration, { forgotPin: false }),
-          },
-        ],
-      )
-      return true
-    }
-
-    const backActionForgotPassword = () => {
-      navigation.navigate(Screens.EnterPin)
-      return true
-    }
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       forgotPin ? backActionForgotPassword : backAction,
     )
 
     return () => backHandler.remove()
-  }, [forgotPin, navigation])
+  }, [backAction, backActionForgotPassword, forgotPin])
 
   const confirmEntry = async (pin: string, reEnterPin: string) => {
     if (pin.length < 6) {
@@ -198,8 +194,12 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     }
   }
 
-  const onBack = async () => {
-    navigation.navigate(Screens.Registration)
+  const onBack = () => {
+    if (forgotPin) {
+      backActionForgotPassword()
+    } else {
+      backAction()
+    }
   }
 
   return (
