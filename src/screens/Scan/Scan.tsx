@@ -7,8 +7,8 @@ import type { BarCodeReadEvent } from 'react-native-camera'
 import { StyleSheet, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/core'
 import { Buffer } from 'buffer'
-import { t } from 'i18next'
 import Toast from 'react-native-toast-message'
+import { useTranslation } from 'react-i18next'
 import QRScanner from '../../components/inputs/QRScanner'
 import { ScanStackParams, Screens, TabStacks } from '../../types/navigators'
 import QrCodeScanError from '../../types/error'
@@ -26,6 +26,7 @@ interface ScanProps {
 }
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {
+  const { t } = useTranslation()
   const { agent } = useAgent()
   const isFocused = useIsFocused()
 

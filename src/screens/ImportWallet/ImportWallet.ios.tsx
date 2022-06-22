@@ -1,4 +1,3 @@
-import { t } from 'i18next'
 import React, { useState } from 'react'
 import { View, StyleSheet, Keyboard } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
@@ -23,6 +22,7 @@ import {
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNFS from 'react-native-fs'
+import { useTranslation } from 'react-i18next'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { TextInput, Loader, Text } from '../../components'
@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
 })
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
+  const { t } = useTranslation()
   const { setAgent, setAuthenticated } = route.params
   const [mnemonic, setMnemonic] = useState('')
   const [walletBackupFilePath, setwalletBackupFIlePath] = useState('')
