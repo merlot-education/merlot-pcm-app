@@ -52,14 +52,15 @@ const translation = {
     "ValidEmail": "Veuillez saisir une adresse e-mail valide",
     'ResendOtp': 'Renvoyer OTP',
     "RegisterAgain": "Vous devez vous inscrire à nouveau",
-    "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
+    "MnemonicMsg": "Cette phrase est le seul moyen d'exporter et d'importer un portefeuille, enregistrez-le dans un endroit sûr et secret. La pharse peut être trouvée plus tard sous l'onglet paramètres",
     "Passphrase": "Mot de passe",
     "Mnemonic": "Mnémonique",
-    "SecondCounter": 'Deuxième à gauche',
-    "EmailInfo": 'Nous devons envoyer otp sur cet e-mail.Veuillez entrer un e-mail valide',
-    "OtpInfo": 'Entrez lotp que nous avons envoyé lors de lenregistrement de le-mail',
-    'OtpInvalid': 'Veuillez entrer un mot de passe valide',
-    'OtpSuccess': 'Vous avez vérifié avec succès votre otp'
+    "SecondCounter": 'Secondes restantes',
+    "EmailInfo": "S'il vous plaît, mettez une adresse email valide",
+    "OtpInfo": "Entrez l'OTP envoyé sur l'adresse e-mail saisie",
+    'OtpInvalid': 'Please enter the valid OTP',
+    'OtpSuccess': 'OTP vérifié avec succès',
+    'WalletInitialized':'Portefeuille initialisé avec succès.',
   },
   "Terms": {
     "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
@@ -67,30 +68,33 @@ const translation = {
     "Attestation": "J'ai lu, compris et accepté les termes et conditions."
   },
   "PinCreate": {
-    "UserAuthenticationPin": "NIP d'authentification de l'utilisateur",
-    "PinMustBe6DigitsInLength": "La broche doit comporter 6 chiffres",
-    "ReEnterPinMustBe6DigitsInLength": 'Die erneute Eingabe der PIN muss 6 Ziffern lang sein',
-    "PinsEnteredDoNotMatch": "Les épingles saisies ne correspondent pas",
-    "PinsSuccess": "Épingle créée avec succès",
-    "PinChange": "Changement de code PIN réussi",
-    "NewPinMatchwithOld": 'La nouvelle broche est identique à une ancienne broche',         
-    "6DigitPin": "Broche à 6 chiffres",
-    "ReenterPin": "Locataire le code PIN",
+    "UserAuthenticationPin": "Broche d'authentification de l'utilisateur",
+    "PinMustBe6DigitsInLength": "Le code PIN doit comporter 6 chiffres",
+    "ReEnterPinMustBe6DigitsInLength": 'Longueur du code PIN insuffisante',
+    "PinsEnteredDoNotMatch": "Le code PIN saisi ne correspond pas", 
+    "PinsSuccess": "Code PIN créé avec succès", 
+    "PinChange": "Le code PIN a été modifié avec succès",
+    "NewPinMatchwithOld": 'La nouvelle broche est identique à une ancienne broche',       
+    "6DigitPin": "NIP à 6 chiffres",
+    "ReenterPin": "Entrez à nouveau le code PIN",
+    "ReenterNewPin": "Entrez à nouveau le nouveau code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
-    "WalletCreated": "Votre portefeuille est créé avec succès",
-    "MnemonicMsg": 'Il sagit de la phrase qui sera utilisée pour créer la graine de votre portefeuille, veuillez lenregistrer en toute sécurité',
-    "PinInfo": 'Cette broche utilisée pour la connexion',
+    "WalletCreated": "Votre portefeuille est créé avec succès.",
+    "OR": "OU",
+    "EmailConfirmation": "Avertissement",
+    "CheckEmail": "L'e-mail doit être le même que celui utilisé pour l'exportation du portefeuille.",
+    "PinInfo": 'Cette broche utilisée pour la connexion'
   },
   "Biometric": {
     "Biometric": "Biométrique",
     "BiometricConfirm": "Confirmer l'empreinte digitale",
-    "BiometricSuccess": "Enregistrement d'empreintes digitales réussi",
+    "BiometricSuccess": "Empreinte digitale configurée avec succès",
     "BiometricFailed": "Échec de la biométrie",
-    "BiometricCancle": "Invite biométrique annulée par l'utilisateur",
+    "BiometricCancle": "L'utilisateur a annulé l'invite biométrique",
     "BiometricNotSupport": "Biométrie non prise en charge",
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
-    "BiometricInfo": 'Enregistrez lutilisation de Biometric pour la connexion'
+    "BiometricInfo": "S'inscrire Utilisation biométrique pour la connexion"
   },
   "Initialization":{
     "CompleteInitialization":"Complétez votre initialisation",
@@ -101,14 +105,15 @@ const translation = {
   },
   "Home": {
     "Welcome": "Bienvenue",
-    "Notifications": "Notifications",
-    "NoNewUpdates": "Vous n'avez pas de nouvelles notifications.",
-    "NoCredentials": "Vous n'avez pas d'informations d'identification dans votre portefeuille.",
-    "SeeAll": "Voir tous",
-    "YouHave": "Vous avez",
-    "Credential": "informations d'identification",
-    "Credentials": "informations d'identification",
-    "InYourWallet": "dans votre portefeuille"
+    "Notifications": "Avis",
+    "NoNewUpdates": "Vous n'avez aucune nouvelle notification.",
+    "NoCredentials": "Vous n'avez pas d'identifiants dans votre portefeuille.",
+    "SeeAll": "Voir tout",
+    "YouHave": "Tu as",
+    "Credential": "justificative",
+    "Credentials": "identifiants",
+    "InYourWallet": "dans votre portefeuille",
+    "CredentialCountUndefinedError":"Le nombre d'informations d'identification ne peut pas être indéfini",
   },
   "PinEnter": {
     "IncorrectPin": "Broche incorrecte",    
@@ -136,7 +141,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Sélectionnez le fichier de portefeuille",
     "EmptyMnemonic": 'Les mnémoniques ne peuvent pas être vides',
-    "InvalidMnemonic": 'Mnémoniques invalides '
+    "InvalidMnemonic": 'Mnémoniques invalides ',
+    "WalletRestoreFailed":'Échec de la restauration du portefeuille',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Nouvelle demande de connexion"
@@ -177,7 +183,13 @@ const translation = {
     "CredentialDeclined": "Identifiant refusé",
     "CredentialOnTheWay": "Votre accréditation est en route",
     "CredentialOffer": "Nouvelle offre d'accréditation",
-    "IsOfferingYouACredential": "vous offre une accréditation"
+    "IsOfferingYouACredential": "vous offre une accréditation",
+    "CredentialOfferParamsError":"Les poussettes d'itinéraire CredentialOffer n'ont pas été définies correctement",
+    "FetchAFJError":"Impossible de récupérer l'agent de l'AFJ",
+    "CredentialFetchError":"Impossible de récupérer les informations d'identification de l'AFJ",
+    "RejectOfferTitle":"Impossible de rejeter l'offre",
+    "RejectOfferMessage":"Un problème est survenu lors du rejet de l'offre d'identifiants",
+
   },
   "TabStack": {
     "Home": "Maison",
@@ -224,13 +236,21 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "Votre portefeuille manque d'informations"
       }
-    }
+    },
+    "ProofRequestParamsError":"Les poussettes d'itinéraire ProofRequest n'ont pas été correctement définies",
+    "FetchProofError":"Impossible de récupérer la preuve auprès de l'AFJ",
   },
   "Record": {
     "Hide": "Cacher",
     "Show": "Montrer",
     "HideAll": "Cacher tout",
     "Hidden": "Caché",
-  }
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Autorisation d'utiliser l'appareil photo",
+    "PermissionMessage":"Nous avons besoin de votre autorisation pour utiliser votre appareil photo",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"QrCode invalide",
+  },
 }
 export default translation

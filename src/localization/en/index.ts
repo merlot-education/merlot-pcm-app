@@ -48,18 +48,18 @@ const translation = {
   "Registration":{
     "UserAuthenticationEmail": "User authentication email",
     "EnterEmail": 'Please enter email',
-    "ValidEmail": "Please enter valid email",
+    "ValidEmail": "Please enter a valid email address",
     'ResendOtp': 'Resend OTP',
     "RegisterAgain": "You have to register again",
-    "MnemonicMsg": "This is the phrase that will be used to create your wallet seed and while exporting wallet , please save it securely. This can be later found in settings screen.",
+    "MnemonicMsg": "This phrase is only way to export and import wallet, save it somewhere safe and secret. The pharse can be later found under settings tab.",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonic",
     "SecondCounter": 'Seconds Left',
-    "EmailInfo": 'We have to send otp on this email.Please enter a valid email',
-    "OtpInfo": 'Enter the otp we have send on register email',
-    'OtpInvalid': 'Please enter valid otp',
-    'OtpSuccess': 'You have successfully verify your otp',
-    'WalletInitialized':'Your wallet was successfully initialized.',
+    "EmailInfo": 'Please enter a valid email address',
+    "OtpInfo": 'Enter the OTP sent on entered email address',
+    'OtpInvalid': 'Please enter the valid OTP',
+    'OtpSuccess': 'OTP verified successfully',
+    'WalletInitialized':'Wallet initialized successfully.',
   },
   "Terms": {
     "AcceptTerms": "Please agree to the terms and conditions below before using this application.",
@@ -69,16 +69,16 @@ const translation = {
   "PinCreate": {
     "UserAuthenticationPin": "User authentication pin",
     "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
-    "ReEnterPinMustBe6DigitsInLength": 'Reenter PIN must be 6 digits in length',
-    "PinsEnteredDoNotMatch": "Pin entered do not match", 
+    "ReEnterPinMustBe6DigitsInLength": 'Insufficient PIN length',
+    "PinsEnteredDoNotMatch": "Pin entered does not match", 
     "PinsSuccess": "PIN created successfully", 
     "PinChange": "PIN changed successfully",
-    "NewPinMatchwithOld": 'New Pin is same as a old pin',       
+    "NewPinMatchwithOld": 'New Pin is same as a Old Pin',       
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
-    "ReenterNewPin": "Re-Enter New PIN",
+    "ReenterNewPin": "Re-Enter the New PIN",
     "Create": "Create",
-    "ValidOldPin": "Please enter valid old PIN",
+    "ValidOldPin": "Please enter valid Old PIN",
     "WalletCreated": "Your wallet is created successfully.",
     "OR": "OR",
     "EmailConfirmation": "Warning",
@@ -88,9 +88,9 @@ const translation = {
   "Biometric": {
     "Biometric": "Biometric",
     "BiometricConfirm": "Confirm fingerprint",
-    "BiometricSuccess": "Fingerprint register successfully",
+    "BiometricSuccess": "Fingerprint configured successfully",
     "BiometricFailed": "Biometrics failed",
-    "BiometricCancle": "User cancelled biometric prompt",
+    "BiometricCancle": "User cancelled the biometric prompt",
     "BiometricNotSupport": "Biometrics not supported",
     "RegisterPinandBiometric": 'Register PIN and Biometric',
     "BiometricInfo": 'Register Biometric use for login'
@@ -111,7 +111,8 @@ const translation = {
     "YouHave": "You have",
     "Credential": "credential",
     "Credentials": "credentials",
-    "InYourWallet": "in your wallet"
+    "InYourWallet": "in your wallet",
+    "CredentialCountUndefinedError":"Credential count cannot be undefined",
   },
   "PinEnter": {
     "IncorrectPin": "Incorrect PIN", 
@@ -139,7 +140,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Select Wallet File",
     "EmptyMnemonic": 'Mnemonics cannot be empty',
-    "InvalidMnemonic": 'Invalid Mnemonics '
+    "InvalidMnemonic": 'Invalid Mnemonics ',
+    "WalletRestoreFailed":"Wallet restore failed",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"
@@ -180,7 +182,12 @@ const translation = {
     "CredentialDeclined": "Credential declined",
     "CredentialOnTheWay": "Your credential is on the way",
     "CredentialOffer": "New Credential Offer",
-    "IsOfferingYouACredential": "is offering you a credential"
+    "IsOfferingYouACredential": "is offering you a credential",
+    "CredentialOfferParamsError":"CredentialOffer route prams were not set properly",
+    "FetchAFJError":"Unable to fetch agent from AFJ",
+    "CredentialFetchError":"Unable to fetch credential from AFJ",
+    "RejectOfferTitle":"Unable to reject offer",
+    "RejectOfferMessage":"There was a problem while rejecting the credential offer",
   },
   "TabStack": {
     "Home": "Home",
@@ -227,13 +234,21 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "Your wallet is missing information",
       },
-    }
+    },
+    "ProofRequestParamsError":"ProofRequest route prams were not set properly",
+    "FetchProofError":"Unable to fetch proof from AFJ",
   },
   "Record": {
     "Hide": "Hide",
     "Show": "Show",
     "HideAll": "Hide all",
     "Hidden": "Hidden",
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Permission To Use Camera",
+    "PermissionMessage":"We need your permission to use your camera",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"Invalid QrCode",
   },
 }
 export default translation

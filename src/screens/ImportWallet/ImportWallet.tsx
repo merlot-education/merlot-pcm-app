@@ -97,7 +97,11 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         }
       })
       .catch(error => {
-        console.log(error)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(error),
+        })
       })
   }
 
@@ -115,14 +119,26 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
           // output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
         })
         .catch(err => {
-          console.log(err)
+          Toast.show({
+            type: ToastType.Error,
+            text1: t('Toasts.Warning'),
+            text2: t(err),
+          })
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('docupemt picker error', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
-        throw console.log('Error from zip', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
       }
     }
   }

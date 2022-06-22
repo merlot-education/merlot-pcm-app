@@ -7,10 +7,13 @@ import type { BarCodeReadEvent } from 'react-native-camera'
 import { StyleSheet, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/core'
 import { Buffer } from 'buffer'
+import Toast from 'react-native-toast-message'
+import { useTranslation } from 'react-i18next'
 import QRScanner from '../../components/inputs/QRScanner'
 import { ScanStackParams, Screens, TabStacks } from '../../types/navigators'
 import QrCodeScanError from '../../types/error'
 import { ColorPallet } from '../../theme/theme'
+import { ToastType } from '../../components/toast/BaseToast'
 
 const styles = StyleSheet.create({
   container: {
@@ -23,6 +26,7 @@ interface ScanProps {
 }
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {
+  const { t } = useTranslation()
   const { agent } = useAgent()
   const isFocused = useIsFocused()
 
@@ -56,7 +60,11 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         navigation.navigate(TabStacks.HomeStack)
       }
     } catch (error) {
-      console.log('handleRedirection error', error)
+      Toast.show({
+        type: ToastType.Error,
+        text1: t('Toasts.Warning'),
+        text2: error,
+      })
     }
   }
 
@@ -80,10 +88,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           navigation.navigate(Screens.ConnectionInvitation, { url })
         }
       } else {
-        throw new Error('Not a valid URL')
+        throw new Error('QRScanner.NotAValidURL')
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError('Invalid QrCode', event.data)
+      const error = new QrCodeScanError('QRScanner.InvalidQrCode', event.data)
       setQrCodeScanError(error)
     }
   }
@@ -107,10 +115,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           navigation.navigate(Screens.ConnectionInvitation, { url })
         }
       } else {
-        throw new Error('Not a valid URL')
+        throw new Error(t('QRScanner.NotAValidURL'))
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError('Invalid Url', urlInput)
+      const error = new QrCodeScanError(t('QRScanner.InvalidQrCode'), urlInput)
       setQrCodeScanError(error)
     }
   }

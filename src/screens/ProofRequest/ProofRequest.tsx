@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
 })
 
 const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
+  const { t } = useTranslation()
   if (!route?.params) {
-    throw new Error('ProofRequest route prams were not set properly')
+    throw new Error(t('ProofRequest.ProofRequestParamsError'))
   }
 
   const { proofId } = route.params
   const { agent } = useAgent()
-  const { t } = useTranslation()
   const [buttonsVisible, setButtonsVisible] = useState(true)
   const [pendingModalVisible, setPendingModalVisible] = useState(false)
   const [successModalVisible, setSuccessModalVisible] = useState(false)
@@ -280,11 +280,11 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   }
 
   if (!agent) {
-    throw new Error('Unable to fetch agent from AFJ')
+    throw new Error(t('CredentialOffer.FetchAFJError'))
   }
 
   if (!proof) {
-    throw new Error('Unable to fetch proof from AFJ')
+    throw new Error(t('ProofRequest.FetchProofError'))
   }
 
   useEffect(() => {

@@ -53,61 +53,66 @@ const translation = {
   "Registration":{
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
-    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
+    "ValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     'ResendOtp': 'OTP erneut senden',
     "RegisterAgain": "Sie müssen sich erneut registrieren",
-    "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
+    "MnemonicMsg": "Dieser Satz ist nur eine Möglichkeit, Brieftaschen zu exportieren und zu importieren und sie an einem sicheren und geheimen Ort aufzubewahren. Die Phrase kann später unter der Registerkarte Einstellungen gefunden werden.",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonik",
-    "SecondCounter": 'Zweite links',
-    "EmailInfo": 'Wir müssen otp an diese E-Mail senden.Bitte geben Sie eine gültige E-Mail-Adresse ein',
-    "OtpInfo": 'Geben Sie das otp ein, das wir bei der Registrierung per E-Mail gesendet haben',
-    'OtpInvalid': 'Bitte geben Sie ein gültiges otp ein',
-    'OtpSuccess': 'Sie haben Ihr otp erfolgreich verifiziert'
+    "SecondCounter": 'Sekunden übrig',
+    "EmailInfo": 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+    "OtpInfo": 'Geben Sie das an die eingegebene E-Mail-Adresse gesendete OTP ein',
+    'OtpInvalid': 'Bitte geben Sie das gültige OTP ein',
+    'OtpSuccess': 'OTP erfolgreich verifiziert',
+    'WalletInitialized':'Wallet erfolgreich initialisiert.',
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
     "PinMustBe6DigitsInLength": "Die PIN muss 6 Ziffern lang sein",
-    "ReEnterPinMustBe6DigitsInLength": 'Le code PIN doit être composé de 6 chiffres',
-    "PinsEnteredDoNotMatch": "Die eingegebenen Pins stimmen nicht überein", 
-    "PinsSuccess": "Pin erfolgreich erstellt",
-    "PinChange": "PIN-Änderung erfolgreich",
-    "NewPinMatchwithOld": 'Neuer Pin ist derselbe wie ein alter Pin',           
+    "ReEnterPinMustBe6DigitsInLength": 'Unzureichende PIN-Länge',
+    "PinsEnteredDoNotMatch": "Die eingegebene PIN stimmt nicht überein", 
+    "PinsSuccess": "PIN erfolgreich erstellt", 
+    "PinChange": "PIN erfolgreich geändert",
+    "NewPinMatchwithOld": 'Neuer Pin ist derselbe wie ein alter Pin',       
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
-    "ReenterNewPin": "Neue PIN erneut eingeben",
+    "ReenterNewPin": "Geben Sie die neue PIN erneut ein",
     "Create": "Schaffen",
-    "ValidOldPin": "Bitte gültige alte PIN eingeben",
+    "ValidOldPin": "Bitte geben Sie eine gültige alte PIN ein",
     "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt.",
-    "PinInfo": 'Dieser Pin wird für die Anmeldung verwendet',
+    "OR": "ODER",
+    "EmailConfirmation": "Warnung",
+    "CheckEmail": "Die E-Mail-Adresse sollte die gleiche sein, die für den Export der Brieftasche verwendet wird.",
+    "PinInfo": 'Dieser Pin wird für die Anmeldung verwendet'
   },
   "Biometric": {
     "Biometric": "Biometrisch",
-    "BiometricConfirm": "Confirm fingerprint",
-    "BiometricSuccess": "Fingerabdruck bestätigen",
+    "BiometricConfirm": "Fingerabdruck bestätigen",
+    "BiometricSuccess": "Fingerabdruck erfolgreich konfiguriert",
     "BiometricFailed": "Biometrie fehlgeschlagen",
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
-    "RegisterPinandBiometric": 'PIN und Biometrie registrieren',
-    "BiometricInfo": 'Registrieren Sie die Biometric-Nutzung für die Anmeldung'
+    "RegisterPinandBiometric": 'Registrieren Sie PIN und Biometrie',
+    "BiometricInfo": 'Registrieren Sie die biometrische Verwendung für die Anmeldung'
   },
   "Initialization":{
     "CompleteInitialization":"Schließen Sie Ihre Initialisierung ab",
-    "InitializationInfo":"Initialiser le nouveau portefeuille ou importer l'ancien portefeuille",
+    "InitializationInfo":"Neues Wallet initialisieren oder altes Wallet importieren",
   },
   "Mnemonic":{
-    "MnemonicTitle":"Pour terminer l'initialisation, veuillez créer un Mnémonique"
+    "MnemonicTitle":"Um die Initialisierung abzuschließen, erstellen Sie bitte eine Mnemonik"
   },
   "Home": {
-    "Welcome": "Willkommen",
+    "Welcome": "Herzlich willkommen",
     "Notifications": "Benachrichtigungen",
     "NoNewUpdates": "Sie haben keine neuen Benachrichtigungen.",
-    "NoCredentials": "Sie haben keine Zugangsdaten in Ihrem Wallet.",
-    "SeeAll": "Alle anzeigen",
-    "YouHave": "Sie haben",
-    "Credential": "Zugangsdaten",
-    "Credentials": "Zugangsdaten",
-    "InYourWallet": "in Ihrem Wallet"
+    "NoCredentials": "Sie haben keine Zugangsdaten in Ihrer Brieftasche.",
+    "SeeAll": "Alles sehen",
+    "YouHave": "Du hast",
+    "Credential": "Ausweis",
+    "Credentials": "Referenzen",
+    "InYourWallet": "in deiner Brieftasche",
+    "CredentialCountUndefinedError":"Die Anzahl der Anmeldeinformationen kann nicht undefiniert sein",
   },
   "PinEnter": {
     "IncorrectPin": "Falsche PIN", 
@@ -135,7 +140,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Wählen Sie Wallet-Datei aus",
     "EmptyMnemonic": 'Mnemoniken dürfen nicht leer sein',
-    "InvalidMnemonic": 'Ungültige Mnemonik '
+    "InvalidMnemonic": 'Ungültige Mnemonik ',
+    "WalletRestoreFailed":"Wallet-Wiederherstellung fehlgeschlagen",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
@@ -176,7 +182,13 @@ const translation = {
     "CredentialDeclined": "Anmeldedaten abgelehnt",
     "CredentialOnTheWay": "Ihr Ausweis ist unterwegs",
     "CredentialOffer": "Neue Anmeldeinformationen",
-    "IsOfferingYouACredential": "bietet Ihnen einen Ausweis an"
+    "IsOfferingYouACredential": "bietet Ihnen einen Ausweis an",
+    "CredentialOfferParamsError":"CredentialOffer Route Kinderwagen wurden nicht richtig eingestellt",
+    "FetchAFJError":"Agent kann nicht von AFJ abgerufen werden",
+    "CredentialFetchError":"Berechtigung kann nicht von AFJ abgerufen werden",
+    "RejectOfferTitle":"Angebot kann nicht abgelehnt werden",
+    "RejectOfferMessage":"Beim Ablehnen des Anmeldeinformationsangebots ist ein Problem aufgetreten",
+
   },
   "TabStack": {
     "Home": "Zuhause",
@@ -217,7 +229,9 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "In Ihrer Brieftasche fehlen Informationen"
       }
-    }
+    },
+    "ProofRequestParamsError":"ProofRequest-Routenkinderwagen wurden nicht richtig eingestellt",
+    "FetchProofError":"Nachweis von AFJ konnte nicht abgerufen werden",
   },
   "Toasts":{
     "Success": "Erfolg",
@@ -230,6 +244,12 @@ const translation = {
     "Show": "Zeigen",
     "HideAll": "Versteck alles",
     "Hidden": "Versteckt",
-  }
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Erlaubnis zur Verwendung der Kamera",
+    "PermissionMessage":"Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"QrCode invalide",
+  },
 }
 export default translation
