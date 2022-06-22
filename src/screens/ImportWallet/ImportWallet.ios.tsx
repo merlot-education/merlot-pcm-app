@@ -76,14 +76,26 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
           setwalletBackupFIlePath(stats.path.replace('file://', ''))
         })
         .catch(err => {
-          console.log(err)
+          Toast.show({
+            type: ToastType.Error,
+            text1: t('Toasts.Warning'),
+            text2: t(err),
+          })
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('docupemt picker error', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
-        throw console.log('Error from zip', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
       }
     }
   }
@@ -167,7 +179,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
         Toast.show({
           type: ToastType.Error,
           text1: t('Toasts.Warning'),
-          text2: 'Wallet restore failed',
+          text2: t('ImportWallet.WalletRestoreFailed'),
         })
       }
     }

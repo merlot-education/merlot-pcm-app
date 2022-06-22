@@ -112,7 +112,8 @@ const translation = {
     "YouHave": "Tu as",
     "Credential": "justificative",
     "Credentials": "identifiants",
-    "InYourWallet": "dans votre portefeuille"
+    "InYourWallet": "dans votre portefeuille",
+    "CredentialCountUndefinedError":"Le nombre d'informations d'identification ne peut pas être indéfini",
   },
   "PinEnter": {
     "IncorrectPin": "Broche incorrecte",    
@@ -140,7 +141,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Sélectionnez le fichier de portefeuille",
     "EmptyMnemonic": 'Les mnémoniques ne peuvent pas être vides',
-    "InvalidMnemonic": 'Mnémoniques invalides '
+    "InvalidMnemonic": 'Mnémoniques invalides ',
+    "WalletRestoreFailed":'Échec de la restauration du portefeuille',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Nouvelle demande de connexion"
@@ -181,7 +183,13 @@ const translation = {
     "CredentialDeclined": "Identifiant refusé",
     "CredentialOnTheWay": "Votre accréditation est en route",
     "CredentialOffer": "Nouvelle offre d'accréditation",
-    "IsOfferingYouACredential": "vous offre une accréditation"
+    "IsOfferingYouACredential": "vous offre une accréditation",
+    "CredentialOfferParamsError":"Les poussettes d'itinéraire CredentialOffer n'ont pas été définies correctement",
+    "FetchAFJError":"Impossible de récupérer l'agent de l'AFJ",
+    "CredentialFetchError":"Impossible de récupérer les informations d'identification de l'AFJ",
+    "RejectOfferTitle":"Impossible de rejeter l'offre",
+    "RejectOfferMessage":"Un problème est survenu lors du rejet de l'offre d'identifiants",
+
   },
   "TabStack": {
     "Home": "Maison",
@@ -228,7 +236,9 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "Votre portefeuille manque d'informations"
       }
-    }
+    },
+    "ProofRequestParamsError":"Les poussettes d'itinéraire ProofRequest n'ont pas été correctement définies",
+    "FetchProofError":"Impossible de récupérer la preuve auprès de l'AFJ",
   },
   "Record": {
     "Hide": "Cacher",

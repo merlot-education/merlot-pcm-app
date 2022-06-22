@@ -72,7 +72,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
 
   const displayMessage = (credentialCount: number) => {
     if (typeof credentialCount === 'undefined') {
-      throw new Error('Credential count cannot be undefined')
+      throw new Error(t('Home.CredentialCountUndefinedError'))
     }
 
     let credentialMsg

@@ -111,7 +111,8 @@ const translation = {
     "YouHave": "Du hast",
     "Credential": "Ausweis",
     "Credentials": "Referenzen",
-    "InYourWallet": "in deiner Brieftasche"
+    "InYourWallet": "in deiner Brieftasche",
+    "CredentialCountUndefinedError":"Die Anzahl der Anmeldeinformationen kann nicht undefiniert sein",
   },
   "PinEnter": {
     "IncorrectPin": "Falsche PIN", 
@@ -139,7 +140,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Wählen Sie Wallet-Datei aus",
     "EmptyMnemonic": 'Mnemoniken dürfen nicht leer sein',
-    "InvalidMnemonic": 'Ungültige Mnemonik '
+    "InvalidMnemonic": 'Ungültige Mnemonik ',
+    "WalletRestoreFailed":"Wallet-Wiederherstellung fehlgeschlagen",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
@@ -180,7 +182,13 @@ const translation = {
     "CredentialDeclined": "Anmeldedaten abgelehnt",
     "CredentialOnTheWay": "Ihr Ausweis ist unterwegs",
     "CredentialOffer": "Neue Anmeldeinformationen",
-    "IsOfferingYouACredential": "bietet Ihnen einen Ausweis an"
+    "IsOfferingYouACredential": "bietet Ihnen einen Ausweis an",
+    "CredentialOfferParamsError":"CredentialOffer Route Kinderwagen wurden nicht richtig eingestellt",
+    "FetchAFJError":"Agent kann nicht von AFJ abgerufen werden",
+    "CredentialFetchError":"Berechtigung kann nicht von AFJ abgerufen werden",
+    "RejectOfferTitle":"Angebot kann nicht abgelehnt werden",
+    "RejectOfferMessage":"Beim Ablehnen des Anmeldeinformationsangebots ist ein Problem aufgetreten",
+
   },
   "TabStack": {
     "Home": "Zuhause",
@@ -221,7 +229,9 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "In Ihrer Brieftasche fehlen Informationen"
       }
-    }
+    },
+    "ProofRequestParamsError":"ProofRequest-Routenkinderwagen wurden nicht richtig eingestellt",
+    "FetchProofError":"Nachweis von AFJ konnte nicht abgerufen werden",
   },
   "Toasts":{
     "Success": "Erfolg",

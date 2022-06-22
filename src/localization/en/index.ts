@@ -111,7 +111,8 @@ const translation = {
     "YouHave": "You have",
     "Credential": "credential",
     "Credentials": "credentials",
-    "InYourWallet": "in your wallet"
+    "InYourWallet": "in your wallet",
+    "CredentialCountUndefinedError":"Credential count cannot be undefined",
   },
   "PinEnter": {
     "IncorrectPin": "Incorrect PIN", 
@@ -139,7 +140,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Select Wallet File",
     "EmptyMnemonic": 'Mnemonics cannot be empty',
-    "InvalidMnemonic": 'Invalid Mnemonics '
+    "InvalidMnemonic": 'Invalid Mnemonics ',
+    "WalletRestoreFailed":"Wallet restore failed",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"
@@ -180,7 +182,12 @@ const translation = {
     "CredentialDeclined": "Credential declined",
     "CredentialOnTheWay": "Your credential is on the way",
     "CredentialOffer": "New Credential Offer",
-    "IsOfferingYouACredential": "is offering you a credential"
+    "IsOfferingYouACredential": "is offering you a credential",
+    "CredentialOfferParamsError":"CredentialOffer route prams were not set properly",
+    "FetchAFJError":"Unable to fetch agent from AFJ",
+    "CredentialFetchError":"Unable to fetch credential from AFJ",
+    "RejectOfferTitle":"Unable to reject offer",
+    "RejectOfferMessage":"There was a problem while rejecting the credential offer",
   },
   "TabStack": {
     "Home": "Home",
@@ -227,7 +234,9 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "Your wallet is missing information",
       },
-    }
+    },
+    "ProofRequestParamsError":"ProofRequest route prams were not set properly",
+    "FetchProofError":"Unable to fetch proof from AFJ",
   },
   "Record": {
     "Hide": "Hide",
