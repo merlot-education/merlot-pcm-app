@@ -25,12 +25,14 @@ type OnboardingStackProps = {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, walletPin: string, seed: string) => void
   setAgent: (agent: Agent) => void
+  setActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const OnboardingStack: React.FC<OnboardingStackProps> = ({
   setAuthenticated,
   initAgent,
   setAgent,
+  setActive,
 }) => {
   return (
     <Stack.Navigator
@@ -147,7 +149,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.ImportWallet}
         component={ImportWallet}
-        initialParams={{ setAuthenticated, setAgent }}
+        initialParams={{ setAuthenticated, setAgent, setActive }}
         options={() => ({
           title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,

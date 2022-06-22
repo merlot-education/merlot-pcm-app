@@ -54,9 +54,9 @@ const styles = StyleSheet.create({
 })
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
-  const { setAgent, setAuthenticated } = route.params
+  const { setAgent, setAuthenticated, setActive } = route.params
   const [mnemonic, setMnemonic] = useState('')
-  const [walletBackupFilePath, setwalletBackupFIlePath] = useState('')
+  const [walletBackupFilePath, setWalletBackupFilePath] = useState('')
   const [loading, setLoading] = useState(false)
 
   const storeOnboardingCompleteStage = async () => {
@@ -73,7 +73,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
       RNFS.stat(res.uri)
         .then(stats => {
           // https://github.com/react-native-image-picker/react-native-image-picker/issues/107#issuecomment-443420588
-          setwalletBackupFIlePath(stats.path.replace('file://', ''))
+          setWalletBackupFilePath(stats.path.replace('file://', ''))
         })
         .catch(err => {
           console.log(err)
@@ -161,6 +161,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
           t('Registration.MnemonicMsg'),
         )
         setAuthenticated(true)
+        setActive(true)
         setLoading(false)
       } catch (e) {
         setLoading(false)

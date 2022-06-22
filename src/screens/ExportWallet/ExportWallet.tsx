@@ -118,8 +118,7 @@ const ExportWallet = () => {
           key: encodedHash,
           path: encryptedFileLocation,
         }
-        console.log('export wallet', agent.wallet)
-        await agent.wallet.export(exportConfig)
+        await agent?.wallet.export(exportConfig)
         Toast.show({
           type: ToastType.Success,
           text1: t('ExportWallet.WalletExportedPath'),
@@ -128,12 +127,14 @@ const ExportWallet = () => {
         setLoading(false)
         nav.goBack()
       } else {
+        setLoading(false)
         console.log(
           'Permission Denied!',
           'You need to give  permission to see contacts',
         )
       }
     } catch (err) {
+      setLoading(false)
       console.log(err)
     }
   }
