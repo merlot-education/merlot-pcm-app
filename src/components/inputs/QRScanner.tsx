@@ -198,7 +198,12 @@ const QRScanner: React.FC<Props> = ({
       <View
         style={[
           styles.bottomView,
-          { marginTop: isKeyBoardOpen ? -keyboardHeight - 80 : -80 },
+          {
+            marginTop:
+              Platform.OS === 'ios' && isKeyBoardOpen
+                ? -keyboardHeight - 80
+                : -80,
+          },
         ]}
       >
         <KeyboardAvoidingView
