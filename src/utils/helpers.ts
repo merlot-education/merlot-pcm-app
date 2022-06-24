@@ -39,24 +39,28 @@ export function parseSchema(schemaId?: string): {
 }
 
 export function parseCredDef(credentialDefinitionId?: string): {
-  name: string
+  credName: string
 } {
-  let name = 'Credential'
+  let credName = ''
   if (credentialDefinitionId) {
     const credDefIdRegex =
       /^([a-zA-Z0-9]{21,22}):3:CL:(([1-9][0-9]*)|([a-zA-Z0-9]{21,22}:2:.+:[0-9.]+)):(.+)?$/
     const credDefParts = credentialDefinitionId.match(credDefIdRegex)
-    if (credDefParts?.length === 5) {
-      name = `${credDefParts?.[3].replace(/_|-/g, ' ')}`
+    console.log('cred def helper', credDefParts?.length)
+    if (credDefParts?.length === 6) {
+      console.log('cred def helper', credDefParts.length)
+      credName = `${credDefParts?.[5].replace(/_|-/g, ' ')}`
         .split(' ')
         .map(
           credDefIdPart =>
             credDefIdPart.charAt(0).toUpperCase() + credDefIdPart.substring(1),
         )
         .join(' ')
+      console.log('cred def ', credName)
+      console.log('cred def helper', credDefParts)
     }
   }
-  return { name }
+  return { credName }
 }
 
 export function credentialSchema(
@@ -83,7 +87,7 @@ export function parsedSchema(credential: CredentialExchangeRecord): {
 export function parsedCredentialDefinition(
   credential: CredentialExchangeRecord,
 ): {
-  name: string
+  credName: string
 } {
   return parseCredDef(credentialDefinition(credential))
 }
