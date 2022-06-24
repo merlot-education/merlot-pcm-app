@@ -87,7 +87,6 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
         navigation.navigate(Screens.CredentialOffer, {
           credentialId: notification.id,
         })
-      console.log(' def', parsedCredentialDefinition)
       const { credName } = parsedCredentialDefinition(
         notification as CredentialExchangeRecord,
       )

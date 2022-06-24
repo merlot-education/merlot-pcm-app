@@ -46,9 +46,8 @@ export function parseCredDef(credentialDefinitionId?: string): {
     const credDefIdRegex =
       /^([a-zA-Z0-9]{21,22}):3:CL:(([1-9][0-9]*)|([a-zA-Z0-9]{21,22}:2:.+:[0-9.]+)):(.+)?$/
     const credDefParts = credentialDefinitionId.match(credDefIdRegex)
-    console.log('cred def helper', credDefParts?.length)
+
     if (credDefParts?.length === 6) {
-      console.log('cred def helper', credDefParts.length)
       credName = `${credDefParts?.[5].replace(/_|-/g, ' ')}`
         .split(' ')
         .map(
@@ -56,8 +55,6 @@ export function parseCredDef(credentialDefinitionId?: string): {
             credDefIdPart.charAt(0).toUpperCase() + credDefIdPart.substring(1),
         )
         .join(' ')
-      console.log('cred def ', credName)
-      console.log('cred def helper', credDefParts)
     }
   }
   return { credName }
