@@ -1,6 +1,10 @@
-The Personal Credential Manager enables a natural person to act as a principal of an organization within the SSI-based Gaia-X ecosystem in a privacy-preserving, trustful and secure way. This comprises the following main functionalities:
+The Personal Credential Manager enables a natural person to act as a principal
+of an organization within the SSI-based Gaia-X ecosystem in a privacy-preserving,
+trustful and secure way. This comprises the following main functionalities:
+
 * Establishment of trustful connections to other parties 
-* Reception and management of verifiable credentials from other parties (e.g., a principal credential from a Gaia-X articipant)
+* Reception and management of verifiable credentials from other parties
+ (e.g.,a principal credential from a Gaia-X articipant)
 * Presenting Verifiable Presentations to other parties in a proved manner
 * Secure storage and management of respective secrets
 
