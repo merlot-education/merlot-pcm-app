@@ -1,0 +1,96 @@
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import React from 'react'
+import { StyleSheet, View, Keyboard, Button, TextInput } from 'react-native'
+import { ColorPallet } from '../../theme/theme'
+// styles
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    width: '95%',
+  },
+  searchBar: {
+    marginLeft: 15,
+    marginRight: 15,
+    height: 50,
+    flexDirection: 'row',
+    width: '95%',
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    borderRadius: 10,
+  },
+  searchBarClicked: {
+    marginLeft: 15,
+    marginRight: 10,
+    height: 50,
+    flexDirection: 'row',
+    width: '70%',
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    borderRadius: 10,
+  },
+  input: {
+    fontSize: 18,
+    alignSelf: 'center',
+    width: '90%',
+  },
+  buttonStyle: {
+    alignSelf: 'center',
+  },
+})
+
+interface Props {
+  clicked: boolean
+  searchPhrase: string
+  setSearchPhrase: (text: string) => void
+  setClicked: (value: boolean) => void
+}
+
+const SearchBar: React.FC<Props> = ({
+  clicked,
+  searchPhrase,
+  setSearchPhrase,
+  setClicked,
+}) => {
+  return (
+    <View style={styles.container}>
+      <View style={clicked ? styles.searchBarClicked : styles.searchBar}>
+        {/* search Icon */}
+        <Icon
+          name="search"
+          color={ColorPallet.grayscale.darkGrey}
+          size={20}
+          style={{
+            paddingLeft: 0.5,
+            paddingTop: 0.5,
+            marginTop: 15,
+            marginLeft: 10,
+          }}
+        />
+        {/* Input field */}
+        <TextInput
+          style={styles.input}
+          returnKeyType="done"
+          placeholder="Search"
+          value={searchPhrase}
+          onChangeText={setSearchPhrase}
+          onFocus={() => {
+            setClicked(true)
+          }}
+        />
+      </View>
+      {/* cancel button, depending on whether the search bar is clicked or not */}
+      {clicked && (
+        <View style={styles.buttonStyle}>
+          <Button
+            title="Cancel"
+            color={ColorPallet.brand.secondary}
+            onPress={() => {
+              Keyboard.dismiss()
+              setClicked(false)
+              setSearchPhrase('')
+            }}
+          />
+        </View>
+      )}
+    </View>
+  )
+}
+export default SearchBar
