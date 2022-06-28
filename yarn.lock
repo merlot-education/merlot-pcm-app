@@ -33,10 +33,10 @@
     tslint "^6.1.3"
     utility-types "^3.10.0"
 
-"@aries-framework/core@0.2.0-alpha.136", "@aries-framework/core@0.2.0-alpha.136+dc12427":
-  version "0.2.0-alpha.136"
-  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0-alpha.136.tgz#358a73eef786bf2a24ba6ce9d982e69ea2fba056"
-  integrity sha512-Ec8hkLiQFe/TyXniu/Cjo/Iz/Qx10YAy2+ie5cAsBfbMhOpI1eYc8Wb4uGBlx70oYsokSndpPnx+LPRPtDn9IQ==
+"@aries-framework/core@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@aries-framework/core/-/core-0.2.0.tgz#27732aa32854fb8bf77d703af0479134bee469b3"
+  integrity sha512-dGZjJ/ek1SGBzyTbYp2msS1BghVABXR7hGUV2j0vNFvDApCj4D2XUmfJNoa586QN065ecVl654I4nqh90/OsvQ==
   dependencies:
     "@multiformats/base-x" "^4.0.1"
     "@stablelib/ed25519" "^1.0.2"
@@ -68,12 +68,12 @@
   resolved "https://registry.yarnpkg.com/@aries-framework/react-hooks/-/react-hooks-0.2.0.tgz#371dfcbad523527fa88a439331a1f71019cb5767"
   integrity sha512-husiwP3hlBCpuaQ6z87r4mRPbC1owGUn/VxmlHUk+iLKkXr6t5Djx1/dwl/OrPp5MBPPU2iGfy8GiT3vGBCUEA==
 
-"@aries-framework/react-native@0.2.0-alpha.136":
-  version "0.2.0-alpha.136"
-  resolved "https://registry.yarnpkg.com/@aries-framework/react-native/-/react-native-0.2.0-alpha.136.tgz#0a65e4c741738b9e47c4f9f4a0b40718ad6ebc30"
-  integrity sha512-zfAt5A45wJtkDaXy74+1KIMG11OT06huu+jaaUTHi4+C09hkxHteoSIqfuYW8fwQ82+DoUm+HKjTC0vKWAZjOA==
+"@aries-framework/react-native@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@aries-framework/react-native/-/react-native-0.2.0.tgz#ec05f3448a2ea920900708295967ea8bcedb6f93"
+  integrity sha512-bFPydZ0wDTJl0OPUjLl3mTLKPSH0v4obUfSROPZ2P0tJ7N9/nm7sVUjxiSu1uy/zOgZ4sEOjzEnFLETG31mnpA==
   dependencies:
-    "@aries-framework/core" "0.2.0-alpha.136+dc12427"
+    "@aries-framework/core" "0.2.0"
     "@azure/core-asynciterator-polyfill" "^1.0.0"
     events "^3.3.0"
 
@@ -4573,10 +4573,10 @@ indent-string@^4.0.0:
   resolved "https://registry.yarnpkg.com/indent-string/-/indent-string-4.0.0.tgz#624f8f4497d619b2d9768531d58f4122854d7251"
   integrity sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==
 
-indy-sdk-react-native@^0.1.20:
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/indy-sdk-react-native/-/indy-sdk-react-native-0.1.21.tgz#19f8cfd2afbe10775cef4f48682499dd963b9e02"
-  integrity sha512-AvOle3xfY3xWfwQe4fit2Pxmx0dKAuamm1L+nOoLRMVzNQNvdMdH8oxXs8eSUWh/7F6raL+ghAG3B4OEEeH3DA==
+indy-sdk-react-native@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/indy-sdk-react-native/-/indy-sdk-react-native-0.2.0.tgz#9f02dc29726b22b5f90aa602b6a0d15cbd26b48b"
+  integrity sha512-eipyH5GzQFjTf89sMCSMy5axbl3uVDln79LOH2rpqN2cb+80Pzb3tMFYWb9TaU4jMKYzlaEE0RsuQoS151g2jQ==
   dependencies:
     buffer "^6.0.2"
 

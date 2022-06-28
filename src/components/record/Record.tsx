@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import { CredentialPreviewAttributeOptions } from '@aries-framework/core'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   FlatList,
@@ -8,7 +9,6 @@ import {
   View,
 } from 'react-native'
 import { TextTheme, ColorPallet } from '../../theme/theme'
-import { Attribute } from '../../types/record'
 
 import RecordAttribute from './RecordAttribute'
 import RecordFooter from './RecordFooter'
@@ -17,9 +17,11 @@ import RecordHeader from './RecordHeader'
 interface RecordProps {
   header: () => React.ReactElement | null
   footer: () => React.ReactElement | null
-  attributes?: Attribute[]
+  attributes?: CredentialPreviewAttributeOptions[]
   hideAttributeValues?: boolean
-  attribute?: (attribute: Attribute) => React.ReactElement | null
+  attribute?: (
+    attribute: CredentialPreviewAttributeOptions,
+  ) => React.ReactElement | null
 }
 
 const styles = StyleSheet.create({
@@ -46,15 +48,6 @@ const Record: React.FC<RecordProps> = ({
   attribute = null,
 }) => {
   const { t } = useTranslation()
-  const [shown, setShown] = useState<boolean[]>([])
-
-  const resetShown = useCallback(() => {
-    setShown(attributes.map(() => false))
-  }, [attributes])
-
-  useEffect(() => {
-    resetShown()
-  }, [resetShown])
 
   return (
     <FlatList
@@ -68,7 +61,6 @@ const Record: React.FC<RecordProps> = ({
                 testID="HideAll"
                 style={styles.link}
                 activeOpacity={1}
-                onPress={() => resetShown()}
                 accessible
                 accessibilityLabel={t('Record.HideAll')}
               >
@@ -89,16 +81,7 @@ const Record: React.FC<RecordProps> = ({
         attribute ? (
           attribute(attr)
         ) : (
-          <RecordAttribute
-            attribute={attr}
-            hideAttributeValue={hideAttributeValues}
-            onToggleViewPressed={() => {
-              const newShowState = [...shown]
-              newShowState[index] = !shown[index]
-              setShown(newShowState)
-            }}
-            shown={hideAttributeValues ? !!shown[index] : true}
-          />
+          <RecordAttribute key={index.toString()} attribute={attr} />
         )
       }
     />

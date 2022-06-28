@@ -1,4 +1,9 @@
-import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
+import {
+  useAgent,
+  useConnectionById,
+  useCredentialByState,
+  useProofByState,
+} from '@aries-framework/react-hooks'
 import { StackScreenProps } from '@react-navigation/stack'
 import React, { useCallback, useEffect, useState } from 'react'
 
@@ -11,12 +16,14 @@ import {
   FlatList,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
+import { CredentialState, ProofState } from '@aries-framework/core'
 import { Label } from '../../components'
 import { ContactStackParams, Screens } from '../../types/navigators'
 import { dateFormatOptions } from '../../constants'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { errorToast, successToast } from '../../utils/toast'
 import Accordion from '../../components/accordion/Accordion'
+import { RecordHistory } from '../../types/record'
 
 type ContactDetailsProps = StackScreenProps<
   ContactStackParams,
@@ -62,7 +69,9 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
   const { t } = useTranslation()
   const { agent } = useAgent()
   const connection = useConnectionById(route?.params?.connectionId)
-  const [history, setHistory] = useState([])
+  const credentialOffers = useCredentialByState(CredentialState.OfferReceived)
+  const proofs = useProofByState(ProofState.RequestReceived)
+  const [history, setHistory] = useState<RecordHistory[]>([])
   useEffect(() => {
     navigation.setOptions({
       title: connection?.alias ?? connection?.theirLabel,
@@ -127,8 +136,21 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
     try {
       if (connection) {
         // Delete the connection by id
-        await agent?.connections.deleteById(connection?.id)
+        // eslint-disable-next-line no-restricted-syntax
+        for await (const offer of credentialOffers) {
+          if (offer?.connectionId === connection?.id) {
+            await agent?.credentials.declineOffer(offer.id)
+          }
+        }
 
+        // eslint-disable-next-line no-restricted-syntax
+        for await (const proof of proofs) {
+          if (proof?.connectionId === connection?.id) {
+            await agent?.proofs.declineRequest(proof.id)
+          }
+        }
+
+        await agent?.connections.deleteById(connection?.id)
         successToast(t('ContactDetails.DeleteConnectionSuccess'))
         navigation.navigate(Screens.ListContacts)
       }
