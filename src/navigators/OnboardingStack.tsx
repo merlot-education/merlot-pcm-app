@@ -154,8 +154,6 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
           title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
-          headerLeft: () => false,
-          rightLeft: () => false,
         })}
       />
       <Stack.Screen
