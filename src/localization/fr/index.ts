@@ -58,7 +58,8 @@ const translation = {
     "EmailInfo": "S'il vous plaît, mettez une adresse email valide",
     "OtpInfo": "Entrez l'OTP envoyé sur l'adresse e-mail saisie",
     'OtpInvalid': "Veuillez entrer l'OTP valide",
-    'OtpSuccess': 'OTP vérifié avec succès'
+    'OtpSuccess': 'OTP vérifié avec succès',
+    'WalletInitialized':'Portefeuille initialisé avec succès.',
   },
   "Terms": {
     "AcceptTerms": "Veuillez lire et accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
@@ -91,7 +92,7 @@ const translation = {
     "BiometricCancle": "L'utilisateur a annulé l'invite biométrique",
     "BiometricNotSupport": "Biométrie non prise en charge",
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
-    "BiometricInfo": 'Enregistrez lutilisation de Biometric pour la connexion'
+    "BiometricInfo": "S'inscrire Utilisation biométrique pour la connexion"
   },
   "Initialization":{
     "CompleteInitialization":"Terminer l'initialisation",
@@ -137,7 +138,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Sélectionnez le fichier de portefeuille",
     "EmptyMnemonic": 'Les mnémoniques ne peuvent pas être vides',
-    "InvalidMnemonic": 'Mnémoniques invalides '
+    "InvalidMnemonic": 'Mnémoniques invalides ',
+    "WalletRestoreFailed":'Échec de la restauration du portefeuille',
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Nouvelle demande de connexion"
@@ -225,13 +227,21 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "Le portefeuille manque d'informations"
       }
-    }
+    },
+    "ProofRequestParamsError":"Les poussettes d'itinéraire ProofRequest n'ont pas été correctement définies",
+    "FetchProofError":"Impossible de récupérer la preuve auprès de l'AFJ",
   },
   "Record": {
     "Hide": "Cacher",
     "Show": "Montrer",
     "HideAll": "Cacher tout",
     "Hidden": "Caché",
-  }
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Autorisation d'utiliser l'appareil photo",
+    "PermissionMessage":"Nous avons besoin de votre autorisation pour utiliser votre appareil photo",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"QrCode invalide",
+  },
 }
 export default translation

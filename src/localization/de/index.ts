@@ -92,8 +92,8 @@ const translation = {
     "BiometricFailed": "Biometrie fehlgeschlagen",
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
-    "RegisterPinandBiometric": 'PIN und Biometrie registrieren',
-    "BiometricInfo": 'Registrieren Sie die Biometric-Nutzung für die Anmeldung'
+    "RegisterPinandBiometric": 'Registrieren Sie PIN und Biometrie',
+    "BiometricInfo": 'Registrieren Sie die biometrische Verwendung für die Anmeldung'
   },
   "Initialization":{
     "CompleteInitialization":"Schließen Sie die Initialisierung ab",
@@ -103,7 +103,7 @@ const translation = {
     "MnemonicTitle":"Unten ist die Mnemonik für zukünftige Referenzen"
   },
   "Home": {
-    "Welcome": "Willkommen",
+    "Welcome": "Herzlich willkommen",
     "Notifications": "Benachrichtigungen",
     "NoNewUpdates": "Es gibt keine neue Benachrichtigung.",
     "NoCredentials": "Es gibt keine Zugangsdaten in der Wallet.",
@@ -139,7 +139,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Wählen Sie Wallet-Datei aus",
     "EmptyMnemonic": 'Mnemoniken dürfen nicht leer sein',
-    "InvalidMnemonic": 'Ungültige Mnemonik '
+    "InvalidMnemonic": 'Ungültige Mnemonik ',
+    "WalletRestoreFailed":"Wallet-Wiederherstellung fehlgeschlagen",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "Neue Verbindungsanforderung"
@@ -221,7 +222,9 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "Der Brieftasche fehlen Informationen"
       }
-    }
+    },
+    "ProofRequestParamsError":"ProofRequest-Routenkinderwagen wurden nicht richtig eingestellt",
+    "FetchProofError":"Nachweis von AFJ konnte nicht abgerufen werden",
   },
   "Toasts":{
     "Success": "Erfolg",
@@ -234,6 +237,12 @@ const translation = {
     "Show": "Zeigen",
     "HideAll": "Versteck alles",
     "Hidden": "Versteckt",
-  }
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Erlaubnis zur Verwendung der Kamera",
+    "PermissionMessage":"Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"QrCode invalide",
+  },
 }
 export default translation

@@ -46,7 +46,7 @@ export type OnboardingStackParams = {
     otpId: string
   }
   CreatePin: {
-    initAgent?: (email: string, walletPin: string, seed: string) => void
+    initAgent: (email: string, walletPin: string, seed: string) => void
     forgotPin: boolean
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
   }
@@ -58,6 +58,7 @@ export type OnboardingStackParams = {
   ImportWallet: {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
     setAgent: (agent: Agent) => void
+    setActive: React.Dispatch<React.SetStateAction<boolean>>
   }
   EnterPin: {
     initAgent: (email: string, walletPin: string, seed: string) => void

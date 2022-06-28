@@ -29,7 +29,6 @@ import {
 } from '@aries-framework/core'
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { useFocusEffect } from '@react-navigation/native'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { TextInput, Loader, Text } from '../../components'
@@ -61,7 +60,7 @@ const styles = StyleSheet.create({
 })
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
-  const { setAgent, setAuthenticated } = route.params
+  const { setAgent, setAuthenticated, setActive } = route.params
   const [mnemonic, setMnemonic] = useState('')
   const [walletBackupFilePath, setwalletBackupFIlePath] = useState('')
   const [loading, setLoading] = useState(false)
@@ -98,7 +97,11 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
         }
       })
       .catch(error => {
-        console.log(error)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(error),
+        })
       })
   }
 
@@ -116,14 +119,26 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
           // output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
         })
         .catch(err => {
-          console.log(err)
+          Toast.show({
+            type: ToastType.Error,
+            text1: t('Toasts.Warning'),
+            text2: t(err),
+          })
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('docupemt picker error', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
-        throw console.log('Error from zip', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
       }
     }
   }
@@ -200,6 +215,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
           t('Registration.MnemonicMsg'),
         )
         setAuthenticated(true)
+        setActive(true)
         setLoading(false)
       } catch (e) {
         setLoading(false)

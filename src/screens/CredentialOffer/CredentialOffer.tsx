@@ -51,12 +51,12 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
   navigation,
   route,
 }) => {
+  const { t } = useTranslation()
   if (!route?.params) {
-    throw new Error('CredentialOffer route prams were not set properly')
+    throw new Error(t('CredentialOffer.CredentialOfferParamsError'))
   }
   const { credentialId } = route.params
   const { agent } = useAgent()
-  const { t } = useTranslation()
   const [buttonsVisible, setButtonsVisible] = useState(true)
   const [pendingModalVisible, setPendingModalVisible] = useState(false)
   const [successModalVisible, setSuccessModalVisible] = useState(false)
@@ -67,11 +67,11 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
   const connection = useConnectionById(credential.connectionId)
 
   if (!agent) {
-    throw new Error('Unable to fetch agent from AFJ')
+    throw new Error(t('CredentialOffer.FetchAFJError'))
   }
 
   if (!credential) {
-    throw new Error('Unable to fetch credential from AFJ')
+    throw new Error(t('CredentialOffer.CredentialFetchError'))
   }
 
   useEffect(() => {
@@ -137,10 +137,6 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         text1: credentialError.name,
         text2: credentialError.message,
       })
-      console.log(
-        'Unable to accept offer There was a problem while accepting the credential offer.',
-        credentialError,
-      )
     }
   }
 
@@ -158,10 +154,11 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
               setButtonsVisible(false)
               await agent.credentials.declineOffer(credential.id)
             } catch (e: unknown) {
-              console.log(
-                'Unable to reject offer',
-                'There was a problem while rejecting the credential offer.',
-              )
+              Toast.show({
+                type: ToastType.Error,
+                text1: t('CredentialOffer.RejectOfferTitle'),
+                text2: t('CredentialOffer.RejectOfferMessage'),
+              })
             }
           },
         },

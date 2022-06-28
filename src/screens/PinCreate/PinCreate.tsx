@@ -56,6 +56,13 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  innerContainer: {
+    flexDirection: 'row',
+  },
+  bottomContainer: {
+    flex: 0.5,
+    justifyContent: 'space-between',
+  },
 })
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
@@ -95,7 +102,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     if (email && passphrase) {
       const rawValue = email + passphrase.password.replace(/ /g, '')
       const seedHash = createMD5HashFromString(rawValue)
-      initAgent(email.password, passcode.password, seedHash)
+      await initAgent(email.password, passcode.password, seedHash)
       setLoading(false)
     }
   }, [initAgent])
@@ -152,39 +159,35 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       setError(e)
     }
   }
+  const backAction = useCallback(() => {
+    Alert.alert('Already authenticated!', 'Are you sure you want to go back?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {
+        text: 'YES',
+        onPress: () =>
+          navigation.navigate(Screens.Registration, { forgotPin: false }),
+      },
+    ])
+    return true
+  }, [navigation])
+
+  const backActionForgotPassword = useCallback(() => {
+    navigation.navigate(Screens.EnterPin)
+    return true
+  }, [navigation])
 
   useEffect(() => {
-    const backAction = () => {
-      Alert.alert(
-        'Already authenticated!',
-        'Are you sure you want to go back?',
-        [
-          {
-            text: 'Cancel',
-            onPress: () => null,
-            style: 'cancel',
-          },
-          {
-            text: 'YES',
-            onPress: () =>
-              navigation.navigate(Screens.Registration, { forgotPin: false }),
-          },
-        ],
-      )
-      return true
-    }
-
-    const backActionForgotPassword = () => {
-      navigation.navigate(Screens.EnterPin)
-      return true
-    }
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       forgotPin ? backActionForgotPassword : backAction,
     )
 
     return () => backHandler.remove()
-  }, [forgotPin, navigation])
+  }, [backAction, backActionForgotPassword, forgotPin])
 
   const confirmEntry = async (pin: string, reEnterPin: string) => {
     if (pin.length < 6) {
@@ -198,62 +201,68 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     }
   }
 
-  const onBack = async () => {
-    navigation.navigate(Screens.Registration)
+  const onBack = () => {
+    if (forgotPin) {
+      backActionForgotPassword()
+    } else {
+      backAction()
+    }
   }
 
   return (
     <View style={[style.container]}>
       <Loader loading={loading} />
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ width: '70%' }}>
-          <TextInput
-            label={t('Global.EnterPin')}
-            placeholder={t('Global.6DigitPin')}
-            placeholderTextColor={ColorPallet.baseColors.lightGrey}
-            accessible
-            accessibilityLabel={t('Global.EnterPin')}
-            maxLength={6}
-            autoFocus
-            secureTextEntry
-            keyboardType="number-pad"
-            value={pin}
-            onChangeText={setPin}
-            returnKeyType="done"
-          />
-          <TextInput
-            label={t('PinCreate.ReenterPin')}
-            accessible
-            accessibilityLabel={t('PinCreate.ReenterPin')}
-            placeholder={t('Global.6DigitPin')}
-            placeholderTextColor={ColorPallet.baseColors.lightGrey}
-            maxLength={6}
-            secureTextEntry
-            keyboardType="number-pad"
-            returnKeyType="done"
-            value={pinTwo}
-            onChangeText={(text: string) => {
-              setPinTwo(text)
-              if (text.length === 6) {
-                Keyboard.dismiss()
-              }
-            }}
-            editable={pin.length === 6 && true}
-          />
-        </View>
-        <View style={style.pinImgView}>
-          <Image source={Images.pinIcon} style={style.pinImg} />
+      <View style={{ flex: 0.5 }}>
+        <View style={style.innerContainer}>
+          <View style={{ width: '70%' }}>
+            <TextInput
+              label={t('Global.EnterPin')}
+              placeholder={t('Global.6DigitPin')}
+              placeholderTextColor={ColorPallet.baseColors.lightGrey}
+              accessible
+              accessibilityLabel={t('Global.EnterPin')}
+              maxLength={6}
+              autoFocus
+              secureTextEntry
+              keyboardType="number-pad"
+              value={pin}
+              onChangeText={setPin}
+              returnKeyType="done"
+            />
+            <TextInput
+              label={t('PinCreate.ReenterPin')}
+              accessible
+              accessibilityLabel={t('PinCreate.ReenterPin')}
+              placeholder={t('Global.6DigitPin')}
+              placeholderTextColor={ColorPallet.baseColors.lightGrey}
+              maxLength={6}
+              secureTextEntry
+              keyboardType="number-pad"
+              returnKeyType="done"
+              value={pinTwo}
+              onChangeText={(text: string) => {
+                setPinTwo(text)
+                if (text.length === 6) {
+                  Keyboard.dismiss()
+                }
+              }}
+              editable={pin.length === 6 && true}
+            />
+          </View>
+          <View style={style.pinImgView}>
+            <Image source={Images.pinIcon} style={style.pinImg} />
+          </View>
         </View>
       </View>
-      <View>
+      <View style={style.bottomContainer}>
         <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
           {t('PinCreate.PinInfo')}
         </InfoCard>
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={() => confirmEntry(pin, pinTwo)}
+        />
       </View>
-      <ScreenNavigatorButtons
-        onLeftPress={onBack}
-        onRightPress={() => confirmEntry(pin, pinTwo)}
-      />
     </View>
   )
 }

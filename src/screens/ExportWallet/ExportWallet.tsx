@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, PermissionsAndroid, Platform, View } from 'react-native'
+import {
+  StyleSheet,
+  PermissionsAndroid,
+  Platform,
+  View,
+  Keyboard,
+} from 'react-native'
 import Toast from 'react-native-toast-message'
 import RNFS from 'react-native-fs'
 import { WalletExportImportConfig } from '@aries-framework/core/build/types'
@@ -73,6 +79,7 @@ const ExportWallet = () => {
       )
 
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        Keyboard.dismiss()
         setLoading(true)
         const documentDirectory = RNFS.DownloadDirectoryPath
 
@@ -111,8 +118,7 @@ const ExportWallet = () => {
           key: encodedHash,
           path: encryptedFileLocation,
         }
-        console.log('export wallet', agent.wallet)
-        await agent.wallet.export(exportConfig)
+        await agent?.wallet.export(exportConfig)
         Toast.show({
           type: ToastType.Success,
           text1: t('ExportWallet.WalletExportedPath'),
@@ -121,12 +127,14 @@ const ExportWallet = () => {
         setLoading(false)
         nav.goBack()
       } else {
+        setLoading(false)
         console.log(
           'Permission Denied!',
           'You need to give  permission to see contacts',
         )
       }
     } catch (err) {
+      setLoading(false)
       console.log(err)
     }
   }

@@ -111,7 +111,8 @@ const translation = {
     "YouHave": "You have",
     "Credential": "credential",
     "Credentials": "credentials",
-    "InYourWallet": "in your wallet"
+    "InYourWallet": "in your wallet",
+    "CredentialCountUndefinedError":"Credential count cannot be undefined",
   },
   "PinEnter": {
     "IncorrectPin": "Incorrect PIN", 
@@ -139,7 +140,8 @@ const translation = {
   "ImportWallet":{
     "SelectWalletFile": "Select Wallet File",
     "EmptyMnemonic": 'Mnemonics cannot be empty',
-    "InvalidMnemonic": 'Invalid Mnemonics '
+    "InvalidMnemonic": 'Invalid Mnemonics ',
+    "WalletRestoreFailed":"Wallet restore failed",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"
@@ -227,13 +229,21 @@ const translation = {
       "AlertMissingInformation": {
         "Title": "The wallet is missing information",
       },
-    }
+    },
+    "ProofRequestParamsError":"ProofRequest route prams were not set properly",
+    "FetchProofError":"Unable to fetch proof from AFJ",
   },
   "Record": {
     "Hide": "Hide",
     "Show": "Show",
     "HideAll": "Hide all",
     "Hidden": "Hidden",
+  },
+  "QRScanner":{
+    "PermissionToUseCamera":"Permission To Use Camera",
+    "PermissionMessage":"We need your permission to use your camera",
+    "NotAValidURL":"URL non valide",
+    "InvalidQrCode":"Invalid QrCode",
   },
 }
 export default translation

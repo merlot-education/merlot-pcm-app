@@ -12,6 +12,8 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
   Dimensions,
+  Pressable,
+  Keyboard,
 } from 'react-native'
 import { BarCodeReadEvent, RNCamera } from 'react-native-camera'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -20,6 +22,7 @@ import QRScannerClose from '../misc/QRScannerClose'
 import QRScannerTorch from '../misc/QRScannerTorch'
 import QrCodeScanError from '../../types/error'
 import { ColorPallet } from '../../theme/theme'
+import useKeyboard from '../../utils/keyboard'
 
 interface Props {
   handleCodeScan: (event: BarCodeReadEvent) => Promise<void>
@@ -27,7 +30,7 @@ interface Props {
   error?: QrCodeScanError | null
   enableCameraOnError?: boolean
   url?: string
-  onChangeText: any
+  onChangeText: (text: string) => void
 }
 const { width, height } = Dimensions.get('window')
 
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
   textInputStyle: {
     width: width - 100,
     paddingTop: 5,
-    color: '#000000',
+    color: ColorPallet.baseColors.black,
     alignItems: 'center',
     fontSize: Platform.OS === 'ios' ? height / 50 : height / 45,
     justifyContent: 'center',
@@ -118,13 +121,19 @@ const QRScanner: React.FC<Props> = ({
   const [cameraActive, setCameraActive] = useState(true)
   const [torchActive, setTorchActive] = useState(false)
 
+  const { keyboardHeight, isKeyBoardOpen } = useKeyboard()
+
   const { width, height } = useWindowDimensions()
   const portraitMode = height > width
   const { t } = useTranslation()
   const invalidQrCodes = new Set<string>()
 
   return (
-    <View style={styles.container} testID="QRScannerTest">
+    <Pressable
+      onPress={() => Keyboard.dismiss()}
+      style={styles.container}
+      testID="QRScannerTest"
+    >
       <RNCamera
         style={styles.container}
         type={RNCamera.Constants.Type.back}
@@ -136,8 +145,8 @@ const QRScanner: React.FC<Props> = ({
         captureAudio={false}
         androidCameraPermissionOptions={{
           title: t('QRScanner.PermissionToUseCamera'),
-          message: t('QRScanner.WeNeedYourPermissionToUseYourCamera'),
-          buttonPositive: t('QRScanner.Ok'),
+          message: t('QRScanner.PermissionMessage'),
+          buttonPositive: t('Global.Okay'),
           buttonNegative: t('Global.Cancel'),
         }}
         barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}
@@ -186,7 +195,17 @@ const QRScanner: React.FC<Props> = ({
           </View>
         </CameraViewContainer>
       </RNCamera>
-      <View style={styles.bottomView}>
+      <View
+        style={[
+          styles.bottomView,
+          {
+            marginTop:
+              Platform.OS === 'ios' && isKeyBoardOpen
+                ? -keyboardHeight - 80
+                : -80,
+          },
+        ]}
+      >
         <KeyboardAvoidingView
           behavior="padding"
           keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
@@ -212,7 +231,7 @@ const QRScanner: React.FC<Props> = ({
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </View>
-    </View>
+    </Pressable>
   )
 }
 

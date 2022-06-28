@@ -1,4 +1,3 @@
-import { t } from 'i18next'
 import React, { useState } from 'react'
 import { View, StyleSheet, Keyboard } from 'react-native'
 import DocumentPicker from 'react-native-document-picker'
@@ -23,6 +22,7 @@ import {
 import { StackScreenProps } from '@react-navigation/stack'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import RNFS from 'react-native-fs'
+import { useTranslation } from 'react-i18next'
 import Button, { ButtonType } from '../../components/button/Button'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { TextInput, Loader, Text } from '../../components'
@@ -54,9 +54,10 @@ const styles = StyleSheet.create({
 })
 
 const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
-  const { setAgent, setAuthenticated } = route.params
+  const { t } = useTranslation()
+  const { setAgent, setAuthenticated, setActive } = route.params
   const [mnemonic, setMnemonic] = useState('')
-  const [walletBackupFilePath, setwalletBackupFIlePath] = useState('')
+  const [walletBackupFilePath, setWalletBackupFilePath] = useState('')
   const [loading, setLoading] = useState(false)
 
   const storeOnboardingCompleteStage = async () => {
@@ -73,17 +74,29 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
       RNFS.stat(res.uri)
         .then(stats => {
           // https://github.com/react-native-image-picker/react-native-image-picker/issues/107#issuecomment-443420588
-          setwalletBackupFIlePath(stats.path.replace('file://', ''))
+          setWalletBackupFilePath(stats.path.replace('file://', ''))
         })
         .catch(err => {
-          console.log(err)
+          Toast.show({
+            type: ToastType.Error,
+            text1: t('Toasts.Warning'),
+            text2: t(err),
+          })
         })
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
-        console.log('docupemt picker error', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
-        throw console.log('Error from zip', err)
+        Toast.show({
+          type: ToastType.Error,
+          text1: t('Toasts.Warning'),
+          text2: t(err),
+        })
       }
     }
   }
@@ -161,13 +174,14 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
           t('Registration.MnemonicMsg'),
         )
         setAuthenticated(true)
+        setActive(true)
         setLoading(false)
       } catch (e) {
         setLoading(false)
         Toast.show({
           type: ToastType.Error,
           text1: t('Toasts.Warning'),
-          text2: 'Wallet restore failed',
+          text2: t('ImportWallet.WalletRestoreFailed'),
         })
       }
     }

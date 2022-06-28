@@ -105,9 +105,9 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
       <Loader loading={loading} />
       <Text style={style.label}>{t('Mnemonic.MnemonicTitle')}</Text>
       <View style={style.container}>
-        <InfoCard showBottomIcon={false} showTopIcon>
+        <InfoCard showBottomIcon={false} showTopIcon mnemonicText>
+          <Text style={style.headerText}>{`${mnemonicText}\n`}</Text>
           {t('Registration.MnemonicMsg')}
-          <Text style={style.headerText}>{`\n${mnemonicText}`}</Text>
         </InfoCard>
         <Button
           buttonStyle={style.btnContainer}

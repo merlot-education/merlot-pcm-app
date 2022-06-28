@@ -25,12 +25,14 @@ type OnboardingStackProps = {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   initAgent: (email: string, walletPin: string, seed: string) => void
   setAgent: (agent: Agent) => void
+  setActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const OnboardingStack: React.FC<OnboardingStackProps> = ({
   setAuthenticated,
   initAgent,
   setAgent,
+  setActive,
 }) => {
   return (
     <Stack.Navigator
@@ -78,7 +80,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.VerifyOtp}
         component={VerifyOtp}
         options={() => ({
-          title: 'Otp Verify',
+          title: 'OTP Verify',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -113,7 +115,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.Initialization}
         component={Initialization}
         options={() => ({
-          title: 'Initialization',
+          title: 'Intialize wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -125,7 +127,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={CreateWallet}
         initialParams={{ initAgent }}
         options={() => ({
-          title: 'Initialization',
+          title: 'Intialize wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -147,13 +149,11 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.ImportWallet}
         component={ImportWallet}
-        initialParams={{ setAuthenticated, setAgent }}
+        initialParams={{ setAuthenticated, setAgent, setActive }}
         options={() => ({
           title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
-          headerLeft: () => false,
-          rightLeft: () => false,
         })}
       />
       <Stack.Screen
