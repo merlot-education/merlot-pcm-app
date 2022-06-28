@@ -110,6 +110,8 @@ const TabStack: React.FC = () => {
           header: () => null,
           tabBarHideOnKeyboard: true,
           unmountOnBlur: true,
+          tabBarShowLabel: true,
+          tabBarLabelPosition: 'below-icon',
         }}
       >
         <MainTabNavigator.Screen

@@ -1,17 +1,17 @@
+import { CredentialPreviewAttributeOptions } from '@aries-framework/core'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { ColorPallet, TextTheme } from '../../theme/theme'
-import { Attribute } from '../../types/record'
-import testIdWithKey from '../../utils/testtable'
 
 interface RecordAttributeProps {
-  attribute: Attribute
-  hideAttributeValue?: boolean
-  shown?: boolean
-  onToggleViewPressed?: () => void
-  attributeLabel?: (attribute: Attribute) => React.ReactElement | null
-  attributeValue?: (attribute: Attribute) => React.ReactElement | null
+  attribute: CredentialPreviewAttributeOptions
+  attributeLabel?: (
+    attribute: CredentialPreviewAttributeOptions,
+  ) => React.ReactElement | null
+  attributeValue?: (
+    attribute: CredentialPreviewAttributeOptions,
+  ) => React.ReactElement | null
 }
 
 const styles = StyleSheet.create({
@@ -46,9 +46,6 @@ const styles = StyleSheet.create({
 
 const RecordAttribute: React.FC<RecordAttributeProps> = ({
   attribute,
-  hideAttributeValue = false,
-  shown = !hideAttributeValue,
-  onToggleViewPressed = () => undefined,
   attributeLabel = null,
   attributeValue = null,
 }) => {
@@ -72,29 +69,11 @@ const RecordAttribute: React.FC<RecordAttributeProps> = ({
         {attributeValue ? (
           attributeValue(attribute)
         ) : (
-          <>
-            <View style={styles.valueText}>
-              <Text style={styles.text} testID="AttributeValue">
-                {shown ? attribute.value : Array(10).fill('\u2022').join('')}
-              </Text>
-            </View>
-            {hideAttributeValue ? (
-              <TouchableOpacity
-                activeOpacity={1}
-                onPress={onToggleViewPressed}
-                style={styles.link}
-                testID="ShowHide"
-                accessible
-                accessibilityLabel={shown ? t('Record.Hide') : t('Record.Show')}
-              >
-                <Text
-                  style={[TextTheme.normal, { color: ColorPallet.brand.link }]}
-                >
-                  {shown ? t('Record.Hide') : t('Record.Show')}
-                </Text>
-              </TouchableOpacity>
-            ) : null}
-          </>
+          <View style={styles.valueText}>
+            <Text style={styles.text} testID="AttributeValue">
+              {attribute.value}
+            </Text>
+          </View>
         )}
       </View>
       <View style={styles.border} />

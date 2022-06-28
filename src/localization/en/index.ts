@@ -142,6 +142,7 @@ const translation = {
     "EmptyMnemonic": 'Mnemonics cannot be empty',
     "InvalidMnemonic": 'Invalid Mnemonics ',
     "WalletRestoreFailed":"Wallet restore failed",
+    "ImportError": "Either your email or mnemonic is incorrect please check it carefully",
   },
   "ConnectionInvitation":{
     "ConsentMessage": "New Connection Request"

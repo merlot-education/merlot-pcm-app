@@ -149,8 +149,9 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
           autoAcceptConnections: true,
           autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
           autoAcceptProofs: AutoAcceptProof.ContentApproved,
-          logger: new ConsoleLogger(LogLevel.debug),
+          logger: new ConsoleLogger(LogLevel.trace),
           publicDidSeed: seedHash,
+          autoUpdateStorageOnStartup: true,
           indyLedgers,
         },
         agentDependencies,
@@ -181,7 +182,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
         Toast.show({
           type: ToastType.Error,
           text1: t('Toasts.Warning'),
-          text2: t('ImportWallet.WalletRestoreFailed'),
+          text2: t('ImportWallet.ImportError'),
         })
       }
     }
