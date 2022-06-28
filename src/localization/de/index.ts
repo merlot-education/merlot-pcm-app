@@ -46,45 +46,49 @@ const translation = {
     "German": "Deutsch"
   },
   "Terms": {
-    "AcceptTerms": "Bitte stimmen Sie den nachstehenden Bedingungen zu, bevor Sie diese Anwendung nutzen.",
+    "AcceptTerms": "Bitte lesen und akzeptieren Sie die nachstehenden Bedingungen, bevor Sie diese Anwendung verwenden.",
     "TermsAndConditions": "Diese Bedingungen legen die Rechte und Pflichten aller Nutzer in Bezug auf die Nutzung des Dienstes fest. Ihr Zugang zu und Ihre Nutzung des Dienstes setzt voraus, dass Sie diese Bedingungen akzeptieren und einhalten. Diese Allgemeinen Geschäftsbedingungen gelten für alle Besucher, Benutzer und andere, die auf den Dienst zugreifen oder ihn nutzen.",
-    "Attestation": "Ich habe die Bedingungen gelesen, verstanden und akzeptiere sie."
+    "Attestation": "Ich habe die AGB gelesen, verstanden und akzeptiere sie."
   },
   "Registration":{
     "UserAuthenticationEmail": "E-Mail zur Benutzerauthentifizierung",
     "EnterEmail": 'Bitte E-Mail eingeben',
-    "ValidEmail": "bitte eine gültige E-Mail-Adresse eintragen",
+    "ValidEmail": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
     'ResendOtp': 'OTP erneut senden',
-    "RegisterAgain": "Sie müssen sich erneut registrieren",
-    "MnemonicMsg": "Dies ist der Satz, der verwendet wird, um Ihren Wallet-Seed zu erstellen. Bitte speichern Sie ihn sicher",
+    "RegisterAgain": "Bitte registrieren Sie sich erneut",
+    "MnemonicMsg": "Dieser Satz ist die einzige Möglichkeit, Brieftaschen zu exportieren und zu importieren und an einem sicheren und geheimen Ort aufzubewahren.Die Phrase kann später unter der Registerkarte Einstellungen gefunden werden",
     "Passphrase": "Passphrase",
     "Mnemonic": "Mnemonik",
     "SecondCounter": 'Zweite links',
-    "EmailInfo": 'Wir müssen otp an diese E-Mail senden.Bitte geben Sie eine gültige E-Mail-Adresse ein',
-    "OtpInfo": 'Geben Sie das otp ein, das wir bei der Registrierung per E-Mail gesendet haben',
-    'OtpInvalid': 'Bitte geben Sie ein gültiges otp ein',
-    'OtpSuccess': 'Sie haben Ihr otp erfolgreich verifiziert'
+    "EmailInfo": 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+    "OtpInfo": 'Geben Sie das an die eingegebene E-Mail-Adresse gesendete OTP ein',
+    'OtpInvalid': 'Bitte geben Sie das gültige OTP ein',
+    'OtpSuccess': 'OTP erfolgreich verifiziert',
+    'WalletInitialized':'Wallet erfolgreich initialisiert.'
   },
   "PinCreate": {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
     "PinMustBe6DigitsInLength": "Die PIN muss 6 Ziffern lang sein",
-    "ReEnterPinMustBe6DigitsInLength": 'Le code PIN doit être composé de 6 chiffres',
+    "ReEnterPinMustBe6DigitsInLength": 'Unzureichende PIN-Länge',
     "PinsEnteredDoNotMatch": "Die eingegebenen Pins stimmen nicht überein", 
     "PinsSuccess": "Pin erfolgreich erstellt",
     "PinChange": "PIN-Änderung erfolgreich",
-    "NewPinMatchwithOld": 'Neuer Pin ist derselbe wie ein alter Pin',           
+    "NewPinMatchwithOld": 'Der neue Pin ist derselbe wie der alte Pin',           
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
-    "ReenterNewPin": "Neue PIN erneut eingeben",
+    "ReenterNewPin": "Geben Sie die neue PIN erneut ein",
     "Create": "Schaffen",
-    "ValidOldPin": "Bitte gültige alte PIN eingeben",
-    "WalletCreated": "Ihre Brieftasche wurde erfolgreich erstellt.",
-    "PinInfo": 'Dieser Pin wird für die Anmeldung verwendet',
+    "ValidOldPin": "Bitte geben Sie eine gültige alte PIN ein",
+    "WalletCreated": "Die Brieftasche wurde erfolgreich erstellt",
+    "OR": "ODER",	
+    "EmailConfirmation": "Warnung",	
+    "CheckEmail": "Die E-Mail-Adresse sollte die gleiche sein, die für den Export der Brieftasche verwendet wird.",	
+    "PinInfo": 'Dieser Pin wird für die Anmeldung verwendet'
   },
   "Biometric": {
     "Biometric": "Biometrisch",
     "BiometricConfirm": "Confirm fingerprint",
-    "BiometricSuccess": "Fingerabdruck bestätigen",
+    "BiometricSuccess": "Fingerabdruck erfolgreich konfiguriert",
     "BiometricFailed": "Biometrie fehlgeschlagen",
     "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
@@ -92,17 +96,17 @@ const translation = {
     "BiometricInfo": 'Registrieren Sie die Biometric-Nutzung für die Anmeldung'
   },
   "Initialization":{
-    "CompleteInitialization":"Schließen Sie Ihre Initialisierung ab",
+    "CompleteInitialization":"Schließen Sie die Initialisierung ab",
     "InitializationInfo":"Initialiser le nouveau portefeuille ou importer l'ancien portefeuille",
   },
   "Mnemonic":{
-    "MnemonicTitle":"Pour terminer l'initialisation, veuillez créer un Mnémonique"
+    "MnemonicTitle":"Unten ist die Mnemonik für zukünftige Referenzen"
   },
   "Home": {
     "Welcome": "Willkommen",
     "Notifications": "Benachrichtigungen",
-    "NoNewUpdates": "Sie haben keine neuen Benachrichtigungen.",
-    "NoCredentials": "Sie haben keine Zugangsdaten in Ihrem Wallet.",
+    "NoNewUpdates": "Es gibt keine neue Benachrichtigung.",
+    "NoCredentials": "Es gibt keine Zugangsdaten in der Wallet.",
     "SeeAll": "Alle anzeigen",
     "YouHave": "Sie haben",
     "Credential": "Zugangsdaten",
@@ -119,7 +123,7 @@ const translation = {
     "AboutApp": "Über App",
     "Language": "Sprache",
     "Logout": "Ausloggen",
-    "LogoutMsg": "Möchten Sie sich wirklich abmelden",
+    "LogoutMsg": "Bitte bestätigen Sie die Abmeldung",
     "MnemonicMsg": 'Mnemonik darf nicht leer sein',
     "EnterMnemonic": 'Geben Sie Mnemonik ein',
     "ValidMnemonic": 'Gültige Mnemonik',
@@ -130,7 +134,7 @@ const translation = {
     "ViewMnemonic": 'Mnemonik ansehen',
   },
   "ExportWallet":{
-    "WalletExportedPath": "Wallet In diesen Pfad exportiert :"
+    "WalletExportedPath": "Wallet in den Pfad exportiert :"
   },
   "ImportWallet":{
     "SelectWalletFile": "Wählen Sie Wallet-Datei aus",
@@ -163,20 +167,20 @@ const translation = {
     "RemoveFromWallet": "Aus der Brieftasche entfernen",
   },
   "CredentialOffer": {
-    "ThisIsTakingLongerThanExpected": "Dies dauert länger als erwartet. Schauen Sie später noch einmal nach, um Ihre neuen Anmeldeinformationen zu erhalten.",
+    "ThisIsTakingLongerThanExpected": "Dies dauert länger als erwartet. Schauen Sie später noch einmal vorbei, um einen neuen Berechtigungsnachweis zu erhalten.",
     "RejectThisCredential?": "Diese Anmeldeinformationen ablehnen?",
     "AcceptingCredential": "Akzeptieren von Anmeldeinformationen",
     "SuccessfullyAcceptedCredential": "Anmeldeinformationen erfolgreich akzeptiert",
     "RejectingCredential":"Ausweis ablehnen",
-    "SuccessfullyRejectedCredential":"Anmeldeinformationen erfolgreich abgelehnt",
+    "SuccessfullyRejectedCredential":"Die Anmeldeinformationen wurden erfolgreich abgelehnt",
     "CredentialNotFound": "Anmeldedaten nicht gefunden",
     "CredentialAccepted": "Anmeldeinformationen akzeptiert",
     "CredentialRejected": "Anmeldeinformationen abgelehnt",
-    "CredentialAddedToYourWallet": "Zugangsdaten zu Ihrem Wallet hinzugefügt",
+    "CredentialAddedToYourWallet": "Der Brieftasche hinzugefügte Anmeldeinformationen",
     "CredentialDeclined": "Anmeldedaten abgelehnt",
-    "CredentialOnTheWay": "Ihr Ausweis ist unterwegs",
+    "CredentialOnTheWay": "Der Ausweis ist unterwegs",
     "CredentialOffer": "Neue Anmeldeinformationen",
-    "IsOfferingYouACredential": "bietet Ihnen einen Ausweis an"
+    "IsOfferingYouACredential": "is offering a credential"
   },
   "TabStack": {
     "Home": "Zuhause",
@@ -186,7 +190,7 @@ const translation = {
     "Settings": "Einstellungen",
   },
   "ProofRequest": {
-    "Title": "<b>{{connection}}</b> demande une vérification à partir de votre portefeuille. \n\nIls vous demandent de partager :",
+    "Title": "<b>{{connection}}</b> demande une vérification à partir de votre portefeuille. \n\nSie bitten darum, zu teilen :",
     "OfferDelay": "Angebotsverzögerung",
     "RejectThisProof?": "Diesen Nachweis ablehnen?",
     "AcceptingProof": "Nachweis wird akzeptiert",
@@ -199,9 +203,9 @@ const translation = {
     "ProofRequest": "Neuer Nachweis angefordert",
     "NotAvailableInYourWallet": "Diesen Nachweis ablehnen?0",
     "IsRequestng": "Diesen Nachweis ablehnen?1",
-    "IsRequestingSomethingYouDontHaveAvailable": "Diesen Nachweis ablehnen?2",
-    "IsRequestingYouToShare": "Diesen Nachweis ablehnen?3",
-    "WhichYouCanProvideFrom": "Diesen Nachweis ablehnen?4",
+    "IsRequestingSomethingYouDontHaveAvailable": "fordert etwas an, das nicht in der Brieftasche verfügbar ist?2",
+    "IsRequestingYouToShare": "bittet um Freigabe?3",
+    "WhichYouCanProvideFrom": "die bereitgestellt werden können?4",
     "Details": "Diesen Nachweis ablehnen?5",
     "SendingTheInformationSecurely": "Diesen Nachweis ablehnen?6",
     "InformationSentSuccessfully": "Diesen Nachweis ablehnen?7",
@@ -210,12 +214,12 @@ const translation = {
     "ProofUpdateErrorMessage": "Beim Aktualisieren der abgerufenen Anmeldeinformationen ist ein Problem aufgetreten",
     "ProofAcceptErrorTitle": "Nachweisanforderung kann nicht angenommen werden",
     "ProofAcceptErrorMessage": "Beim Akzeptieren der Nachweisanforderung ist ein Problem aufgetreten",
-    "ProofRejectErrorTitle": "Proof-Anfrage kann nicht abgelehnt werden",
+    "ProofRejectErrorTitle": "Die Nachweisanforderung kann nicht abgelehnt werden",
     "ProofRejectErrorMessage": "Beim Ablehnen der Nachweisanforderung ist ein Problem aufgetreten",
     "MissingInformation": {
       "Title": "Die Anfrage kann nicht abgeschlossen werden",
       "AlertMissingInformation": {
-        "Title": "In Ihrer Brieftasche fehlen Informationen"
+        "Title": "Der Brieftasche fehlen Informationen"
       }
     }
   },
