@@ -9,9 +9,10 @@ export interface TextBoxProps {
   showTopIcon?: boolean
   showBottomIcon?: boolean
   errorMsg?: string
+  mnemonicText?: boolean
 }
 
-const iconSize = 30
+const iconSize = 20
 
 const styles = StyleSheet.create({
   container: {
@@ -21,6 +22,12 @@ const styles = StyleSheet.create({
   },
   headerText: {
     ...TextTheme.normal,
+    color: ColorPallet.baseColors.black,
+    marginTop: 10,
+  },
+  mnemonicText: {
+    ...TextTheme.caption,
+    fontWeight: 'bold',
     color: ColorPallet.baseColors.black,
     marginTop: 10,
   },
@@ -38,6 +45,7 @@ const InfoCard: React.FC<TextBoxProps> = ({
   showTopIcon = false,
   showBottomIcon = false,
   errorMsg = false,
+  mnemonicText = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -55,7 +63,7 @@ const InfoCard: React.FC<TextBoxProps> = ({
         </View>
       ) : (
         <Text
-          style={styles.headerText}
+          style={mnemonicText ? styles.mnemonicText : styles.headerText}
           testID="InfoCard"
           accessibilityLabel="InfoCard"
         >

@@ -80,7 +80,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.VerifyOtp}
         component={VerifyOtp}
         options={() => ({
-          title: 'Otp Verify',
+          title: 'OTP Verify',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -115,7 +115,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.Initialization}
         component={Initialization}
         options={() => ({
-          title: 'Initialization',
+          title: 'Intialize wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -127,7 +127,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={CreateWallet}
         initialParams={{ initAgent }}
         options={() => ({
-          title: 'Initialization',
+          title: 'Intialize wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -154,8 +154,6 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
           title: 'Import Wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
-          headerLeft: () => false,
-          rightLeft: () => false,
         })}
       />
       <Stack.Screen

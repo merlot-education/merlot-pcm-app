@@ -9,7 +9,11 @@ import { useConnectionById } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Button, { ButtonType } from '../button/Button'
 import { HomeStackParams, Screens } from '../../types/navigators'
-import { parsedSchema } from '../../utils/helpers'
+import {
+  credentialDefinition,
+  parsedCredentialDefinition,
+  parsedSchema,
+} from '../../utils/helpers'
 import Images from '../../assets'
 
 const iconSize = 30
@@ -83,7 +87,10 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
         navigation.navigate(Screens.CredentialOffer, {
           credentialId: notification.id,
         })
-      title = t('CredentialOffer.CredentialOffer')
+      const { credName } = parsedCredentialDefinition(
+        notification as CredentialExchangeRecord,
+      )
+      title = `${credName} `
       body = `${name} v${version}`
       break
     }

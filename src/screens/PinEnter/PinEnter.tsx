@@ -96,8 +96,6 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       } else {
         warningToast(t('Biometric.BiometricCancle'))
       }
-    } else {
-      warningToast(t('Biometric.BiometricNotSupport'))
     }
   }, [setAuthenticated, startAgent, t])
 

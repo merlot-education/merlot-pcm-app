@@ -104,3 +104,7 @@ In your second terminal, you can now run:
 yarn android
 ```
 
+## License
+<hr/>
+
+[Apache 2.0 license](LICENSE)

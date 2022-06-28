@@ -1,8 +1,9 @@
 import { StackScreenProps } from '@react-navigation/stack'
 import {
   AriesFrameworkError,
-  ConnectionRecord,
   CredentialState,
+  GetFormatDataReturn,
+  IndyCredentialFormat,
 } from '@aries-framework/core'
 import { StyleSheet, Alert, View, Text } from 'react-native'
 import {
@@ -61,11 +62,13 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
   const [pendingModalVisible, setPendingModalVisible] = useState(false)
   const [successModalVisible, setSuccessModalVisible] = useState(false)
   const [declinedModalVisible, setDeclinedModalVisible] = useState(false)
+  const [credentialRecord, setCredentialRecord] = useState<
+    GetFormatDataReturn<[IndyCredentialFormat]>
+  >({})
 
   const credential = useCredentialById(credentialId)
 
-  const connection = useConnectionById(credential.connectionId)
-
+  const connection = useConnectionById(credential?.connectionId)
   if (!agent) {
     throw new Error(t('CredentialOffer.FetchAFJError'))
   }
@@ -73,6 +76,19 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
   if (!credential) {
     throw new Error(t('CredentialOffer.CredentialFetchError'))
   }
+
+  const getCredentialData = useCallback(async () => {
+    if (credential) {
+      const credentialRecord = await agent.credentials.getFormatData(
+        credential.id,
+      )
+      setCredentialRecord(credentialRecord)
+    }
+  }, [agent.credentials, credential])
+
+  useEffect(() => {
+    getCredentialData()
+  }, [getCredentialData])
 
   useEffect(() => {
     if (credential.state === CredentialState.Declined) {
@@ -83,30 +99,25 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
   const saveCredentialInGenericRecords = useCallback(async () => {
     if (credential.state === CredentialState.Done) {
       const tags = {
-        connectionId: connection.id,
+        connectionId: connection?.id,
         credentialRecordId: credential.credentials[0].credentialRecordId,
         type: 'credential',
       }
       const attributes = {}
-      credential.credentialAttributes.forEach(attribute => {
+      credential?.credentialAttributes?.forEach(attribute => {
         attributes[attribute.name] = attribute.value
       })
       const record = {
         status: 'issued',
         timestamp: new Date().getTime(),
-        connectionLabel: connection.theirLabel ?? 'Connection less credential',
-        credentialLabel: credentialDefinition(credential).split(':')[4],
+        connectionLabel: connection?.theirLabel ?? 'Connection less credential',
+        credentialLabel: credentialDefinition(credential)?.split(':')[4],
         attributes,
       }
       const content = { records: [record] }
       await agent.genericRecords.save({ content, tags })
     }
-  }, [
-    agent?.genericRecords,
-    connection?.id,
-    connection?.theirLabel,
-    credential,
-  ])
+  }, [agent.genericRecords, connection?.id, connection?.theirLabel, credential])
 
   useEffect(() => {
     if (
@@ -121,7 +132,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
     if (credential.state === CredentialState.Done) {
       saveCredentialInGenericRecords()
     }
-  }, [credential, pendingModalVisible, saveCredentialInGenericRecords])
+  }, [credential.state, pendingModalVisible, saveCredentialInGenericRecords])
 
   const handleAcceptPress = async () => {
     try {
@@ -166,10 +177,6 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
     )
   }
 
-  const getConnectionName = (connection: ConnectionRecord) => {
-    return connection?.alias || connection?.theirLabel
-  }
-
   return (
     <>
       <Record
@@ -178,8 +185,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             <View style={styles.headerTextContainer}>
               <Text style={styles.headerText}>
                 <Title>
-                  {getConnectionName(connection) ||
-                    t('ContactDetails.AContact')}
+                  {connection?.theirLabel || t('ContactDetails.AContact')}
                 </Title>{' '}
                 {t('CredentialOffer.IsOfferingYouACredential')}
               </Text>
@@ -210,7 +216,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             </View>
           </View>
         )}
-        attributes={credential.credentialAttributes}
+        attributes={credentialRecord?.offerAttributes}
       />
       <FlowDetailModal
         title={t('CredentialOffer.CredentialOnTheWay')}

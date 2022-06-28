@@ -10,6 +10,7 @@ import { warningToast, errorToast } from '../../utils/toast'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Accordion from '../../components/accordion/Accordion'
 import { credentialDefinition } from '../../utils/helpers'
+import { RecordHistory } from '../../types/record'
 
 const styles = StyleSheet.create({
   card: {
@@ -107,12 +108,12 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   const { credentialId } = route.params
   const credential = useCredentialById(credentialId)
   const { agent } = useAgent()
-  const [history, setHistory] = useState([])
+  const [history, setHistory] = useState<RecordHistory[]>([])
 
   const getCredentialHistory = useCallback(async () => {
     try {
       const data = await agent?.genericRecords.findAllByQuery({
-        credentialRecordId: credential.credentials[0].credentialRecordId,
+        credentialRecordId: credential?.credentials[0].credentialRecordId,
       })
 
       const history = []
@@ -166,7 +167,7 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
               </Text>
             </View>
             <View style={styles.divider} />
-            {credential.credentialAttributes.map(item => {
+            {credential?.credentialAttributes?.map(item => {
               return (
                 <View style={styles.innerContainer}>
                   <Text style={styles.attribute}>{item.name}</Text>
