@@ -164,11 +164,13 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
           >
             {item.type === 'CredentialRecord' ? (
               <NotificationListItem
+                key={item.id}
                 notificationType={NotificationType.CredentialOffer}
                 notification={item}
               />
             ) : (
               <NotificationListItem
+                key={item.id}
                 notificationType={NotificationType.ProofRequest}
                 notification={item}
               />

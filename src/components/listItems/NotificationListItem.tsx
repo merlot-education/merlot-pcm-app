@@ -2,18 +2,14 @@ import { CredentialExchangeRecord, ProofRecord } from '@aries-framework/core'
 
 import { useNavigation } from '@react-navigation/core'
 import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, View, Text, Image } from 'react-native'
-import { useConnectionById } from '@aries-framework/react-hooks'
+import { useAgent, useConnectionById } from '@aries-framework/react-hooks'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import Button, { ButtonType } from '../button/Button'
 import { HomeStackParams, Screens } from '../../types/navigators'
-import {
-  credentialDefinition,
-  parsedCredentialDefinition,
-  parsedSchema,
-} from '../../utils/helpers'
+import { parseCredDef } from '../../utils/helpers'
 import Images from '../../assets'
 
 const iconSize = 30
@@ -70,39 +66,45 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 }) => {
   const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
   const { t } = useTranslation()
-  const connection = useConnectionById(
-    (notification as ProofRecord)?.connectionId || '',
-  )
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
+  const { agent } = useAgent()
+  const connection = useConnectionById(notification?.connectionId || '')
 
-  let onPress: () => void
-  let title = ''
-  let body = ''
+  const getNotificationData = useCallback(async () => {
+    if (notificationType === NotificationType.CredentialOffer) {
+      const credentialRecord = await agent?.credentials.getFormatData(
+        notification.id,
+      )
+      const credentialDefinitionId = credentialRecord?.offer?.indy?.cred_def_id
 
-  switch (notificationType) {
-    case NotificationType.CredentialOffer: {
-      const { name, version } = parsedSchema(
-        notification as CredentialExchangeRecord,
-      )
-      onPress = () =>
-        navigation.navigate(Screens.CredentialOffer, {
-          credentialId: notification.id,
-        })
-      const { credName } = parsedCredentialDefinition(
-        notification as CredentialExchangeRecord,
-      )
-      title = `${credName} `
-      body = `${name} v${version}`
-      break
+      const { credName } = parseCredDef(credentialDefinitionId)
+      setTitle(t('CredentialOffer.CredentialOffer'))
+      setBody(credName)
+    } else {
+      setTitle(t('ProofRequest.ProofRequest'))
+      setBody(connection?.theirLabel ?? 'Connectionless proof request')
     }
-    case NotificationType.ProofRequest: {
-      title = t('ProofRequest.ProofRequest')
-      body = connection?.theirLabel ?? 'Connectionless proof request'
-      onPress = () =>
-        navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
-      break
+  }, [
+    agent?.credentials,
+    connection?.theirLabel,
+    notification.id,
+    notificationType,
+    t,
+  ])
+
+  useEffect(() => {
+    getNotificationData()
+  }, [getNotificationData])
+
+  const navigateToNotification = () => {
+    if (notificationType === NotificationType.CredentialOffer) {
+      navigation.navigate(Screens.CredentialOffer, {
+        credentialId: notification.id,
+      })
+    } else {
+      navigation.navigate(Screens.ProofRequest, { proofId: notification.id })
     }
-    default:
-      throw new Error('NotificationType was not set correctly.')
   }
 
   return (
@@ -121,7 +123,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
         <Button
           buttonType={ButtonType.Primary}
           title={t('Global.View')}
-          onPress={onPress}
+          onPress={navigateToNotification}
         />
       </View>
     </View>

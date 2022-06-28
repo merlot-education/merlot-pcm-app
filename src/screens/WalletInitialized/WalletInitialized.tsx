@@ -57,6 +57,7 @@ const WalletInitialized: React.FC<WalletInitializedProps> = ({ route }) => {
         <Image
           source={Images.walletInitializedIcon}
           style={style.biometricIconImg}
+          resizeMode="contain"
         />
       </View>
       <View style={[style.btnContainer]}>
