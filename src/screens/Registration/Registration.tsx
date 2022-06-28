@@ -67,6 +67,18 @@ const style = StyleSheet.create({
     color: ColorPallet.notification.infoText,
     flexShrink: 1,
   },
+  innerContainer: {
+    flex: 0.5,
+    justifyContent: 'space-between',
+  },
+  imgContainer: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  bottomContainer: {
+    flex: 0.5,
+    justifyContent: 'space-between',
+  },
 })
 
 const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
@@ -91,12 +103,10 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
             message,
           } = await registerUser(email, '')
           setLoading(false)
-          // successToast(message)
           setError(message)
           navigation.navigate(Screens.VerifyOtp, { email, otpId })
         } catch (error) {
           setLoading(false)
-          // errorToast(error.message)
           setError(error.message)
         }
       } else {
@@ -129,30 +139,36 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
   return (
     <View style={style.container}>
       <Loader loading={loading} />
-      <TextInput
-        label={t('Global.Email')}
-        placeholder={t('Global.Email')}
-        placeholderTextColor={ColorPallet.brand.primary}
-        accessible
-        accessibilityLabel={t('Global.Email')}
-        autoFocus
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-        returnKeyType="done"
-      />
-      <Image source={Images.emailIcon} style={style.emailImg} />
-      <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-        {t('Registration.EmailInfo')}
-      </InfoCard>
-      <ScreenNavigatorButtons
-        onLeftPress={onBack}
-        onRightPress={() => {
-          Keyboard.dismiss()
-          confirmEntry(email)
-        }}
-      />
+      <View style={style.innerContainer}>
+        <TextInput
+          label={t('Global.Email')}
+          placeholder={t('Global.Email')}
+          placeholderTextColor={ColorPallet.brand.primary}
+          accessible
+          accessibilityLabel={t('Global.Email')}
+          autoFocus
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          returnKeyType="done"
+        />
+        <View style={style.imgContainer}>
+          <Image source={Images.emailIcon} style={style.emailImg} />
+        </View>
+      </View>
+      <View style={style.bottomContainer}>
+        <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+          {t('Registration.EmailInfo')}
+        </InfoCard>
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={() => {
+            Keyboard.dismiss()
+            confirmEntry(email)
+          }}
+        />
+      </View>
     </View>
   )
 }
