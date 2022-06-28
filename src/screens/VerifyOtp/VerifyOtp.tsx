@@ -28,11 +28,24 @@ const style = StyleSheet.create({
   },
   verticalSpacer: {
     textAlign: 'center',
+    marginBottom: 20,
   },
   emailImg: {
     height: 95,
     width: 95,
     alignSelf: 'center',
+  },
+  innerContainer: {
+    flex: 0.5,
+    justifyContent: 'space-between',
+  },
+  bottomContainer: {
+    flex: 0.5,
+    justifyContent: 'space-between',
+  },
+  imgContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
 })
 
@@ -123,49 +136,56 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
   return (
     <View style={[style.container]}>
       <Loader loading={loading} />
-      <TextInput
-        label={t('Global.Otp')}
-        placeholder={t('Global.Otp')}
-        placeholderTextColor={ColorPallet.baseColors.lightGrey}
-        accessible
-        accessibilityLabel={t('Global.Otp')}
-        maxLength={6}
-        autoFocus
-        keyboardType="number-pad"
-        returnKeyType="done"
-        value={otp}
-        onChangeText={setOtp}
-        onSubmitEditing={verifyOtpSubmit}
-      />
-      <Text style={[style.bodyText, style.verticalSpacer]}>
-        {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}
-      </Text>
-      {resendButtonDisabledTime === 0 && (
-        <Text
-          style={[style.bodyText, style.verticalSpacer]}
-          onPress={onResendOtpButtonPress}
-        >
-          {t('Registration.ResendOtp')}
-        </Text>
-      )}
-      {otpWrong && (
-        <Image source={Images.wrongOtpIcon} style={style.emailImg} />
-      )}
-      {otpCorrect && (
-        <Image source={Images.correctOtpIcon} style={style.emailImg} />
-      )}
-      <View>
-        <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-          {t('Registration.OtpInfo')}
-        </InfoCard>
+      <View style={style.innerContainer}>
+        <TextInput
+          label={t('Global.Otp')}
+          placeholder={t('Global.Otp')}
+          placeholderTextColor={ColorPallet.baseColors.lightGrey}
+          accessible
+          accessibilityLabel={t('Global.Otp')}
+          maxLength={6}
+          autoFocus
+          keyboardType="number-pad"
+          returnKeyType="done"
+          value={otp}
+          onChangeText={setOtp}
+          onSubmitEditing={verifyOtpSubmit}
+        />
+        <View style={style.imgContainer}>
+          <Text style={[style.bodyText, style.verticalSpacer]}>
+            {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}
+          </Text>
+          {resendButtonDisabledTime === 0 && (
+            <Text
+              style={[style.bodyText, style.verticalSpacer]}
+              onPress={onResendOtpButtonPress}
+            >
+              {t('Registration.ResendOtp')}
+            </Text>
+          )}
+
+          {otpWrong && (
+            <Image source={Images.wrongOtpIcon} style={style.emailImg} />
+          )}
+          {otpCorrect && (
+            <Image source={Images.correctOtpIcon} style={style.emailImg} />
+          )}
+        </View>
       </View>
-      <ScreenNavigatorButtons
-        onLeftPress={onBack}
-        onRightPress={() =>
-          navigation.navigate(Screens.CreatePin, { forgotPin })
-        }
-        isRightDisabled={!otpCorrect}
-      />
+      <View style={style.bottomContainer}>
+        <View>
+          <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+            {t('Registration.OtpInfo')}
+          </InfoCard>
+        </View>
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={() =>
+            navigation.navigate(Screens.CreatePin, { forgotPin })
+          }
+          isRightDisabled={!otpCorrect}
+        />
+      </View>
     </View>
   )
 }

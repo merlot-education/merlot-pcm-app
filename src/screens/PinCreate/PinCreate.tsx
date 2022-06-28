@@ -56,6 +56,13 @@ const style = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  innerContainer: {
+    flexDirection: 'row',
+  },
+  bottomContainer: {
+    flex: 0.5,
+    justifyContent: 'space-between',
+  },
 })
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
@@ -205,55 +212,57 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   return (
     <View style={[style.container]}>
       <Loader loading={loading} />
-      <View style={{ flexDirection: 'row' }}>
-        <View style={{ width: '70%' }}>
-          <TextInput
-            label={t('Global.EnterPin')}
-            placeholder={t('Global.6DigitPin')}
-            placeholderTextColor={ColorPallet.baseColors.lightGrey}
-            accessible
-            accessibilityLabel={t('Global.EnterPin')}
-            maxLength={6}
-            autoFocus
-            secureTextEntry
-            keyboardType="number-pad"
-            value={pin}
-            onChangeText={setPin}
-            returnKeyType="done"
-          />
-          <TextInput
-            label={t('PinCreate.ReenterPin')}
-            accessible
-            accessibilityLabel={t('PinCreate.ReenterPin')}
-            placeholder={t('Global.6DigitPin')}
-            placeholderTextColor={ColorPallet.baseColors.lightGrey}
-            maxLength={6}
-            secureTextEntry
-            keyboardType="number-pad"
-            returnKeyType="done"
-            value={pinTwo}
-            onChangeText={(text: string) => {
-              setPinTwo(text)
-              if (text.length === 6) {
-                Keyboard.dismiss()
-              }
-            }}
-            editable={pin.length === 6 && true}
-          />
-        </View>
-        <View style={style.pinImgView}>
-          <Image source={Images.pinIcon} style={style.pinImg} />
+      <View style={{ flex: 0.5 }}>
+        <View style={style.innerContainer}>
+          <View style={{ width: '70%' }}>
+            <TextInput
+              label={t('Global.EnterPin')}
+              placeholder={t('Global.6DigitPin')}
+              placeholderTextColor={ColorPallet.baseColors.lightGrey}
+              accessible
+              accessibilityLabel={t('Global.EnterPin')}
+              maxLength={6}
+              autoFocus
+              secureTextEntry
+              keyboardType="number-pad"
+              value={pin}
+              onChangeText={setPin}
+              returnKeyType="done"
+            />
+            <TextInput
+              label={t('PinCreate.ReenterPin')}
+              accessible
+              accessibilityLabel={t('PinCreate.ReenterPin')}
+              placeholder={t('Global.6DigitPin')}
+              placeholderTextColor={ColorPallet.baseColors.lightGrey}
+              maxLength={6}
+              secureTextEntry
+              keyboardType="number-pad"
+              returnKeyType="done"
+              value={pinTwo}
+              onChangeText={(text: string) => {
+                setPinTwo(text)
+                if (text.length === 6) {
+                  Keyboard.dismiss()
+                }
+              }}
+              editable={pin.length === 6 && true}
+            />
+          </View>
+          <View style={style.pinImgView}>
+            <Image source={Images.pinIcon} style={style.pinImg} />
+          </View>
         </View>
       </View>
-      <View>
+      <View style={style.bottomContainer}>
         <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
           {t('PinCreate.PinInfo')}
         </InfoCard>
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={() => confirmEntry(pin, pinTwo)}
+        />
       </View>
-      <ScreenNavigatorButtons
-        onLeftPress={onBack}
-        onRightPress={() => confirmEntry(pin, pinTwo)}
-      />
     </View>
   )
 }
