@@ -18,6 +18,7 @@ import ImportWallet from '../screens/ImportWallet'
 import CreateWallet from '../screens/CreateWallet/CreateWallet'
 import Initialization from '../screens/Initialization'
 import WalletInitialized from '../screens/WalletInitialized'
+import SetupDelay from '../screens/SetupDelay'
 
 const Stack = createStackNavigator<OnboardingStackParams>()
 
@@ -162,6 +163,17 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
           title: 'Login',
+          headerTintColor: ColorPallet.baseColors.white,
+          headerShown: true,
+          headerLeft: () => false,
+          rightLeft: () => false,
+        })}
+      />
+      <Stack.Screen
+        name={Screens.SetupDelay}
+        component={SetupDelay}
+        options={() => ({
+          title: 'Initializing Wallet',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,

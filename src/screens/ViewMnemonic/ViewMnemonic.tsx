@@ -68,10 +68,8 @@ const ViewMnemonic: React.FC = () => {
       } else if (error) {
         warningToast(error)
       } else {
-        warningToast(t('Biometric.BiometricCancle'))
+        warningToast(t('Biometric.BiometricCancel'))
       }
-    } else {
-      warningToast(t('Biometric.BiometricNotSupport'))
     }
   }, [t])
 
