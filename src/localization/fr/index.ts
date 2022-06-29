@@ -37,8 +37,7 @@ const translation = {
     "ThisDecisionCannotBeChanged.": "Cette décision ne peut être modifiée.",
     "ZeroRecords": 'Aucun enregistrement disponible',
     "ImportWallet": "Importer un portefeuille",
-    'WalletInitialized':'Votre portefeuille a été initialisé avec succès.',
-
+    'WalletInitialized':'Portefeuille initialisé avec succès.',
     "UserInactivity": "Déconnexion en raison de l'inactivité",
   },
   "Language": {
@@ -49,71 +48,69 @@ const translation = {
   "Registration":{
     "UserAuthenticationEmail": "Courriel d'authentification de l'utilisateur",
     "EnterEmail": 'Veuillez saisir un e-mail',
-    "ValidEmail": "Veuillez saisir une adresse e-mail valide",
+    "ValidEmail": "S'il vous plaît, mettez une adresse email valide",
     'ResendOtp': 'Renvoyer OTP',
-    "RegisterAgain": "Vous devez vous inscrire à nouveau",
-    "MnemonicMsg": "Cette phrase est le seul moyen d'exporter et d'importer un portefeuille, enregistrez-le dans un endroit sûr et secret. La pharse peut être trouvée plus tard sous l'onglet paramètres",
+    "RegisterAgain": "Veuillez vous inscrire à nouveau",
+    "MnemonicMsg": "Cette phrase est le seul moyen d'exporter et d'importer un portefeuille, enregistrez-le dans un endroit sûr et secret. La phrase peut être trouvée plus tard sous l'onglet Paramètres",
     "Passphrase": "Mot de passe",
     "Mnemonic": "Mnémonique",
-    "SecondCounter": 'Secondes restantes',
+    "SecondCounter": 'Deuxième à gauche',
     "EmailInfo": "S'il vous plaît, mettez une adresse email valide",
     "OtpInfo": "Entrez l'OTP envoyé sur l'adresse e-mail saisie",
-    'OtpInvalid': 'Please enter the valid OTP',
+    'OtpInvalid': "Veuillez entrer l'OTP valide",
     'OtpSuccess': 'OTP vérifié avec succès',
     'WalletInitialized':'Portefeuille initialisé avec succès.',
   },
   "Terms": {
-    "AcceptTerms": "Veuillez accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
+    "AcceptTerms": "Veuillez lire et accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
     "TermsAndConditions": "Les présentes conditions générales définissent les droits et obligations de tous les utilisateurs concernant l'utilisation du service. Votre accès au service et son utilisation sont conditionnés par votre acceptation et votre respect des présentes conditions générales. Ces conditions générales s'appliquent à tous les visiteurs, utilisateurs et autres personnes qui accèdent ou utilisent le service.",
     "Attestation": "J'ai lu, compris et accepté les termes et conditions."
   },
   "PinCreate": {
-    "UserAuthenticationPin": "Broche d'authentification de l'utilisateur",
-    "PinMustBe6DigitsInLength": "Le code PIN doit comporter 6 chiffres",
+    "UserAuthenticationPin": "NIP d'authentification de l'utilisateur",
+    "PinMustBe6DigitsInLength": "La broche doit comporter 6 chiffres",
     "ReEnterPinMustBe6DigitsInLength": 'Longueur du code PIN insuffisante',
-    "PinsEnteredDoNotMatch": "Le code PIN saisi ne correspond pas", 
-    "PinsSuccess": "Code PIN créé avec succès", 
-    "PinChange": "Le code PIN a été modifié avec succès",
-    "NewPinMatchwithOld": 'La nouvelle broche est identique à une ancienne broche',       
-    "6DigitPin": "NIP à 6 chiffres",
-    "ReenterPin": "Entrez à nouveau le code PIN",
-    "ReenterNewPin": "Entrez à nouveau le nouveau code PIN",
+    "PinsEnteredDoNotMatch": "Le code PIN saisi ne correspond pas",
+    "PinsSuccess": "Épingle créée avec succès",
+    "PinChange": "Changement de code PIN réussi",
+    "NewPinMatchwithOld": "La nouvelle broche est identique à l'ancienne broche",         
+    "6DigitPin": "Broche à 6 chiffres",
+    "ReenterPin": "Entrez à nouveau le nouveau code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
-    "WalletCreated": "Votre portefeuille est créé avec succès.",
-    "OR": "OU",
+    "WalletCreated": "Le portefeuille est créé avec succès",
+    "OR": "OU",	
     "EmailConfirmation": "Avertissement",
-    "CheckEmail": "L'e-mail doit être le même que celui utilisé pour l'exportation du portefeuille.",
-    "PinInfo": 'Cette broche utilisée pour la connexion'
+    "CheckEmail": "L'e-mail doit être le même que celui utilisé pour exporter le portefeuille.",
+    "PinInfo": 'Cette broche est utilisée pour la connexion',
   },
   "Biometric": {
     "Biometric": "Biométrique",
     "BiometricConfirm": "Confirmer l'empreinte digitale",
     "BiometricSuccess": "Empreinte digitale configurée avec succès",
     "BiometricFailed": "Échec de la biométrie",
-    "BiometricCancle": "L'utilisateur a annulé l'invite biométrique",
+    "BiometricCancel": "L'utilisateur a annulé l'invite biométrique",
     "BiometricNotSupport": "Biométrie non prise en charge",
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
     "BiometricInfo": "S'inscrire Utilisation biométrique pour la connexion"
   },
   "Initialization":{
-    "CompleteInitialization":"Complétez votre initialisation",
+    "CompleteInitialization":"Terminer l'initialisation",
     "InitializationInfo":"Initialiser le nouveau portefeuille ou importer l'ancien portefeuille",
   },
   "Mnemonic":{
-    "MnemonicTitle":"Pour terminer l'initialisation, veuillez créer un Mnémonique"
+    "MnemonicTitle":"Ci-dessous le mnémonique pour les futures références"
   },
   "Home": {
     "Welcome": "Bienvenue",
-    "Notifications": "Avis",
-    "NoNewUpdates": "Vous n'avez aucune nouvelle notification.",
-    "NoCredentials": "Vous n'avez pas d'identifiants dans votre portefeuille.",
-    "SeeAll": "Voir tout",
-    "YouHave": "Tu as",
-    "Credential": "justificative",
-    "Credentials": "identifiants",
-    "InYourWallet": "dans votre portefeuille",
-    "CredentialCountUndefinedError":"Le nombre d'informations d'identification ne peut pas être indéfini",
+    "Notifications": "Notifications",
+    "NoNewUpdates": "Il n'y a pas de nouvelle notification.",
+    "NoCredentials": "Il n'y a pas d'informations d'identification dans le portefeuille.",
+    "SeeAll": "Voir tous",
+    "YouHave": "Vous avez",
+    "Credential": "informations d'identification",
+    "Credentials": "informations d'identification",
+    "InYourWallet": "dans votre portefeuille"
   },
   "PinEnter": {
     "IncorrectPin": "Broche incorrecte",    
@@ -125,7 +122,7 @@ const translation = {
     "AboutApp": "À propos de l'application",
     "Language": "Langue",
     "Logout": "Se déconnecter",
-    "LogoutMsg": "Voulez-vous vraiment vous déconnecter",
+    "LogoutMsg": "Veuillez confirmer pour vous déconnecter",
     "MnemonicMsg": 'Le mnémonique ne peut pas être vide',
     "EnterMnemonic": 'Entrez le mnémonique',
     "ValidMnemonic": 'Mnémonique valide',
@@ -136,7 +133,7 @@ const translation = {
     "ViewMnemonic": 'Voir Mnémonique',
   },
   "ExportWallet":{
-    "WalletExportedPath": "Portefeuille exporté vers ce chemin :"
+    "WalletExportedPath": "Portefeuille exporté vers le chemin :"
   },
   "ImportWallet":{
     "SelectWalletFile": "Sélectionnez le fichier de portefeuille",
@@ -171,26 +168,20 @@ const translation = {
     "RemoveFromWallet": "Retirer du portefeuille",
   },
   "CredentialOffer": {
-    "ThisIsTakingLongerThanExpected": "Cela prend plus de temps que prévu. Revenez plus tard pour vos nouvelles informations d'identification.",
+    "ThisIsTakingLongerThanExpected": "Cela prend plus de temps que prévu. Revenez plus tard pour un nouvel identifiant.",
     "RejectThisCredential?": "Refuser cet identifiant ?",
     "AcceptingCredential": "Acceptation des informations d'identification",
-    "SuccessfullyAcceptedCredential": "Informations d'identification acceptées avec succès",
+    "SuccessfullyAcceptedCredential": "Accepté avec succès le Credential",
     "RejectingCredential":"Rejeter les informations d'identification",
-    "SuccessfullyRejectedCredential":"Identifiant rejeté avec succès",
+    "SuccessfullyRejectedCredential":"L'identifiant a été rejeté avec succès",
     "CredentialNotFound": "Identifiant introuvable",
     "CredentialAccepted": "Titre accepté",
     "CredentialRejected": "Identifiant refusé",
-    "CredentialAddedToYourWallet": "Identifiant ajouté à votre portefeuille",
+    "CredentialAddedToYourWallet": "Identifiant ajouté au portefeuille",
     "CredentialDeclined": "Identifiant refusé",
     "CredentialOnTheWay": "Votre accréditation est en route",
     "CredentialOffer": "Nouvelle offre d'accréditation",
-    "IsOfferingYouACredential": "vous offre une accréditation",
-    "CredentialOfferParamsError":"Les poussettes d'itinéraire CredentialOffer n'ont pas été définies correctement",
-    "FetchAFJError":"Impossible de récupérer l'agent de l'AFJ",
-    "CredentialFetchError":"Impossible de récupérer les informations d'identification de l'AFJ",
-    "RejectOfferTitle":"Impossible de rejeter l'offre",
-    "RejectOfferMessage":"Un problème est survenu lors du rejet de l'offre d'identifiants",
-
+    "IsOfferingYouACredential": "offre un diplôme"
   },
   "TabStack": {
     "Home": "Maison",
@@ -206,7 +197,7 @@ const translation = {
     "Warning": "Avertissement"
   },
   "ProofRequest": {
-    "Title": "<b>{{connection}}</b> fordert eine Verifizierung von Ihrem Wallet an. \n\nSie bitten darum, dass Sie teilen:",
+    "Title": "<b>{{connection}}</b> demande une vérification au Wallet. \n\nIls demandent à partager:",
     "OfferDelay": "Retard de l'offre",
     "RejectThisProof?": "Rejeter cette preuve ?",
     "AcceptingProof": "Acceptation de la preuve",
@@ -217,11 +208,11 @@ const translation = {
     "ProofRejected": "Preuve rejetée",
     "RequestedCredentialsCouldNotBeFound": "Les informations d'identification demandées sont introuvables",
     "ProofRequest": "Nouvelle demande de preuve",
-    "NotAvailableInYourWallet": "Rejeter cette preuve ?0",
+    "NotAvailableInYourWallet": "Non disponible dans le portefeuille?0",
     "IsRequestng": "Rejeter cette preuve ?1",
-    "IsRequestingSomethingYouDontHaveAvailable": "Rejeter cette preuve ?2",
+    "IsRequestingSomethingYouDontHaveAvailable": "Demande quelque chose qui n'est pas disponible dans le portefeuille?2",
     "IsRequestingYouToShare": "Rejeter cette preuve ?3",
-    "WhichYouCanProvideFrom": "Rejeter cette preuve ?4",
+    "WhichYouCanProvideFrom": "Qui peut être fourni par ?4",
     "Details": "Rejeter cette preuve ?5",
     "SendingTheInformationSecurely": "Rejeter cette preuve ?6",
     "InformationSentSuccessfully": "Rejeter cette preuve ?7",
@@ -235,7 +226,7 @@ const translation = {
     "MissingInformation": {
       "Title": "La demande ne peut pas être complétée",
       "AlertMissingInformation": {
-        "Title": "Votre portefeuille manque d'informations"
+        "Title": "Le portefeuille manque d'informations"
       }
     },
     "ProofRequestParamsError":"Les poussettes d'itinéraire ProofRequest n'ont pas été correctement définies",
