@@ -243,6 +243,7 @@ const translation = {
     "PermissionToUseCamera":"Erlaubnis zur Verwendung der Kamera",
     "PermissionMessage":"Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
     "NotAValidURL":"URL non valide",
+    "NotBlankURL": 'Bitte URL eingeben',
     "InvalidQrCode":"QrCode invalide",
   },
 }

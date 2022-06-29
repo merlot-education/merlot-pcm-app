@@ -7,13 +7,12 @@ import type { BarCodeReadEvent } from 'react-native-camera'
 import { StyleSheet, View } from 'react-native'
 import { useIsFocused } from '@react-navigation/core'
 import { Buffer } from 'buffer'
-import Toast from 'react-native-toast-message'
 import { useTranslation } from 'react-i18next'
 import QRScanner from '../../components/inputs/QRScanner'
 import { ScanStackParams, Screens, TabStacks } from '../../types/navigators'
 import QrCodeScanError from '../../types/error'
 import { ColorPallet } from '../../theme/theme'
-import { ToastType } from '../../components/toast/BaseToast'
+import { warningToast, errorToast } from '../../utils/toast'
 
 const styles = StyleSheet.create({
   container: {
@@ -60,11 +59,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         navigation.navigate(TabStacks.HomeStack)
       }
     } catch (error) {
-      Toast.show({
-        type: ToastType.Error,
-        text1: t('Toasts.Warning'),
-        text2: error,
-      })
+      errorToast(error)
     }
   }
 
@@ -99,23 +94,27 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const inputSubmitUrl = async () => {
     try {
       const url = urlInput
-      if (isRedirection(url)) {
-        await handleRedirection(url, agent)
-      } else if (url.includes('?c_i') || url.includes('?d_m')) {
-        const [, urlData] = url.includes('?c_i')
-          ? url.split('?c_i=')
-          : url.split('?d_m=')
-        const message = JSON.parse(
-          Buffer.from(urlData.trim(), 'base64').toString(),
-        )
-        if (message['~service']) {
-          await agent?.receiveMessage(message)
-          navigation.navigate(TabStacks.HomeStack)
+      if (url !== '')
+        if (isRedirection(url)) {
+          await handleRedirection(url, agent)
+        } else if (url.includes('?c_i') || url.includes('?d_m')) {
+          const [, urlData] = url.includes('?c_i')
+            ? url.split('?c_i=')
+            : url.split('?d_m=')
+          const message = JSON.parse(
+            Buffer.from(urlData.trim(), 'base64').toString(),
+          )
+          if (message['~service']) {
+            await agent?.receiveMessage(message)
+            navigation.navigate(TabStacks.HomeStack)
+          } else {
+            navigation.navigate(Screens.ConnectionInvitation, { url })
+          }
         } else {
-          navigation.navigate(Screens.ConnectionInvitation, { url })
+          throw new Error(t('QRScanner.NotAValidURL'))
         }
-      } else {
-        throw new Error(t('QRScanner.NotAValidURL'))
+      else {
+        warningToast(t('QRScanner.NotBlankURL'))
       }
     } catch (e: unknown) {
       const error = new QrCodeScanError(t('QRScanner.InvalidQrCode'), urlInput)

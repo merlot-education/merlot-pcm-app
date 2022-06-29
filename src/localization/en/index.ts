@@ -244,6 +244,7 @@ const translation = {
     "PermissionToUseCamera":"Permission To Use Camera",
     "PermissionMessage":"We need your permission to use your camera",
     "NotAValidURL":"URL non valide",
+    "NotBlankURL": 'Please enter URL',
     "InvalidQrCode":"Invalid QrCode",
   },
 }
