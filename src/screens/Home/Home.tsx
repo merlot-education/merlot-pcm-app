@@ -156,7 +156,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
         renderItem={({ item, index }) => (
           <View
             style={{
-              width: width - 2 * offset,
+              width: width - 3.5 * offset,
               marginLeft: !index ? offset : offsetPadding,
               marginRight:
                 index === notifications.length - 1 ? offset : offsetPadding,
@@ -164,11 +164,13 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
           >
             {item.type === 'CredentialRecord' ? (
               <NotificationListItem
+                key={item.id}
                 notificationType={NotificationType.CredentialOffer}
                 notification={item}
               />
             ) : (
               <NotificationListItem
+                key={item.id}
                 notificationType={NotificationType.ProofRequest}
                 notification={item}
               />
