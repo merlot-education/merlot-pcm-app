@@ -1,6 +1,6 @@
 import React from 'react'
 import { FlatList, View } from 'react-native'
-import useNotifications from '../hooks/notifcations'
+import useNotifications from '../hooks/notifications'
 import { NotificationListItem } from '../components'
 import { NotificationType } from '../components/listItems/NotificationListItem'
 

@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View, Image, ImageProps } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import useNotifications from '../hooks/notifcations'
+import useNotifications from '../hooks/notifications'
 import { ColorPallet, TextTheme } from '../theme/theme'
 import { Screens, TabStackParams, TabStacks } from '../types/navigators'
 import SettingStack from './SettingStack'
@@ -25,18 +25,23 @@ type TabBarLabelProps = {
 
 const TabBarIcon = ({ imageName, focused }: TabBarIconProps) => {
   return (
-    <Image
-      source={imageName}
-      style={
-        !focused
-          ? styles.tabBarIcon
-          : [
-              styles.tabBarIcon,
-              { backgroundColor: ColorPallet.baseColors.white },
-            ]
-      }
-      resizeMode="contain"
-    />
+    <View
+      style={[
+        styles.tabView,
+        focused
+          ? {
+              borderWidth: 2,
+              borderColor: ColorPallet.grayscale.white,
+            }
+          : {},
+      ]}
+    >
+      <Image
+        source={imageName}
+        style={!focused ? styles.tabBarIcon : styles.tabBarIcon}
+        resizeMode="contain"
+      />
+    </View>
   )
 }
 
@@ -69,8 +74,14 @@ const ScannerIcon = () => {
 }
 
 const styles = StyleSheet.create({
+  tabView: {
+    height: 45,
+    width: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   tabBarStyle: {
-    height: 70,
+    height: 80,
     backgroundColor: ColorPallet.brand.primary,
     borderTopWidth: 0,
     paddingBottom: 0,
