@@ -242,6 +242,7 @@ const translation = {
     "PermissionToUseCamera":"Autorisation d'utiliser l'appareil photo",
     "PermissionMessage":"Nous avons besoin de votre autorisation pour utiliser votre appareil photo",
     "NotAValidURL":"URL non valide",
+    "NotBlankURL": 'Veuillez entrer lURL',
     "InvalidQrCode":"QrCode invalide",
   },
 }
