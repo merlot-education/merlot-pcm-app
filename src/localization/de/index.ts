@@ -90,7 +90,7 @@ const translation = {
     "BiometricConfirm": "Confirm fingerprint",
     "BiometricSuccess": "Fingerabdruck erfolgreich konfiguriert",
     "BiometricFailed": "Biometrie fehlgeschlagen",
-    "BiometricCancle": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
+    "BiometricCancel": "Der Benutzer hat die biometrische Eingabeaufforderung abgebrochen",
     "BiometricNotSupport": "Biometrische Daten werden nicht unterstützt",
     "RegisterPinandBiometric": 'Registrieren Sie PIN und Biometrie',
     "BiometricInfo": 'Registrieren Sie die biometrische Verwendung für die Anmeldung'

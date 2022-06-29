@@ -89,7 +89,7 @@ const translation = {
     "BiometricConfirm": "Confirmer l'empreinte digitale",
     "BiometricSuccess": "Empreinte digitale configurée avec succès",
     "BiometricFailed": "Échec de la biométrie",
-    "BiometricCancle": "L'utilisateur a annulé l'invite biométrique",
+    "BiometricCancel": "L'utilisateur a annulé l'invite biométrique",
     "BiometricNotSupport": "Biométrie non prise en charge",
     "RegisterPinandBiometric": 'Enregistrer le code PIN et la biométrie',
     "BiometricInfo": "S'inscrire Utilisation biométrique pour la connexion"

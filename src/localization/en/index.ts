@@ -90,7 +90,7 @@ const translation = {
     "BiometricConfirm": "Confirm fingerprint",	
     "BiometricSuccess": "Fingerprint configured successfully",	
     "BiometricFailed": "Biometrics failed",	
-    "BiometricCancle": "User cancelled the biometric prompt",	
+    "BiometricCancel": "User cancelled the biometric prompt",	
     "BiometricNotSupport": "Biometrics not supported",	
     "RegisterPinandBiometric": 'Register PIN and Biometric',	
     "BiometricInfo": 'Register Biometric use for login'	
