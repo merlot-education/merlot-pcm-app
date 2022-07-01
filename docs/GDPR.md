@@ -20,7 +20,7 @@ DID of holder is stored on the PCM agent itself.
 
 ## How is the information stored
 
-Source User Information and Technical User Information are encrypted using the Private Key of the Individual PCM's SSI Agent and stored internally (on the agent) on PostgreSQL.
+Source User Information and Technical User Information are encrypted using the Private Key of the Individual PCM's SSI Agent and stored internally (on the agent) on SQLite.
 
 ## Who can access the information
 
