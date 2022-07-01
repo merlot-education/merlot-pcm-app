@@ -103,6 +103,10 @@ In your second terminal, you can now run:
 ```sh
 yarn android
 ```
+## GDPR
+<hr/>
+
+[GDPR](GDPR.md)
 
 ## Dependencies
 <hr/>
