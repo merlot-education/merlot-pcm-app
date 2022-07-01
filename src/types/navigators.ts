@@ -32,6 +32,7 @@ export enum Screens {
   CreateWallet = 'CreateWallet',
   Biometric = 'Biometric',
   WalletInitialized = 'WalletInitialized',
+  SetupDelay = 'SetupDelay',
 }
 
 export type OnboardingStackParams = {
@@ -70,6 +71,7 @@ export type OnboardingStackParams = {
   WalletInitialized: {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
   }
+  SetupDelay: undefined
 }
 
 export type MainStackParams = {

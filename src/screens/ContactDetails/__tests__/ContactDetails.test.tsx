@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigation } from '@react-navigation/core'
 import { fireEvent, render } from '@testing-library/react-native'
-import { ConnectionState } from '@aries-framework/core'
+import { DidExchangeState } from '@aries-framework/core'
 import { Alert } from 'react-native'
 import { Screens } from '../../../types/navigators'
 import ContactDetails from '../ContactDetails'
@@ -29,7 +29,7 @@ describe('ContactDetails', () => {
         id: 'tesid',
         theirLabel: 'test-label',
         did: 'SL2dA5wcdY8NEhkKwYeVNb',
-        state: ConnectionState.Complete,
+        state: DidExchangeState.Completed,
         createdAt: new Date('2022-04-29T06:36:48.244Z'),
       }),
     )
@@ -47,11 +47,11 @@ describe('ContactDetails', () => {
     )
     const name = getByText('test-label')
     const didText = getByText('SL2dA5wcdY8NEhkKwYeVNb')
-    const stateText = getByText('complete')
+    const stateText = getByText('completed')
 
     expect(name.props.children).toBe('test-label')
     expect(didText.props.children).toBe('SL2dA5wcdY8NEhkKwYeVNb')
-    expect(stateText.props.children).toBe('complete')
+    expect(stateText.props.children).toBe('completed')
 
     const contactListItem = getByTestId('delete-contact')
     fireEvent.press(contactListItem)

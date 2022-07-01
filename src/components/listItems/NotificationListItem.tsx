@@ -73,13 +73,13 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 
   const getNotificationData = useCallback(async () => {
     if (notificationType === NotificationType.CredentialOffer) {
+      setTitle(t('CredentialOffer.CredentialOffer'))
       const credentialRecord = await agent?.credentials.getFormatData(
         notification.id,
       )
       const credentialDefinitionId = credentialRecord?.offer?.indy?.cred_def_id
 
       const { credName } = parseCredDef(credentialDefinitionId)
-      setTitle(t('CredentialOffer.CredentialOffer'))
       setBody(credName)
     } else {
       setTitle(t('ProofRequest.ProofRequest'))

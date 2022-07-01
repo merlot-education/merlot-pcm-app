@@ -81,7 +81,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
       await storeOnboardingCompleteStage()
       successToast(t('PinCreate.WalletCreated'))
 
-      navigation.navigate(Screens.WalletInitialized)
+      navigation.navigate(Screens.SetupDelay)
     } catch (error) {
       setLoading(false)
       errorToast(error.message)
