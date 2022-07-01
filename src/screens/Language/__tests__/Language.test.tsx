@@ -1,16 +1,42 @@
-import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
+import { create } from 'react-test-renderer'
 import Language from '../Language'
 
-describe('Language', () => {
-  it('should render credential details correctly when credential record is passed as prop', () => {
-    // const navigation = useNavigation()
-    const { getByTestId } = render(<Language />)
+jest.mock('react-native-localize', () => ({
+  findBestAvailableLanguage: () => ({
+    languageTag: 'en-US',
+    isRTL: false,
+  }),
+}))
 
-    // const credentialListItem = getByTestId('credential-list-item')
-    // fireEvent.press(credentialListItem)
-    // expect(navigation.navigate).toHaveBeenCalledWith('Credential Details', {
-    //   credentialId: credentialRecord.id,
-    // })
+jest.mock('i18next', () => ({
+  use: () => {
+    return {
+      init: jest.fn(),
+    }
+  },
+  init: jest.fn(),
+  t: k => k,
+  language: 'en',
+}))
+
+jest.mock('react-i18next', () => ({
+  // this mock makes sure any components using the translate hook can use it without a warning being shown
+  useTranslation: () => {
+    return {
+      t: str => str,
+      i18n: {
+        language: 'en',
+        changeLanguage: () => new Promise(jest.fn()),
+      },
+    }
+  },
+}))
+
+describe('Language', () => {
+  it('should render correctly', () => {
+    const tree = create(<Language />)
+
+    expect(tree).toMatchSnapshot()
   })
 })

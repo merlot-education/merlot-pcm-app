@@ -16,7 +16,8 @@ exports[`displays a home screen renders correctly 1`] = `
       style={
         Array [
           Object {
-            "color": "#1E9BF2",
+            "color": "#000000",
+            "fontFamily": "TitilliumWeb-SemiBold",
             "fontSize": 21,
             "fontWeight": "bold",
           },
@@ -41,16 +42,17 @@ exports[`displays a home screen renders correctly 1`] = `
           }
         }
       >
-        <InfoTextBox>
+        <InfoTextBox
+          showIcon={true}
+        >
           <Text
             style={
-              Array [
-                Object {
-                  "color": "#1E9BF2",
-                  "fontSize": 18,
-                  "fontWeight": "normal",
-                },
-              ]
+              Object {
+                "color": "#000000",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 17,
+                "fontWeight": "normal",
+              }
             }
           >
             Home.NoNewUpdates
@@ -97,10 +99,8 @@ exports[`displays a home screen renders correctly 1`] = `
         <View
           style={
             Object {
-              "backgroundColor": "#CCE8F4",
-              "borderColor": "#4F7C9E",
+              "backgroundColor": "#F2F2F2",
               "borderRadius": 5,
-              "borderWidth": 1,
               "flexDirection": "row",
               "padding": 10,
             }
@@ -114,50 +114,42 @@ exports[`displays a home screen renders correctly 1`] = `
               }
             }
           >
-            <Text
-              allowFontScaling={false}
-              selectable={false}
-              style={
-                Array [
-                  Object {
-                    "color": "#4F7C9E",
-                    "fontSize": 30,
-                  },
-                  undefined,
-                  Object {
-                    "fontFamily": "Material Icons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
+            <Image
+              source={
+                Object {
+                  "testUri": "../../../src/assets/info-icon.png",
+                }
               }
-            >
-              
-            </Text>
+              style={
+                Object {
+                  "height": 30,
+                  "width": 30,
+                }
+              }
+            />
           </View>
           <Text
             accessibilityLabel="InfoTextBox"
             style={
               Object {
                 "alignSelf": "center",
-                "color": "#4F7C9E",
+                "color": "#000000",
                 "flexShrink": 1,
-                "fontSize": 18,
-                "fontWeight": "bold",
+                "fontFamily": "TitilliumWeb-Regular",
+                "fontSize": 17,
+                "fontWeight": "normal",
               }
             }
             testID="InfoTextBox"
           >
             <Text
               style={
-                Array [
-                  Object {
-                    "color": "#1E9BF2",
-                    "fontSize": 18,
-                    "fontWeight": "normal",
-                  },
-                ]
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "TitilliumWeb-Regular",
+                  "fontSize": 17,
+                  "fontWeight": "normal",
+                }
               }
             >
               Home.NoNewUpdates
@@ -190,7 +182,8 @@ exports[`displays a home screen renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#1E9BF2",
+              "color": "#000000",
+              "fontFamily": "TitilliumWeb-SemiBold",
               "fontSize": 32,
               "fontWeight": "bold",
             },
@@ -207,8 +200,9 @@ exports[`displays a home screen renders correctly 1`] = `
         style={
           Array [
             Object {
-              "color": "#1E9BF2",
-              "fontSize": 18,
+              "color": "#000000",
+              "fontFamily": "TitilliumWeb-Regular",
+              "fontSize": 17,
               "fontWeight": "normal",
             },
             Object {
