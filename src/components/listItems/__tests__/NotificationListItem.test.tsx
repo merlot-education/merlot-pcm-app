@@ -1,17 +1,16 @@
 import {
-  V1CredentialPreview,
   CredentialExchangeRecord,
   CredentialState,
   INDY_PROOF_REQUEST_ATTACHMENT_ID,
   ProofRecord,
   ProofState,
   RequestPresentationMessage,
+  CredentialPreviewAttribute,
 } from '@aries-framework/core'
 import {
   Attachment,
   AttachmentData,
 } from '@aries-framework/core/build/decorators/attachment/Attachment'
-import AgentProvider from '@aries-framework/react-hooks'
 import { useNavigation } from '@react-navigation/core'
 import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
@@ -20,14 +19,14 @@ import NotificationListItem, { NotificationType } from '../NotificationListItem'
 const credentialRecord = new CredentialExchangeRecord({
   connectionId: '34da4abe-7578-464f-909c-ee19a3bdf7ac',
   threadId: 'threadId',
-  state: CredentialState.Done,
-  credentialId: '30ba35ab-7823-4123-8bdf-7a112a366d3b',
+  state: CredentialState.OfferReceived,
   credentialAttributes: [
-    new V1CredentialPreview({
+    new CredentialPreviewAttribute({
       name: 'age',
       value: '25',
     }),
   ],
+  protocolVersion: 'v1',
 })
 
 const requestAttachment = new Attachment({
@@ -56,17 +55,15 @@ describe('NotificationListItem', () => {
   const navigation = useNavigation()
   it('should render notification correctly when credential record is passed as prop', () => {
     const { getByText } = render(
-      <AgentProvider agent={undefined}>
-        <NotificationListItem
-          notification={credentialRecord}
-          notificationType={NotificationType.CredentialOffer}
-        />
-        ,
-      </AgentProvider>,
+      <NotificationListItem
+        notification={credentialRecord}
+        notificationType={NotificationType.CredentialOffer}
+      />,
     )
     const title = getByText('CredentialOffer.CredentialOffer')
-    const button = getByText('Global.View')
     expect(title.props.children).toBe('CredentialOffer.CredentialOffer')
+
+    const button = getByText('Global.View')
     fireEvent.press(button)
     expect(navigation.navigate).toHaveBeenCalledWith('CredentialOffer', {
       credentialId: credentialRecord.id,
@@ -75,13 +72,10 @@ describe('NotificationListItem', () => {
 
   it('should render notification correctly when proof record is passed as prop', () => {
     const { getByText } = render(
-      <AgentProvider agent={undefined}>
-        <NotificationListItem
-          notification={proofRecord}
-          notificationType={NotificationType.ProofRequest}
-        />
-        ,
-      </AgentProvider>,
+      <NotificationListItem
+        notification={proofRecord}
+        notificationType={NotificationType.ProofRequest}
+      />,
     )
     const title = getByText('ProofRequest.ProofRequest')
     expect(title.props.children).toBe('ProofRequest.ProofRequest')

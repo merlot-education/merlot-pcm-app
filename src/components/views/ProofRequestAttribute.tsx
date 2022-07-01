@@ -2,10 +2,9 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import DropDown from '../listItems/DropDown'
-// // eslint-disable-next-line import/no-cycle
-// import { CredentialDisplay } from '../../screens/ProofRequest'
 import Text from '../text/Text'
 import { TextTheme } from '../../theme/theme'
+import { CredentialDisplay } from '../../types/record'
 
 const styles = StyleSheet.create({
   attributeView: {
@@ -32,7 +31,7 @@ const styles = StyleSheet.create({
 })
 
 interface Props {
-  proofRequest: undefined
+  proofRequest: CredentialDisplay[]
   onSelectItem: (item: any, key: string) => void
 }
 
