@@ -22,7 +22,11 @@ import ProofPending from '../../assets/img/proof-pending.svg'
 import ProofSuccess from '../../assets/img/proof-success.svg'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { HomeStackParams, Screens, Stacks } from '../../types/navigators'
-import { Attribute } from '../../types/record'
+import {
+  Attribute,
+  CredentialDisplay,
+  CredentialList,
+} from '../../types/record'
 import { getCredDefName, getSchemaNameFromSchemaId } from '../../utils/helpers'
 import ProofRequestAttribute from '../../components/views/ProofRequestAttribute'
 import Button, { ButtonType } from '../../components/button/Button'
@@ -32,23 +36,6 @@ import { errorToast } from '../../utils/toast'
 import { getRetrievedCredential } from './ProofRequest.utils'
 
 type ProofRequestProps = StackScreenProps<HomeStackParams, Screens.ProofRequest>
-
-interface ProofRequestAttribute extends Attribute {
-  values?: RequestedAttribute[]
-}
-
-interface CredentialList {
-  isSelected: boolean
-  label: string
-  value: string
-}
-
-export interface CredentialDisplay {
-  key: string
-  names: string[]
-  values: string[]
-  credentials: CredentialList[]
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -416,7 +403,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         const cred = iterator.credentials.find(item => item.isSelected)
         const tags = {
           connectionId: connection?.id ?? uuid(),
-          credentialRecordId: cred.value,
+          credentialRecordId: cred?.value,
           type: 'proof',
         }
         const attributes = {}
@@ -429,13 +416,13 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           status: 'presented',
           timestamp: new Date().getTime(),
           connectionLabel: connection?.theirLabel ?? 'Connection less proof',
-          credentialLabel: cred.label,
+          credentialLabel: cred?.label,
           attributes,
         }
 
         // Get old record if exists
         const oldRecords = await agent.genericRecords.findAllByQuery({
-          credentialRecordId: cred.value,
+          credentialRecordId: cred?.value,
           type: 'proof',
         })
 

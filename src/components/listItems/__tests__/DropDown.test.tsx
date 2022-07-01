@@ -2,6 +2,8 @@ import { fireEvent, render } from '@testing-library/react-native'
 import React from 'react'
 import DropDown from '../DropDown'
 
+jest.mock('react-native-dropdown-picker', () => 'DropDown')
+
 describe('DropDown', () => {
   it('should render DropDown correctly and respond on press', () => {
     const items = [

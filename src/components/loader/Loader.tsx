@@ -40,7 +40,12 @@ const Loader: React.FC<Props> = ({ loading }) => {
     outputRange: ['0deg', '360deg'],
   })
   return (
-    <Modal visible={loading} transparent style={styles.container}>
+    <Modal
+      visible={loading}
+      transparent
+      style={styles.container}
+      testID="loader"
+    >
       <Animated.View style={styles.activityIndicatorWrapper}>
         <Animated.Image
           style={{

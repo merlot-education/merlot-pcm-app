@@ -104,6 +104,11 @@ In your second terminal, you can now run:
 yarn android
 ```
 
+## Dependencies
+<hr/>
+
+[Dependencies](package.json)
+
 ## License
 <hr/>
 

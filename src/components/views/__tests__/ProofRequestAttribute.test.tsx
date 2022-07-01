@@ -7,20 +7,36 @@ describe('ProofRequestAttribute Component', () => {
   it('should render proof request attribute correctly', () => {
     const proofRequest = [
       {
-        item: 'JoieDon',
-        credentials: ['JoieDon'],
+        key: 'JoieDon',
+        credentials: [
+          {
+            isSelected: true,
+            label: 'name',
+            value: 'JoieDon',
+          },
+        ],
         names: ['JoieDon', 'JoieDon1'],
         values: ['JoieDon', 'JoieDon1'],
       },
       {
-        item: 'JoieDon1',
-        credentials: ['JoieDon'],
-        names: ['JoieDon', 'JoieDon1'],
-        values: ['JoieDonvalues', 'JoieDonvalues1'],
+        key: 'kevin',
+        credentials: [
+          {
+            isSelected: true,
+            label: 'name',
+            value: 'kevin',
+          },
+        ],
+        names: ['kevin', 'kevin1'],
+        values: ['kevinvalues', 'kevin1'],
       },
     ]
+    const onSelectItemMock = jest.fn()
     const { getByTestId } = render(
-      <ProofRequestAttribute proofRequest={proofRequest} />,
+      <ProofRequestAttribute
+        proofRequest={proofRequest}
+        onSelectItem={onSelectItemMock}
+      />,
     )
     const proofRequestAttribute = getByTestId('proofRequestAttribute')
     fireEvent.press(proofRequestAttribute)

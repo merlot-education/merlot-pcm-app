@@ -2,7 +2,8 @@ import React from 'react'
 import { render } from '@testing-library/react-native'
 import Loader from '../Loader'
 
-describe('Toast Component', () => {
+describe('Loader Component', () => {
+  jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
   it('should render loader start correctly', () => {
     const { getByTestId } = render(<Loader loading />)
     const loader = getByTestId('loader')
