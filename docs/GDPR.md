@@ -1,6 +1,6 @@
 # GDPR Compliance Document
 
-The objective of this document is to detail, the data being stored and processed by the PCM.
+The objective of this document is to detail, the data being stored and processed by the Personal Credential Manager.
 
 ## What information is stored
 
@@ -20,7 +20,7 @@ DID of holder is stored on the PCM agent itself.
 
 ## How is the information stored
 
-Technical User Information, Source User Information is encrypted using the Private Key of the Individual PCM's SSI Agent and stored internally (on the agent) on PostgreSQL.
+Source User Information and Technical User Information are encrypted using the Private Key of the Individual PCM's SSI Agent and stored internally (on the agent) on PostgreSQL.
 
 ## Who can access the information
 
@@ -28,4 +28,4 @@ The Source User Information and Technical User Information both are accessible o
 
 ## How long will the information stay
 
-Technical User Information and Source User Information is wiped out by the user.
+Source User Information and Technical User Information is wiped out by the user.
