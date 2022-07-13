@@ -62,6 +62,10 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
         {t('ConnectionInvitation.ConsentMessage')}
       </Text>
+      <View style={styles.spacer} />
+      <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
+        {t('ConnectionInvitation.VerifyMessage')}
+      </Text>
       <ConnectionPending style={{ marginVertical: 20, alignSelf: 'center' }} />
       <View style={styles.spacer} />
       <View style={styles.topSpacer}>

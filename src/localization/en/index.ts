@@ -42,8 +42,8 @@ const translation = {
   },
   "Language": {
     "English": "English",
-    "French": "French",  
-    "German": "German",    
+    "French": "French",
+    "German": "German",
   },
   "Registration":{
     "UserAuthenticationEmail": "User authentication email",
@@ -70,10 +70,10 @@ const translation = {
     "UserAuthenticationPin": "User authentication pin",
     "PinMustBe6DigitsInLength": "PIN must be 6 digits in length",
     "ReEnterPinMustBe6DigitsInLength": 'Insufficient PIN length',
-    "PinsEnteredDoNotMatch": "Pin entered does not match", 
-    "PinsSuccess": "PIN created successfully", 
+    "PinsEnteredDoNotMatch": "Pin entered does not match",
+    "PinsSuccess": "PIN created successfully",
     "PinChange": "PIN changed successfully",
-    "NewPinMatchwithOld": 'New Pin is same as the Old Pin',       
+    "NewPinMatchwithOld": 'New Pin is same as the Old Pin',
     "6DigitPin": "6 Digit PIN",
     "ReenterPin": "Re-Enter PIN",
     "ReenterNewPin": "Re-Enter the New PIN",
@@ -86,27 +86,27 @@ const translation = {
     "PinInfo": 'This pin is used for login'
   },
   "Biometric": {
-    "Biometric": "Biometric",	
-    "BiometricConfirm": "Confirm fingerprint",	
-    "BiometricSuccess": "Fingerprint configured successfully",	
-    "BiometricFailed": "Biometrics failed",	
-    "BiometricCancel": "User cancelled the biometric prompt",	
-    "BiometricNotSupport": "Biometrics not supported",	
-    "RegisterPinandBiometric": 'Register PIN and Biometric',	
-    "BiometricInfo": 'Register Biometric use for login'	
+    "Biometric": "Biometric",
+    "BiometricConfirm": "Confirm fingerprint",
+    "BiometricSuccess": "Fingerprint configured successfully",
+    "BiometricFailed": "Biometrics failed",
+    "BiometricCancel": "User cancelled the biometric prompt",
+    "BiometricNotSupport": "Biometrics not supported",
+    "RegisterPinandBiometric": 'Register PIN and Biometric',
+    "BiometricInfo": 'Register Biometric use for login'
   },
   "Initialization":{
-    "CompleteInitialization":"Complete the initialization",	
-    "InitializationInfo":"Initialize new wallet or import old wallet",	
+    "CompleteInitialization":"Complete the initialization",
+    "InitializationInfo":"Initialize new wallet or import old wallet",
   },
   "Mnemonic":{
-    "MnemonicTitle":"Below is the mnemonic for future references"	
+    "MnemonicTitle":"Below is the mnemonic for future references"
   },
   "Home": {
     "Welcome": "Welcome",
     "Notifications": "Notifications",
-    "NoNewUpdates": "There is no new notification.",	
-    "NoCredentials": "There are no credentials in the wallet.",	
+    "NoNewUpdates": "There is no new notification.",
+    "NoCredentials": "There are no credentials in the wallet.",
     "SeeAll": "See all",
     "YouHave": "You have",
     "Credential": "credential",
@@ -115,8 +115,8 @@ const translation = {
     "CredentialCountUndefinedError":"Credential count cannot be undefined",
   },
   "PinEnter": {
-    "IncorrectPin": "Incorrect PIN", 
-  }, 
+    "IncorrectPin": "Incorrect PIN",
+  },
   "Settings": {
     "ChangePin": 'Change Pin',
     "Version": "Version",
@@ -124,7 +124,7 @@ const translation = {
     "AboutApp": "About App",
     "Language": "Language",
     "Logout": "Logout",
-    "LogoutMsg": "Please confirm to logout",	
+    "LogoutMsg": "Please confirm to logout",
     "EnterMnemonic": 'Enter Mnemonic',
     "ValidMnemonic": 'Valid Mnemonic',
     "InvalidMnemonic": 'Invalid Mnemonic',
@@ -145,6 +145,7 @@ const translation = {
     "ImportError": "Either your email or mnemonic is incorrect please check it carefully",
   },
   "ConnectionInvitation":{
+    "VerifyMessage": "Verify connection details carefully",
     "ConsentMessage": "New Connection Request"
   },
   "ContactDetails": {
@@ -243,7 +244,8 @@ const translation = {
   "QRScanner":{
     "PermissionToUseCamera":"Permission To Use Camera",
     "PermissionMessage":"We need your permission to use your camera",
-    "NotAValidURL":"URL non valide",
+    "VerifyMessage":"Connect by scanning. Only scan trustworthy sources. Verify connection details carefully.",
+    "NotAValidURL":"URL non valid",
     "NotBlankURL": 'Please enter URL',
     "InvalidQrCode":"Invalid QrCode",
   },

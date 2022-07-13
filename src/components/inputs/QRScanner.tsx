@@ -184,6 +184,20 @@ const QRScanner: React.FC<Props> = ({
             />
             <QRScannerClose onPress={() => navigation.goBack()} />
           </View>
+          <View
+            style={{
+              flexDirection: 'column',
+              padding: 20,
+              width: '100%',
+              position: 'absolute',
+              alignItems: 'center',
+              top: 78,
+            }}
+          >
+            <Text style={{ textAlign: 'center' }}>
+              {t('QRScanner.VerifyMessage')}
+            </Text>
+          </View>
           {error && (
             <View style={styles.errorContainer}>
               <Icon style={styles.icon} name="cancel" size={30} />
