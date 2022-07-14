@@ -91,6 +91,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
   },
+  actionsView: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 20,
+    width: '100%',
+    position: 'absolute',
+    top: 10,
+  },
+  scanTextView: {
+    flexDirection: 'column',
+    padding: 20,
+    width: '100%',
+    position: 'absolute',
+    alignItems: 'center',
+    top: 78,
+  },
+  scanText: {
+    fontSize: Platform.OS === 'ios' ? height / 50 : height / 45,
+    textAlign: 'center',
+  },
 })
 
 const CameraViewContainer: React.FC<{ portrait: boolean }> = ({
@@ -168,35 +188,16 @@ const QRScanner: React.FC<Props> = ({
         }}
       >
         <CameraViewContainer portrait={portraitMode}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 20,
-              width: '100%',
-              position: 'absolute',
-              top: 10,
-            }}
-          >
+          <View style={styles.actionsView}>
             <QRScannerTorch
               active={torchActive}
               onPress={() => setTorchActive(!torchActive)}
             />
             <QRScannerClose onPress={() => navigation.goBack()} />
           </View>
-          <View
-            style={{
-              flexDirection: 'column',
-              padding: 20,
-              width: '100%',
-              position: 'absolute',
-              alignItems: 'center',
-              top: 78,
-            }}
-          >
-            <Text style={{ textAlign: 'center' }}>
-              {t('QRScanner.VerifyMessage')}
-            </Text>
+          <View style={styles.scanTextView}>
+            <Text style={styles.scanText}>{t('QRScanner.ScanMessage')}</Text>
+            <Text style={styles.scanText}>{t('QRScanner.VerifyMessage')}</Text>
           </View>
           {error && (
             <View style={styles.errorContainer}>

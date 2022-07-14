@@ -243,7 +243,8 @@ const translation = {
   "QRScanner":{
     "PermissionToUseCamera":"Erlaubnis zur Verwendung der Kamera",
     "PermissionMessage":"Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
-    "VerifyMessage":"Durch Scannen verbinden. Scannen Sie nur vertrauenswürdige Quellen. Überprüfen Sie die Verbindungsdetails sorgfältig.",
+    "ScanMessage": "Zum Verbinden scannen",
+    "VerifyMessage":"Scannen Sie nur vertrauenswürdige Quellen und überprüfen Sie die Verbindungsdetails sorgfältig",
     "NotAValidURL":"URL non valide",
     "NotBlankURL": 'Bitte URL eingeben',
     "InvalidQrCode":"QrCode invalide",

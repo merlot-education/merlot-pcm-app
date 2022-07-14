@@ -244,7 +244,8 @@ const translation = {
   "QRScanner":{
     "PermissionToUseCamera":"Permission To Use Camera",
     "PermissionMessage":"We need your permission to use your camera",
-    "VerifyMessage":"Connect by scanning. Only scan trustworthy sources. Verify connection details carefully.",
+    "ScanMessage": "Scan to connect",
+    "VerifyMessage":"Only scan trustworthy sources and verify connection details carefully",
     "NotAValidURL":"URL non valid",
     "NotBlankURL": 'Please enter URL',
     "InvalidQrCode":"Invalid QrCode",
