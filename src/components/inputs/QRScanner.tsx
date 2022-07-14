@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     top: 78,
   },
   scanText: {
-    fontSize: Platform.OS === 'ios' ? height / 50 : height / 45,
+    fontSize: Platform.OS === 'ios' ? height / 40 : height / 35,
     textAlign: 'center',
   },
 })
