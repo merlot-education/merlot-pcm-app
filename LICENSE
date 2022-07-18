@@ -238,6 +238,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+
 This Personal Credential Manager also incorporates
 
 "React Native Testing Library"
@@ -616,7 +617,7 @@ This Personal Credential Manager also incorporates
 
 "react-native-biometrics"
 
-,  a simple bridge to native iOS and Android keystore management, which 
+, a simple bridge to native iOS and Android keystore management, which 
 contains the following copyright and permission notice:
 
 Copyright (c) 2018-present, Self Lender, Inc.
