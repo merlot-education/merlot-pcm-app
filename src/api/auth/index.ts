@@ -12,10 +12,10 @@ const auth = (instance: AxiosInstance) => {
       body: RegisterUserRequest,
       config = {},
     ): Promise<RegisterUserResponse> {
-      return instance.post('v1/notification/sendOtp', body, config)
+      return instance.post('v1/sendOtp', body, config)
     },
     verifyOtp(body: VerifyOtpRequest, config = {}): Promise<VerifyOtpResponse> {
-      return instance.post('v1/notification/verifyOtp', body, config)
+      return instance.post('v1/verifyOtp', body, config)
     },
   }
 }
