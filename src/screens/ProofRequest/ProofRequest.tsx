@@ -13,7 +13,7 @@ import {
 } from '@aries-framework/react-hooks'
 import React, { useState, useEffect } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
-import { Alert, View, StyleSheet, Text } from 'react-native'
+import { Alert, View, StyleSheet, Text, ScrollView } from 'react-native'
 import { Buffer } from 'buffer'
 import { ItemType } from 'react-native-dropdown-picker'
 import { uuid } from '@aries-framework/core/build/utils/uuid'
@@ -22,11 +22,7 @@ import ProofPending from '../../assets/img/proof-pending.svg'
 import ProofSuccess from '../../assets/img/proof-success.svg'
 import { ColorPallet, TextTheme } from '../../theme/theme'
 import { HomeStackParams, Screens, Stacks } from '../../types/navigators'
-import {
-  Attribute,
-  CredentialDisplay,
-  CredentialList,
-} from '../../types/record'
+import { CredentialDisplay, CredentialList } from '../../types/record'
 import { getCredDefName, getSchemaNameFromSchemaId } from '../../utils/helpers'
 import ProofRequestAttribute from '../../components/views/ProofRequestAttribute'
 import Button, { ButtonType } from '../../components/button/Button'
@@ -511,131 +507,135 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
   return (
     <View style={styles.container}>
-      {isShowError ? (
-        <>
-          <Text
-            style={[
-              TextTheme.headingFour,
-              {
-                color: ColorPallet.notification.errorText,
-                marginVertical: 10,
-              },
-            ]}
-          >
-            {t('ProofRequest.MissingInformation.Title')}
-          </Text>
-          <InfoTextBox>
-            {t('ProofRequest.MissingInformation.AlertMissingInformation.Title')}
-          </InfoTextBox>
-          <View>
-            {missingAttributes.map(item => (
-              <Text key={item} style={TextTheme.normal}>
-                {item}
-              </Text>
-            ))}
-          </View>
-        </>
-      ) : null}
+      <ScrollView>
+        {isShowError ? (
+          <>
+            <Text
+              style={[
+                TextTheme.headingFour,
+                {
+                  color: ColorPallet.notification.errorText,
+                  marginVertical: 10,
+                },
+              ]}
+            >
+              {t('ProofRequest.MissingInformation.Title')}
+            </Text>
+            <InfoTextBox>
+              {t(
+                'ProofRequest.MissingInformation.AlertMissingInformation.Title',
+              )}
+            </InfoTextBox>
+            <View>
+              {missingAttributes.map(item => (
+                <Text key={item} style={TextTheme.normal}>
+                  {item}
+                </Text>
+              ))}
+            </View>
+          </>
+        ) : null}
 
-      {!isShowError && (
-        <>
-          <Text
-            style={TextTheme.normal}
-            accessibilityLabel={t('ProofRequest.Title', {
-              connection: connection?.theirLabel ?? 'Verifier',
-            })}
-          >
-            <Trans
-              i18nKey="ProofRequest.Title"
-              values={{
+        {!isShowError && (
+          <>
+            <Text
+              style={TextTheme.normal}
+              accessibilityLabel={t('ProofRequest.Title', {
                 connection: connection?.theirLabel ?? 'Verifier',
-              }}
-              components={{
-                b: <Text style={{ fontWeight: 'bold' }} />,
-              }}
-              t={t}
-            />
-          </Text>
+              })}
+            >
+              <Trans
+                i18nKey="ProofRequest.Title"
+                values={{
+                  connection: connection?.theirLabel ?? 'Verifier',
+                }}
+                components={{
+                  b: <Text style={{ fontWeight: 'bold' }} />,
+                }}
+                t={t}
+              />
+            </Text>
 
-          <View style={{ zIndex: 1 }}>
-            <ProofRequestAttribute
-              proofRequest={credentialsDisplay}
-              onSelectItem={(item: ItemType, key) =>
-                onCredentialSelect(item.value, key)
-              }
-            />
-          </View>
-        </>
-      )}
+            <View style={{ zIndex: 1 }}>
+              <ProofRequestAttribute
+                proofRequest={credentialsDisplay}
+                onSelectItem={(item: ItemType, key) =>
+                  onCredentialSelect(item.value, key)
+                }
+              />
+            </View>
+          </>
+        )}
 
-      <View style={{ marginBottom: 30 }}>
-        {!(
-          anyUnavailable(attributeCredentials) ||
-          anyRevoked(attributeCredentials)
-        ) && !isShowError ? (
+        <View style={{ marginBottom: 30 }}>
+          {!(
+            anyUnavailable(attributeCredentials) ||
+            anyRevoked(attributeCredentials)
+          ) && !isShowError ? (
+            <View style={styles.footerButton}>
+              <Button
+                title={t('Global.Share')}
+                buttonType={ButtonType.Primary}
+                onPress={handleAcceptPress}
+                disabled={!buttonsVisible}
+              />
+            </View>
+          ) : null}
           <View style={styles.footerButton}>
             <Button
-              title={t('Global.Share')}
-              buttonType={ButtonType.Primary}
-              onPress={handleAcceptPress}
+              title={t('Global.Decline')}
+              buttonType={
+                anyUnavailable(attributeCredentials) ||
+                anyRevoked(attributeCredentials)
+                  ? ButtonType.Primary
+                  : ButtonType.Ghost
+              }
+              onPress={handleDeclinePress}
               disabled={!buttonsVisible}
             />
           </View>
-        ) : null}
-        <View style={styles.footerButton}>
-          <Button
-            title={t('Global.Decline')}
-            buttonType={
-              anyUnavailable(attributeCredentials) ||
-              anyRevoked(attributeCredentials)
-                ? ButtonType.Primary
-                : ButtonType.Ghost
-            }
-            onPress={handleDeclinePress}
-            disabled={!buttonsVisible}
-          />
         </View>
-      </View>
-      {pendingModalVisible && (
-        <FlowDetailModal
-          title={t('ProofRequest.SendingTheInformationSecurely')}
-          visible={pendingModalVisible}
-          doneHidden
-        >
-          <ProofPending style={{ marginVertical: 20 }} />
-        </FlowDetailModal>
-      )}
+        {pendingModalVisible && (
+          <FlowDetailModal
+            title={t('ProofRequest.SendingTheInformationSecurely')}
+            visible={pendingModalVisible}
+            doneHidden
+          >
+            <ProofPending style={{ marginVertical: 20 }} />
+          </FlowDetailModal>
+        )}
 
-      {successModalVisible && (
-        <FlowDetailModal
-          title={t('ProofRequest.InformationSentSuccessfully')}
-          visible={successModalVisible}
-          onDone={() => {
-            setSuccessModalVisible(false)
-            navigation.pop()
-            navigation
-              .getParent()
-              ?.navigate(Stacks.TabStack, { screen: Screens.Home })
-          }}
-        >
-          <ProofSuccess style={{ marginVertical: 20 }} />
-        </FlowDetailModal>
-      )}
-      {declinedModalVisible && (
-        <FlowDetailModal
-          title={t('ProofRequest.ProofRejected')}
-          visible={declinedModalVisible}
-          onDone={() => {
-            setDeclinedModalVisible(false)
-            navigation.pop()
-            navigation
-              .getParent()
-              ?.navigate(Stacks.TabStack, { screen: Screens.Home })
-          }}
-        >
-          <ProofDeclined style={{ marginVertical: 20 }} />
-        </FlowDetailModal>
-      )}
+        {successModalVisible && (
+          <FlowDetailModal
+            title={t('ProofRequest.InformationSentSuccessfully')}
+            visible={successModalVisible}
+            onDone={() => {
+              setSuccessModalVisible(false)
+              navigation.pop()
+              navigation
+                .getParent()
+                ?.navigate(Stacks.TabStack, { screen: Screens.Home })
+            }}
+          >
+            <ProofSuccess style={{ marginVertical: 20 }} />
+          </FlowDetailModal>
+        )}
+        {declinedModalVisible && (
+          <FlowDetailModal
+            title={t('ProofRequest.ProofRejected')}
+            visible={declinedModalVisible}
+            onDone={() => {
+              setDeclinedModalVisible(false)
+              navigation.pop()
+              navigation
+                .getParent()
+                ?.navigate(Stacks.TabStack, { screen: Screens.Home })
+            }}
+          >
+            <ProofDeclined style={{ marginVertical: 20 }} />
+          </FlowDetailModal>
+        )}
+      </ScrollView>
     </View>
   )
 }
