@@ -108,6 +108,9 @@ yarn android
 
 [GDPR](GDPR.md)
 
+### NOTE
+`Man in the mid` security concern it will be address in Phase II. One of the discussed options is to use [TRAIN API](https://train.trust-scheme.de/info/) 
+
 ## Dependencies
 <hr/>
 
