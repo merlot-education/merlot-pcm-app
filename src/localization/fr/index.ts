@@ -29,7 +29,7 @@ const translation = {
     "Email": "Entrez votre e-mail",
     "Verify": 'Vérifier',
     "Otp": 'Entrez OTP',
-    "ForgotPin": 'Épingle oubliée',  
+    "ForgotPin": 'Épingle oubliée',
     "ChangePin": 'Changer dépingle',
     "OldPin": 'Saisir lancien code PIN',
     "Copy": 'Copie',
@@ -73,13 +73,13 @@ const translation = {
     "PinsEnteredDoNotMatch": "Le code PIN saisi ne correspond pas",
     "PinsSuccess": "Épingle créée avec succès",
     "PinChange": "Changement de code PIN réussi",
-    "NewPinMatchwithOld": "La nouvelle broche est identique à l'ancienne broche",         
+    "NewPinMatchwithOld": "La nouvelle broche est identique à l'ancienne broche",
     "6DigitPin": "Broche à 6 chiffres",
     "ReenterPin": "Entrez à nouveau le nouveau code PIN",
     "Create": "Créer",
     "ValidOldPin": "Veuillez saisir un ancien code PIN valide",
     "WalletCreated": "Le portefeuille est créé avec succès",
-    "OR": "OU",	
+    "OR": "OU",
     "EmailConfirmation": "Avertissement",
     "CheckEmail": "L'e-mail doit être le même que celui utilisé pour exporter le portefeuille.",
     "PinInfo": 'Cette broche est utilisée pour la connexion',
@@ -113,8 +113,8 @@ const translation = {
     "InYourWallet": "dans votre portefeuille"
   },
   "PinEnter": {
-    "IncorrectPin": "Broche incorrecte",    
-  }, 
+    "IncorrectPin": "Broche incorrecte",
+  },
   "Settings": {
     "ChangePin": "Changer la broche",
     "Version": "Version",
@@ -142,7 +142,8 @@ const translation = {
     "WalletRestoreFailed":'Échec de la restauration du portefeuille',
     "ImportError": "Votre e-mail ou mnémonique est incorrect, veuillez le vérifier attentivement",
   },
-  "ConnectionInvitation":{
+  "ConnectionInvitation": {
+    "VerifyMessage": "Vérifiez soigneusement les détails de connexion",
     "ConsentMessage": "Nouvelle demande de connexion"
   },
   "ContactDetails": {
@@ -241,6 +242,8 @@ const translation = {
   "QRScanner":{
     "PermissionToUseCamera":"Autorisation d'utiliser l'appareil photo",
     "PermissionMessage":"Nous avons besoin de votre autorisation pour utiliser votre appareil photo",
+    "ScanMessage": "Scannez pour vous connecter",
+    "VerifyMessage":"N'analysez que des sources fiables et vérifiez soigneusement les détails de connexion",
     "NotAValidURL":"URL non valide",
     "NotBlankURL": 'Veuillez entrer lURL',
     "InvalidQrCode":"QrCode invalide",
