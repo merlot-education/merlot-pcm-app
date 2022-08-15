@@ -70,19 +70,19 @@ const translation = {
     "UserAuthenticationPin": "Benutzerauthentifizierungs-PIN",
     "PinMustBe6DigitsInLength": "Die PIN muss 6 Ziffern lang sein",
     "ReEnterPinMustBe6DigitsInLength": 'Unzureichende PIN-Länge',
-    "PinsEnteredDoNotMatch": "Die eingegebenen Pins stimmen nicht überein", 
+    "PinsEnteredDoNotMatch": "Die eingegebenen Pins stimmen nicht überein",
     "PinsSuccess": "Pin erfolgreich erstellt",
     "PinChange": "PIN-Änderung erfolgreich",
-    "NewPinMatchwithOld": 'Der neue Pin ist derselbe wie der alte Pin',           
+    "NewPinMatchwithOld": 'Der neue Pin ist derselbe wie der alte Pin',
     "6DigitPin": "6-stellige PIN",
     "ReenterPin": "PIN erneut eingeben",
     "ReenterNewPin": "Geben Sie die neue PIN erneut ein",
     "Create": "Schaffen",
     "ValidOldPin": "Bitte geben Sie eine gültige alte PIN ein",
     "WalletCreated": "Die Brieftasche wurde erfolgreich erstellt",
-    "OR": "ODER",	
-    "EmailConfirmation": "Warnung",	
-    "CheckEmail": "Die E-Mail-Adresse sollte die gleiche sein, die für den Export der Brieftasche verwendet wird.",	
+    "OR": "ODER",
+    "EmailConfirmation": "Warnung",
+    "CheckEmail": "Die E-Mail-Adresse sollte die gleiche sein, die für den Export der Brieftasche verwendet wird.",
     "PinInfo": 'Dieser Pin wird für die Anmeldung verwendet'
   },
   "Biometric": {
@@ -114,8 +114,8 @@ const translation = {
     "InYourWallet": "in Ihrem Wallet"
   },
   "PinEnter": {
-    "IncorrectPin": "Falsche PIN", 
-  }, 
+    "IncorrectPin": "Falsche PIN",
+  },
   "Settings": {
     "ChangePin": "Pin ändern",
     "Version": "Version",
@@ -144,6 +144,7 @@ const translation = {
     "ImportError": "Entweder Ihre E-Mail oder Mnemonik ist falsch, bitte überprüfen Sie es sorgfältig",
   },
   "ConnectionInvitation":{
+    "VerifyMessage": "Überprüfen Sie die Verbindungsdetails sorgfältig",
     "ConsentMessage": "Neue Verbindungsanforderung"
   },
   "ContactDetails": {
@@ -242,6 +243,8 @@ const translation = {
   "QRScanner":{
     "PermissionToUseCamera":"Erlaubnis zur Verwendung der Kamera",
     "PermissionMessage":"Wir benötigen Ihre Erlaubnis, Ihre Kamera zu verwenden",
+    "ScanMessage": "Zum Verbinden scannen",
+    "VerifyMessage":"Scannen Sie nur vertrauenswürdige Quellen und überprüfen Sie die Verbindungsdetails sorgfältig",
     "NotAValidURL":"URL non valide",
     "NotBlankURL": 'Bitte URL eingeben',
     "InvalidQrCode":"QrCode invalide",
