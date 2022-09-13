@@ -21,7 +21,7 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
    - (iOS) Install [Cocoa Pods](https://cocoapods.org/)
 2. Clone the PCM repo and install its dependencies:
    ```sh
-   git clone https://code.vereign.com/gaiax/pcm/app
+   git clone https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app.git
    yarn install
    ```
 3. (iOS) iOS specific install:
