@@ -17,7 +17,7 @@ interface SettingStackProp {
 }
 
 const SettingStack: React.FC<SettingStackProp> = () => {
-  const { value: { setAuthenticated } } = React.useContext(MainStackContext)
+  const { setAuthenticated } = React.useContext(MainStackContext)
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
       <Stack.Screen name={Screens.Settings}>

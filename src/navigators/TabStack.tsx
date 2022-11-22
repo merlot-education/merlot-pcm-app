@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { StyleSheet, Text, View, Image, ImageProps } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -11,7 +11,7 @@ import ContactStack from './ContactStack'
 import CredentialStack from './CredentialStack'
 import HomeStack from './HomeStack'
 import Images from '../assets'
-import {MainStackContext} from "../utils/helpers";
+import { MainStackContext } from '../utils/helpers'
 
 const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
 
@@ -112,11 +112,10 @@ const TabStack: React.FC = ({ navigation }) => {
 
   const { deepLinkUrl, resetDeepLinkUrl } = React.useContext(MainStackContext)
   useEffect(() => {
-    if (!deepLinkUrl) return;
-    console.log('TabStack deep link useEffect', deepLinkUrl);
+    if (!deepLinkUrl) return
     resetDeepLinkUrl()
     navigation.navigate(Screens.ConnectionInvitation, { url: deepLinkUrl })
-  }, [deepLinkUrl])
+  }, [deepLinkUrl, resetDeepLinkUrl, navigation])
 
   return (
     <SafeAreaView

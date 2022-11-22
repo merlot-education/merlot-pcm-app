@@ -80,24 +80,27 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
   }, [shutDownAgent])
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const handleDeepLinking = async (url: string) => {
-        console.log("handling deep linking ", url);
-
-        setDeepLinkUrl(url);
+        setDeepLinkUrl(url)
       }
 
       Linking.addEventListener('url', ({ url }) => handleDeepLinking(url))
-      console.log('==================== DEEP LINKING INIT')
-      const initialUrl = await Linking.getInitialURL();
-      console.log('initialUrl = ', initialUrl)
+      const initialUrl = await Linking.getInitialURL()
       if (initialUrl) {
-        handleDeepLinking(initialUrl);
+        handleDeepLinking(initialUrl)
       }
     })()
   }, [])
 
-  const setAuthenticatedValue = useMemo(() => ({ value: setAuthenticated }), [])
+  const mainStackProviderValue = useMemo(
+    () => ({
+      setAuthenticated,
+      deepLinkUrl,
+      resetDeepLinkUrl: () => setDeepLinkUrl(null),
+    }),
+    [setAuthenticated, deepLinkUrl, setDeepLinkUrl],
+  )
 
   return authenticated ? (
     <UserInactivity
@@ -105,13 +108,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       timeForInactivity={300000}
       onAction={isActive => setActive(isActive)}
     >
-      <MainStackContext.Provider
-        value={{
-          setAuthenticated: setAuthenticatedValue,
-          deepLinkUrl: deepLinkUrl,
-          resetDeepLinkUrl: () => setDeepLinkUrl(null)
-        }}
-      >
+      <MainStackContext.Provider value={mainStackProviderValue}>
         <MainStack />
       </MainStackContext.Provider>
     </UserInactivity>
