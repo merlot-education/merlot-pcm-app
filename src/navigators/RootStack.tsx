@@ -9,6 +9,7 @@ import {
   WsOutboundTransport,
   AutoAcceptProof,
 } from '@aries-framework/core'
+import { Linking } from 'react-native'
 import Config from 'react-native-config'
 import { agentDependencies } from '@aries-framework/react-native'
 import UserInactivity from 'react-native-user-inactivity'
@@ -20,6 +21,7 @@ import MainStack from './MainStack'
 import OnboardingStack from './OnboardingStack'
 import { MainStackContext } from '../utils/helpers'
 import { ToastType } from '../components/toast/BaseToast'
+import { Screens } from '../types/navigators'
 
 interface Props {
   setAgent: (agent: Agent) => void
@@ -28,6 +30,7 @@ interface Props {
 const RootStack: React.FC<Props> = ({ setAgent }) => {
   const { t } = useTranslation()
   const [authenticated, setAuthenticated] = useState(false)
+  const [deepLinkUrl, setDeepLinkUrl] = useState<string | null>()
   const [active, setActive] = useState(true)
   const { agent } = useAgent()
   const initAgent = async (email: string, walletPin: string, seed: string) => {
@@ -76,6 +79,24 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     shutDownAgent()
   }, [shutDownAgent])
 
+  useEffect(() => {
+    (async () => {
+      const handleDeepLinking = async (url: string) => {
+        console.log("handling deep linking ", url);
+
+        setDeepLinkUrl(url);
+      }
+
+      Linking.addEventListener('url', ({ url }) => handleDeepLinking(url))
+      console.log('==================== DEEP LINKING INIT')
+      const initialUrl = await Linking.getInitialURL();
+      console.log('initialUrl = ', initialUrl)
+      if (initialUrl) {
+        handleDeepLinking(initialUrl);
+      }
+    })()
+  }, [])
+
   const setAuthenticatedValue = useMemo(() => ({ value: setAuthenticated }), [])
 
   return authenticated ? (
@@ -84,7 +105,13 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       timeForInactivity={300000}
       onAction={isActive => setActive(isActive)}
     >
-      <MainStackContext.Provider value={setAuthenticatedValue}>
+      <MainStackContext.Provider
+        value={{
+          setAuthenticated: setAuthenticatedValue,
+          deepLinkUrl: deepLinkUrl,
+          resetDeepLinkUrl: () => setDeepLinkUrl(null)
+        }}
+      >
         <MainStack />
       </MainStackContext.Provider>
     </UserInactivity>
