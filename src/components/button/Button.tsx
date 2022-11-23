@@ -1,7 +1,7 @@
 import React from 'react'
 import { ViewStyle } from 'react-native'
 
-import { Button as AntButton } from '@ant-design/react-native'
+import AntButton from '@ant-design/react-native/lib/button'
 
 export enum ButtonType {
   Primary = 'primary',

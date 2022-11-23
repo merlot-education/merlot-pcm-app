@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { Agent } from '@aries-framework/core'
-import { Provider as AntDesignProvider } from '@ant-design/react-native'
+import AntDesignProvider from '@ant-design/react-native/lib/provider'
 import AgentProvider from '@aries-framework/react-hooks'
 import Toast from 'react-native-toast-message'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
