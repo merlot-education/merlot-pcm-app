@@ -1,4 +1,4 @@
-const navigate = jest.fn()
+const navigate = jest.fn();
 
 const navigation = {
   navigate,
@@ -12,10 +12,10 @@ const navigation = {
   goBack: jest.fn(),
   pop: jest.fn(),
   reset: jest.fn(),
-}
+};
 
 const useNavigation = () => {
-  return navigation
-}
+  return navigation;
+};
 
-export { useNavigation }
+export { useNavigation };

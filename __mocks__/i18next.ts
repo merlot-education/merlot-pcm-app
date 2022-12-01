@@ -1,3 +1,3 @@
-const i18nextMock = jest.mock('i18next')
+const i18nextMock = jest.mock('i18next');
 
-export default i18nextMock
+export default i18nextMock;

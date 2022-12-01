@@ -1,3 +1,3 @@
-const rnDropDownMock = jest.mock('react-native-dropdown-picker')
+const rnDropDownMock = jest.mock('react-native-dropdown-picker');
 
-module.exports = rnDropDownMock
+module.exports = rnDropDownMock;
