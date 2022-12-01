@@ -1,24 +1,24 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { SafeAreaScrollView, SingleSelectBlock } from '../../components'
-import { BlockSelection } from '../../components/inputs/SingleSelectBlock'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { SafeAreaScrollView, SingleSelectBlock } from '../../components';
+import { BlockSelection } from '../../components/inputs/SingleSelectBlock';
 
-import { Locales, storeLanguage } from '../../localization'
+import { Locales, storeLanguage } from '../../localization';
 
 const Language = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
 
   // List of available languages into the localization directory
   const languages = [
     { id: Locales.en, value: t('Language.English') },
     { id: Locales.fr, value: t('Language.French') },
     { id: Locales.de, value: t('Language.German') },
-  ]
+  ];
 
   /**
    * Find current set language
    */
-  const storedLanguage = languages.find(l => l.id === i18n.language)
+  const storedLanguage = languages.find(l => l.id === i18n.language);
 
   /**
    * Once user select the particular language from the list,
@@ -27,9 +27,9 @@ const Language = () => {
    * @param {BlockSelection} language
    */
   const handleLanguageChange = async (language: BlockSelection) => {
-    i18n.changeLanguage(language.id as Locales)
-    await storeLanguage(language.id)
-  }
+    i18n.changeLanguage(language.id as Locales);
+    await storeLanguage(language.id);
+  };
 
   return (
     <SafeAreaScrollView>
@@ -39,7 +39,7 @@ const Language = () => {
         onSelect={handleLanguageChange}
       />
     </SafeAreaScrollView>
-  )
-}
+  );
+};
 
-export default Language
+export default Language;

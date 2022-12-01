@@ -1,19 +1,18 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AuthenticateStackParams, Screens } from '../types/navigators';
+import PinEnter from '../screens/PinEnter';
 
-import { AuthenticateStackParams } from '../types/navigators'
-import PinEnter from '../screens/PinEnter'
-
-import defaultStackOptions from './defaultStackOptions'
+import defaultStackOptions from './defaultStackOptions';
 
 interface AuthenticateStackProps {
-  setAuthenticated: (auth: boolean) => void
+  setAuthenticated: (auth: boolean) => void;
 }
 
 const AuthenticateStack: React.FC<AuthenticateStackProps> = ({
   setAuthenticated,
 }) => {
-  const Stack = createStackNavigator<AuthenticateStackParams>()
+  const Stack = createStackNavigator<AuthenticateStackParams>();
 
   return (
     <Stack.Navigator
@@ -21,15 +20,14 @@ const AuthenticateStack: React.FC<AuthenticateStackProps> = ({
         ...defaultStackOptions,
         presentation: 'transparentModal',
         headerShown: false,
-      }}
-    >
+      }}>
       <Stack.Screen
-        name="Enter Pin"
+        name={Screens.EnterPin}
         component={PinEnter}
         initialParams={{ setAuthenticated }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default AuthenticateStack
+export default AuthenticateStack;

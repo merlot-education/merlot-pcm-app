@@ -1,5 +1,5 @@
-import MOCK_CONNECTION_LIST from './ListContacts.constants'
-import * as Utils from './ListContacts.utils'
+import MOCK_CONNECTION_LIST from './ListContacts.constants';
+import * as Utils from '../ListContacts.utils';
 
 describe('ListContacts.utils', () => {
   describe('searchConnectionList', () => {
@@ -9,9 +9,9 @@ describe('ListContacts.utils', () => {
     ])(
       'should return a filtered list of connections',
       (connections, searchText, expected) => {
-        const result = Utils.searchConnectionList(connections, searchText)
-        expect(result).toEqual(expected)
+        const result = Utils.searchConnectionList(connections, searchText);
+        expect(result).toEqual(expected);
       },
-    )
-  })
-})
+    );
+  });
+});

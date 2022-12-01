@@ -1,3 +1,3 @@
-import ViewMnemonic from './ViewMnemonic'
+import ViewMnemonic from './ViewMnemonic';
 
-export default ViewMnemonic
+export default ViewMnemonic;

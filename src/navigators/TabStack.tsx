@@ -1,28 +1,28 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View, Image, ImageProps } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import useNotifications from '../hooks/notifications'
-import { ColorPallet, TextTheme } from '../theme/theme'
-import { Screens, TabStackParams, TabStacks } from '../types/navigators'
-import SettingStack from './SettingStack'
-import ContactStack from './ContactStack'
-import CredentialStack from './CredentialStack'
-import HomeStack from './HomeStack'
-import Images from '../assets'
-import { MainStackContext } from '../utils/helpers'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, Text, View, Image, ImageProps } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import useNotifications from '../hooks/notifications';
+import { ColorPallet, TextTheme } from '../theme/theme';
+import { Screens, TabStackParams, TabStacks } from '../types/navigators';
+import SettingStack from './SettingStack';
+import ContactStack from './ContactStack';
+import CredentialStack from './CredentialStack';
+import HomeStack from './HomeStack';
+import Images from '../assets';
+import { MainStackContext } from '../utils/helpers';
 
-const MainTabNavigator = createBottomTabNavigator<TabStackParams>()
+const MainTabNavigator = createBottomTabNavigator<TabStackParams>();
 
 type TabBarIconProps = {
-  focused: boolean
-  imageName: ImageProps['source']
-}
+  focused: boolean;
+  imageName: ImageProps['source'];
+};
 
 type TabBarLabelProps = {
-  label: string
-}
+  label: string;
+};
 
 const TabBarIcon = ({ imageName, focused }: TabBarIconProps) => {
   return (
@@ -35,16 +35,15 @@ const TabBarIcon = ({ imageName, focused }: TabBarIconProps) => {
               borderColor: ColorPallet.grayscale.white,
             }
           : {},
-      ]}
-    >
+      ]}>
       <Image
         source={imageName}
         style={!focused ? styles.tabBarIcon : styles.tabBarIcon}
         resizeMode="contain"
       />
     </View>
-  )
-}
+  );
+};
 
 const TabBarLabel = ({ label }: TabBarLabelProps) => {
   return (
@@ -55,12 +54,11 @@ const TabBarLabel = ({ label }: TabBarLabelProps) => {
         paddingBottom: 5,
         color: ColorPallet.grayscale.white,
       }}
-      numberOfLines={1}
-    >
+      numberOfLines={1}>
       {label}
     </Text>
-  )
-}
+  );
+};
 
 const ScannerIcon = () => {
   return (
@@ -71,56 +69,25 @@ const ScannerIcon = () => {
         resizeMode="contain"
       />
     </View>
-  )
-}
-
-const styles = StyleSheet.create({
-  tabView: {
-    height: 45,
-    width: 45,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tabBarStyle: {
-    height: 80,
-    backgroundColor: ColorPallet.brand.primary,
-    borderTopWidth: 0,
-    paddingBottom: 0,
-  },
-  scannerIconWrapper: {
-    height: 60,
-    width: 60,
-    backgroundColor: ColorPallet.baseColors.white,
-    top: -10,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  tabBarIcon: {
-    height: 40,
-    width: 40,
-  },
-  scanIcon: {
-    height: 40,
-    width: 40,
-  },
-})
+  );
+};
 
 const TabStack: React.FC = ({ navigation }) => {
-  const { total } = useNotifications()
-  const { t } = useTranslation()
+  const { total } = useNotifications();
+  const { t } = useTranslation();
 
-  const { deepLinkUrl, resetDeepLinkUrl } = React.useContext(MainStackContext)
+  const { deepLinkUrl, resetDeepLinkUrl } = React.useContext(MainStackContext);
   useEffect(() => {
-    if (!deepLinkUrl) return
-    resetDeepLinkUrl()
-    navigation.navigate(Screens.ConnectionInvitation, { url: deepLinkUrl })
-  }, [deepLinkUrl, resetDeepLinkUrl, navigation])
+    if (!deepLinkUrl) {
+      return;
+    }
+    resetDeepLinkUrl();
+    navigation.navigate(Screens.ConnectionInvitation, { url: deepLinkUrl });
+  }, [deepLinkUrl, resetDeepLinkUrl, navigation]);
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: ColorPallet.brand.primary }}
-    >
+      style={{ flex: 1, backgroundColor: ColorPallet.brand.primary }}>
       <MainTabNavigator.Navigator
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
@@ -131,8 +98,7 @@ const TabStack: React.FC = ({ navigation }) => {
           unmountOnBlur: true,
           tabBarShowLabel: true,
           tabBarLabelPosition: 'below-icon',
-        }}
-      >
+        }}>
         <MainTabNavigator.Screen
           name={TabStacks.HomeStack}
           component={HomeStack}
@@ -177,11 +143,10 @@ const TabStack: React.FC = ({ navigation }) => {
           }}
           listeners={({ navigation }) => ({
             tabPress: e => {
-              e.preventDefault()
-              navigation.navigate(Screens.Scan)
+              e.preventDefault();
+              navigation.navigate(Screens.Scan);
             },
-          })}
-        >
+          })}>
           {/* Just a placeholder, the the tab will navigate to a different stack */}
           {() => <View />}
         </MainTabNavigator.Screen>
@@ -214,7 +179,39 @@ const TabStack: React.FC = ({ navigation }) => {
         />
       </MainTabNavigator.Navigator>
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default TabStack
+export default TabStack;
+
+const styles = StyleSheet.create({
+  tabView: {
+    height: 45,
+    width: 45,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabBarStyle: {
+    height: 80,
+    backgroundColor: ColorPallet.brand.primary,
+    borderTopWidth: 0,
+    paddingBottom: 0,
+  },
+  scannerIconWrapper: {
+    height: 60,
+    width: 60,
+    backgroundColor: ColorPallet.baseColors.white,
+    top: -10,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabBarIcon: {
+    height: 40,
+    width: 40,
+  },
+  scanIcon: {
+    height: 40,
+    width: 40,
+  },
+});

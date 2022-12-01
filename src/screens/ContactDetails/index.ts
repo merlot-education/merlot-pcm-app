@@ -1,3 +1,3 @@
-import ContactDetails from './ContactDetails'
+import ContactDetails from './ContactDetails';
 
-export default ContactDetails
+export default ContactDetails;

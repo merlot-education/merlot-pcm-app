@@ -1,60 +1,40 @@
-import { t } from 'i18next'
-import { View, StyleSheet, Text } from 'react-native'
-import React, { useState } from 'react'
-import { useAgent } from '@aries-framework/react-hooks'
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import { TabStacks } from '../../types/navigators'
-import { Loader } from '../../components'
-import Button, { ButtonType } from '../../components/button/Button'
-import ConnectionPending from '../../assets/img/connection-pending.svg'
-import { getInvitationFromUrl } from './ConnectionInvitation.utils'
+import { t } from 'i18next';
+import { View, StyleSheet, Text } from 'react-native';
+import React, { useState } from 'react';
+import { useAgent } from '@aries-framework/react-hooks';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import { TabStacks } from '../../types/navigators';
+import { Loader } from '../../components';
+import Button, { ButtonType } from '../../components/button/Button';
+import ConnectionPending from '../../assets/img/connection-pending.svg';
+import { getInvitationFromUrl } from './ConnectionInvitation.utils';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: ColorPallet.grayscale.white,
-    margin: 20,
-    justifyContent: 'center',
-  },
-  bodyText: {
-    ...TextTheme.normal,
-    flexShrink: 1,
-    alignSelf: 'center',
-  },
-  spacer: {
-    height: 40,
-    width: 50,
-  },
-  topSpacer: {
-    paddingTop: 10,
-  },
-})
 interface ConnectionProps {
-  navigation: any
-  route: any
+  navigation: any;
+  route: any;
 }
 
 const ConnectionInvitation: React.FC<ConnectionProps> = ({
   navigation,
   route,
 }) => {
-  const { agent } = useAgent()
-  const [loading, setLoading] = useState(false)
+  const { agent } = useAgent();
+  const [loading, setLoading] = useState(false);
 
   const handleAcceptPress = async (): Promise<void> => {
-    const { url } = route.params
-    setLoading(true)
-    const connectionRecord = await getInvitationFromUrl(agent, url)
+    const { url } = route.params;
+    setLoading(true);
+    const connectionRecord = await getInvitationFromUrl(agent, url);
     if (!connectionRecord?.id) {
-      throw new Error(t('Scan.ConnectionNotFound'))
+      throw new Error(t('Scan.ConnectionNotFound'));
     }
-    setLoading(false)
-    navigation.navigate(TabStacks.ConnectionStack)
-  }
+    setLoading(false);
+    navigation.navigate(TabStacks.ConnectionStack);
+  };
 
   const handleDeclinePress = () => {
-    navigation.navigate(TabStacks.HomeStack)
-  }
+    navigation.navigate(TabStacks.HomeStack);
+  };
 
   return (
     <View style={[styles.container]}>
@@ -83,6 +63,28 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
         />
       </View>
     </View>
-  )
-}
-export default ConnectionInvitation
+  );
+};
+
+export default ConnectionInvitation;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: ColorPallet.grayscale.white,
+    margin: 20,
+    justifyContent: 'center',
+  },
+  bodyText: {
+    ...TextTheme.normal,
+    flexShrink: 1,
+    alignSelf: 'center',
+  },
+  spacer: {
+    height: 40,
+    width: 50,
+  },
+  topSpacer: {
+    paddingTop: 10,
+  },
+});

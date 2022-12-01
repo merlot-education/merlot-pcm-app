@@ -1,3 +1,3 @@
-import ConnectionInvitation from './ConnectionInvitation'
+import ConnectionInvitation from './ConnectionInvitation';
 
-export default ConnectionInvitation
+export default ConnectionInvitation;

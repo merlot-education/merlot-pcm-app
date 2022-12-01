@@ -1,3 +1,3 @@
-import ListCredentials from './ListCredentials'
+import ListCredentials from './ListCredentials';
 
-export default ListCredentials
+export default ListCredentials;

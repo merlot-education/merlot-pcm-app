@@ -1,100 +1,84 @@
-import { StackScreenProps } from '@react-navigation/stack'
+import { StackScreenProps } from '@react-navigation/stack';
 import {
   AriesFrameworkError,
   CredentialState,
   GetFormatDataReturn,
   IndyCredentialFormat,
-} from '@aries-framework/core'
-import { StyleSheet, Alert, View, Text } from 'react-native'
+} from '@aries-framework/core';
+import { StyleSheet, Alert, View, Text } from 'react-native';
 import {
   useAgent,
   useConnectionById,
   useCredentialById,
-} from '@aries-framework/react-hooks'
-import React, { useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import Toast from 'react-native-toast-message'
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import { HomeStackParams, Screens, TabStacks } from '../../types/navigators'
-import Title from '../../components/text/Title'
-import FlowDetailModal from '../../components/modals/FlowDetailModal'
-import Record from '../../components/record/Record'
-import CredentialCard from '../../components/misc/CredentialCard'
-import CredentialDeclined from '../../assets/img/credential-declined.svg'
-import CredentialPending from '../../assets/img/credential-pending.svg'
-import CredentialSuccess from '../../assets/img/credential-success.svg'
-import Button, { ButtonType } from '../../components/button/Button'
-import { credentialDefinition } from '../../utils/helpers'
-import { ToastType } from '../../components/toast/BaseToast'
+} from '@aries-framework/react-hooks';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Toast from 'react-native-toast-message';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import { HomeStackParams, Screens, TabStacks } from '../../types/navigators';
+import Title from '../../components/text/Title';
+import FlowDetailModal from '../../components/modals/FlowDetailModal';
+import Record from '../../components/record/Record';
+import CredentialCard from '../../components/misc/CredentialCard';
+import CredentialDeclined from '../../assets/img/credential-declined.svg';
+import CredentialPending from '../../assets/img/credential-pending.svg';
+import CredentialSuccess from '../../assets/img/credential-success.svg';
+import Button, { ButtonType } from '../../components/button/Button';
+import { credentialDefinition } from '../../utils/helpers';
+import { ToastType } from '../../components/toast/BaseToast';
 
 type CredentialOfferProps = StackScreenProps<
   HomeStackParams,
   Screens.CredentialOffer
->
-const styles = StyleSheet.create({
-  headerTextContainer: {
-    paddingHorizontal: 25,
-    paddingVertical: 16,
-    backgroundColor: ColorPallet.grayscale.white,
-  },
-  headerText: {
-    backgroundColor: ColorPallet.grayscale.white,
-    ...TextTheme.normal,
-    flexShrink: 1,
-  },
-  footerButton: {
-    paddingTop: 10,
-    backgroundColor: ColorPallet.grayscale.white,
-  },
-})
+>;
 
 const CredentialOffer: React.FC<CredentialOfferProps> = ({
   navigation,
   route,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   if (!route?.params) {
-    throw new Error(t('CredentialOffer.CredentialOfferParamsError'))
+    throw new Error(t('CredentialOffer.CredentialOfferParamsError'));
   }
-  const { credentialId } = route.params
-  const { agent } = useAgent()
-  const [buttonsVisible, setButtonsVisible] = useState(true)
-  const [pendingModalVisible, setPendingModalVisible] = useState(false)
-  const [successModalVisible, setSuccessModalVisible] = useState(false)
-  const [declinedModalVisible, setDeclinedModalVisible] = useState(false)
+  const { credentialId } = route.params;
+  const { agent } = useAgent();
+  const [buttonsVisible, setButtonsVisible] = useState(true);
+  const [pendingModalVisible, setPendingModalVisible] = useState(false);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [declinedModalVisible, setDeclinedModalVisible] = useState(false);
   const [credentialRecord, setCredentialRecord] = useState<
     GetFormatDataReturn<[IndyCredentialFormat]>
-  >({})
+  >({});
 
-  const credential = useCredentialById(credentialId)
+  const credential = useCredentialById(credentialId);
 
-  const connection = useConnectionById(credential?.connectionId)
+  const connection = useConnectionById(credential?.connectionId);
   if (!agent) {
-    throw new Error(t('CredentialOffer.FetchAFJError'))
+    throw new Error(t('CredentialOffer.FetchAFJError'));
   }
 
   if (!credential) {
-    throw new Error(t('CredentialOffer.CredentialFetchError'))
+    throw new Error(t('CredentialOffer.CredentialFetchError'));
   }
 
   const getCredentialData = useCallback(async () => {
     if (credential) {
       const credentialRecord = await agent.credentials.getFormatData(
         credential.id,
-      )
-      setCredentialRecord(credentialRecord)
+      );
+      setCredentialRecord(credentialRecord);
     }
-  }, [agent.credentials, credential])
+  }, [agent.credentials, credential]);
 
   useEffect(() => {
-    getCredentialData()
-  }, [getCredentialData])
+    getCredentialData();
+  }, [getCredentialData]);
 
   useEffect(() => {
     if (credential.state === CredentialState.Declined) {
-      setDeclinedModalVisible(true)
+      setDeclinedModalVisible(true);
     }
-  }, [credential])
+  }, [credential]);
 
   const saveCredentialInGenericRecords = useCallback(async () => {
     if (credential.state === CredentialState.Done) {
@@ -102,22 +86,27 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         connectionId: connection?.id,
         credentialRecordId: credential.credentials[0].credentialRecordId,
         type: 'credential',
-      }
-      const attributes = {}
+      };
+      const attributes = {};
       credential?.credentialAttributes?.forEach(attribute => {
-        attributes[attribute.name] = attribute.value
-      })
+        attributes[attribute.name] = attribute.value;
+      });
       const record = {
         status: 'issued',
         timestamp: new Date().getTime(),
         connectionLabel: connection?.theirLabel ?? 'Connection less credential',
         credentialLabel: credentialDefinition(credential)?.split(':')[4],
         attributes,
-      }
-      const content = { records: [record] }
-      await agent.genericRecords.save({ content, tags })
+      };
+      const content = { records: [record] };
+      await agent.genericRecords.save({ content, tags });
     }
-  }, [agent.genericRecords, connection?.id, connection?.theirLabel, credential])
+  }, [
+    agent.genericRecords,
+    connection?.id,
+    connection?.theirLabel,
+    credential,
+  ]);
 
   useEffect(() => {
     if (
@@ -125,31 +114,33 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
       credential.state === CredentialState.Done
     ) {
       if (pendingModalVisible) {
-        setPendingModalVisible(false)
+        setPendingModalVisible(false);
       }
-      setSuccessModalVisible(true)
+      setSuccessModalVisible(true);
     }
     if (credential.state === CredentialState.Done) {
-      saveCredentialInGenericRecords()
+      saveCredentialInGenericRecords();
     }
-  }, [credential.state, pendingModalVisible, saveCredentialInGenericRecords])
+  }, [credential.state, pendingModalVisible, saveCredentialInGenericRecords]);
 
   const handleAcceptPress = async () => {
     try {
-      setButtonsVisible(false)
-      setPendingModalVisible(true)
-      await agent.credentials.acceptOffer({ credentialRecordId: credential.id })
+      setButtonsVisible(false);
+      setPendingModalVisible(true);
+      await agent.credentials.acceptOffer({
+        credentialRecordId: credential.id,
+      });
     } catch (error: unknown) {
-      const credentialError = error as AriesFrameworkError
-      setButtonsVisible(true)
-      setPendingModalVisible(false)
+      const credentialError = error as AriesFrameworkError;
+      setButtonsVisible(true);
+      setPendingModalVisible(false);
       Toast.show({
         type: ToastType.Error,
         text1: credentialError.name,
         text2: credentialError.message,
-      })
+      });
     }
-  }
+  };
 
   const handleDeclinePress = async () => {
     Alert.alert(
@@ -162,20 +153,20 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
           style: 'destructive',
           onPress: async () => {
             try {
-              setButtonsVisible(false)
-              await agent.credentials.declineOffer(credential.id)
+              setButtonsVisible(false);
+              await agent.credentials.declineOffer(credential.id);
             } catch (e: unknown) {
               Toast.show({
                 type: ToastType.Error,
                 text1: t('CredentialOffer.RejectOfferTitle'),
                 text2: t('CredentialOffer.RejectOfferMessage'),
-              })
+              });
             }
           },
         },
       ],
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -223,37 +214,51 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         doneTitle={t('Global.Cancel')}
         visible={pendingModalVisible}
         onDone={() => {
-          setPendingModalVisible(false)
-        }}
-      >
+          setPendingModalVisible(false);
+        }}>
         <CredentialPending style={{ marginVertical: 20 }} />
       </FlowDetailModal>
       <FlowDetailModal
         title={t('CredentialOffer.CredentialAddedToYourWallet')}
         visible={successModalVisible}
         onDone={() => {
-          setSuccessModalVisible(false)
-          navigation.pop()
+          setSuccessModalVisible(false);
+          navigation.pop();
           navigation.getParent()?.navigate(TabStacks.CredentialStack, {
             screen: Screens.Credentials,
-          })
-        }}
-      >
+          });
+        }}>
         <CredentialSuccess style={{ marginVertical: 20 }} />
       </FlowDetailModal>
       <FlowDetailModal
         title={t('CredentialOffer.CredentialDeclined')}
         visible={declinedModalVisible}
         onDone={() => {
-          setDeclinedModalVisible(false)
-          navigation.pop()
-          navigation.navigate(Screens.Home)
-        }}
-      >
+          setDeclinedModalVisible(false);
+          navigation.pop();
+          navigation.navigate(Screens.Home);
+        }}>
         <CredentialDeclined style={{ marginVertical: 20 }} />
       </FlowDetailModal>
     </>
-  )
-}
+  );
+};
 
-export default CredentialOffer
+export default CredentialOffer;
+
+const styles = StyleSheet.create({
+  headerTextContainer: {
+    paddingHorizontal: 25,
+    paddingVertical: 16,
+    backgroundColor: ColorPallet.grayscale.white,
+  },
+  headerText: {
+    backgroundColor: ColorPallet.grayscale.white,
+    ...TextTheme.normal,
+    flexShrink: 1,
+  },
+  footerButton: {
+    paddingTop: 10,
+    backgroundColor: ColorPallet.grayscale.white,
+  },
+});

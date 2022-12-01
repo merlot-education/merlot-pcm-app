@@ -17,7 +17,7 @@ import Toast from 'react-native-toast-message';
 import { useTranslation } from 'react-i18next';
 import { useAgent } from '@aries-framework/react-hooks';
 import indyLedgers from '../../configs/ledgers/indy';
-// import MainStack from './MainStack';
+import MainStack from './MainStack';
 import OnboardingStack from './OnboardingStack';
 import { MainStackContext } from '../utils/helpers';
 import { ToastType } from '../components/toast/BaseToast';
@@ -101,15 +101,16 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     [setAuthenticated, deepLinkUrl, setDeepLinkUrl],
   );
 
-  return authenticated ? null : (
-    // <UserInactivity
-    //   isActive={active}
-    //   timeForInactivity={300000}
-    //   onAction={isActive => setActive(isActive)}>
-    //   <MainStackContext.Provider value={mainStackProviderValue}>
-    //     <MainStack />
-    //   </MainStackContext.Provider>
-    // </UserInactivity>
+  return authenticated ? (
+    <UserInactivity
+      isActive={active}
+      timeForInactivity={300000}
+      onAction={isActive => setActive(isActive)}>
+      <MainStackContext.Provider value={mainStackProviderValue}>
+        <MainStack />
+      </MainStackContext.Provider>
+    </UserInactivity>
+  ) : (
     <OnboardingStack
       initAgent={initAgent}
       setAuthenticated={setAuthenticated}

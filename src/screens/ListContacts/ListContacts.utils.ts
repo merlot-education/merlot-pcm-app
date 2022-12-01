@@ -1,15 +1,19 @@
-import { ConnectionRecord } from '@aries-framework/core'
+import { ConnectionRecord } from '@aries-framework/core';
 
 export const searchConnectionList = (
   connectionsList: ConnectionRecord[],
   searchText: string,
 ) => {
   const filteredData = connectionsList.filter(item => {
-    const label = item.theirLabel.toUpperCase()
-    const text = searchText.toUpperCase()
-    return label.includes(text)
-  })
-  return filteredData
-}
+    if (!item.theirLabel) {
+      return false;
+    }
 
-export default searchConnectionList
+    const label = item.theirLabel.toUpperCase();
+    const text = searchText.toUpperCase();
+    return label.includes(text);
+  });
+  return filteredData;
+};
+
+export default searchConnectionList;

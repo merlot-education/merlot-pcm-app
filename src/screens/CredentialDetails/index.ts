@@ -1,3 +1,3 @@
-import CredentialDetails from './CredentialDetails'
+import CredentialDetails from './CredentialDetails';
 
-export default CredentialDetails
+export default CredentialDetails;

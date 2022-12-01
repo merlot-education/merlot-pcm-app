@@ -1,6 +1,6 @@
-import * as Utils from './ExportWallet.utils'
+import * as Utils from './ExportWallet.utils';
 
-jest.mock('react-native-argon2', () => 'ExportWallet.utils')
+jest.mock('react-native-argon2', () => 'ExportWallet.utils');
 
 describe('ExportWallet.utils', () => {
   describe('authenticateuser', () => {
@@ -20,8 +20,8 @@ describe('ExportWallet.utils', () => {
         expected: false,
       },
     ])('should return a true if the mnemonic matches', initialValue => {
-      const result = Utils.authenticateUser(initialValue.args)
-      expect(result).toEqual(initialValue.expected)
-    })
-  })
-})
+      const result = Utils.authenticateUser(initialValue.args);
+      expect(result).toEqual(initialValue.expected);
+    });
+  });
+});

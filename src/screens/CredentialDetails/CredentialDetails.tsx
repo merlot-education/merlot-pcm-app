@@ -1,16 +1,132 @@
-import type { StackScreenProps } from '@react-navigation/stack'
+import type { StackScreenProps } from '@react-navigation/stack';
 
-import { useAgent, useCredentialById } from '@aries-framework/react-hooks'
-import React, { useCallback, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native'
-import CredentialCard from '../../components/misc/CredentialCard'
-import { CredentialStackParams, Screens } from '../../types/navigators'
-import { warningToast, errorToast } from '../../utils/toast'
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import Accordion from '../../components/accordion/Accordion'
-import { credentialDefinition } from '../../utils/helpers'
-import { RecordHistory } from '../../types/record'
+import { useAgent, useCredentialById } from '@aries-framework/react-hooks';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { View, Text, StyleSheet, Platform, ScrollView } from 'react-native';
+import CredentialCard from '../../components/misc/CredentialCard';
+import { CredentialStackParams, Screens } from '../../types/navigators';
+import { warningToast, errorToast } from '../../utils/toast';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import Accordion from '../../components/accordion/Accordion';
+import { credentialDefinition } from '../../utils/helpers';
+import { RecordHistory } from '../../types/record';
+
+type CredentialDetailsProps = StackScreenProps<
+  CredentialStackParams,
+  Screens.CredentialDetails
+>;
+
+const CredentialDetails: React.FC<CredentialDetailsProps> = ({
+  navigation,
+  route,
+}) => {
+  const { t } = useTranslation();
+  const { credentialId } = route.params;
+  const credential = useCredentialById(credentialId);
+  const { agent } = useAgent();
+  const [history, setHistory] = useState<RecordHistory[]>([]);
+
+  const getCredentialHistory = useCallback(async () => {
+    try {
+      const data = await agent?.genericRecords.findAllByQuery({
+        credentialRecordId: credential?.credentials[0].credentialRecordId,
+      });
+
+      const history: any[] = [];
+
+      // Add all credential records to the history
+      data?.forEach(record => history.push(...record.content.records));
+
+      // Filter out the credential records which have property credentialLabel
+      const filteredHistory = history.filter(record => record?.credentialLabel);
+
+      // Sort history by timestamp
+      const sortedHistory = filteredHistory.sort(
+        (x, y) =>
+          new Date(y.timestamp).valueOf() - new Date(x.timestamp).valueOf(),
+      );
+
+      setHistory(sortedHistory);
+    } catch (error) {
+      errorToast(t('credential.get.error'));
+    }
+  }, [agent, credential, t]);
+
+  useEffect(() => {
+    getCredentialHistory();
+  }, [getCredentialHistory]);
+
+  if (!route.params.credentialId) {
+    warningToast(t('CredentialOffer.CredentialNotFound'));
+    navigation.goBack();
+    return null;
+  }
+  if (!credential) {
+    errorToast(t('CredentialOffer.CredentialNotFound'));
+    navigation.goBack();
+    return null;
+  }
+
+  return (
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <CredentialCard
+        credential={credential}
+        style={styles.credentialCardView}
+      />
+      <View style={Platform.OS === 'android' ? styles.card : styles.cardIos}>
+        <Accordion title="Info" innerAccordion={false}>
+          <View>
+            <View style={styles.innerContainer}>
+              <Text style={styles.attribute}>Credential </Text>
+              <Text style={styles.attribute}>
+                {credentialDefinition(credential)?.split(':')[4]}
+              </Text>
+            </View>
+            <View style={styles.divider} />
+            {credential?.credentialAttributes?.map(item => {
+              return (
+                <View style={styles.innerContainer}>
+                  <Text style={styles.attribute}>{item.name}</Text>
+                  <Text style={styles.attribute}>{item.value}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </Accordion>
+      </View>
+      <View style={Platform.OS === 'android' ? styles.card : styles.cardIos}>
+        <Accordion title="Activities" innerAccordion={false}>
+          {history.map((item, index) => {
+            return (
+              <View>
+                <Accordion
+                  title={item.connectionLabel}
+                  date={new Date(item.timestamp)}
+                  status={item.status}
+                  innerAccordion>
+                  {Object.entries(item.attributes).map(([key, value]) => {
+                    return (
+                      <View style={styles.innerContainer}>
+                        <Text style={styles.attribute}>{key}</Text>
+                        <Text style={styles.attribute}>{value.toString()}</Text>
+                      </View>
+                    );
+                  })}
+                </Accordion>
+                {history.length - 1 !== index && (
+                  <View style={styles.divider} />
+                )}
+              </View>
+            );
+          })}
+        </Accordion>
+      </View>
+    </ScrollView>
+  );
+};
+
+export default CredentialDetails;
 
 const styles = StyleSheet.create({
   card: {
@@ -93,121 +209,4 @@ const styles = StyleSheet.create({
   scrollView: {
     paddingBottom: 30,
   },
-})
-
-type CredentialDetailsProps = StackScreenProps<
-  CredentialStackParams,
-  Screens.CredentialDetails
->
-
-const CredentialDetails: React.FC<CredentialDetailsProps> = ({
-  navigation,
-  route,
-}) => {
-  const { t } = useTranslation()
-  const { credentialId } = route.params
-  const credential = useCredentialById(credentialId)
-  const { agent } = useAgent()
-  const [history, setHistory] = useState<RecordHistory[]>([])
-
-  const getCredentialHistory = useCallback(async () => {
-    try {
-      const data = await agent?.genericRecords.findAllByQuery({
-        credentialRecordId: credential?.credentials[0].credentialRecordId,
-      })
-
-      const history = []
-
-      // Add all credential records to the history
-      data?.forEach(record => history.push(...record.content.records))
-
-      // Filter out the credential records which have property credentialLabel
-      const filteredHistory = history.filter(record => record?.credentialLabel)
-
-      // Sort history by timestamp
-      const sortedHistory = filteredHistory.sort(
-        (x, y) =>
-          new Date(y.timestamp).valueOf() - new Date(x.timestamp).valueOf(),
-      )
-
-      setHistory(sortedHistory)
-    } catch (error) {
-      errorToast(t('credential.get.error'))
-    }
-  }, [agent, credential, t])
-
-  useEffect(() => {
-    getCredentialHistory()
-  }, [getCredentialHistory])
-
-  if (!route.params.credentialId) {
-    warningToast(t('CredentialOffer.CredentialNotFound'))
-    navigation.goBack()
-    return null
-  }
-  if (!credential) {
-    errorToast(t('CredentialOffer.CredentialNotFound'))
-    navigation.goBack()
-    return null
-  }
-
-  return (
-    <ScrollView contentContainerStyle={styles.scrollView}>
-      <CredentialCard
-        credential={credential}
-        style={styles.credentialCardView}
-      />
-      <View style={Platform.OS === 'android' ? styles.card : styles.cardIos}>
-        <Accordion title="Info" innerAccordion={false}>
-          <View>
-            <View style={styles.innerContainer}>
-              <Text style={styles.attribute}>Credential </Text>
-              <Text style={styles.attribute}>
-                {credentialDefinition(credential)?.split(':')[4]}
-              </Text>
-            </View>
-            <View style={styles.divider} />
-            {credential?.credentialAttributes?.map(item => {
-              return (
-                <View style={styles.innerContainer}>
-                  <Text style={styles.attribute}>{item.name}</Text>
-                  <Text style={styles.attribute}>{item.value}</Text>
-                </View>
-              )
-            })}
-          </View>
-        </Accordion>
-      </View>
-      <View style={Platform.OS === 'android' ? styles.card : styles.cardIos}>
-        <Accordion title="Activities" innerAccordion={false}>
-          {history.map((item, index) => {
-            return (
-              <View>
-                <Accordion
-                  title={item.connectionLabel}
-                  date={new Date(item.timestamp)}
-                  status={item.status}
-                  innerAccordion
-                >
-                  {Object.entries(item.attributes).map(([key, value]) => {
-                    return (
-                      <View style={styles.innerContainer}>
-                        <Text style={styles.attribute}>{key}</Text>
-                        <Text style={styles.attribute}>{value.toString()}</Text>
-                      </View>
-                    )
-                  })}
-                </Accordion>
-                {history.length - 1 !== index && (
-                  <View style={styles.divider} />
-                )}
-              </View>
-            )
-          })}
-        </Accordion>
-      </View>
-    </ScrollView>
-  )
-}
-
-export default CredentialDetails
+});

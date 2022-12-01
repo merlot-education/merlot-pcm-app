@@ -1,4 +1,4 @@
-export async function receiveMessageAgent(url) {
+export async function receiveMessageAgent(url: string) {
   return fetch(url, {
     method: 'GET',
     headers: {
@@ -6,7 +6,7 @@ export async function receiveMessageAgent(url) {
       'Content-Type': 'application/json',
     },
   }).then(response => {
-    return response.json()
-  })
+    return response.json();
+  });
 }
-export default { receiveMessageAgent }
+export default { receiveMessageAgent };

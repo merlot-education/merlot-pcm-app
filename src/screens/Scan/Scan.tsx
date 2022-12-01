@@ -1,42 +1,35 @@
-import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useState } from 'react'
-import { useAgent } from '@aries-framework/react-hooks'
-import { parseUrl } from 'query-string'
-import { Agent } from '@aries-framework/core'
-import type { BarCodeReadEvent } from 'react-native-camera'
-import { StyleSheet, View } from 'react-native'
-import { useIsFocused } from '@react-navigation/core'
-import { Buffer } from 'buffer'
-import { useTranslation } from 'react-i18next'
-import QRScanner from '../../components/inputs/QRScanner'
-import { ScanStackParams, Screens, TabStacks } from '../../types/navigators'
-import QrCodeScanError from '../../types/error'
-import { ColorPallet } from '../../theme/theme'
-import { warningToast, errorToast } from '../../utils/toast'
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: ColorPallet.grayscale.white,
-  },
-})
+import { StackNavigationProp } from '@react-navigation/stack';
+import React, { useState } from 'react';
+import { useAgent } from '@aries-framework/react-hooks';
+import { parseUrl } from 'query-string';
+import { Agent } from '@aries-framework/core';
+import { StyleSheet, View } from 'react-native';
+import { useIsFocused } from '@react-navigation/core';
+import { Buffer } from 'buffer';
+import { useTranslation } from 'react-i18next';
+import QRScanner from '../../components/inputs/QRScanner';
+import { ScanStackParams, Screens, TabStacks } from '../../types/navigators';
+import QrCodeScanError from '../../types/error';
+import { ColorPallet } from '../../theme/theme';
+import { warningToast, errorToast } from '../../utils/toast';
 
 interface ScanProps {
-  navigation: StackNavigationProp<ScanStackParams, Screens.Scan>
+  navigation: StackNavigationProp<ScanStackParams, Screens.Scan>;
 }
 
 const Scan: React.FC<ScanProps> = ({ navigation }) => {
-  const { t } = useTranslation()
-  const { agent } = useAgent()
-  const isFocused = useIsFocused()
+  const { t } = useTranslation();
+  const { agent } = useAgent();
+  const isFocused = useIsFocused();
 
   const [qrCodeScanError, setQrCodeScanError] =
-    useState<QrCodeScanError | null>(null)
-  const [urlInput, setUrl] = useState('')
+    useState<QrCodeScanError | null>(null);
+  const [urlInput, setUrl] = useState('');
 
   const isRedirection = (url: string): boolean => {
-    const queryParams = parseUrl(url).query
-    return !(queryParams.c_i || queryParams.d_m)
-  }
+    const queryParams = parseUrl(url).query;
+    return !(queryParams.c_i || queryParams.d_m);
+  };
 
   const handleRedirection = async (
     url: string,
@@ -49,78 +42,79 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      })
+      });
       if (res.url) {
-        const [url] = res.url.split('%')
-        navigation.navigate(Screens.ConnectionInvitation, { url })
+        const [url] = res.url.split('%');
+        navigation.navigate(Screens.ConnectionInvitation, { url });
       } else {
-        const message = await res.json()
-        await agent?.receiveMessage(message)
-        navigation.navigate(TabStacks.HomeStack)
+        const message = await res.json();
+        await agent?.receiveMessage(message);
+        navigation.navigate(TabStacks.HomeStack);
       }
     } catch (error) {
-      errorToast(error)
+      errorToast(error);
     }
-  }
+  };
 
-  const handleCodeScan = async (event: BarCodeReadEvent) => {
-    setQrCodeScanError(null)
+  const handleCodeScan = async (event: any) => {
+    // TODO change any to correct value
+    setQrCodeScanError(null);
     try {
-      const url = event.data
+      const url = event.data;
       if (isRedirection(url)) {
-        await handleRedirection(url, agent)
+        await handleRedirection(url, agent);
       } else if (url.includes('?c_i') || url.includes('?d_m')) {
         const [, urlData] = url.includes('?c_i')
           ? url.split('?c_i=')
-          : url.split('?d_m=')
+          : url.split('?d_m=');
         const message = JSON.parse(
           Buffer.from(urlData.trim(), 'base64').toString(),
-        )
+        );
         if (message['~service']) {
-          await agent?.receiveMessage(message)
-          navigation.navigate(TabStacks.HomeStack)
+          await agent?.receiveMessage(message);
+          navigation.navigate(TabStacks.HomeStack);
         } else {
-          navigation.navigate(Screens.ConnectionInvitation, { url })
+          navigation.navigate(Screens.ConnectionInvitation, { url });
         }
       } else {
-        throw new Error('QRScanner.NotAValidURL')
+        throw new Error('QRScanner.NotAValidURL');
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError('QRScanner.InvalidQrCode', event.data)
-      setQrCodeScanError(error)
+      const error = new QrCodeScanError('QRScanner.InvalidQrCode', event.data);
+      setQrCodeScanError(error);
     }
-  }
+  };
 
   const inputSubmitUrl = async () => {
     try {
-      const url = urlInput
-      if (url !== '')
+      const url = urlInput;
+      if (url !== '') {
         if (isRedirection(url)) {
-          await handleRedirection(url, agent)
+          await handleRedirection(url, agent);
         } else if (url.includes('?c_i') || url.includes('?d_m')) {
           const [, urlData] = url.includes('?c_i')
             ? url.split('?c_i=')
-            : url.split('?d_m=')
+            : url.split('?d_m=');
           const message = JSON.parse(
             Buffer.from(urlData.trim(), 'base64').toString(),
-          )
+          );
           if (message['~service']) {
-            await agent?.receiveMessage(message)
-            navigation.navigate(TabStacks.HomeStack)
+            await agent?.receiveMessage(message);
+            navigation.navigate(TabStacks.HomeStack);
           } else {
-            navigation.navigate(Screens.ConnectionInvitation, { url })
+            navigation.navigate(Screens.ConnectionInvitation, { url });
           }
         } else {
-          throw new Error(t('QRScanner.NotAValidURL'))
+          throw new Error(t('QRScanner.NotAValidURL'));
         }
-      else {
-        warningToast(t('QRScanner.NotBlankURL'))
+      } else {
+        warningToast(t('QRScanner.NotBlankURL'));
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError(t('QRScanner.InvalidQrCode'), urlInput)
-      setQrCodeScanError(error)
+      const error = new QrCodeScanError(t('QRScanner.InvalidQrCode'), urlInput);
+      setQrCodeScanError(error);
     }
-  }
+  };
 
   return (
     <View style={[styles.container]}>
@@ -134,7 +128,13 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         />
       )}
     </View>
-  )
-}
+  );
+};
 
-export default Scan
+export default Scan;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: ColorPallet.grayscale.white,
+  },
+});

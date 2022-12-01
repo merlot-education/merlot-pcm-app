@@ -1,4 +1,4 @@
-import { ConnectionRecord } from '@aries-framework/core'
+import { ConnectionRecord } from '@aries-framework/core';
 
 const MOCK_CONNECTION_LIST: ConnectionRecord[] = [
   {
@@ -361,6 +361,6 @@ const MOCK_CONNECTION_LIST: ConnectionRecord[] = [
     },
     threadId: '31ec4cde-832a-4d10-a581-b668c8f34ab0',
   },
-]
+];
 
-export default MOCK_CONNECTION_LIST
+export default MOCK_CONNECTION_LIST;
