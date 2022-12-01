@@ -1,33 +1,33 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import { Agent } from '@aries-framework/core'
-import PinCreate from '../screens/PinCreate'
-import Biometric from '../screens/Biometric'
-import PinEnter from '../screens/PinEnter'
-import Registration from '../screens/Registration'
-import Splash from '../screens/Splash'
-import Terms from '../screens/Terms'
-import Onboarding from '../screens/Onboarding'
-import VerifyOtp from '../screens/VerifyOtp'
-import { ColorPallet } from '../theme/theme'
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { Agent } from '@aries-framework/core';
+import PinCreate from '../screens/PinCreate';
+import Biometric from '../screens/Biometric';
+import PinEnter from '../screens/PinEnter';
+import Registration from '../screens/Registration';
+import Splash from '../screens/Splash';
+import Terms from '../screens/Terms';
+import Onboarding from '../screens/Onboarding';
+import VerifyOtp from '../screens/VerifyOtp';
+import { ColorPallet } from '../theme/theme';
 
-import { OnboardingStackParams, Screens } from '../types/navigators'
+import { OnboardingStackParams, Screens } from '../types/navigators';
 
-import defaultStackOptions from './defaultStackOptions'
-import ImportWallet from '../screens/ImportWallet'
-import CreateWallet from '../screens/CreateWallet/CreateWallet'
-import Initialization from '../screens/Initialization'
-import WalletInitialized from '../screens/WalletInitialized'
-import SetupDelay from '../screens/SetupDelay'
+import defaultStackOptions from './defaultStackOptions';
+import ImportWallet from '../screens/ImportWallet';
+import CreateWallet from '../screens/CreateWallet/CreateWallet';
+import Initialization from '../screens/Initialization';
+import WalletInitialized from '../screens/WalletInitialized';
+import SetupDelay from '../screens/SetupDelay';
 
-const Stack = createStackNavigator<OnboardingStackParams>()
+const Stack = createStackNavigator<OnboardingStackParams>();
 
 type OnboardingStackProps = {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  initAgent: (email: string, walletPin: string, seed: string) => void
-  setAgent: (agent: Agent) => void
-  setActive: React.Dispatch<React.SetStateAction<boolean>>
-}
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  initAgent: (email: string, walletPin: string, seed: string) => void;
+  setAgent: (agent: Agent) => void;
+  setActive: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
 const OnboardingStack: React.FC<OnboardingStackProps> = ({
   setAuthenticated,
@@ -41,8 +41,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       screenOptions={{
         ...defaultStackOptions,
         headerShown: false,
-      }}
-    >
+      }}>
       <Stack.Screen name={Screens.Splash} component={Splash} />
       <Stack.Screen
         name={Screens.Onboarding}
@@ -181,7 +180,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         })}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default OnboardingStack
+export default OnboardingStack;

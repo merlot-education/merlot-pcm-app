@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useCallback } from 'react'
+import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import {
   Agent,
   AutoAcceptCredential,
@@ -8,31 +8,30 @@ import {
   MediatorPickupStrategy,
   WsOutboundTransport,
   AutoAcceptProof,
-} from '@aries-framework/core'
-import { Linking } from 'react-native'
-import Config from 'react-native-config'
-import { agentDependencies } from '@aries-framework/react-native'
-import UserInactivity from 'react-native-user-inactivity'
-import Toast from 'react-native-toast-message'
-import { useTranslation } from 'react-i18next'
-import { useAgent } from '@aries-framework/react-hooks'
-import indyLedgers from '../../configs/ledgers/indy'
-import MainStack from './MainStack'
-import OnboardingStack from './OnboardingStack'
-import { MainStackContext } from '../utils/helpers'
-import { ToastType } from '../components/toast/BaseToast'
-import { Screens } from '../types/navigators'
+} from '@aries-framework/core';
+import { Linking } from 'react-native';
+import Config from 'react-native-config';
+import { agentDependencies } from '@aries-framework/react-native';
+import UserInactivity from 'react-native-user-inactivity';
+import Toast from 'react-native-toast-message';
+import { useTranslation } from 'react-i18next';
+import { useAgent } from '@aries-framework/react-hooks';
+import indyLedgers from '../../configs/ledgers/indy';
+// import MainStack from './MainStack';
+import OnboardingStack from './OnboardingStack';
+import { MainStackContext } from '../utils/helpers';
+import { ToastType } from '../components/toast/BaseToast';
 
 interface Props {
-  setAgent: (agent: Agent) => void
+  setAgent: (agent: Agent) => void;
 }
 
 const RootStack: React.FC<Props> = ({ setAgent }) => {
-  const { t } = useTranslation()
-  const [authenticated, setAuthenticated] = useState(false)
-  const [deepLinkUrl, setDeepLinkUrl] = useState<string | null>()
-  const [active, setActive] = useState(true)
-  const { agent } = useAgent()
+  const { t } = useTranslation();
+  const [authenticated, setAuthenticated] = useState(false);
+  const [deepLinkUrl, setDeepLinkUrl] = useState<string | null>();
+  const [active, setActive] = useState(true);
+  const { agent } = useAgent();
   const initAgent = async (email: string, walletPin: string, seed: string) => {
     const newAgent = new Agent(
       {
@@ -50,48 +49,48 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
         indyLedgers,
       },
       agentDependencies,
-    )
+    );
 
-    const wsTransport = new WsOutboundTransport()
-    const httpTransport = new HttpOutboundTransport()
+    const wsTransport = new WsOutboundTransport();
+    const httpTransport = new HttpOutboundTransport();
 
-    newAgent.registerOutboundTransport(wsTransport)
-    newAgent.registerOutboundTransport(httpTransport)
+    newAgent.registerOutboundTransport(wsTransport);
+    newAgent.registerOutboundTransport(httpTransport);
 
-    await newAgent.initialize()
-    setAgent(newAgent)
-    setActive(true)
-  }
+    await newAgent.initialize();
+    setAgent(newAgent);
+    setActive(true);
+  };
 
   const shutDownAgent = useCallback(async () => {
     if (!active) {
-      setAuthenticated(false)
-      await agent?.shutdown()
+      setAuthenticated(false);
+      await agent?.shutdown();
       Toast.show({
         type: ToastType.Info,
         text1: t('Toasts.Info'),
         text2: t('Global.UserInactivity'),
-      })
+      });
     }
-  }, [active, agent, t])
+  }, [active, agent, t]);
 
   useEffect(() => {
-    shutDownAgent()
-  }, [shutDownAgent])
+    shutDownAgent();
+  }, [shutDownAgent]);
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       const handleDeepLinking = async (url: string) => {
-        setDeepLinkUrl(url)
-      }
+        setDeepLinkUrl(url);
+      };
 
-      Linking.addEventListener('url', ({ url }) => handleDeepLinking(url))
-      const initialUrl = await Linking.getInitialURL()
+      Linking.addEventListener('url', ({ url }) => handleDeepLinking(url));
+      const initialUrl = await Linking.getInitialURL();
       if (initialUrl) {
-        handleDeepLinking(initialUrl)
+        handleDeepLinking(initialUrl);
       }
-    })()
-  }, [])
+    })();
+  }, []);
 
   const mainStackProviderValue = useMemo(
     () => ({
@@ -100,26 +99,24 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       resetDeepLinkUrl: () => setDeepLinkUrl(null),
     }),
     [setAuthenticated, deepLinkUrl, setDeepLinkUrl],
-  )
+  );
 
-  return authenticated ? (
-    <UserInactivity
-      isActive={active}
-      timeForInactivity={300000}
-      onAction={isActive => setActive(isActive)}
-    >
-      <MainStackContext.Provider value={mainStackProviderValue}>
-        <MainStack />
-      </MainStackContext.Provider>
-    </UserInactivity>
-  ) : (
+  return authenticated ? null : (
+    // <UserInactivity
+    //   isActive={active}
+    //   timeForInactivity={300000}
+    //   onAction={isActive => setActive(isActive)}>
+    //   <MainStackContext.Provider value={mainStackProviderValue}>
+    //     <MainStack />
+    //   </MainStackContext.Provider>
+    // </UserInactivity>
     <OnboardingStack
       initAgent={initAgent}
       setAuthenticated={setAuthenticated}
       setAgent={setAgent}
       setActive={setActive}
     />
-  )
-}
+  );
+};
 
-export default RootStack
+export default RootStack;

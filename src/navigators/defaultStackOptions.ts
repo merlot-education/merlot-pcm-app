@@ -1,5 +1,5 @@
-import { StackNavigationOptions } from '@react-navigation/stack'
-import { ColorPallet } from '../theme/theme'
+import { StackNavigationOptions } from '@react-navigation/stack';
+import { ColorPallet } from '../theme/theme';
 
 const defaultStackOptions: StackNavigationOptions = {
   headerStyle: {
@@ -11,6 +11,6 @@ const defaultStackOptions: StackNavigationOptions = {
   headerTintColor: ColorPallet.grayscale.white,
   headerBackTitleVisible: false,
   headerTitleAlign: 'center',
-}
+};
 
-export default defaultStackOptions
+export default defaultStackOptions;

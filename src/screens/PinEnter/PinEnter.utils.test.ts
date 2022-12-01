@@ -1,15 +1,15 @@
-import * as Utils from './PinEnter.utils'
+import * as Utils from './PinEnter.utils';
 
 describe('PinCreate.utils', () => {
   describe('removeOnboardingCompleteStage', () => {
     it('should remove a value for onboarding complete stage', async () => {
-      jest.spyOn(Utils, 'removeOnboardingCompleteStage')
+      jest.spyOn(Utils, 'removeOnboardingCompleteStage');
 
-      await Utils.removeOnboardingCompleteStage()
+      await Utils.removeOnboardingCompleteStage();
 
-      expect(Utils.removeOnboardingCompleteStage).toHaveBeenCalled()
-    })
-  })
+      expect(Utils.removeOnboardingCompleteStage).toHaveBeenCalled();
+    });
+  });
 
   describe('createMD5HashFromString', () => {
     it.each([
@@ -21,9 +21,9 @@ describe('PinCreate.utils', () => {
     ])(
       'should return a hash value for the given string',
       (initialValue, expectedValue) => {
-        const result = Utils.createMD5HashFromString(initialValue)
-        expect(result).toEqual(expectedValue)
+        const result = Utils.createMD5HashFromString(initialValue);
+        expect(result).toEqual(expectedValue);
       },
-    )
-  })
-})
+    );
+  });
+});

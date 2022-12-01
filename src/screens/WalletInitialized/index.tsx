@@ -1,3 +1,3 @@
-import WalletInitialized from './WalletInitialized'
+import WalletInitialized from './WalletInitialized';
 
-export default WalletInitialized
+export default WalletInitialized;

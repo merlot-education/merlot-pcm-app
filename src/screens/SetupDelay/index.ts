@@ -1,3 +1,3 @@
-import SetupDelay from './SetupDelay'
+import SetupDelay from './SetupDelay';
 
-export default SetupDelay
+export default SetupDelay;
