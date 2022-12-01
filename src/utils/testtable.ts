@@ -1,7 +1,7 @@
-import { testIdPrefix } from '../constants'
+import { testIdPrefix } from '../constants';
 
 const testIdWithKey = (key: string): string => {
-  return `${testIdPrefix}${key}`
-}
+  return `${testIdPrefix}${key}`;
+};
 
-export default testIdWithKey
+export default testIdWithKey;

@@ -3,7 +3,7 @@ import {
   ConnectionRecord,
   DidExchangeState,
   DidExchangeRole,
-} from '@aries-framework/core'
+} from '@aries-framework/core';
 
 export function getMockConnection({
   state = DidExchangeState.InvitationReceived,
@@ -24,7 +24,7 @@ export function getMockConnection({
     state,
     tags,
     theirLabel,
-  })
+  });
 }
 
-export default getMockConnection
+export default getMockConnection;

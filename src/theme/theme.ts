@@ -1,9 +1,9 @@
-import { Theme } from '@ant-design/react-native/lib/style'
+import { Theme } from '@ant-design/react-native/lib/style';
 
-type BaseColor = Record<string, string>
+type BaseColor = Record<string, string>;
 
 interface FontAttributes {
-  fontSize: number
+  fontSize: number;
   fontWeight:
     | 'normal'
     | 'bold'
@@ -15,81 +15,81 @@ interface FontAttributes {
     | '600'
     | '700'
     | '800'
-    | '900'
-  color: string
+    | '900';
+  color: string;
 }
 
 interface BrandColors {
-  primary: string
-  secondary: string
-  highlight: string
-  primaryBackground: string
-  secondaryBackground: string
-  link: string
+  primary: string;
+  secondary: string;
+  highlight: string;
+  primaryBackground: string;
+  secondaryBackground: string;
+  link: string;
 }
 
 interface SemanticColors {
-  error: string
-  success: string
-  focus: string
+  error: string;
+  success: string;
+  focus: string;
 }
 
 interface NotificationColors {
-  success: string
-  successBorder: string
-  successIcon: string
-  successText: string
-  info: string
-  infoBorder: string
-  infoIcon: string
-  infoText: string
-  warn: string
-  warnBorder: string
-  warnIcon: string
-  warnText: string
-  error: string
-  errorBorder: string
-  errorIcon: string
-  errorText: string
+  success: string;
+  successBorder: string;
+  successIcon: string;
+  successText: string;
+  info: string;
+  infoBorder: string;
+  infoIcon: string;
+  infoText: string;
+  warn: string;
+  warnBorder: string;
+  warnIcon: string;
+  warnText: string;
+  error: string;
+  errorBorder: string;
+  errorIcon: string;
+  errorText: string;
 }
 
 interface GrayscaleColors {
-  black: string
-  darkGrey: string
-  mediumGrey: string
-  lightGrey: string
-  veryLightGrey: string
-  white: string
+  black: string;
+  darkGrey: string;
+  mediumGrey: string;
+  lightGrey: string;
+  veryLightGrey: string;
+  white: string;
 }
 
 interface BaseScaleColors {
-  black: string
-  darkGreen: string
-  lightBlue: string
-  darkGreenLightTransparent: string
-  darkGreenHeavyTransparent: string
-  darkGrey: string
-  green: string
-  lightGrey: string
-  red: string
-  transparent: string
-  yellow: string
-  white: string
+  black: string;
+  darkGreen: string;
+  lightBlue: string;
+  darkGreenLightTransparent: string;
+  darkGreenHeavyTransparent: string;
+  darkGrey: string;
+  green: string;
+  lightGrey: string;
+  red: string;
+  transparent: string;
+  yellow: string;
+  white: string;
 }
 
 interface ColorPallet {
-  brand: BrandColors
-  semantic: SemanticColors
-  notification: NotificationColors
-  grayscale: GrayscaleColors
-  baseColors: BaseScaleColors
+  brand: BrandColors;
+  semantic: SemanticColors;
+  notification: NotificationColors;
+  grayscale: GrayscaleColors;
+  baseColors: BaseScaleColors;
 }
 
-export const borderRadius = 4
-export const heavyOpacity = 0.7
-export const lightOpacity = 0.35
-export const zeroOpacity = 0.0
-export const borderWidth = 2
+export const borderRadius = 4;
+export const heavyOpacity = 0.7;
+export const lightOpacity = 0.35;
+export const zeroOpacity = 0.0;
+export const borderWidth = 2;
 
 const BrandColors: BrandColors = {
   primary: '#000094',
@@ -98,13 +98,13 @@ const BrandColors: BrandColors = {
   primaryBackground: '#000000',
   secondaryBackground: '#313132',
   link: '#D8292F',
-}
+};
 
 const SemanticColors: SemanticColors = {
   error: '#D8292F',
   success: '#2E8540',
   focus: '#3399ff',
-}
+};
 
 const NotificationColors: NotificationColors = {
   success: '#D2EBCA',
@@ -123,7 +123,7 @@ const NotificationColors: NotificationColors = {
   errorBorder: '#B25B59',
   errorIcon: '#B25B59',
   errorText: '#B25B59',
-}
+};
 
 const GrayscaleColors: GrayscaleColors = {
   black: '#000000',
@@ -132,7 +132,7 @@ const GrayscaleColors: GrayscaleColors = {
   lightGrey: '#d3d3d3',
   veryLightGrey: '#F2F2F2',
   white: '#FFFFFF',
-}
+};
 
 const BaseScaleColors: BaseScaleColors = {
   black: '#000000',
@@ -147,7 +147,7 @@ const BaseScaleColors: BaseScaleColors = {
   transparent: `rgba(0, 0, 0, ${zeroOpacity})`,
   yellow: '#FCBA19',
   white: '#FFFFFF',
-}
+};
 
 export const ColorPallet: ColorPallet = {
   brand: BrandColors,
@@ -155,17 +155,17 @@ export const ColorPallet: ColorPallet = {
   notification: NotificationColors,
   grayscale: GrayscaleColors,
   baseColors: BaseScaleColors,
-}
+};
 
 export const StatusColors: BaseColor = {
   error: ColorPallet.baseColors.red,
   info: ColorPallet.baseColors.black,
   success: ColorPallet.baseColors.green,
   warning: ColorPallet.baseColors.black,
-}
+};
 
 interface FontAttributes {
-  fontSize: number
+  fontSize: number;
   fontWeight:
     | 'normal'
     | 'bold'
@@ -177,32 +177,32 @@ interface FontAttributes {
     | '600'
     | '700'
     | '800'
-    | '900'
-  color: string
-  fontFamily: string
+    | '900';
+  color: string;
+  fontFamily: string;
 }
 
 interface TextTheme {
-  headingOne: FontAttributes
-  headingTwo: FontAttributes
-  headingThree: FontAttributes
-  headingFour: FontAttributes
-  normal: FontAttributes
-  label: FontAttributes
-  caption: FontAttributes
+  headingOne: FontAttributes;
+  headingTwo: FontAttributes;
+  headingThree: FontAttributes;
+  headingFour: FontAttributes;
+  normal: FontAttributes;
+  label: FontAttributes;
+  caption: FontAttributes;
 }
 
 interface TextBoxTheme {
-  background: string
-  border: string
-  text: string
+  background: string;
+  border: string;
+  text: string;
 }
 
 export const TextBoxTheme: TextBoxTheme = {
   background: ColorPallet.baseColors.darkGreenLightTransparent,
   border: ColorPallet.baseColors.green,
   text: ColorPallet.brand.primary,
-}
+};
 
 export const TextTheme: TextTheme = {
   headingOne: {
@@ -247,7 +247,7 @@ export const TextTheme: TextTheme = {
     color: ColorPallet.brand.primary,
     fontFamily: 'TitilliumWeb-Regular',
   },
-}
+};
 
 export const customTheme: Partial<Theme> = {
   brand_primary: BrandColors.primary,
@@ -262,20 +262,20 @@ export const customTheme: Partial<Theme> = {
 
   // input_font_size
   border_color_base: BaseScaleColors.black,
-}
+};
 
 interface ContactTheme {
-  background: string
+  background: string;
 }
 
 interface SingleSelectBlockTheme {
-  background: string
+  background: string;
 }
 
 export const ContactTheme: ContactTheme = {
   background: GrayscaleColors.veryLightGrey,
-}
+};
 
 export const SingleSelectBlockTheme: SingleSelectBlockTheme = {
   background: BaseScaleColors.lightBlue,
-}
+};

@@ -1,4 +1,6 @@
-const wordsList = {
+const wordsList: {
+  [key: string]: string;
+} = {
   11111: 'abacus',
   11112: 'abdomen',
   11113: 'abdominal',
@@ -7775,6 +7777,6 @@ const wordsList = {
   66664: 'zoologist',
   66665: 'zoology',
   66666: 'zoom',
-}
+};
 
-export default wordsList
+export default wordsList;
