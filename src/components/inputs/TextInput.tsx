@@ -1,52 +1,33 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TextInput as RNTextInput,
   TextInputProps,
-} from 'react-native'
+} from 'react-native';
 
-import { ColorPallet, TextTheme, borderRadius } from '../../theme/theme'
+import { ColorPallet, TextTheme, borderRadius } from '../../theme/theme';
 
 interface Props extends TextInputProps {
-  label: string
+  label: string;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 10,
-  },
-  label: {
-    ...TextTheme.label,
-    marginBottom: 3,
-  },
-  textInput: {
-    padding: 10,
-    borderRadius,
-    fontSize: 16,
-    backgroundColor: ColorPallet.grayscale.white,
-    color: ColorPallet.brand.primary,
-    borderWidth: 2,
-    borderColor: ColorPallet.brand.primary,
-  },
-})
-
 const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
-  const [focused, setFocused] = useState(false)
-  const ref = useRef<RNTextInput>(null)
+  const [focused, setFocused] = useState(false);
+  const ref = useRef<RNTextInput>(null);
 
   useEffect(() => {
     if (focused) {
       setTimeout(() => {
         if (ref.current) {
-          ref.current.focus()
+          ref.current.focus();
         }
-      }, 40)
+      }, 40);
     }
-  }, [focused])
+  }, [focused]);
 
-  const focusInput = () => setFocused(true)
+  const focusInput = () => setFocused(true);
 
   return (
     <View style={styles.container}>
@@ -65,7 +46,26 @@ const TextInput: React.FC<Props> = ({ label, ...textInputProps }) => {
         {...textInputProps}
       />
     </View>
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;
+
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 10,
+  },
+  label: {
+    ...TextTheme.label,
+    marginBottom: 3,
+  },
+  textInput: {
+    padding: 10,
+    borderRadius,
+    fontSize: 16,
+    backgroundColor: ColorPallet.grayscale.white,
+    color: ColorPallet.brand.primary,
+    borderWidth: 2,
+    borderColor: ColorPallet.brand.primary,
+  },
+});

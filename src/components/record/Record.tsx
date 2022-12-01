@@ -1,44 +1,28 @@
-import { CredentialPreviewAttributeOptions } from '@aries-framework/core'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { CredentialPreviewAttributeOptions } from '@aries-framework/core';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   FlatList,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native'
-import { TextTheme, ColorPallet } from '../../theme/theme'
+} from 'react-native';
+import { TextTheme, ColorPallet } from '../../theme/theme';
 
-import RecordAttribute from './RecordAttribute'
-import RecordFooter from './RecordFooter'
-import RecordHeader from './RecordHeader'
+import RecordAttribute from './RecordAttribute';
+import RecordFooter from './RecordFooter';
+import RecordHeader from './RecordHeader';
 
 interface RecordProps {
-  header: () => React.ReactElement | null
-  footer: () => React.ReactElement | null
-  attributes?: CredentialPreviewAttributeOptions[]
-  hideAttributeValues?: boolean
+  header: () => React.ReactElement | null;
+  footer: () => React.ReactElement | null;
+  attributes?: CredentialPreviewAttributeOptions[];
+  hideAttributeValues?: boolean;
   attribute?: (
     attribute: CredentialPreviewAttributeOptions,
-  ) => React.ReactElement | null
+  ) => React.ReactElement | null;
 }
-
-const styles = StyleSheet.create({
-  linkContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 25,
-    paddingVertical: 16,
-    background: ColorPallet.grayscale.white,
-  },
-  link: {
-    minHeight: TextTheme.normal.fontSize,
-    paddingVertical: 2,
-    color: ColorPallet.brand.link,
-    background: ColorPallet.grayscale.white,
-  },
-})
 
 const Record: React.FC<RecordProps> = ({
   header,
@@ -47,7 +31,7 @@ const Record: React.FC<RecordProps> = ({
   hideAttributeValues = false,
   attribute = null,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <FlatList
@@ -62,11 +46,9 @@ const Record: React.FC<RecordProps> = ({
                 style={styles.link}
                 activeOpacity={1}
                 accessible
-                accessibilityLabel={t('Record.HideAll')}
-              >
+                accessibilityLabel={t('Record.HideAll')}>
                 <Text
-                  style={[TextTheme.normal, { color: ColorPallet.brand.link }]}
-                >
+                  style={[TextTheme.normal, { color: ColorPallet.brand.link }]}>
                   {t('Record.HideAll')}
                 </Text>
               </TouchableOpacity>
@@ -85,7 +67,23 @@ const Record: React.FC<RecordProps> = ({
         )
       }
     />
-  )
-}
+  );
+};
 
-export default Record
+export default Record;
+
+const styles = StyleSheet.create({
+  linkContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 25,
+    paddingVertical: 16,
+    background: ColorPallet.grayscale.white,
+  },
+  link: {
+    minHeight: TextTheme.normal.fontSize,
+    paddingVertical: 2,
+    color: ColorPallet.brand.link,
+    background: ColorPallet.grayscale.white,
+  },
+});

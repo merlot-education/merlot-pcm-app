@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, ReactNode } from 'react';
 import {
   View,
   Text,
@@ -7,21 +7,22 @@ import {
   UIManager,
   Platform,
   TouchableOpacity,
-} from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
-import { ColorPallet, TextTheme } from '../../theme/theme'
+} from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { ColorPallet, TextTheme } from '../../theme/theme';
 
 if (Platform.OS === 'android') {
   if (UIManager.setLayoutAnimationEnabledExperimental) {
-    UIManager.setLayoutAnimationEnabledExperimental(true)
+    UIManager.setLayoutAnimationEnabledExperimental(true);
   }
 }
 
 interface AccordionProps {
-  title: string
-  innerAccordion: boolean
-  date?: Date
-  status?: string
+  title: string;
+  innerAccordion: boolean;
+  date?: Date;
+  status?: string;
+  children?: ReactNode;
 }
 
 const Accordion: React.FC<AccordionProps> = ({
@@ -31,26 +32,25 @@ const Accordion: React.FC<AccordionProps> = ({
   date = new Date(),
   status = '',
 }) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = () => {
-    setIsOpen(value => !value)
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-  }
+    setIsOpen(value => !value);
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  };
 
   const getFormattedDate = (date: Date) => {
     return [date.getDate(), date.getMonth() + 1, date.getFullYear()]
       .map(n => (n < 10 ? `0${n}` : `${n}`))
-      .join('-')
-  }
+      .join('-');
+  };
 
   return (
     <>
       <TouchableOpacity
         onPress={toggleOpen}
         style={styles.heading}
-        activeOpacity={0.6}
-      >
+        activeOpacity={0.6}>
         {!innerAccordion ? (
           <>
             <Text style={styles.sectionTitle}>{title}</Text>
@@ -72,8 +72,7 @@ const Accordion: React.FC<AccordionProps> = ({
               style={{
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
-              }}
-            >
+              }}>
               <View>
                 <Text style={styles.sectionTitle}>
                   {getFormattedDate(date)}
@@ -94,10 +93,10 @@ const Accordion: React.FC<AccordionProps> = ({
       </TouchableOpacity>
       <View style={[styles.list, !isOpen && styles.hidden]}>{children}</View>
     </>
-  )
-}
+  );
+};
 
-export default Accordion
+export default Accordion;
 
 const styles = StyleSheet.create({
   card: {
@@ -157,4 +156,4 @@ const styles = StyleSheet.create({
     ...TextTheme.caption,
     color: ColorPallet.baseColors.black,
   },
-})
+});

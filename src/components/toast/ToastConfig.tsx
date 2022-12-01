@@ -1,7 +1,7 @@
-import React from 'react'
-import { ToastShowParams } from 'react-native-toast-message'
+import React from 'react';
+import { ToastShowParams } from 'react-native-toast-message';
 
-import BaseToast, { ToastType } from './BaseToast'
+import BaseToast, { ToastType } from './BaseToast';
 
 const toastConfig = {
   success: (props: ToastShowParams) => (
@@ -32,6 +32,6 @@ const toastConfig = {
       toastType={ToastType.Info}
     />
   ),
-}
+};
 
-export default toastConfig
+export default toastConfig;

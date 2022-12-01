@@ -1,16 +1,38 @@
-import React from 'react'
-import { Image, StyleSheet, Text, View } from 'react-native'
-
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import Images from '../../assets'
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import Images from '../../assets';
 
 export interface TextBoxProps {
-  children: string | React.ReactNode
-  showIcon?: boolean
+  children?: React.ReactNode;
+  showIcon?: boolean;
 }
 
-const iconSize = 30
-const offset = 10
+const InfoTextBox: React.FC<TextBoxProps> = ({
+  children,
+  showIcon = false,
+}) => {
+  return (
+    <View style={styles.container}>
+      {showIcon && (
+        <View style={styles.icon}>
+          <Image source={Images.infoIcon} style={styles.infoIcon} />
+        </View>
+      )}
+      <Text
+        style={styles.headerText}
+        testID="InfoTextBox"
+        accessibilityLabel="InfoTextBox">
+        {children}
+      </Text>
+    </View>
+  );
+};
+
+export default InfoTextBox;
+
+const iconSize = 30;
+const offset = 10;
 
 const styles = StyleSheet.create({
   container: {
@@ -33,28 +55,4 @@ const styles = StyleSheet.create({
     width: iconSize,
     height: iconSize,
   },
-})
-
-const InfoTextBox: React.FC<TextBoxProps> = ({
-  children,
-  showIcon = false,
-}) => {
-  return (
-    <View style={styles.container}>
-      {showIcon && (
-        <View style={styles.icon}>
-          <Image source={Images.infoIcon} style={styles.infoIcon} />
-        </View>
-      )}
-      <Text
-        style={styles.headerText}
-        testID="InfoTextBox"
-        accessibilityLabel="InfoTextBox"
-      >
-        {children}
-      </Text>
-    </View>
-  )
-}
-
-export default InfoTextBox
+});

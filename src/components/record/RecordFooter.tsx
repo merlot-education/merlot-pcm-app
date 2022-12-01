@@ -1,6 +1,16 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { ColorPallet } from '../../theme/theme'
+import React, { ReactNode } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { ColorPallet } from '../../theme/theme';
+
+const RecordFooter: React.FC<{ children?: ReactNode }> = ({ children }) => {
+  return (
+    <View style={styles.container} testID="recordFooter">
+      {children}
+    </View>
+  );
+};
+
+export default RecordFooter;
 
 const styles = StyleSheet.create({
   container: {
@@ -9,14 +19,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 25,
     paddingVertical: 16,
   },
-})
-
-const RecordFooter: React.FC = ({ children }) => {
-  return (
-    <View style={styles.container} testID="recordFooter">
-      {children}
-    </View>
-  )
-}
-
-export default RecordFooter
+});

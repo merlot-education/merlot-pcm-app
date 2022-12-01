@@ -1,7 +1,7 @@
-import React from 'react'
-import { ViewStyle } from 'react-native'
+import React from 'react';
+import { ViewStyle } from 'react-native';
 
-import AntButton from '@ant-design/react-native/lib/button'
+import AntButton from '@ant-design/react-native/lib/button';
 
 export enum ButtonType {
   Primary = 'primary',
@@ -10,11 +10,11 @@ export enum ButtonType {
 }
 
 interface ButtonProps {
-  title: string
-  buttonType: ButtonType
-  onPress?: () => void
-  disabled?: boolean
-  buttonStyle?: ViewStyle
+  title: string;
+  buttonType: ButtonType;
+  onPress?: () => void;
+  disabled?: boolean;
+  buttonStyle?: ViewStyle;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -31,11 +31,10 @@ const Button: React.FC<ButtonProps> = ({
       type={buttonType}
       style={buttonStyle}
       disabled={disabled}
-      onPress={onPress}
-    >
+      onPress={onPress}>
       {title}
     </AntButton>
-  )
-}
+  );
+};
 
-export default Button
+export default Button;

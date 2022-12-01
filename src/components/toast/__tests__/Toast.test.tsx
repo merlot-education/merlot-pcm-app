@@ -1,6 +1,6 @@
-import React from 'react'
-import { render } from '@testing-library/react-native'
-import BaseToast, { ToastType } from '../BaseToast'
+import React from 'react';
+import { render } from '@testing-library/react-native';
+import BaseToast, { ToastType } from '../BaseToast';
 
 describe('Toast Component', () => {
   it('should render success toast correctly', () => {
@@ -10,9 +10,9 @@ describe('Toast Component', () => {
         toastType={ToastType.Success}
         body="Success Toast Message"
       />,
-    )
-    expect(getByLabelText('SuccessToastTitle')).toBeTruthy()
-  })
+    );
+    expect(getByLabelText('SuccessToastTitle')).toBeTruthy();
+  });
 
   it('should render info toast correctly', () => {
     const { getByLabelText } = render(
@@ -21,9 +21,9 @@ describe('Toast Component', () => {
         toastType={ToastType.Info}
         body="Info Toast Message"
       />,
-    )
-    expect(getByLabelText('InfoToastTitle')).toBeTruthy()
-  })
+    );
+    expect(getByLabelText('InfoToastTitle')).toBeTruthy();
+  });
 
   it('should render warn toast correctly', () => {
     const { getByLabelText } = render(
@@ -32,9 +32,9 @@ describe('Toast Component', () => {
         toastType={ToastType.Warn}
         body="Warn Toast Message"
       />,
-    )
-    expect(getByLabelText('WarnToastTitle')).toBeTruthy()
-  })
+    );
+    expect(getByLabelText('WarnToastTitle')).toBeTruthy();
+  });
 
   it('should render error toast correctly', () => {
     const { getByLabelText } = render(
@@ -43,7 +43,7 @@ describe('Toast Component', () => {
         toastType={ToastType.Error}
         body="Error Toast Message"
       />,
-    )
-    expect(getByLabelText('ErrorToastTitle')).toBeTruthy()
-  })
-})
+    );
+    expect(getByLabelText('ErrorToastTitle')).toBeTruthy();
+  });
+});

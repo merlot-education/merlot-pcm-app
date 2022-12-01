@@ -1,27 +1,32 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react';
 import DropDownPicker, {
   ItemType,
   ValueType,
-} from 'react-native-dropdown-picker'
-import Icon from 'react-native-vector-icons/AntDesign'
-import { TextTheme } from '../../theme/theme'
+} from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { TextTheme } from '../../theme/theme';
+
+interface Item {
+  value: string;
+  label: string;
+}
 
 interface Props {
-  items: { value: string; label: string }[]
-  onSelectItem: (item: ItemType) => void
+  items: Item[];
+  onSelectItem: (item: ItemType<ValueType>) => void;
 }
 
 const DropDown = ({ items, onSelectItem }: Props) => {
-  const [open, setOpen] = useState(false)
-  const [value, setValue] = useState<ValueType | null>(null)
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState<ValueType | null>(null);
 
   const updateValue = useCallback(() => {
-    setValue(items[0].value)
-  }, [items])
+    setValue(items[0].value);
+  }, [items]);
 
   useEffect(() => {
-    updateValue()
-  }, [updateValue])
+    updateValue();
+  }, [updateValue]);
 
   return (
     <DropDownPicker
@@ -45,7 +50,7 @@ const DropDown = ({ items, onSelectItem }: Props) => {
       items={items}
       onSelectItem={onSelectItem}
     />
-  )
-}
+  );
+};
 
-export default DropDown
+export default DropDown;

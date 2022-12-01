@@ -1,46 +1,13 @@
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import React from 'react'
-import { StyleSheet, View, Keyboard, Button, TextInput } from 'react-native'
-import { ColorPallet } from '../../theme/theme'
-// styles
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    width: '95%',
-  },
-  searchBar: {
-    marginLeft: 15,
-    marginRight: 15,
-    height: 50,
-    flexDirection: 'row',
-    width: '95%',
-    backgroundColor: ColorPallet.grayscale.veryLightGrey,
-    borderRadius: 10,
-  },
-  searchBarClicked: {
-    marginLeft: 15,
-    marginRight: 10,
-    height: 50,
-    flexDirection: 'row',
-    width: '70%',
-    backgroundColor: ColorPallet.grayscale.veryLightGrey,
-    borderRadius: 10,
-  },
-  input: {
-    fontSize: 18,
-    alignSelf: 'center',
-    width: '90%',
-  },
-  buttonStyle: {
-    alignSelf: 'center',
-  },
-})
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import React from 'react';
+import { StyleSheet, View, Keyboard, Button, TextInput } from 'react-native';
+import { ColorPallet } from '../../theme/theme';
 
 interface Props {
-  clicked: boolean
-  searchPhrase: string
-  setSearchPhrase: (text: string) => void
-  setClicked: (value: boolean) => void
+  clicked: boolean;
+  searchPhrase: string;
+  setSearchPhrase: (text: string) => void;
+  setClicked: (value: boolean) => void;
 }
 
 const SearchBar: React.FC<Props> = ({
@@ -72,7 +39,7 @@ const SearchBar: React.FC<Props> = ({
           value={searchPhrase}
           onChangeText={setSearchPhrase}
           onFocus={() => {
-            setClicked(true)
+            setClicked(true);
           }}
         />
       </View>
@@ -83,14 +50,48 @@ const SearchBar: React.FC<Props> = ({
             title="Cancel"
             color={ColorPallet.brand.secondary}
             onPress={() => {
-              Keyboard.dismiss()
-              setClicked(false)
-              setSearchPhrase('')
+              Keyboard.dismiss();
+              setClicked(false);
+              setSearchPhrase('');
             }}
           />
         </View>
       )}
     </View>
-  )
-}
-export default SearchBar
+  );
+};
+
+export default SearchBar;
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    width: '95%',
+  },
+  searchBar: {
+    marginLeft: 15,
+    marginRight: 15,
+    height: 50,
+    flexDirection: 'row',
+    width: '95%',
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    borderRadius: 10,
+  },
+  searchBarClicked: {
+    marginLeft: 15,
+    marginRight: 10,
+    height: 50,
+    flexDirection: 'row',
+    width: '70%',
+    backgroundColor: ColorPallet.grayscale.veryLightGrey,
+    borderRadius: 10,
+  },
+  input: {
+    fontSize: 18,
+    alignSelf: 'center',
+    width: '90%',
+  },
+  buttonStyle: {
+    alignSelf: 'center',
+  },
+});
