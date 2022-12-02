@@ -34,20 +34,6 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		FE5B187C27BB9E9800E39BA4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				FE5B187B27BB9E9800E39BA4 /* Indy.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* PersonalCredentialManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PersonalCredentialManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -258,7 +244,6 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				FE5B187C27BB9E9800E39BA4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -316,7 +301,6 @@
 				7BA9C4503A9B4E6D8132A42C /* antoutline.ttf in Resources */,
 				BD211E3DFD554642A53882D4 /* TitilliumWeb-Light.ttf in Resources */,
 				45C868E35EB249A298F128C4 /* TitilliumWeb-Regular.ttf in Resources */,
-				FA655BD9293A9D5A00225D9F /* PersonalCredentialManager.app in Resources */,
 				7D1BB02F91E54B0297C6C67D /* TitilliumWeb-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
