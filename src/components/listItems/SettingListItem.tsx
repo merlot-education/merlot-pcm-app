@@ -14,7 +14,8 @@ const SettingListItem: React.FC<Props> = ({ title, onPress }) => {
     <TouchableOpacity
       testID="setting-list-item"
       style={styles.container}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       <Text style={styles.bodyText}>{title}</Text>
       <Icon name="chevron-right" size={25} color={ColorPallet.brand.primary} />
     </TouchableOpacity>

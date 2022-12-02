@@ -71,15 +71,14 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             style={[
               TextTheme.headingTwo,
               { marginTop: offset, marginBottom: 35 },
-            ]}>
+            ]}
+          >
             {t('Home.Welcome')}
           </Text>
         ) : null}
         <Text
-          style={[
-            TextTheme.normal,
-            { marginTop: offset, textAlign: 'center' },
-          ]}>
+          style={[TextTheme.normal, { marginTop: offset, textAlign: 'center' }]}
+        >
           {credentialMsg}
         </Text>
       </View>
@@ -97,7 +96,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
           <TouchableOpacity
             style={styles.linkContainer}
             activeOpacity={1}
-            onPress={() => navigation.navigate(Screens.Notifications)}>
+            onPress={() => navigation.navigate(Screens.Notifications)}
+          >
             <Text style={styles.link}>{t('Home.SeeAll')}</Text>
           </TouchableOpacity>
         ) : null}
@@ -127,7 +127,8 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
               marginLeft: !index ? offset : offsetPadding,
               marginRight:
                 index === notifications.length - 1 ? offset : offsetPadding,
-            }}>
+            }}
+          >
             {item.type === 'CredentialRecord' ? (
               <NotificationListItem
                 key={item.id}

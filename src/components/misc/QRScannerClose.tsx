@@ -13,7 +13,8 @@ const CloseButton: React.FC<Props> = ({ onPress }) => {
       <TouchableOpacity
         testID="closeButton"
         style={styles.button}
-        onPress={onPress}>
+        onPress={onPress}
+      >
         <Icon name="close" size={24} color={ColorPallet.baseColors.white} />
       </TouchableOpacity>
     </View>

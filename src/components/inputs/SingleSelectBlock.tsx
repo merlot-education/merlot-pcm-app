@@ -38,7 +38,8 @@ const SingleSelectBlock: React.FC<Props> = ({
         <TouchableOpacity
           key={item.id}
           style={styles.row}
-          onPress={() => handleSelect(item)}>
+          onPress={() => handleSelect(item)}
+        >
           <Text>{item.value}</Text>
           {item.id === selected.id ? (
             <Icon name="check" size={25} color={ColorPallet.brand.primary} />

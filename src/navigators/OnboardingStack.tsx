@@ -41,7 +41,8 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       screenOptions={{
         ...defaultStackOptions,
         headerShown: false,
-      }}>
+      }}
+    >
       <Stack.Screen name={Screens.Splash} component={Splash} />
       <Stack.Screen
         name={Screens.Onboarding}

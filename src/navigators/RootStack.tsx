@@ -105,7 +105,8 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     <UserInactivity
       isActive={active}
       timeForInactivity={300000}
-      onAction={isActive => setActive(isActive)}>
+      onAction={isActive => setActive(isActive)}
+    >
       <MainStackContext.Provider value={mainStackProviderValue}>
         <MainStack />
       </MainStackContext.Provider>

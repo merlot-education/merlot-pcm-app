@@ -215,7 +215,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         visible={pendingModalVisible}
         onDone={() => {
           setPendingModalVisible(false);
-        }}>
+        }}
+      >
         <CredentialPending style={{ marginVertical: 20 }} />
       </FlowDetailModal>
       <FlowDetailModal
@@ -227,7 +228,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
           navigation.getParent()?.navigate(TabStacks.CredentialStack, {
             screen: Screens.Credentials,
           });
-        }}>
+        }}
+      >
         <CredentialSuccess style={{ marginVertical: 20 }} />
       </FlowDetailModal>
       <FlowDetailModal
@@ -237,7 +239,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
           setDeclinedModalVisible(false);
           navigation.pop();
           navigation.navigate(Screens.Home);
-        }}>
+        }}
+      >
         <CredentialDeclined style={{ marginVertical: 20 }} />
       </FlowDetailModal>
     </>

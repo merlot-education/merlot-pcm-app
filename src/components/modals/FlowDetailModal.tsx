@@ -57,7 +57,8 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
             <TouchableOpacity
               style={styles.iconButton}
               onPress={onHome || closeHome}
-              testID="closeModal">
+              testID="closeModal"
+            >
               <Icon
                 name="home"
                 size={24}
@@ -71,7 +72,8 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
             style={[
               TextTheme.headingThree,
               { fontWeight: 'normal', textAlign: 'center' },
-            ]}>
+            ]}
+          >
             {title}
           </Text>
           {children}

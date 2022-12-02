@@ -28,11 +28,8 @@ const ProofRequestAttribute: React.FC<Props> = ({
           ))}
           {item.credentials.length <= 1 ? (
             <Text
-              style={[
-                TextTheme.label,
-                styles.credentialName,
-                { marginTop: 8 },
-              ]}>
+              style={[TextTheme.label, styles.credentialName, { marginTop: 8 }]}
+            >
               {item.credentials[0].label}
             </Text>
           ) : (

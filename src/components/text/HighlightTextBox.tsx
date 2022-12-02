@@ -16,7 +16,8 @@ const HighlightTextBox: React.FC<TextBoxProps> = ({ children }) => {
           { paddingTop: offset, paddingBottom: offset },
         ]}
         testID="HighlightTextBox"
-        accessibilityLabel="HighlightTextBox">
+        accessibilityLabel="HighlightTextBox"
+      >
         {children}
       </Text>
     </View>

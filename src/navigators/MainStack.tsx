@@ -13,7 +13,8 @@ const Stack = createStackNavigator();
 const MainStack: React.FC = () => {
   return (
     <Stack.Navigator
-      screenOptions={{ ...defaultStackOptions, headerShown: false }}>
+      screenOptions={{ ...defaultStackOptions, headerShown: false }}
+    >
       <Stack.Screen name={Stacks.TabStack} component={TabStack} />
       <Stack.Screen name={Screens.Home} component={Home} />
       <Stack.Screen name={Screens.Scan} options={{ presentation: 'modal' }}>

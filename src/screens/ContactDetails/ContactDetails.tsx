@@ -142,13 +142,15 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
       {!connection?.theirLabel?.toUpperCase().includes('MEDIATOR') && (
         <TouchableOpacity
           testID="delete-contact"
-          onPress={showDeleteConnectionAlert}>
+          onPress={showDeleteConnectionAlert}
+        >
           <Text
             style={[
               styles.footerText,
               styles.link,
               { color: ColorPallet.semantic.error },
-            ]}>
+            ]}
+          >
             {t('ContactDetails.DeleteConnection')}
           </Text>
         </TouchableOpacity>
@@ -164,7 +166,8 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
               date={new Date(item.timestamp)}
               status={item.status}
               innerAccordion
-              key={item.timestamp.toString()}>
+              key={item.timestamp.toString()}
+            >
               {Object.entries(item.attributes).map(([key, value]) => {
                 return (
                   <View style={styles.attributeContainer}>

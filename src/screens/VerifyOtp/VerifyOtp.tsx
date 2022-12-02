@@ -127,7 +127,8 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
           {resendButtonDisabledTime === 0 && (
             <Text
               style={[style.bodyText, style.verticalSpacer]}
-              onPress={onResendOtpButtonPress}>
+              onPress={onResendOtpButtonPress}
+            >
               {t('Registration.ResendOtp')}
             </Text>
           )}

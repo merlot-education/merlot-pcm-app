@@ -42,7 +42,8 @@ const CameraViewContainer: React.FC<{
       style={{
         flexDirection: portrait ? 'column' : 'row',
         alignItems: 'center',
-      }}>
+      }}
+    >
       {children}
     </View>
   );
@@ -71,7 +72,8 @@ const QRScanner: React.FC<Props> = ({
     <Pressable
       onPress={() => Keyboard.dismiss()}
       style={styles.container}
-      testID="QRScannerTest">
+      testID="QRScannerTest"
+    >
       {/*<RNCamera*/}
       {/*  style={styles.container}*/}
       {/*  type={RNCamera.Constants.Type.back}*/}
@@ -136,12 +138,14 @@ const QRScanner: React.FC<Props> = ({
                 ? -keyboardHeight - 80
                 : -80,
           },
-        ]}>
+        ]}
+      >
         <KeyboardAvoidingView
           behavior="padding"
           keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
           enabled={Platform.OS === 'ios'}
-          style={styles.rowTextInputView}>
+          style={styles.rowTextInputView}
+        >
           <TextInput
             style={styles.textInputStyle}
             placeholder="url"
@@ -151,7 +155,8 @@ const QRScanner: React.FC<Props> = ({
           />
           <TouchableOpacity
             onPress={textInputSubmit}
-            style={styles.submitIconStyle}>
+            style={styles.submitIconStyle}
+          >
             <AntDesign
               name="right"
               color={ColorPallet.baseColors.black}

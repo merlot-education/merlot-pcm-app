@@ -37,7 +37,8 @@ const InfoCard: React.FC<TextBoxProps> = ({
         <Text
           style={mnemonicText ? styles.mnemonicText : styles.headerText}
           testID="InfoCard"
-          accessibilityLabel="InfoCard">
+          accessibilityLabel="InfoCard"
+        >
           {children}
         </Text>
       )}

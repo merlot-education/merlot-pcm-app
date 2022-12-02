@@ -67,7 +67,8 @@ const ListCredentials: React.FC = () => {
               marginTop: 15,
               marginBottom: index === filteredData.length - 1 ? 45 : 0,
             }}
-            key={index.toString()}>
+            key={index.toString()}
+          >
             <CredentialListItem key={index.toString()} credential={item} />
           </View>
         )}

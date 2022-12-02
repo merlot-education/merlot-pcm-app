@@ -104,7 +104,8 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
                   title={item.connectionLabel}
                   date={new Date(item.timestamp)}
                   status={item.status}
-                  innerAccordion>
+                  innerAccordion
+                >
                   {Object.entries(item.attributes).map(([key, value]) => {
                     return (
                       <View style={styles.innerContainer}>

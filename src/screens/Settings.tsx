@@ -50,9 +50,8 @@ const Settings: React.FC<SettingsProps> = ({
         <View style={styles.row}>
           <Text style={styles.bodyText}>{t('Settings.Version')}</Text>
           <Text
-            style={
-              styles.bodyText
-            }>{`${getVersion()}.${getBuildNumber()}`}</Text>
+            style={styles.bodyText}
+          >{`${getVersion()}.${getBuildNumber()}`}</Text>
         </View>
       </View>
     </View>

@@ -30,7 +30,8 @@ const Loader: React.FC<Props> = ({ loading }) => {
       visible={loading}
       transparent
       style={styles.container}
-      testID="loader">
+      testID="loader"
+    >
       <Animated.View style={styles.activityIndicatorWrapper}>
         <Animated.Image
           style={{

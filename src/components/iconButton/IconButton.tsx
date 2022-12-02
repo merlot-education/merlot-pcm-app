@@ -18,7 +18,8 @@ const IconButton: React.FC<IconButtonProps> = ({
     <TouchableOpacity
       testID="IconButton"
       onPress={isDisabled ? undefined : onPress}
-      style={isDisabled ? styles.disabledIconContainer : styles.iconContainer}>
+      style={isDisabled ? styles.disabledIconContainer : styles.iconContainer}
+    >
       {isRight ? (
         <View>
           <Icon

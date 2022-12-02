@@ -491,7 +491,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                   color: ColorPallet.notification.errorText,
                   marginVertical: 10,
                 },
-              ]}>
+              ]}
+            >
               {t('ProofRequest.MissingInformation.Title')}
             </Text>
             <InfoTextBox>
@@ -515,7 +516,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               style={TextTheme.normal}
               accessibilityLabel={t('ProofRequest.Title', {
                 connection: connection?.theirLabel ?? 'Verifier',
-              })}>
+              })}
+            >
               <Trans
                 i18nKey="ProofRequest.Title"
                 values={{
@@ -571,7 +573,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           <FlowDetailModal
             title={t('ProofRequest.SendingTheInformationSecurely')}
             visible={pendingModalVisible}
-            doneHidden>
+            doneHidden
+          >
             <ProofPending style={{ marginVertical: 20 }} />
           </FlowDetailModal>
         )}
@@ -586,7 +589,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               navigation
                 .getParent()
                 ?.navigate(Stacks.TabStack, { screen: Screens.Home });
-            }}>
+            }}
+          >
             <ProofSuccess style={{ marginVertical: 20 }} />
           </FlowDetailModal>
         )}
@@ -600,7 +604,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               navigation
                 .getParent()
                 ?.navigate(Stacks.TabStack, { screen: Screens.Home });
-            }}>
+            }}
+          >
             <ProofDeclined style={{ marginVertical: 20 }} />
           </FlowDetailModal>
         )}

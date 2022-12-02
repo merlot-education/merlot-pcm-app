@@ -27,7 +27,8 @@ const CheckBoxRow: React.FC<Props> = ({
         testID="checkBoxRow"
         accessible={accessible}
         accessibilityLabel={accessibilityLabel}
-        onPress={onPress}>
+        onPress={onPress}
+      >
         {checked ? (
           <Image source={Images.termsAcceptedIcon} style={styles.bottomIcon} />
         ) : (

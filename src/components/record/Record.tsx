@@ -46,9 +46,11 @@ const Record: React.FC<RecordProps> = ({
                 style={styles.link}
                 activeOpacity={1}
                 accessible
-                accessibilityLabel={t('Record.HideAll')}>
+                accessibilityLabel={t('Record.HideAll')}
+              >
                 <Text
-                  style={[TextTheme.normal, { color: ColorPallet.brand.link }]}>
+                  style={[TextTheme.normal, { color: ColorPallet.brand.link }]}
+                >
                   {t('Record.HideAll')}
                 </Text>
               </TouchableOpacity>

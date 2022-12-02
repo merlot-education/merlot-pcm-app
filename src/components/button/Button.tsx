@@ -31,7 +31,8 @@ const Button: React.FC<ButtonProps> = ({
       type={buttonType}
       style={buttonStyle}
       disabled={disabled}
-      onPress={onPress}>
+      onPress={onPress}
+    >
       {title}
     </AntButton>
   );

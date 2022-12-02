@@ -23,7 +23,8 @@ const CredentialListItem: React.FC<CredentialListItemProps> = ({
         navigation.navigate(Screens.CredentialDetails, {
           credentialId: credential.id,
         })
-      }>
+      }
+    >
       <CredentialCard credential={credential} />
     </Pressable>
   );

@@ -35,7 +35,8 @@ const TabBarIcon = ({ imageName, focused }: TabBarIconProps) => {
               borderColor: ColorPallet.grayscale.white,
             }
           : {},
-      ]}>
+      ]}
+    >
       <Image
         source={imageName}
         style={!focused ? styles.tabBarIcon : styles.tabBarIcon}
@@ -54,7 +55,8 @@ const TabBarLabel = ({ label }: TabBarLabelProps) => {
         paddingBottom: 5,
         color: ColorPallet.grayscale.white,
       }}
-      numberOfLines={1}>
+      numberOfLines={1}
+    >
       {label}
     </Text>
   );
@@ -87,7 +89,8 @@ const TabStack: React.FC = ({ navigation }) => {
 
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: ColorPallet.brand.primary }}>
+      style={{ flex: 1, backgroundColor: ColorPallet.brand.primary }}
+    >
       <MainTabNavigator.Navigator
         screenOptions={{
           tabBarStyle: styles.tabBarStyle,
@@ -98,7 +101,8 @@ const TabStack: React.FC = ({ navigation }) => {
           unmountOnBlur: true,
           tabBarShowLabel: true,
           tabBarLabelPosition: 'below-icon',
-        }}>
+        }}
+      >
         <MainTabNavigator.Screen
           name={TabStacks.HomeStack}
           component={HomeStack}
@@ -146,7 +150,8 @@ const TabStack: React.FC = ({ navigation }) => {
               e.preventDefault();
               navigation.navigate(Screens.Scan);
             },
-          })}>
+          })}
+        >
           {/* Just a placeholder, the the tab will navigate to a different stack */}
           {() => <View />}
         </MainTabNavigator.Screen>

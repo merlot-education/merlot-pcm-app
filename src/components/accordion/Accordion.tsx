@@ -50,7 +50,8 @@ const Accordion: React.FC<AccordionProps> = ({
       <TouchableOpacity
         onPress={toggleOpen}
         style={styles.heading}
-        activeOpacity={0.6}>
+        activeOpacity={0.6}
+      >
         {!innerAccordion ? (
           <>
             <Text style={styles.sectionTitle}>{title}</Text>
@@ -72,7 +73,8 @@ const Accordion: React.FC<AccordionProps> = ({
               style={{
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
-              }}>
+              }}
+            >
               <View>
                 <Text style={styles.sectionTitle}>
                   {getFormattedDate(date)}

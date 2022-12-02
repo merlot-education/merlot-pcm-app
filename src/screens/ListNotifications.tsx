@@ -16,7 +16,8 @@ const ListNotifications: React.FC = () => {
             marginHorizontal: 15,
             marginTop: 15,
             marginBottom: index === notifications.length - 1 ? 45 : 0,
-          }}>
+          }}
+        >
           {item.type === 'CredentialRecord' ? (
             <NotificationListItem
               notificationType={NotificationType.CredentialOffer}

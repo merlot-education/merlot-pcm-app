@@ -14,7 +14,8 @@ const HomeStack: React.FC = () => {
     <Stack.Navigator
       screenOptions={{
         ...defaultStackOptions,
-      }}>
+      }}
+    >
       <Stack.Screen name={Screens.Home} component={Home} />
       <Stack.Screen
         name={Screens.Notifications}
