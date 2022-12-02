@@ -56,11 +56,9 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     }
   };
 
-  const handleCodeScan = async (event: any) => {
-    // TODO change any to correct value
+  const handleCodeScan = async (url: string) => {
     setQrCodeScanError(null);
     try {
-      const url = event.data;
       if (isRedirection(url)) {
         await handleRedirection(url, agent);
       } else if (url.includes('?c_i') || url.includes('?d_m')) {
@@ -80,7 +78,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         throw new Error('QRScanner.NotAValidURL');
       }
     } catch (e: unknown) {
-      const error = new QrCodeScanError('QRScanner.InvalidQrCode', event.data);
+      const error = new QrCodeScanError('QRScanner.InvalidQrCode', url);
       setQrCodeScanError(error);
     }
   };

@@ -1,4 +1,4 @@
-import React, { useState, ReactNode } from 'react';
+import React, { useState, ReactNode, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/core';
 import { useTranslation } from 'react-i18next';
 import {
@@ -17,6 +17,8 @@ import {
 } from 'react-native';
 // import { BarCodeReadEvent, RNCamera } from 'react-native-camera';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { Camera, useCameraDevices } from 'react-native-vision-camera';
+import { useScanBarcodes, BarcodeFormat } from 'vision-camera-code-scanner';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import QRScannerClose from '../misc/QRScannerClose';
 import QRScannerTorch from '../misc/QRScannerTorch';
@@ -25,7 +27,7 @@ import { ColorPallet } from '../../theme/theme';
 import useKeyboard from '../../utils/keyboard';
 
 interface Props {
-  handleCodeScan: (event: /*BarCodeReadEvent*/ any) => Promise<void>;
+  handleCodeScan: (data: string) => Promise<void>;
   textInputSubmit?: () => void;
   error?: QrCodeScanError | null;
   enableCameraOnError?: boolean;
@@ -40,8 +42,8 @@ const CameraViewContainer: React.FC<{
   return (
     <View
       style={{
+        ...styles.cameraViewContainer,
         flexDirection: portrait ? 'column' : 'row',
-        alignItems: 'center',
       }}
     >
       {children}
@@ -60,13 +62,62 @@ const QRScanner: React.FC<Props> = ({
   const navigation = useNavigation();
   const [cameraActive, setCameraActive] = useState(true);
   const [torchActive, setTorchActive] = useState(false);
+  const [invalidQrCodes] = useState(() => new Set<string>());
 
   const { keyboardHeight, isKeyBoardOpen } = useKeyboard();
 
   const { width, height } = useWindowDimensions();
   const portraitMode = height > width;
   const { t } = useTranslation();
-  const invalidQrCodes = new Set<string>();
+
+  const [hasPermission, setHasPermission] = React.useState(false);
+  const devices = useCameraDevices();
+  const device = devices.back;
+
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+    checkInverted: true,
+  });
+
+  React.useEffect(() => {
+    (async () => {
+      const status = await Camera.requestCameraPermission();
+      setHasPermission(status === 'authorized');
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (barcodes.length === 0 || !barcodes[0].rawValue) {
+      return;
+    }
+
+    const data = barcodes[0].rawValue;
+
+    if (invalidQrCodes.has(data)) {
+      return;
+    }
+    if (error?.data === data) {
+      invalidQrCodes.add(error.data);
+      if (enableCameraOnError) {
+        setCameraActive(true);
+      }
+    }
+    if (cameraActive) {
+      Vibration.vibrate();
+      handleCodeScan(data);
+      setCameraActive(false);
+    }
+  }, [
+    invalidQrCodes,
+    barcodes,
+    enableCameraOnError,
+    cameraActive,
+    error,
+    handleCodeScan,
+  ]);
+
+  if (!hasPermission || device == null) {
+    return null;
+  }
 
   return (
     <Pressable
@@ -74,61 +125,44 @@ const QRScanner: React.FC<Props> = ({
       style={styles.container}
       testID="QRScannerTest"
     >
-      {/*<RNCamera*/}
-      {/*  style={styles.container}*/}
-      {/*  type={RNCamera.Constants.Type.back}*/}
-      {/*  flashMode={*/}
-      {/*    torchActive*/}
-      {/*      ? RNCamera.Constants.FlashMode.torch*/}
-      {/*      : RNCamera.Constants.FlashMode.off*/}
-      {/*  }*/}
-      {/*  captureAudio={false}*/}
-      {/*  androidCameraPermissionOptions={{*/}
-      {/*    title: t('QRScanner.PermissionToUseCamera'),*/}
-      {/*    message: t('QRScanner.PermissionMessage'),*/}
-      {/*    buttonPositive: t('Global.Okay'),*/}
-      {/*    buttonNegative: t('Global.Cancel'),*/}
-      {/*  }}*/}
-      {/*  barCodeTypes={[RNCamera.Constants.BarCodeType.qr]}*/}
-      {/*  onBarCodeRead={(event: BarCodeReadEvent) => {*/}
-      {/*    if (invalidQrCodes.has(event.data)) {*/}
-      {/*      return;*/}
-      {/*    }*/}
-      {/*    if (error?.data === event?.data) {*/}
-      {/*      invalidQrCodes.add(error.data);*/}
-      {/*      if (enableCameraOnError) {*/}
-      {/*        setCameraActive(true);*/}
-      {/*      }*/}
-      {/*    }*/}
-      {/*    if (cameraActive) {*/}
-      {/*      Vibration.vibrate();*/}
-      {/*      handleCodeScan(event);*/}
-      {/*      setCameraActive(false);*/}
-      {/*    }*/}
-      {/*  }}>*/}
-      {/*  <CameraViewContainer portrait={portraitMode}>*/}
-      {/*    <View style={styles.actionsView}>*/}
-      {/*      <QRScannerTorch*/}
-      {/*        active={torchActive}*/}
-      {/*        onPress={() => setTorchActive(!torchActive)}*/}
-      {/*      />*/}
-      {/*      <QRScannerClose onPress={() => navigation.goBack()} />*/}
-      {/*    </View>*/}
-      {/*    <View style={styles.scanTextView}>*/}
-      {/*      <Text style={styles.scanText}>{t('QRScanner.ScanMessage')}</Text>*/}
-      {/*      <Text style={styles.scanText}>{t('QRScanner.VerifyMessage')}</Text>*/}
-      {/*    </View>*/}
-      {/*    {error && (*/}
-      {/*      <View style={styles.errorContainer}>*/}
-      {/*        <Icon style={styles.icon} name="cancel" size={30} />*/}
-      {/*        <Text>{error.message}</Text>*/}
-      {/*      </View>*/}
-      {/*    )}*/}
-      {/*    <View style={styles.viewFinderContainer}>*/}
-      {/*      <View style={styles.viewFinder} />*/}
-      {/*    </View>*/}
-      {/*  </CameraViewContainer>*/}
-      {/*</RNCamera>*/}
+      <Camera
+        style={styles.container}
+        device={device}
+        isActive={true}
+        frameProcessor={frameProcessor}
+        frameProcessorFps={5}
+        torch={torchActive ? 'on' : 'off'}
+        audio={false}
+        // TODO
+        // androidCameraPermissionOptions={{
+        //   title: t('QRScanner.PermissionToUseCamera'),
+        //   message: t('QRScanner.PermissionMessage'),
+        //   buttonPositive: t('Global.Okay'),
+        //   buttonNegative: t('Global.Cancel'),
+        // }}
+      />
+      <CameraViewContainer portrait={portraitMode}>
+        <View style={styles.actionsView}>
+          <QRScannerTorch
+            active={torchActive}
+            onPress={() => setTorchActive(!torchActive)}
+          />
+          <QRScannerClose onPress={() => navigation.goBack()} />
+        </View>
+        <View style={styles.scanTextView}>
+          <Text style={styles.scanText}>{t('QRScanner.ScanMessage')}</Text>
+          <Text style={styles.scanText}>{t('QRScanner.VerifyMessage')}</Text>
+        </View>
+        {error && (
+          <View style={styles.errorContainer}>
+            <Icon style={styles.icon} name="cancel" size={30} />
+            <Text>{error.message}</Text>
+          </View>
+        )}
+        <View style={styles.viewFinderContainer}>
+          <View style={styles.viewFinder} />
+        </View>
+      </CameraViewContainer>
       <View
         style={[
           styles.bottomView,
@@ -175,11 +209,19 @@ const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
     width: '100%',
-    backgroundColor: ColorPallet.baseColors.black,
+    height: '100%',
+    // backgroundColor: ColorPallet.baseColors.black,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  cameraViewContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
   },
   viewFinder: {
     width: 250,
