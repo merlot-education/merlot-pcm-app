@@ -19,9 +19,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B89EBF06EC1149C6A7A0B91E /* antfill.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E329655F7F8247C4AA1220C1 /* antfill.ttf */; };
 		BD211E3DFD554642A53882D4 /* TitilliumWeb-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDFADC7BA94A49E8BD7C41B7 /* TitilliumWeb-Light.ttf */; };
-		FA655BD9293A9D5A00225D9F /* PersonalCredentialManager.app in Resources */ = {isa = PBXBuildFile; fileRef = 13B07F961A680F5B00A75B9A /* PersonalCredentialManager.app */; };
 		FE5B187A27BB9E9700E39BA4 /* Indy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B187927BB9E9700E39BA4 /* Indy.framework */; platformFilter = ios; };
-		FE5B187B27BB9E9800E39BA4 /* Indy.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FE5B187927BB9E9700E39BA4 /* Indy.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -491,13 +489,15 @@
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8UD6K7Y37V;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PersonalCredentialManagerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,6 +510,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PersonalCredentialManager.app/PersonalCredentialManager";
 			};
 			name = Debug;
@@ -519,10 +520,12 @@
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 8UD6K7Y37V;
 				INFOPLIST_FILE = PersonalCredentialManagerTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -535,6 +538,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PersonalCredentialManager.app/PersonalCredentialManager";
 			};
 			name = Release;
@@ -555,7 +559,7 @@
 					"$(PROJECT_DIR)/Pods/Frameworks",
 				);
 				INFOPLIST_FILE = PersonalCredentialManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -568,6 +572,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
 				PRODUCT_NAME = PersonalCredentialManager;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -590,7 +595,7 @@
 					"$(PROJECT_DIR)/Pods/Frameworks",
 				);
 				INFOPLIST_FILE = PersonalCredentialManager/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -603,6 +608,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
 				PRODUCT_NAME = PersonalCredentialManager;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -642,7 +648,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -658,7 +664,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -715,7 +721,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 i386";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = i386;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -724,7 +730,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
