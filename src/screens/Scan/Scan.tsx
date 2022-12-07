@@ -34,7 +34,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const handleRedirection = async (
     url: string,
     agent?: Agent,
-  ): Promise<void> => {
+  ): Promise<{ url?: string, message?: object }> => {
     try {
       const res = await fetch(url, {
         method: 'GET',
@@ -45,37 +45,48 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
       });
       if (res.url) {
         const [url] = res.url.split('%');
-        navigation.navigate(Screens.ConnectionInvitation, { url });
+        return { url };
       } else {
         const message = await res.json();
-        await agent?.receiveMessage(message);
-        navigation.navigate(TabStacks.HomeStack);
+        return { message };
       }
     } catch (error) {
       errorToast(error);
+      throw error;
     }
   };
 
   const handleCodeScan = async (url: string) => {
     setQrCodeScanError(null);
     try {
+      let receivedMessage;
       if (isRedirection(url)) {
-        await handleRedirection(url, agent);
-      } else if (url.includes('?c_i') || url.includes('?d_m')) {
+        const { url: redirectedUrl, message } = await handleRedirection(url, agent);
+        url = redirectedUrl || url;
+        receivedMessage = message;
+      }
+
+      if (!(url.includes('?c_i') || url.includes('?d_m') || receivedMessage)) {
+        throw new Error('QRScanner.NotAValidURL');
+      }
+
+      let message;
+      if (receivedMessage) {
+        message = receivedMessage
+      } else {
         const [, urlData] = url.includes('?c_i')
           ? url.split('?c_i=')
           : url.split('?d_m=');
-        const message = JSON.parse(
+        message = JSON.parse(
           Buffer.from(urlData.trim(), 'base64').toString(),
         );
-        if (message['~service']) {
-          await agent?.receiveMessage(message);
-          navigation.navigate(TabStacks.HomeStack);
-        } else {
-          navigation.navigate(Screens.ConnectionInvitation, { url });
-        }
+      }
+
+      if (message['~service']) {
+        await agent?.receiveMessage(message);
+        navigation.navigate(TabStacks.HomeStack);
       } else {
-        throw new Error('QRScanner.NotAValidURL');
+        navigation.navigate(Screens.ConnectionInvitation, { url });
       }
     } catch (e: unknown) {
       const error = new QrCodeScanError('QRScanner.InvalidQrCode', url);
