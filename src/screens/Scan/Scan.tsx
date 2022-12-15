@@ -33,7 +33,6 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
   const handleRedirection = async (
     url: string,
-    agent?: Agent,
   ): Promise<{ url?: string; message?: object }> => {
     try {
       const res = await fetch(url, {
@@ -56,15 +55,18 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     }
   };
 
-  const handleCodeScan = async (url: string) => {
+  const processUrl = async (url: string) => {
     setQrCodeScanError(null);
+
+    if (url == '') {
+      // TODO No translation
+      return warningToast(t('QRScanner.NotBlankURL'));
+    }
+
     try {
       let receivedMessage;
       if (isRedirection(url)) {
-        const { url: redirectedUrl, message } = await handleRedirection(
-          url,
-          agent,
-        );
+        const { url: redirectedUrl, message } = await handleRedirection(url);
         url = redirectedUrl || url;
         receivedMessage = message;
       }
@@ -77,9 +79,14 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
       if (receivedMessage) {
         message = receivedMessage;
       } else {
-        const [, urlData] = url.includes('?c_i')
+        const [, value] = url.includes('?c_i')
           ? url.split('?c_i=')
           : url.split('?d_m=');
+        const ampIndex = value.indexOf('&');
+        const urlData = value.substring(
+          0,
+          ampIndex >= 0 ? ampIndex : undefined,
+        );
         message = JSON.parse(Buffer.from(urlData.trim(), 'base64').toString());
       }
 
@@ -90,38 +97,8 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
         navigation.navigate(Screens.ConnectionInvitation, { url });
       }
     } catch (e: unknown) {
+      console.error(e);
       const error = new QrCodeScanError('QRScanner.InvalidQrCode', url);
-      setQrCodeScanError(error);
-    }
-  };
-
-  const inputSubmitUrl = async () => {
-    try {
-      const url = urlInput;
-      if (url !== '') {
-        if (isRedirection(url)) {
-          await handleRedirection(url, agent);
-        } else if (url.includes('?c_i') || url.includes('?d_m')) {
-          const [, urlData] = url.includes('?c_i')
-            ? url.split('?c_i=')
-            : url.split('?d_m=');
-          const message = JSON.parse(
-            Buffer.from(urlData.trim(), 'base64').toString(),
-          );
-          if (message['~service']) {
-            await agent?.receiveMessage(message);
-            navigation.navigate(TabStacks.HomeStack);
-          } else {
-            navigation.navigate(Screens.ConnectionInvitation, { url });
-          }
-        } else {
-          throw new Error(t('QRScanner.NotAValidURL'));
-        }
-      } else {
-        warningToast(t('QRScanner.NotBlankURL'));
-      }
-    } catch (e: unknown) {
-      const error = new QrCodeScanError(t('QRScanner.InvalidQrCode'), urlInput);
       setQrCodeScanError(error);
     }
   };
@@ -130,11 +107,11 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     <View style={[styles.container]}>
       {isFocused && (
         <QRScanner
-          handleCodeScan={handleCodeScan}
+          handleCodeScan={url => processUrl(url)}
           error={qrCodeScanError}
           enableCameraOnError
           onChangeText={setUrl}
-          textInputSubmit={inputSubmitUrl}
+          textInputSubmit={() => processUrl(urlInput)}
         />
       )}
     </View>
