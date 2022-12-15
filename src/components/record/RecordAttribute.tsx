@@ -1,6 +1,5 @@
 import { CredentialPreviewAttributeOptions } from '@aries-framework/core';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
 import { ColorPallet, TextTheme } from '../../theme/theme';
 
@@ -19,7 +18,6 @@ const RecordAttribute: React.FC<RecordAttributeProps> = ({
   attributeLabel = null,
   attributeValue = null,
 }) => {
-  const { t } = useTranslation();
   const startCase = (str: string) =>
     str
       .split(' ')

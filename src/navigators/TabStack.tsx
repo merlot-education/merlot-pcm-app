@@ -3,6 +3,8 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View, Image, ImageProps } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Buffer } from 'buffer';
+import { useAgent } from '@aries-framework/react-hooks';
 import useNotifications from '../hooks/notifications';
 import { ColorPallet, TextTheme } from '../theme/theme';
 import { Screens, TabStackParams, TabStacks } from '../types/navigators';
@@ -77,15 +79,30 @@ const ScannerIcon = () => {
 const TabStack: React.FC = ({ navigation }) => {
   const { total } = useNotifications();
   const { t } = useTranslation();
+  const { agent } = useAgent();
 
   const { deepLinkUrl, resetDeepLinkUrl } = React.useContext(MainStackContext);
   useEffect(() => {
     if (!deepLinkUrl) {
       return;
     }
-    resetDeepLinkUrl();
-    navigation.navigate(Screens.ConnectionInvitation, { url: deepLinkUrl });
-  }, [deepLinkUrl, resetDeepLinkUrl, navigation]);
+    (async () => {
+      resetDeepLinkUrl();
+
+      let message;
+      const [, urlData] = deepLinkUrl.includes('?c_i')
+        ? deepLinkUrl.split('?c_i=')
+        : deepLinkUrl.split('?d_m=');
+      message = JSON.parse(Buffer.from(urlData.trim(), 'base64').toString());
+
+      if (message['~service']) {
+        await agent?.receiveMessage(message);
+        navigation.navigate(TabStacks.HomeStack);
+      } else {
+        navigation.navigate(Screens.ConnectionInvitation, { url: deepLinkUrl });
+      }
+    })();
+  }, [deepLinkUrl, resetDeepLinkUrl, navigation, agent]);
 
   return (
     <SafeAreaView

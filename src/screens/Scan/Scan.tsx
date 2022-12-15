@@ -34,7 +34,7 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const handleRedirection = async (
     url: string,
     agent?: Agent,
-  ): Promise<{ url?: string, message?: object }> => {
+  ): Promise<{ url?: string; message?: object }> => {
     try {
       const res = await fetch(url, {
         method: 'GET',
@@ -61,7 +61,10 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
     try {
       let receivedMessage;
       if (isRedirection(url)) {
-        const { url: redirectedUrl, message } = await handleRedirection(url, agent);
+        const { url: redirectedUrl, message } = await handleRedirection(
+          url,
+          agent,
+        );
         url = redirectedUrl || url;
         receivedMessage = message;
       }
@@ -72,14 +75,12 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
 
       let message;
       if (receivedMessage) {
-        message = receivedMessage
+        message = receivedMessage;
       } else {
         const [, urlData] = url.includes('?c_i')
           ? url.split('?c_i=')
           : url.split('?d_m=');
-        message = JSON.parse(
-          Buffer.from(urlData.trim(), 'base64').toString(),
-        );
+        message = JSON.parse(Buffer.from(urlData.trim(), 'base64').toString());
       }
 
       if (message['~service']) {
