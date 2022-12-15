@@ -5,6 +5,7 @@
 #import <React/RCTRootView.h>
 
 #import <React/RCTAppSetupUtils.h>
+#import <React/RCTLinkingManager.h>
 
 #if RCT_NEW_ARCH_ENABLED
 #import <React/CoreModulesPlugins.h>
@@ -129,5 +130,13 @@ static NSString *const kRNConcurrentRoot = @"concurrentRoot";
 }
 
 #endif
+
+// Add this inside `@implementation AppDelegate` above `@end`:
+- (BOOL)application:(UIApplication *)application
+   openURL:(NSURL *)url
+   options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+{
+  return [RCTLinkingManager application:application openURL:url options:options];
+}
 
 @end
