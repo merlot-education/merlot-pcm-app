@@ -36,7 +36,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
 
   const getNotificationData = useCallback(async () => {
     if (notificationType === NotificationType.CredentialOffer) {
-      setTitle(t('CredentialOffer.CredentialOffer'));
+      setTitle(t<string>('CredentialOffer.CredentialOffer'));
       const credentialRecord = await agent?.credentials.getFormatData(
         notification.id,
       );
@@ -45,7 +45,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
       const { credName } = parseCredDef(credentialDefinitionId);
       setBody(credName);
     } else {
-      setTitle(t('ProofRequest.ProofRequest'));
+      setTitle(t<string>('ProofRequest.ProofRequest'));
       setBody(connection?.theirLabel ?? 'Connectionless proof request');
     }
   }, [
@@ -85,7 +85,7 @@ const NotificationListItem: React.FC<NotificationListItemProps> = ({
         <Text style={styles.bodyText}>{body}</Text>
         <Button
           buttonType={ButtonType.Primary}
-          title={t('Global.View')}
+          title={t<string>('Global.View')}
           onPress={navigateToNotification}
         />
       </View>

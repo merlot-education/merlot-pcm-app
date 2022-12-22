@@ -1,4 +1,7 @@
 import * as Utils from './CreateWallet.utils';
+import {
+  getMnemonicArrayFromWords,
+} from '../../utils/generic';
 
 describe('CreateWallet.utils', () => {
   describe('storeOnboardingCompleteStage', () => {
@@ -11,24 +14,6 @@ describe('CreateWallet.utils', () => {
     });
   });
 
-  describe('saveValueInKeychain', () => {
-    it('should check value is saved in the keychain', async () => {
-      // Mocked function to saveValueInKeychain
-      jest.spyOn(Utils, 'saveValueInKeychain');
-
-      await Utils.saveValueInKeychain(
-        'email',
-        'kevin@gmail.com',
-        'email description',
-      );
-
-      expect(Utils.saveValueInKeychain).toHaveBeenCalledWith(
-        'email',
-        'kevin@gmail.com',
-        'email description',
-      );
-    });
-  });
   describe('getMnemonicFromWords', () => {
     it.each([
       [0, 0],
@@ -38,7 +23,7 @@ describe('CreateWallet.utils', () => {
     ])(
       'should return string values from list of words with provided length of Words',
       (initialValues, finalLength) => {
-        const result = Utils.getMnemonicArrayFromWords(initialValues);
+        const result = getMnemonicArrayFromWords(initialValues);
         expect(result.length).toEqual(finalLength);
       },
     );

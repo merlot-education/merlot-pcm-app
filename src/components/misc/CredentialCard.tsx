@@ -27,7 +27,7 @@ const CredentialCard: React.FC<CredentialCardProps> = ({
         <View style={styles.details}>
           <Title>{parsedSchema(credential).name}</Title>
           <Text style={{ ...TextTheme.caption }}>
-            {t('CredentialDetails.Issued')}:{' '}
+            {t<string>('CredentialDetails.Issued')}:{' '}
             {credential.createdAt.toLocaleDateString(
               'en-CA',
               dateFormatOptions,

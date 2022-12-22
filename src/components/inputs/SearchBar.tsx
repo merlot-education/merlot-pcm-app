@@ -24,12 +24,7 @@ const SearchBar: React.FC<Props> = ({
           name="search"
           color={ColorPallet.grayscale.darkGrey}
           size={20}
-          style={{
-            paddingLeft: 0.5,
-            paddingTop: 0.5,
-            marginTop: 15,
-            marginLeft: 10,
-          }}
+          style={styles.searchIcon}
         />
         {/* Input field */}
         <TextInput
@@ -85,6 +80,12 @@ const styles = StyleSheet.create({
     width: '70%',
     backgroundColor: ColorPallet.grayscale.veryLightGrey,
     borderRadius: 10,
+  },
+  searchIcon: {
+    paddingLeft: 0.5,
+    paddingTop: 0.5,
+    marginTop: 15,
+    marginLeft: 10,
   },
   input: {
     fontSize: 18,

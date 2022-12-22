@@ -82,7 +82,7 @@ const ExportWallet = () => {
       if (success) {
         Toast.show({
           type: ToastType.Success,
-          text1: t('ExportWallet.WalletExportedPath'),
+          text1: t<string>('ExportWallet.WalletExportedPath'),
           text2: message,
         });
       }
@@ -105,22 +105,22 @@ const ExportWallet = () => {
       if (result) {
         Toast.show({
           type: ToastType.Success,
-          text1: t('Toasts.Success'),
-          text2: t('Settings.ValidMnemonic'),
+          text1: t<string>('Toasts.Success'),
+          text2: t<string>('Settings.ValidMnemonic'),
         });
         await exportWallet();
       } else {
         Toast.show({
           type: ToastType.Error,
-          text1: t('Toasts.Error'),
-          text2: t('Settings.InvalidMnemonic'),
+          text1: t<string>('Toasts.Error'),
+          text2: t<string>('Settings.InvalidMnemonic'),
         });
       }
     } else {
       Toast.show({
         type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('Settings.MnemonicMsg'),
+        text1: t<string>('Toasts.Warning'),
+        text2: t<string>('Settings.MnemonicMsg'),
       });
     }
   };
@@ -129,11 +129,11 @@ const ExportWallet = () => {
     <View style={style.container}>
       <Loader loading={loading} />
       <TextInput
-        label={t('Settings.EnterMnemonic')}
-        placeholder={t('Settings.EnterMnemonic')}
+        label={t<string>('Settings.EnterMnemonic')}
+        placeholder={t<string>('Settings.EnterMnemonic')}
         placeholderTextColor={ColorPallet.brand.primary}
         accessible
-        accessibilityLabel={t('Settings.EnterMnemonic')}
+        accessibilityLabel={t<string>('Settings.EnterMnemonic')}
         autoFocus
         value={mnemonic}
         onChangeText={setMnemonic}
@@ -141,7 +141,7 @@ const ExportWallet = () => {
         returnKeyType="done"
       />
       <Button
-        title={t('Settings.ExportWallet')}
+        title={t<string>('Settings.ExportWallet')}
         buttonType={ButtonType.Primary}
         onPress={compareMnemonic}
       />

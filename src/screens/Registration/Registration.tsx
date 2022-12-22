@@ -15,9 +15,9 @@ import { KeychainStorageKeys } from '../../constants';
 import {
   registerUser,
   restoreTermsCompleteStage,
-  saveValueInKeychain,
   validateEmail,
 } from './Registration.utils';
+import {saveValueInKeychain} from "../../utils/generic";
 import Images from '../../assets';
 
 type RegistrationProps = StackScreenProps<
@@ -38,7 +38,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
         await saveValueInKeychain(
           KeychainStorageKeys.Email,
           email,
-          t('Registration.UserAuthenticationEmail'),
+          t<string>('Registration.UserAuthenticationEmail'),
         );
         try {
           setLoading(true);
@@ -54,10 +54,10 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
           setError(error.message);
         }
       } else {
-        setError(t('Registration.ValidEmail'));
+        setError(t<string>('Registration.ValidEmail'));
       }
     } else {
-      setError(t('Registration.EnterEmail'));
+      setError(t<string>('Registration.EnterEmail'));
     }
   };
 
@@ -85,11 +85,11 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
       <Loader loading={loading} />
       <View style={style.innerContainer}>
         <TextInput
-          label={t('Global.Email')}
-          placeholder={t('Global.Email')}
+          label={t<string>('Global.Email')}
+          placeholder={t<string>('Global.Email')}
           placeholderTextColor={ColorPallet.brand.primary}
           accessible
-          accessibilityLabel={t('Global.Email')}
+          accessibilityLabel={t<string>('Global.Email')}
           autoFocus
           value={email}
           onChangeText={setEmail}
@@ -103,7 +103,7 @@ const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
       </View>
       <View style={style.bottomContainer}>
         <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-          {t('Registration.EmailInfo')}
+          {t<string>('Registration.EmailInfo')}
         </InfoCard>
         <ScreenNavigatorButtons
           onLeftPress={onBack}

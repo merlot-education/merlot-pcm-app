@@ -24,7 +24,7 @@ const WalletInitialized: React.FC<WalletInitializedProps> = ({ route }) => {
     <View style={[style.container]}>
       <View style={[style.subcontainer]}>
         <Text style={TextTheme.normal}>
-          {t('Registration.WalletInitialized')}
+          {t<string>('Registration.WalletInitialized')}
         </Text>
         <Image
           source={Images.walletInitializedIcon}

@@ -8,13 +8,6 @@ import api from '../../api';
 
 const rnBiometrics = new ReactNativeBiometrics();
 
-export const getValueFromKeychain = async (key: string) => {
-  const data = await getValueKeychain({
-    service: key,
-  });
-  return data;
-};
-
 export const registerUser = async (email: string, otpId: string) => {
   const data = await api.auth.register({
     email,
@@ -30,7 +23,7 @@ export const checkIfSensorAvailable = async () => {
 
 export const showBiometricPrompt = async () => {
   const result = await rnBiometrics.simplePrompt({
-    promptMessage: i18next.t('Biometric.BiometricConfirm'),
+    promptMessage: i18next.t<string>('Biometric.BiometricConfirm'),
   });
   return result;
 };

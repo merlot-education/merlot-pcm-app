@@ -52,14 +52,14 @@ const Terms: React.FC = () => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        <InfoTextBox showIcon>{t('Terms.AcceptTerms')}</InfoTextBox>
+        <InfoTextBox showIcon>{t<string>('Terms.AcceptTerms')}</InfoTextBox>
         <View style={styles.verticalSpacer}>
-          <InfoCard showBottomIcon>{t('Terms.TermsAndConditions')}</InfoCard>
+          <InfoCard showBottomIcon>{t<string>('Terms.TermsAndConditions')}</InfoCard>
         </View>
       </ScrollView>
       <View style={styles.bottom}>
         <CheckBoxRow
-          title={t('Terms.Attestation')}
+          title={t<string>('Terms.Attestation')}
           accessibilityLabel="I Agree"
           checked={checked}
           onPress={() => setChecked(!checked)}

@@ -26,7 +26,7 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
     setLoading(true);
     const connectionRecord = await getInvitationFromUrl(agent, url);
     if (!connectionRecord?.id) {
-      throw new Error(t('Scan.ConnectionNotFound'));
+      throw new Error(t<string>('Scan.ConnectionNotFound'));
     }
     setLoading(false);
     navigation.navigate(TabStacks.ConnectionStack);
@@ -40,24 +40,24 @@ const ConnectionInvitation: React.FC<ConnectionProps> = ({
     <View style={[styles.container]}>
       <Loader loading={loading} />
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        {t('ConnectionInvitation.ConsentMessage')}
+        {t<string>('ConnectionInvitation.ConsentMessage')}
       </Text>
       <View style={styles.spacer} />
       <Text style={[styles.bodyText, { fontWeight: 'bold' }]}>
-        {t('ConnectionInvitation.VerifyMessage')}
+        {t<string>('ConnectionInvitation.VerifyMessage')}
       </Text>
       <ConnectionPending style={{ marginVertical: 20, alignSelf: 'center' }} />
       <View style={styles.spacer} />
       <View style={styles.topSpacer}>
         <Button
-          title={t('Global.Accept')}
+          title={t<string>('Global.Accept')}
           onPress={handleAcceptPress}
           buttonType={ButtonType.Primary}
         />
       </View>
       <View style={styles.topSpacer}>
         <Button
-          title={t('Global.Decline')}
+          title={t<string>('Global.Decline')}
           buttonType={ButtonType.Ghost}
           onPress={handleDeclinePress}
         />

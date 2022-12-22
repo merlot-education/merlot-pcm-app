@@ -2,7 +2,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import React, { useState } from 'react';
 import { useAgent } from '@aries-framework/react-hooks';
 import { parseUrl } from 'query-string';
-import { Agent } from '@aries-framework/core';
 import { StyleSheet, View } from 'react-native';
 import { useIsFocused } from '@react-navigation/core';
 import { Buffer } from 'buffer';
@@ -58,9 +57,9 @@ const Scan: React.FC<ScanProps> = ({ navigation }) => {
   const processUrl = async (url: string) => {
     setQrCodeScanError(null);
 
-    if (url == '') {
+    if (url === '') {
       // TODO No translation
-      return warningToast(t('QRScanner.NotBlankURL'));
+      return warningToast(t<string>('QRScanner.NotBlankURL'));
     }
 
     try {

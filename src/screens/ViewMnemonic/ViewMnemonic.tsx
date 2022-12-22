@@ -30,7 +30,7 @@ const ViewMnemonic: React.FC = () => {
       } else if (error) {
         warningToast(error);
       } else {
-        warningToast(t('Biometric.BiometricCancel'));
+        warningToast(t<string>('Biometric.BiometricCancel'));
       }
     }
   }, [t]);
@@ -49,7 +49,7 @@ const ViewMnemonic: React.FC = () => {
     if (result) {
       showMnemonic();
     } else {
-      warningToast(t('PinEnter.IncorrectPin'));
+      warningToast(t<string>('PinEnter.IncorrectPin'));
     }
   };
 
@@ -71,10 +71,10 @@ const ViewMnemonic: React.FC = () => {
       {!showMnemonicView && (
         <>
           <TextInput
-            label={t('Global.EnterPin')}
+            label={t<string>('Global.EnterPin')}
             accessible
-            accessibilityLabel={t('Global.EnterPin')}
-            placeholder={t('Global.6DigitPin')}
+            accessibilityLabel={t<string>('Global.EnterPin')}
+            placeholder={t<string>('Global.6DigitPin')}
             placeholderTextColor={ColorPallet.baseColors.lightGrey}
             maxLength={6}
             keyboardType="numeric"
@@ -89,7 +89,7 @@ const ViewMnemonic: React.FC = () => {
             }}
           />
           <Button
-            title={t('Global.Submit')}
+            title={t<string>('Global.Submit')}
             buttonType={ButtonType.Primary}
             onPress={() => {
               Keyboard.dismiss();
@@ -103,9 +103,9 @@ const ViewMnemonic: React.FC = () => {
           <Text style={style.label}>Mnemonic</Text>
           <View style={style.boxContainer}>
             <Text style={style.headerText}>{mnemonicText}</Text>
-            <Text style={style.bodyText}>{t('Registration.MnemonicMsg')}</Text>
+            <Text style={style.bodyText}>{t<string>('Registration.MnemonicMsg')}</Text>
             <Button
-              title={t('Global.Copy')}
+              title={t<string>('Global.Copy')}
               buttonType={ButtonType.Primary}
               onPress={copyMnemonic}
             />

@@ -89,14 +89,14 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
 
   const showDeleteConnectionAlert = () => {
     Alert.alert(
-      t('ContactDetails.DeleteConnection'),
-      t('ContactDetails.DeleteConnectionAlert'),
+      t<string>('ContactDetails.DeleteConnection'),
+      t<string>('ContactDetails.DeleteConnectionAlert'),
       [
         {
-          text: t('Global.Cancel'),
+          text: t<string>('Global.Cancel'),
           style: 'cancel',
         },
-        { text: t('Global.Okay'), onPress: deleteConnection },
+        { text: t<string>('Global.Okay'), onPress: deleteConnection },
       ],
     );
   };
@@ -118,11 +118,11 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
         }
 
         await agent.connections.deleteById(connection?.id);
-        successToast(t('ContactDetails.DeleteConnectionSuccess'));
+        successToast(t<string>('ContactDetails.DeleteConnectionSuccess'));
         navigation.navigate(Screens.ListContacts);
       }
     } catch (error) {
-      errorToast(t('ContactDetails.DeleteConnectionFailed'));
+      errorToast(t<string>('ContactDetails.DeleteConnectionFailed'));
     }
   };
 
@@ -151,7 +151,7 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({
               { color: ColorPallet.semantic.error },
             ]}
           >
-            {t('ContactDetails.DeleteConnection')}
+            {t<string>('ContactDetails.DeleteConnection')}
           </Text>
         </TouchableOpacity>
       )}

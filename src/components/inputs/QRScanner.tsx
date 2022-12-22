@@ -15,7 +15,6 @@ import {
   Pressable,
   Keyboard,
 } from 'react-native';
-// import { BarCodeReadEvent, RNCamera } from 'react-native-camera';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Camera, useCameraDevices } from 'react-native-vision-camera';
 import { useScanBarcodes, BarcodeFormat } from 'vision-camera-code-scanner';
@@ -135,10 +134,10 @@ const QRScanner: React.FC<Props> = ({
         audio={false}
         // TODO
         // androidCameraPermissionOptions={{
-        //   title: t('QRScanner.PermissionToUseCamera'),
-        //   message: t('QRScanner.PermissionMessage'),
-        //   buttonPositive: t('Global.Okay'),
-        //   buttonNegative: t('Global.Cancel'),
+        //   title: t<string>('QRScanner.PermissionToUseCamera'),
+        //   message: t<string>('QRScanner.PermissionMessage'),
+        //   buttonPositive: t<string>('Global.Okay'),
+        //   buttonNegative: t<string>('Global.Cancel'),
         // }}
       />
       <CameraViewContainer portrait={portraitMode}>
@@ -150,8 +149,8 @@ const QRScanner: React.FC<Props> = ({
           <QRScannerClose onPress={() => navigation.goBack()} />
         </View>
         <View style={styles.scanTextView}>
-          <Text style={styles.scanText}>{t('QRScanner.ScanMessage')}</Text>
-          <Text style={styles.scanText}>{t('QRScanner.VerifyMessage')}</Text>
+          <Text style={styles.scanText}>{t<string>('QRScanner.ScanMessage')}</Text>
+          <Text style={styles.scanText}>{t<string>('QRScanner.VerifyMessage')}</Text>
         </View>
         {error && (
           <View style={styles.errorContainer}>

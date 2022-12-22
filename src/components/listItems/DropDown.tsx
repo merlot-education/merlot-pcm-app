@@ -4,6 +4,7 @@ import DropDownPicker, {
   ValueType,
 } from 'react-native-dropdown-picker';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { StyleSheet } from 'react-native';
 import { TextTheme } from '../../theme/theme';
 
 interface Item {
@@ -38,9 +39,9 @@ const DropDown = ({ items, onSelectItem }: Props) => {
       open={open}
       listMode="SCROLLVIEW"
       value={value}
-      style={{ borderRadius: 0 }}
-      dropDownContainerStyle={{ borderRadius: 0 }}
-      textStyle={[TextTheme.normal, { fontSize: 14 }]}
+      style={styles.dropdown}
+      dropDownContainerStyle={styles.dropdownContainer}
+      textStyle={styles.text}
       ArrowDownIconComponent={() => (
         <Icon name="caretdown" size={10} color="#000FFF" />
       )}
@@ -54,3 +55,14 @@ const DropDown = ({ items, onSelectItem }: Props) => {
 };
 
 export default DropDown;
+
+const styles = StyleSheet.create({
+  dropdown: {
+    borderRadius: 0,
+  },
+  dropdownContainer: { borderRadius: 0 },
+  text: {
+    ...TextTheme.normal,
+    fontSize: 14,
+  },
+});

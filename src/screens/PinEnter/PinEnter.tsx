@@ -20,10 +20,10 @@ import {
   checkIfSensorAvailable,
   removeOnboardingCompleteStage,
   createMD5HashFromString,
-  getValueFromKeychain,
   showBiometricPrompt,
   registerUser,
 } from './PinEnter.utils';
+import {getValueFromKeychain} from "../../utils/generic";
 import { warningToast, errorToast, successToast } from '../../utils/toast';
 
 type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>;
@@ -80,7 +80,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       } else if (error) {
         warningToast(error);
       } else {
-        warningToast(t('Biometric.BiometricCancle'));
+        warningToast(t<string>('Biometric.BiometricCancle'));
       }
     }
   }, [setAuthenticated, startAgent, t]);
@@ -101,10 +101,10 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       setAuthenticated(true);
       setLoading(false);
     } else {
-      warningToast(t('PinEnter.IncorrectPin'));
+      warningToast(t<string>('PinEnter.IncorrectPin'));
       setLoginAttemtsFailed(loginAttemtsFailed + 1);
       if (loginAttemtsFailed === 5) {
-        Alert.alert(t('Registration.RegisterAgain'));
+        Alert.alert(t<string>('Registration.RegisterAgain'));
         navigation.navigate(Screens.EnterPin, { forgotPin: false });
         await removeOnboardingCompleteStage();
       }
@@ -140,10 +140,10 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
     <View style={[style.container]}>
       <Loader loading={loading} />
       <TextInput
-        label={t('Global.EnterPin')}
+        label={t<string>('Global.EnterPin')}
         accessible
-        accessibilityLabel={t('Global.EnterPin')}
-        placeholder={t('Global.6DigitPin')}
+        accessibilityLabel={t<string>('Global.EnterPin')}
+        placeholder={t<string>('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         keyboardType="numeric"
@@ -158,10 +158,10 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         }}
       />
       <Text style={[style.bodyText, style.verticalSpacer]} onPress={forgotPin}>
-        {t('Global.ForgotPin')}
+        {t<string>('Global.ForgotPin')}
       </Text>
       <Button
-        title={t('Global.Submit')}
+        title={t<string>('Global.Submit')}
         buttonType={ButtonType.Primary}
         onPress={() => checkPin(pin)}
       />

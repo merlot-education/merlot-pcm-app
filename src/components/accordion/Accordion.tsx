@@ -69,12 +69,7 @@ const Accordion: React.FC<AccordionProps> = ({
                 <Text style={styles.sectionSubTitle}>{status}</Text>
               </View>
             </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-end',
-              }}
-            >
+            <View style={styles.sectionDateTime}>
               <View>
                 <Text style={styles.sectionTitle}>
                   {getFormattedDate(date)}
@@ -148,6 +143,10 @@ const styles = StyleSheet.create({
   },
   list: {
     overflow: 'hidden',
+  },
+  sectionDateTime: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
   },
   sectionTitle: {
     ...TextTheme.normal,

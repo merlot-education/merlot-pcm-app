@@ -38,7 +38,7 @@ type ProofRequestProps = StackScreenProps<
 const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   const { t } = useTranslation();
   if (!route?.params) {
-    throw new Error(t('ProofRequest.ProofRequestParamsError'));
+    throw new Error(t<string>('ProofRequest.ProofRequestParamsError'));
   }
 
   const { proofId } = route.params;
@@ -48,9 +48,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   const [successModalVisible, setSuccessModalVisible] = useState(false);
   const [declinedModalVisible, setDeclinedModalVisible] = useState(false);
 
-  const [attributeCredentials, setAttributeCredentials] = useState<
-    [string, RequestedAttribute[]][]
-  >([]);
+  const [attributeCredentials] = useState<[string, RequestedAttribute[]][]>([]);
 
   const [retrievedCredentials, setRetrievedCredentials] =
     useState<RetrievedCredentials>();
@@ -122,7 +120,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
                   ...prevState,
-                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
+                  `${name} ${t<string>('Global.from')}  ${restriction.schema_name}`,
                 ]);
               });
             } else if (
@@ -134,7 +132,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
                   ...prevState,
-                  `${name} ${t('Global.from')}  ${schemaName}`,
+                  `${name} ${t<string>('Global.from')}  ${schemaName}`,
                 ]);
               });
             } else {
@@ -201,7 +199,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                   ...prevState,
                   `${`${name + proofRequest.requested_predicates[key].p_type} ${
                     proofRequest.requested_predicates[key].p_value
-                  }`} ${t('Global.from')}  ${restriction.schema_name}`,
+                  }`} ${t<string>('Global.from')}  ${restriction.schema_name}`,
                 ]);
               });
             } else if (
@@ -215,7 +213,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                   ...prevState,
                   `${`${name + proofRequest.requested_predicates[key].p_type} ${
                     proofRequest.requested_predicates[key].p_value
-                  }`} ${t('Global.from')} ${schemaName}`,
+                  }`} ${t<string>('Global.from')} ${schemaName}`,
                 ]);
               });
             } else {
@@ -237,18 +235,18 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
   };
 
   if (!agent) {
-    throw new Error(t('CredentialOffer.FetchAFJError'));
+    throw new Error(t<string>('CredentialOffer.FetchAFJError'));
   }
 
   if (!proof) {
-    throw new Error(t('ProofRequest.FetchProofError'));
+    throw new Error(t<string>('ProofRequest.FetchProofError'));
   }
 
   useEffect(() => {
     const updateRetrievedCredentials = async (proof: ProofRecord) => {
       const creds = await getRetrievedCredential(agent, proof);
       if (!creds) {
-        throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'));
+        throw new Error(t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'));
       }
       transformProofObject(creds);
       setRetrievedCredentials(creds);
@@ -256,8 +254,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
     updateRetrievedCredentials(proof).catch(() => {
       errorToast(
-        t('ProofRequest.ProofUpdateErrorTitle'),
-        t('ProofRequest.ProofUpdateErrorMessage'),
+        t<string>('ProofRequest.ProofUpdateErrorTitle'),
+        t<string>('ProofRequest.ProofUpdateErrorMessage'),
       );
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -336,11 +334,10 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           updateRetrievedCredentials,
         );
       if (!automaticRequestedCreds) {
-        throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'));
+        throw new Error(t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'));
       }
       await agent.proofs.acceptRequest(proof.id, automaticRequestedCreds);
 
-      // eslint-disable-next-line no-restricted-syntax
       for await (const iterator of credentialsDisplay) {
         const cred = iterator.credentials.find(item => item.isSelected);
         const attributes = {};
@@ -368,7 +365,6 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         await agent.genericRecords.update(oldRecords[0]);
       }
 
-      // eslint-disable-next-line no-restricted-syntax
       for await (const iterator of credentialsDisplay) {
         const cred = iterator.credentials.find(item => item.isSelected);
         const tags = {
@@ -416,20 +412,20 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
       setButtonsVisible(true);
       setPendingModalVisible(false);
       errorToast(
-        t('ProofRequest.ProofAcceptErrorTitle'),
-        t('ProofRequest.ProofAcceptErrorMessage'),
+        t<string>('ProofRequest.ProofAcceptErrorTitle'),
+        t<string>('ProofRequest.ProofAcceptErrorMessage'),
       );
     }
   };
 
   const handleDeclinePress = async () => {
     Alert.alert(
-      t('ProofRequest.RejectThisProof?'),
-      t('Global.ThisDecisionCannotBeChanged.'),
+      t<string>('ProofRequest.RejectThisProof?'),
+      t<string>('Global.ThisDecisionCannotBeChanged.'),
       [
-        { text: t('Global.Cancel'), style: 'cancel' },
+        { text: t<string>('Global.Cancel'), style: 'cancel' },
         {
-          text: t('Global.Confirm'),
+          text: t<string>('Global.Confirm'),
           style: 'destructive',
           onPress: async () => {
             try {
@@ -437,8 +433,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               await agent.proofs.declineRequest(proof.id);
             } catch (e: unknown) {
               errorToast(
-                t('ProofRequest.ProofRejectErrorTitle'),
-                t('ProofRequest.ProofRejectErrorMessage'),
+                t<string>('ProofRequest.ProofRejectErrorTitle'),
+                t<string>('ProofRequest.ProofRejectErrorMessage'),
               );
             }
           },
@@ -484,19 +480,11 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
       <ScrollView>
         {isShowError ? (
           <>
-            <Text
-              style={[
-                TextTheme.headingFour,
-                {
-                  color: ColorPallet.notification.errorText,
-                  marginVertical: 10,
-                },
-              ]}
-            >
-              {t('ProofRequest.MissingInformation.Title')}
+            <Text style={styles.missingInformationTitle}>
+              {t<string>('ProofRequest.MissingInformation.Title')}
             </Text>
             <InfoTextBox>
-              {t(
+              {t<string>(
                 'ProofRequest.MissingInformation.AlertMissingInformation.Title',
               )}
             </InfoTextBox>
@@ -514,7 +502,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           <>
             <Text
               style={TextTheme.normal}
-              accessibilityLabel={t('ProofRequest.Title', {
+              accessibilityLabel={t<string>('ProofRequest.Title', {
                 connection: connection?.theirLabel ?? 'Verifier',
               })}
             >
@@ -548,7 +536,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           ) && !isShowError ? (
             <View style={styles.footerButton}>
               <Button
-                title={t('Global.Share')}
+                title={t<string>('Global.Share')}
                 buttonType={ButtonType.Primary}
                 onPress={handleAcceptPress}
                 disabled={!buttonsVisible}
@@ -557,7 +545,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           ) : null}
           <View style={styles.footerButton}>
             <Button
-              title={t('Global.Decline')}
+              title={t<string>('Global.Decline')}
               buttonType={
                 anyUnavailable(attributeCredentials) ||
                 anyRevoked(attributeCredentials)
@@ -571,7 +559,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         </View>
         {pendingModalVisible && (
           <FlowDetailModal
-            title={t('ProofRequest.SendingTheInformationSecurely')}
+            title={t<string>('ProofRequest.SendingTheInformationSecurely')}
             visible={pendingModalVisible}
             doneHidden
           >
@@ -581,7 +569,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
         {successModalVisible && (
           <FlowDetailModal
-            title={t('ProofRequest.InformationSentSuccessfully')}
+            title={t<string>('ProofRequest.InformationSentSuccessfully')}
             visible={successModalVisible}
             onDone={() => {
               setSuccessModalVisible(false);
@@ -596,7 +584,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         )}
         {declinedModalVisible && (
           <FlowDetailModal
-            title={t('ProofRequest.ProofRejected')}
+            title={t<string>('ProofRequest.ProofRejected')}
             visible={declinedModalVisible}
             onDone={() => {
               setDeclinedModalVisible(false);
@@ -641,5 +629,10 @@ const styles = StyleSheet.create({
   valueContainer: {
     minHeight: TextTheme.normal.fontSize,
     paddingVertical: 4,
+  },
+  missingInformationTitle: {
+    ...TextTheme.headingFour,
+    color: ColorPallet.notification.errorText,
+    marginVertical: 10,
   },
 });

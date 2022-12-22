@@ -10,9 +10,9 @@ const Language = () => {
 
   // List of available languages into the localization directory
   const languages = [
-    { id: Locales.en, value: t('Language.English') },
-    { id: Locales.fr, value: t('Language.French') },
-    { id: Locales.de, value: t('Language.German') },
+    { id: Locales.en, value: t<string>('Language.English') },
+    { id: Locales.fr, value: t<string>('Language.French') },
+    { id: Locales.de, value: t<string>('Language.German') },
   ];
 
   /**

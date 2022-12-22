@@ -83,7 +83,7 @@ const Onboarding: React.FC = () => {
     return (
       <View>
         <Text style={styles.textButton} onPress={onDone}>
-          {t('Global.Skip')}
+          {t<string>('Global.Skip')}
         </Text>
       </View>
     );

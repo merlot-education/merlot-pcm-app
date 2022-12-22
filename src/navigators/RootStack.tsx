@@ -68,8 +68,8 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
       await agent?.shutdown();
       Toast.show({
         type: ToastType.Info,
-        text1: t('Toasts.Info'),
-        text2: t('Global.UserInactivity'),
+        text1: t<string>('Toasts.Info'),
+        text2: t<string>('Global.UserInactivity'),
       });
     }
   }, [active, agent, t]);

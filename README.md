@@ -124,7 +124,7 @@ As a result you will get apk file in `./android/app/build/outputs/apk/[productio
 
 
 
-## Latest Androind version
+## Latest Android version
 <hr/>
 
 [Android PCM](https://vereign0-my.sharepoint.com/:f:/g/personal/kalin_canov_vereign_com/EiwSfVWCOllDiSC57_DE_xABBVKkiJYx_tANEvbJiI9lGQ?e=3VBnIX)

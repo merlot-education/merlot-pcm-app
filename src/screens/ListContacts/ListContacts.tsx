@@ -57,7 +57,7 @@ const ListContacts: React.FC = () => {
         contentContainerStyle={{ paddingBottom: 65 }}
         ListEmptyComponent={
           <Text style={{ textAlign: 'center', margin: 100 }}>
-            {t('Global.ZeroRecords')}
+            {t<string>('Global.ZeroRecords')}
           </Text>
         }
       />

@@ -27,13 +27,13 @@ const Biometric: React.FC<BiometricProps> = ({ navigation }) => {
       const { success, error } = await showBiometricPrompt();
       if (success) {
         await createBiometricKeys();
-        setError(t('Biometric.BiometricSuccess'));
+        setError(t<string>('Biometric.BiometricSuccess'));
         navigation.navigate(Screens.Initialization);
       } else {
         setError(error);
       }
     } else {
-      setError(t('Biometric.BiometricNotSupport'));
+      setError(t<string>('Biometric.BiometricNotSupport'));
     }
   };
 
@@ -45,7 +45,7 @@ const Biometric: React.FC<BiometricProps> = ({ navigation }) => {
     <View style={[style.container]}>
       <Image source={Images.biometricIcon} style={style.biometricIconImg} />
       <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-        {t('Biometric.BiometricInfo')}
+        {t<string>('Biometric.BiometricInfo')}
       </InfoCard>
       <ScreenNavigatorButtons
         onLeftPress={onBack}

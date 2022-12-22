@@ -49,7 +49,7 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
 
       setHistory(sortedHistory);
     } catch (error) {
-      errorToast(t('credential.get.error'));
+      errorToast(t<string>('credential.get.error'));
     }
   }, [agent, credential, t]);
 
@@ -58,12 +58,12 @@ const CredentialDetails: React.FC<CredentialDetailsProps> = ({
   }, [getCredentialHistory]);
 
   if (!route.params.credentialId) {
-    warningToast(t('CredentialOffer.CredentialNotFound'));
+    warningToast(t<string>('CredentialOffer.CredentialNotFound'));
     navigation.goBack();
     return null;
   }
   if (!credential) {
-    errorToast(t('CredentialOffer.CredentialNotFound'));
+    errorToast(t<string>('CredentialOffer.CredentialNotFound'));
     navigation.goBack();
     return null;
   }

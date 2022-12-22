@@ -42,7 +42,7 @@ const SetupDelay: React.FC<SetupDelayProps> = ({ navigation }) => {
         radius={120}
         maxValue={40}
         initialValue={40}
-        title={t('Registration.SecondCounter')}
+        title={t<string>('Registration.SecondCounter')}
         progressValueFontSize={40}
         titleFontSize={16}
         progressValueColor={ColorPallet.brand.primary}

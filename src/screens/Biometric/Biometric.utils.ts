@@ -16,7 +16,7 @@ export const checkIfSensorAvailable = async () => {
 
 export const showBiometricPrompt = async () => {
   const result = await rnBiometrics.simplePrompt({
-    promptMessage: i18next.t('Biometric.BiometricConfirm'),
+    promptMessage: i18next.t<string>('Biometric.BiometricConfirm'),
   });
   return result;
 };

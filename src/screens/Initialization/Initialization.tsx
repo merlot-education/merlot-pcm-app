@@ -20,17 +20,17 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
   };
   const showSameEmailAlert = () => {
     Alert.alert(
-      t('PinCreate.EmailConfirmation'),
-      t('PinCreate.CheckEmail'),
+      t<string>('PinCreate.EmailConfirmation'),
+      t<string>('PinCreate.CheckEmail'),
       [
         {
           text: 'Cancel',
           onPress: () => console.log('No button clicked'),
           style: 'cancel',
         },
-        { text: t('Global.Next'), onPress: proceedToImport },
+        { text: t<string>('Global.Next'), onPress: proceedToImport },
         {
-          text: t('Global.ChangeEmail'),
+          text: t<string>('Global.ChangeEmail'),
           style: 'cancel',
           onPress: () =>
             navigation.navigate(Screens.Registration, { forgotPin: false }),
@@ -57,7 +57,7 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
     <View style={[style.container]} testID="Initialization-id">
       <View style={[style.textContainer]}>
         <Text style={TextTheme.normal}>
-          {t('Initialization.CompleteInitialization')}
+          {t<string>('Initialization.CompleteInitialization')}
         </Text>
       </View>
       <View style={[style.flexColumnContainer]}>
@@ -88,7 +88,7 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
       </View>
       <View style={style.info}>
         <InfoCard showBottomIcon={false} showTopIcon>
-          {t('Initialization.InitializationInfo')}
+          {t<string>('Initialization.InitializationInfo')}
         </InfoCard>
       </View>
       <IconButton isRight={false} isDisabled={false} onPress={onBack} />

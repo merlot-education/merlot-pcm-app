@@ -73,11 +73,11 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
     if (data) {
       setOtpCorrect(true);
       setOtpWrong(false);
-      setError(t('Registration.OtpSuccess'));
+      setError(t<string>('Registration.OtpSuccess'));
     } else {
       setOtpWrong(true);
       setOtpCorrect(false);
-      setError(t('Registration.OtpInvalid'));
+      setError(t<string>('Registration.OtpInvalid'));
     }
   };
 
@@ -107,11 +107,11 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       <Loader loading={loading} />
       <View style={style.innerContainer}>
         <TextInput
-          label={t('Global.Otp')}
-          placeholder={t('Global.Otp')}
+          label={t<string>('Global.Otp')}
+          placeholder={t<string>('Global.Otp')}
           placeholderTextColor={ColorPallet.baseColors.lightGrey}
           accessible
-          accessibilityLabel={t('Global.Otp')}
+          accessibilityLabel={t<string>('Global.Otp')}
           maxLength={6}
           autoFocus
           keyboardType="number-pad"
@@ -122,14 +122,14 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         />
         <View style={style.imgContainer}>
           <Text style={[style.bodyText, style.verticalSpacer]}>
-            {`${resendButtonDisabledTime} ${t('Registration.SecondCounter')}`}
+            {`${resendButtonDisabledTime} ${t<string>('Registration.SecondCounter')}`}
           </Text>
           {resendButtonDisabledTime === 0 && (
             <Text
               style={[style.bodyText, style.verticalSpacer]}
               onPress={onResendOtpButtonPress}
             >
-              {t('Registration.ResendOtp')}
+              {t<string>('Registration.ResendOtp')}
             </Text>
           )}
 
@@ -144,7 +144,7 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
       <View style={style.bottomContainer}>
         <View>
           <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-            {t('Registration.OtpInfo')}
+            {t<string>('Registration.OtpInfo')}
           </InfoCard>
         </View>
         <ScreenNavigatorButtons

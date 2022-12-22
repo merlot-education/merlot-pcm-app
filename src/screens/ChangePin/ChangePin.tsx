@@ -10,7 +10,7 @@ import Button, { ButtonType } from '../../components/button/Button';
 import { Screens, SettingStackParams } from '../../types/navigators';
 import { warningToast, successToast } from '../../utils/toast';
 import { KeychainStorageKeys } from '../../constants';
-import { getValueFromKeychain, saveValueInKeychain } from './ChangePin.utils';
+import { getValueFromKeychain, saveValueInKeychain } from '../../utils/generic';
 
 type ChangePinProps = StackScreenProps<SettingStackParams, Screens.ChangePin>;
 
@@ -56,7 +56,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         'passcode',
       );
       setLoading(false);
-      successToast(t('PinCreate.PinChange'));
+      successToast(t<string>('PinCreate.PinChange'));
     } catch (e: any) {
       Alert.alert(e);
       setLoading(false);
@@ -68,16 +68,18 @@ const ChangePin: React.FC<ChangePinProps> = () => {
     newPin: string,
     reEnterNewPin: string,
   ) => {
-    const passcode = await getValueFromKeychain(KeychainStorageKeys.Passcode);
+    const passcode = (await getValueFromKeychain(
+      KeychainStorageKeys.Passcode,
+    )) as UserCredentials;
 
     if (oldPin.length < 6 || newPin.length < 6) {
-      warningToast(t('PinCreate.PinMustBe6DigitsInLength'));
+      warningToast(t<string>('PinCreate.PinMustBe6DigitsInLength'));
     } else if (newPin !== reEnterNewPin) {
-      warningToast(t('PinCreate.PinsEnteredDoNotMatch'));
+      warningToast(t<string>('PinCreate.PinsEnteredDoNotMatch'));
     } else if (passcode.password !== oldPin) {
-      warningToast(t('PinCreate.ValidOldPin'));
+      warningToast(t<string>('PinCreate.ValidOldPin'));
     } else if (newPin === oldPin) {
-      warningToast(t('PinCreate.NewPinMatchwithOld'));
+      warningToast(t<string>('PinCreate.NewPinMatchwithOld'));
     } else {
       passcodeCreate(newPin);
     }
@@ -88,11 +90,11 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       <Loader loading={loading} />
 
       <TextInput
-        label={t('Global.OldPin')}
-        placeholder={t('Global.6DigitPin')}
+        label={t<string>('Global.OldPin')}
+        placeholder={t<string>('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         accessible
-        accessibilityLabel={t('Global.OldPin')}
+        accessibilityLabel={t<string>('Global.OldPin')}
         maxLength={6}
         autoFocus
         secureTextEntry
@@ -102,10 +104,10 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         returnKeyType="done"
       />
       <TextInput
-        label={t('Global.EnterNewPin')}
+        label={t<string>('Global.EnterNewPin')}
         accessible
-        accessibilityLabel={t('Global.EnterNewPin')}
-        placeholder={t('Global.6DigitPin')}
+        accessibilityLabel={t<string>('Global.EnterNewPin')}
+        placeholder={t<string>('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry
@@ -117,10 +119,10 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         }}
       />
       <TextInput
-        label={t('PinCreate.ReenterNewPin')}
+        label={t<string>('PinCreate.ReenterNewPin')}
         accessible
-        accessibilityLabel={t('PinCreate.ReenterNewPin')}
-        placeholder={t('Global.6DigitPin')}
+        accessibilityLabel={t<string>('PinCreate.ReenterNewPin')}
+        placeholder={t<string>('Global.6DigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry

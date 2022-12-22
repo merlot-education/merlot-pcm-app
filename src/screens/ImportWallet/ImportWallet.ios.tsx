@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Keyboard } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import Toast from 'react-native-toast-message';
+// @ts-ignore
 import argon2 from 'react-native-argon2';
 import {
   WalletExportImportConfig,
@@ -33,7 +34,7 @@ import { KeychainStorageKeys, LocalStorageKeys, salt } from '../../constants';
 import indyLedgers from '../../../configs/ledgers/indy';
 import { OnboardingStackParams, Screens } from '../../types/navigators';
 import { createMD5HashFromString } from './ImportWallet.utils';
-import { saveValueInKeychain } from '../ChangePin/ChangePin.utils'; // TODO refactor. It's breaking incapsulation
+import { saveValueInKeychain } from '../../utils/generic';
 
 type ImportWalletProps = StackScreenProps<
   OnboardingStackParams,
@@ -69,23 +70,23 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
         .catch(err => {
           Toast.show({
             type: ToastType.Error,
-            text1: t('Toasts.Warning'),
-            text2: t(err),
+            text1: t<string>('Toasts.Warning'),
+            text2: t<string>(err),
           });
         });
     } catch (err: any) {
       if (DocumentPicker.isCancel(err)) {
         Toast.show({
           type: ToastType.Error,
-          text1: t('Toasts.Warning'),
-          text2: t(err),
+          text1: t<string>('Toasts.Warning'),
+          text2: t<string>(err),
         });
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
         Toast.show({
           type: ToastType.Error,
-          text1: t('Toasts.Warning'),
-          text2: t(err),
+          text1: t<string>('Toasts.Warning'),
+          text2: t<string>(err),
         });
       }
     }
@@ -95,8 +96,8 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
     if (mnemonic.length === 0) {
       Toast.show({
         type: ToastType.Warn,
-        text1: t('Toasts.Warning'),
-        text2: t('ImportWallet.EmptyMnemonic'),
+        text1: t<string>('Toasts.Warning'),
+        text2: t<string>('ImportWallet.EmptyMnemonic'),
       });
     } else {
       setLoading(true);
@@ -162,7 +163,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
         await saveValueInKeychain(
           KeychainStorageKeys.Passphrase,
           mnemonic,
-          t('Registration.MnemonicMsg'),
+          t<string>('Registration.MnemonicMsg'),
         );
         setAuthenticated(true);
         setActive(true);
@@ -171,8 +172,8 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
         setLoading(false);
         Toast.show({
           type: ToastType.Error,
-          text1: t('Toasts.Warning'),
-          text2: t('ImportWallet.ImportError'),
+          text1: t<string>('Toasts.Warning'),
+          text2: t<string>('ImportWallet.ImportError'),
         });
       }
     }
@@ -183,7 +184,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
       <Loader loading={loading} />
       <View style={styles.btnContainer}>
         <Button
-          title={t('ImportWallet.SelectWalletFile')}
+          title={t<string>('ImportWallet.SelectWalletFile')}
           buttonType={ButtonType.Primary}
           onPress={() => {
             Keyboard.dismiss();
@@ -193,11 +194,11 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
       </View>
       <Text style={styles.label}>{walletBackupFilePath}</Text>
       <TextInput
-        label={t('Settings.EnterMnemonic')}
-        placeholder={t('Settings.EnterMnemonic')}
+        label={t<string>('Settings.EnterMnemonic')}
+        placeholder={t<string>('Settings.EnterMnemonic')}
         placeholderTextColor={ColorPallet.brand.primary}
         accessible
-        accessibilityLabel={t('Settings.EnterMnemonic')}
+        accessibilityLabel={t<string>('Settings.EnterMnemonic')}
         autoFocus
         value={mnemonic}
         onChangeText={setMnemonic}
@@ -206,7 +207,7 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ route }) => {
       />
       <View style={styles.btnContainer}>
         <Button
-          title={t('Global.ImportWallet')}
+          title={t<string>('Global.ImportWallet')}
           buttonType={ButtonType.Primary}
           disabled={walletBackupFilePath.length === 0 && mnemonic.length === 0}
           onPress={importWallet}

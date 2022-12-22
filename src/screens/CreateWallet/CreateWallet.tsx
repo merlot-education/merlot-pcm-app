@@ -7,10 +7,12 @@ import { UserCredentials } from 'react-native-keychain';
 import { OnboardingStackParams, Screens } from '../../types/navigators';
 import {
   createMD5HashFromString,
-  getMnemonicArrayFromWords,
-  saveValueInKeychain,
   storeOnboardingCompleteStage,
 } from './CreateWallet.utils';
+import {saveValueInKeychain} from "../../utils/generic";
+import {
+  getMnemonicArrayFromWords,
+} from '../../utils/generic';
 import { KeychainStorageKeys } from '../../constants';
 import Button, { ButtonType } from '../../components/button/Button';
 import { InfoCard, Loader, ScreenNavigatorButtons } from '../../components';
@@ -36,7 +38,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
     await saveValueInKeychain(
       KeychainStorageKeys.Passphrase,
       mnemonic,
-      t('Registration.MnemonicMsg'),
+      t<string>('Registration.MnemonicMsg'),
     );
   }, [t]);
 
@@ -58,7 +60,7 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
 
       await initAgent(email, pin, seedHash);
       await storeOnboardingCompleteStage();
-      successToast(t('PinCreate.WalletCreated'));
+      successToast(t<string>('PinCreate.WalletCreated'));
 
       navigation.navigate(Screens.SetupDelay);
     } catch (error: any) {
@@ -82,15 +84,15 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
   return (
     <View style={style.container}>
       <Loader loading={loading} />
-      <Text style={style.label}>{t('Mnemonic.MnemonicTitle')}</Text>
+      <Text style={style.label}>{t<string>('Mnemonic.MnemonicTitle')}</Text>
       <View style={style.container}>
         <InfoCard showBottomIcon={false} showTopIcon mnemonicText>
           <Text style={style.headerText}>{`${mnemonicText}\n`}</Text>
-          {t('Registration.MnemonicMsg')}
+          {t<string>('Registration.MnemonicMsg')}
         </InfoCard>
         <Button
           buttonStyle={style.btnContainer}
-          title={t('Global.Copy')}
+          title={t<string>('Global.Copy')}
           buttonType={ButtonType.Primary}
           onPress={copyMnemonic}
         />

@@ -18,37 +18,37 @@ const Settings: React.FC<SettingsProps> = ({
 }) => {
   const { t } = useTranslation();
   const logoff = () =>
-    Alert.alert(t('Settings.Logout'), t('Settings.LogoutMsg'), [
+    Alert.alert(t<string>('Settings.Logout'), t<string>('Settings.LogoutMsg'), [
       {
-        text: t('Settings.Yes'),
+        text: t<string>('Settings.Yes'),
         onPress: () => setAuthenticated(false),
       },
-      { text: t('Settings.No') },
+      { text: t<string>('Settings.No') },
     ]);
   return (
     <View style={styles.container}>
-      <Text style={styles.groupHeader}>{t('Settings.AppPreferences')}</Text>
+      <Text style={styles.groupHeader}>{t<string>('Settings.AppPreferences')}</Text>
       <SettingListItem
-        title={t('Settings.ChangePin')}
+        title={t<string>('Settings.ChangePin')}
         onPress={() => navigation.navigate(Screens.ChangePin)}
       />
       <SettingListItem
-        title={t('Settings.Language')}
+        title={t<string>('Settings.Language')}
         onPress={() => navigation.navigate(Screens.Language)}
       />
       <SettingListItem
-        title={t('Settings.ViewMnemonic')}
+        title={t<string>('Settings.ViewMnemonic')}
         onPress={() => navigation.navigate(Screens.ViewMnemonic)}
       />
       <SettingListItem
-        title={t('Settings.ExportWallet')}
+        title={t<string>('Settings.ExportWallet')}
         onPress={() => navigation.navigate(Screens.ExportWallet)}
       />
-      <SettingListItem title={t('Settings.Logout')} onPress={logoff} />
-      <Text style={styles.groupHeader}>{t('Settings.AboutApp')}</Text>
+      <SettingListItem title={t<string>('Settings.Logout')} onPress={logoff} />
+      <Text style={styles.groupHeader}>{t<string>('Settings.AboutApp')}</Text>
       <View style={styles.rowGroup}>
         <View style={styles.row}>
-          <Text style={styles.bodyText}>{t('Settings.Version')}</Text>
+          <Text style={styles.bodyText}>{t<string>('Settings.Version')}</Text>
           <Text
             style={styles.bodyText}
           >{`${getVersion()}.${getBuildNumber()}`}</Text>

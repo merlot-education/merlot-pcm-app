@@ -35,6 +35,7 @@ const App = () => {
   return (
     <SafeAreaProvider>
       <AntDesignProvider theme={customTheme}>
+        {/* @ts-ignore @aries-framework/react-hooks missed children in the props */}
         <AgentProvider agent={agent}>
           <NavigationContainer theme={navigationTheme}>
             <RootStack setAgent={setupAgent} />

@@ -1,4 +1,7 @@
 import * as Utils from './Registration.utils';
+import {
+  getMnemonicArrayFromWords,
+} from '../../utils/generic';
 
 describe('Registration.utils', () => {
   describe('getMnemonicFromWords', () => {
@@ -10,7 +13,7 @@ describe('Registration.utils', () => {
     ])(
       'should return string values from list of words with provided length of Words',
       (initialValues, finalLength) => {
-        const result = Utils.getMnemonicArrayFromWords(initialValues);
+        const result = getMnemonicArrayFromWords(initialValues);
         expect(result.length).toEqual(finalLength);
       },
     );

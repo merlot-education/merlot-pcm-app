@@ -22,10 +22,12 @@ import { KeychainStorageKeys } from '../../constants';
 import { OnboardingStackParams, Screens } from '../../types/navigators';
 import {
   checkIfSensorAvailable,
-  getValueFromKeychain,
-  saveValueInKeychain,
   createMD5HashFromString,
 } from './PinCreate.utils';
+import {
+  getValueFromKeychain,
+  saveValueInKeychain,
+} from '../../utils/generic';
 import Images from '../../assets';
 
 type PinCreateProps = StackScreenProps<
@@ -99,7 +101,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
             saveValueInKeychain(
               KeychainStorageKeys.Passcode,
               passcode,
-              t('PinCreate.UserAuthenticationPin'),
+              t<string>('PinCreate.UserAuthenticationPin'),
             ),
           );
         }),
@@ -122,7 +124,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         navigation.navigate(Screens.Initialization);
       }
 
-      setError(t('PinCreate.PinsSuccess'));
+      setError(t<string>('PinCreate.PinsSuccess'));
     } catch (e: any) {
       setError(e);
     }
@@ -159,11 +161,11 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
 
   const confirmEntry = async (pin: string, reEnterPin: string) => {
     if (pin.length < 6) {
-      setError(t('PinCreate.PinMustBe6DigitsInLength'));
+      setError(t<string>('PinCreate.PinMustBe6DigitsInLength'));
     } else if (reEnterPin.length < 6) {
-      setError(t('PinCreate.ReEnterPinMustBe6DigitsInLength'));
+      setError(t<string>('PinCreate.ReEnterPinMustBe6DigitsInLength'));
     } else if (pin !== reEnterPin) {
-      setError(t('PinCreate.PinsEnteredDoNotMatch'));
+      setError(t<string>('PinCreate.PinsEnteredDoNotMatch'));
     } else {
       await passcodeCreate(pin);
     }
@@ -184,11 +186,11 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
         <View style={style.innerContainer}>
           <View style={{ width: '70%' }}>
             <TextInput
-              label={t('Global.EnterPin')}
-              placeholder={t('Global.6DigitPin')}
+              label={t<string>('Global.EnterPin')}
+              placeholder={t<string>('Global.6DigitPin')}
               placeholderTextColor={ColorPallet.baseColors.lightGrey}
               accessible
-              accessibilityLabel={t('Global.EnterPin')}
+              accessibilityLabel={t<string>('Global.EnterPin')}
               maxLength={6}
               autoFocus
               secureTextEntry
@@ -198,10 +200,10 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
               returnKeyType="done"
             />
             <TextInput
-              label={t('PinCreate.ReenterPin')}
+              label={t<string>('PinCreate.ReenterPin')}
               accessible
-              accessibilityLabel={t('PinCreate.ReenterPin')}
-              placeholder={t('Global.6DigitPin')}
+              accessibilityLabel={t<string>('PinCreate.ReenterPin')}
+              placeholder={t<string>('Global.6DigitPin')}
               placeholderTextColor={ColorPallet.baseColors.lightGrey}
               maxLength={6}
               secureTextEntry
@@ -224,7 +226,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       </View>
       <View style={style.bottomContainer}>
         <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-          {t('PinCreate.PinInfo')}
+          {t<string>('PinCreate.PinInfo')}
         </InfoCard>
         <ScreenNavigatorButtons
           onLeftPress={onBack}

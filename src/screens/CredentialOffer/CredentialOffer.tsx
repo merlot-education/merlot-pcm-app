@@ -38,7 +38,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
 }) => {
   const { t } = useTranslation();
   if (!route?.params) {
-    throw new Error(t('CredentialOffer.CredentialOfferParamsError'));
+    throw new Error(t<string>('CredentialOffer.CredentialOfferParamsError'));
   }
   const { credentialId } = route.params;
   const { agent } = useAgent();
@@ -54,11 +54,11 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
 
   const connection = useConnectionById(credential?.connectionId);
   if (!agent) {
-    throw new Error(t('CredentialOffer.FetchAFJError'));
+    throw new Error(t<string>('CredentialOffer.FetchAFJError'));
   }
 
   if (!credential) {
-    throw new Error(t('CredentialOffer.CredentialFetchError'));
+    throw new Error(t<string>('CredentialOffer.CredentialFetchError'));
   }
 
   const getCredentialData = useCallback(async () => {
@@ -144,12 +144,12 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
 
   const handleDeclinePress = async () => {
     Alert.alert(
-      t('CredentialOffer.RejectThisCredential?'),
-      t('Global.ThisDecisionCannotBeChanged.'),
+      t<string>('CredentialOffer.RejectThisCredential?'),
+      t<string>('Global.ThisDecisionCannotBeChanged.'),
       [
-        { text: t('Global.Cancel'), style: 'cancel' },
+        { text: t<string>('Global.Cancel'), style: 'cancel' },
         {
-          text: t('Global.Confirm'),
+          text: t<string>('Global.Confirm'),
           style: 'destructive',
           onPress: async () => {
             try {
@@ -158,8 +158,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             } catch (e: unknown) {
               Toast.show({
                 type: ToastType.Error,
-                text1: t('CredentialOffer.RejectOfferTitle'),
-                text2: t('CredentialOffer.RejectOfferMessage'),
+                text1: t<string>('CredentialOffer.RejectOfferTitle'),
+                text2: t<string>('CredentialOffer.RejectOfferMessage'),
               });
             }
           },
@@ -176,9 +176,9 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             <View style={styles.headerTextContainer}>
               <Text style={styles.headerText}>
                 <Title>
-                  {connection?.theirLabel || t('ContactDetails.AContact')}
+                  {connection?.theirLabel || t<string>('ContactDetails.AContact')}
                 </Title>{' '}
-                {t('CredentialOffer.IsOfferingYouACredential')}
+                {t<string>('CredentialOffer.IsOfferingYouACredential')}
               </Text>
             </View>
             <CredentialCard
@@ -191,7 +191,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
           <View style={{ marginBottom: 30 }}>
             <View style={styles.footerButton}>
               <Button
-                title={t('Global.Accept')}
+                title={t<string>('Global.Accept')}
                 onPress={handleAcceptPress}
                 disabled={!buttonsVisible}
                 buttonType={ButtonType.Primary}
@@ -199,7 +199,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             </View>
             <View style={styles.footerButton}>
               <Button
-                title={t('Global.Decline')}
+                title={t<string>('Global.Decline')}
                 onPress={handleDeclinePress}
                 disabled={!buttonsVisible}
                 buttonType={ButtonType.Ghost}
@@ -210,8 +210,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         attributes={credentialRecord?.offerAttributes}
       />
       <FlowDetailModal
-        title={t('CredentialOffer.CredentialOnTheWay')}
-        doneTitle={t('Global.Cancel')}
+        title={t<string>('CredentialOffer.CredentialOnTheWay')}
+        doneTitle={t<string>('Global.Cancel')}
         visible={pendingModalVisible}
         onDone={() => {
           setPendingModalVisible(false);
@@ -220,7 +220,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         <CredentialPending style={{ marginVertical: 20 }} />
       </FlowDetailModal>
       <FlowDetailModal
-        title={t('CredentialOffer.CredentialAddedToYourWallet')}
+        title={t<string>('CredentialOffer.CredentialAddedToYourWallet')}
         visible={successModalVisible}
         onDone={() => {
           setSuccessModalVisible(false);
@@ -233,7 +233,7 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
         <CredentialSuccess style={{ marginVertical: 20 }} />
       </FlowDetailModal>
       <FlowDetailModal
-        title={t('CredentialOffer.CredentialDeclined')}
+        title={t<string>('CredentialOffer.CredentialDeclined')}
         visible={declinedModalVisible}
         onDone={() => {
           setDeclinedModalVisible(false);

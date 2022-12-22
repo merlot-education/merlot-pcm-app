@@ -82,7 +82,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
           <View style={styles.buttonContainer}>
             <Button
               buttonType={ButtonType.Primary}
-              title={doneTitle || t('Global.Done')}
+              title={doneTitle || t<string>('Global.Done')}
               onPress={onDone || close}
             />
           </View>

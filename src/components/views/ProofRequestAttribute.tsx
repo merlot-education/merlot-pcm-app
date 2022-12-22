@@ -27,13 +27,11 @@ const ProofRequestAttribute: React.FC<Props> = ({
             </View>
           ))}
           {item.credentials.length <= 1 ? (
-            <Text
-              style={[TextTheme.label, styles.credentialName, { marginTop: 8 }]}
-            >
+            <Text style={styles.credentialName}>
               {item.credentials[0].label}
             </Text>
           ) : (
-            <View style={{ marginTop: 8 }}>
+            <View style={styles.dropdownContainer}>
               <DropDown
                 items={item.credentials}
                 onSelectItem={value => onSelectItem(value, item.key)}
@@ -67,7 +65,10 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   credentialName: {
+    ...TextTheme.label,
     width: '100%',
     textAlign: 'left',
+    marginTop: 8,
   },
+  dropdownContainer: { marginTop: 8 },
 });

@@ -32,14 +32,14 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   const emptyListComponent = () => (
     <View style={{ marginHorizontal: offset, width: width - 2 * offset }}>
       <InfoTextBox showIcon>
-        <Text style={TextTheme.normal}>{t('Home.NoNewUpdates')}</Text>
+        <Text style={TextTheme.normal}>{t<string>('Home.NoNewUpdates')}</Text>
       </InfoTextBox>
     </View>
   );
 
   const displayMessage = (credentialCount: number) => {
     if (typeof credentialCount === 'undefined') {
-      throw new Error(t('Home.CredentialCountUndefinedError'));
+      throw new Error(t<string>('Home.CredentialCountUndefinedError'));
     }
 
     let credentialMsg;
@@ -47,21 +47,21 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     if (credentialCount === 1) {
       credentialMsg = (
         <Text>
-          {t('Home.YouHave')}{' '}
+          {t<string>('Home.YouHave')}{' '}
           <Text style={{ fontWeight: 'bold' }}>{credentialCount}</Text>{' '}
-          {t('Home.Credential')} {t('Home.InYourWallet')}
+          {t<string>('Home.Credential')} {t<string>('Home.InYourWallet')}
         </Text>
       );
     } else if (credentialCount > 1) {
       credentialMsg = (
         <Text>
-          {t('Home.YouHave')}{' '}
+          {t<string>('Home.YouHave')}{' '}
           <Text style={{ fontWeight: 'bold' }}>{credentialCount}</Text>{' '}
-          {t('Home.Credentials')} {t('Home.InYourWallet')}
+          {t<string>('Home.Credentials')} {t<string>('Home.InYourWallet')}
         </Text>
       );
     } else {
-      credentialMsg = t('Home.NoCredentials');
+      credentialMsg = t<string>('Home.NoCredentials');
     }
 
     return (
@@ -73,7 +73,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
               { marginTop: offset, marginBottom: 35 },
             ]}
           >
-            {t('Home.Welcome')}
+            {t<string>('Home.Welcome')}
           </Text>
         ) : null}
         <Text
@@ -89,7 +89,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     <View>
       <View style={styles.rowContainer}>
         <Text style={[TextTheme.headingFour, styles.header]}>
-          {t('Home.Notifications')}
+          {t<string>('Home.Notifications')}
           {notifications.length ? ` (${notifications.length})` : ''}
         </Text>
         {notifications?.length > 1 ? (
@@ -98,7 +98,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
             activeOpacity={1}
             onPress={() => navigation.navigate(Screens.Notifications)}
           >
-            <Text style={styles.link}>{t('Home.SeeAll')}</Text>
+            <Text style={styles.link}>{t<string>('Home.SeeAll')}</Text>
           </TouchableOpacity>
         ) : null}
       </View>

@@ -43,7 +43,7 @@ const ListCredentials: React.FC = () => {
 
   const emptyListComponent = () => (
     <Text style={{ textAlign: 'center', marginTop: 100 }}>
-      {t('Global.ZeroRecords')}
+      {t<string>('Global.ZeroRecords')}
     </Text>
   );
 

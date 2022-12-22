@@ -1,4 +1,4 @@
-import * as Utils from './ChangePin.utils';
+import * as Utils from './generic';
 
 describe('ChangePin.utils', () => {
   describe('saveValueInKeychain', () => {
