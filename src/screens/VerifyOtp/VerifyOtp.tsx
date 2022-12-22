@@ -122,7 +122,9 @@ const VerifyOtp: React.FC<VerifyOtpProps> = ({ navigation, route }) => {
         />
         <View style={style.imgContainer}>
           <Text style={[style.bodyText, style.verticalSpacer]}>
-            {`${resendButtonDisabledTime} ${t<string>('Registration.SecondCounter')}`}
+            {`${resendButtonDisabledTime} ${t<string>(
+              'Registration.SecondCounter',
+            )}`}
           </Text>
           {resendButtonDisabledTime === 0 && (
             <Text

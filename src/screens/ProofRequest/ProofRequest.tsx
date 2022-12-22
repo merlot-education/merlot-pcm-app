@@ -120,7 +120,9 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
                   ...prevState,
-                  `${name} ${t<string>('Global.from')}  ${restriction.schema_name}`,
+                  `${name} ${t<string>('Global.from')}  ${
+                    restriction.schema_name
+                  }`,
                 ]);
               });
             } else if (
@@ -246,7 +248,9 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
     const updateRetrievedCredentials = async (proof: ProofRecord) => {
       const creds = await getRetrievedCredential(agent, proof);
       if (!creds) {
-        throw new Error(t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'));
+        throw new Error(
+          t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'),
+        );
       }
       transformProofObject(creds);
       setRetrievedCredentials(creds);
@@ -334,7 +338,9 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           updateRetrievedCredentials,
         );
       if (!automaticRequestedCreds) {
-        throw new Error(t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'));
+        throw new Error(
+          t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'),
+        );
       }
       await agent.proofs.acceptRequest(proof.id, automaticRequestedCreds);
 

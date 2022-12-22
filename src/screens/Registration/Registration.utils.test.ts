@@ -1,7 +1,5 @@
 import * as Utils from './Registration.utils';
-import {
-  getMnemonicArrayFromWords,
-} from '../../utils/generic';
+import { getMnemonicArrayFromWords } from '../../utils/generic';
 
 describe('Registration.utils', () => {
   describe('getMnemonicFromWords', () => {

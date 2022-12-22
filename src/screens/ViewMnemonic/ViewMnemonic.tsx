@@ -103,7 +103,9 @@ const ViewMnemonic: React.FC = () => {
           <Text style={style.label}>Mnemonic</Text>
           <View style={style.boxContainer}>
             <Text style={style.headerText}>{mnemonicText}</Text>
-            <Text style={style.bodyText}>{t<string>('Registration.MnemonicMsg')}</Text>
+            <Text style={style.bodyText}>
+              {t<string>('Registration.MnemonicMsg')}
+            </Text>
             <Button
               title={t<string>('Global.Copy')}
               buttonType={ButtonType.Primary}

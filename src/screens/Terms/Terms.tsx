@@ -54,7 +54,9 @@ const Terms: React.FC = () => {
       <ScrollView>
         <InfoTextBox showIcon>{t<string>('Terms.AcceptTerms')}</InfoTextBox>
         <View style={styles.verticalSpacer}>
-          <InfoCard showBottomIcon>{t<string>('Terms.TermsAndConditions')}</InfoCard>
+          <InfoCard showBottomIcon>
+            {t<string>('Terms.TermsAndConditions')}
+          </InfoCard>
         </View>
       </ScrollView>
       <View style={styles.bottom}>

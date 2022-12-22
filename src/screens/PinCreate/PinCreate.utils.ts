@@ -12,8 +12,6 @@ export const storeOnboardingCompleteStage = async () => {
   await AsyncStorage.setItem(LocalStorageKeys.OnboardingCompleteStage, 'true');
 };
 
-
-
 export const checkIfSensorAvailable = async () => {
   const result = await rnBiometrics.isSensorAvailable();
   return result;

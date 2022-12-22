@@ -1,6 +1,6 @@
-import wordsList from "./wordsList";
-import {getValueKeychain, setValueKeychain} from "./keychain";
-import {Alert} from "react-native";
+import wordsList from './wordsList';
+import { getValueKeychain, setValueKeychain } from './keychain';
+import { Alert } from 'react-native';
 
 export const getMnemonicArrayFromWords = (lengthOfWords: number): string[] => {
   const wordsArray = [];

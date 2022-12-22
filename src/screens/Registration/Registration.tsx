@@ -17,7 +17,7 @@ import {
   restoreTermsCompleteStage,
   validateEmail,
 } from './Registration.utils';
-import {saveValueInKeychain} from "../../utils/generic";
+import { saveValueInKeychain } from '../../utils/generic';
 import Images from '../../assets';
 
 type RegistrationProps = StackScreenProps<

@@ -1,7 +1,5 @@
 import * as Utils from './CreateWallet.utils';
-import {
-  getMnemonicArrayFromWords,
-} from '../../utils/generic';
+import { getMnemonicArrayFromWords } from '../../utils/generic';
 
 describe('CreateWallet.utils', () => {
   describe('storeOnboardingCompleteStage', () => {

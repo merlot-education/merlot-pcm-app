@@ -27,7 +27,9 @@ const Settings: React.FC<SettingsProps> = ({
     ]);
   return (
     <View style={styles.container}>
-      <Text style={styles.groupHeader}>{t<string>('Settings.AppPreferences')}</Text>
+      <Text style={styles.groupHeader}>
+        {t<string>('Settings.AppPreferences')}
+      </Text>
       <SettingListItem
         title={t<string>('Settings.ChangePin')}
         onPress={() => navigation.navigate(Screens.ChangePin)}

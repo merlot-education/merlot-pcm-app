@@ -23,7 +23,7 @@ import {
   showBiometricPrompt,
   registerUser,
 } from './PinEnter.utils';
-import {getValueFromKeychain} from "../../utils/generic";
+import { getValueFromKeychain } from '../../utils/generic';
 import { warningToast, errorToast, successToast } from '../../utils/toast';
 
 type PinEnterProps = StackScreenProps<OnboardingStackParams, Screens.EnterPin>;

@@ -176,7 +176,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
             <View style={styles.headerTextContainer}>
               <Text style={styles.headerText}>
                 <Title>
-                  {connection?.theirLabel || t<string>('ContactDetails.AContact')}
+                  {connection?.theirLabel ||
+                    t<string>('ContactDetails.AContact')}
                 </Title>{' '}
                 {t<string>('CredentialOffer.IsOfferingYouACredential')}
               </Text>

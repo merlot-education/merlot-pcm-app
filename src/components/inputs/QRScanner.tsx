@@ -149,8 +149,12 @@ const QRScanner: React.FC<Props> = ({
           <QRScannerClose onPress={() => navigation.goBack()} />
         </View>
         <View style={styles.scanTextView}>
-          <Text style={styles.scanText}>{t<string>('QRScanner.ScanMessage')}</Text>
-          <Text style={styles.scanText}>{t<string>('QRScanner.VerifyMessage')}</Text>
+          <Text style={styles.scanText}>
+            {t<string>('QRScanner.ScanMessage')}
+          </Text>
+          <Text style={styles.scanText}>
+            {t<string>('QRScanner.VerifyMessage')}
+          </Text>
         </View>
         {error && (
           <View style={styles.errorContainer}>

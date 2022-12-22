@@ -9,10 +9,8 @@ import {
   createMD5HashFromString,
   storeOnboardingCompleteStage,
 } from './CreateWallet.utils';
-import {saveValueInKeychain} from "../../utils/generic";
-import {
-  getMnemonicArrayFromWords,
-} from '../../utils/generic';
+import { saveValueInKeychain } from '../../utils/generic';
+import { getMnemonicArrayFromWords } from '../../utils/generic';
 import { KeychainStorageKeys } from '../../constants';
 import Button, { ButtonType } from '../../components/button/Button';
 import { InfoCard, Loader, ScreenNavigatorButtons } from '../../components';

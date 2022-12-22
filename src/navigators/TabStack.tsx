@@ -127,7 +127,9 @@ const TabStack: React.FC = ({ navigation }) => {
             tabBarIcon: ({ focused }) => (
               <TabBarIcon focused={focused} imageName={Images.homeIcon} />
             ),
-            tabBarLabel: () => <TabBarLabel label={t<string>('TabStack.Home')} />,
+            tabBarLabel: () => (
+              <TabBarLabel label={t<string>('TabStack.Home')} />
+            ),
             tabBarBadge: total,
             tabBarBadgeStyle: {
               backgroundColor: ColorPallet.semantic.error,
@@ -159,7 +161,9 @@ const TabStack: React.FC = ({ navigation }) => {
           name={TabStacks.ScanStack}
           options={{
             tabBarIcon: () => <ScannerIcon />,
-            tabBarLabel: () => <TabBarLabel label={t<string>('TabStack.Scan')} />,
+            tabBarLabel: () => (
+              <TabBarLabel label={t<string>('TabStack.Scan')} />
+            ),
             tabBarAccessibilityLabel: t<string>('TabStack.Scan'),
           }}
           listeners={({ navigation }) => ({
@@ -195,7 +199,9 @@ const TabStack: React.FC = ({ navigation }) => {
             tabBarIcon: ({ focused }) => (
               <TabBarIcon focused={focused} imageName={Images.settingsIcon} />
             ),
-            tabBarLabel: () => <TabBarLabel label={t<string>('TabStack.Settings')} />,
+            tabBarLabel: () => (
+              <TabBarLabel label={t<string>('TabStack.Settings')} />
+            ),
             unmountOnBlur: true,
           }}
         />

@@ -24,10 +24,7 @@ import {
   checkIfSensorAvailable,
   createMD5HashFromString,
 } from './PinCreate.utils';
-import {
-  getValueFromKeychain,
-  saveValueInKeychain,
-} from '../../utils/generic';
+import { getValueFromKeychain, saveValueInKeychain } from '../../utils/generic';
 import Images from '../../assets';
 
 type PinCreateProps = StackScreenProps<
