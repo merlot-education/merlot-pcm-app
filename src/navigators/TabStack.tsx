@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React, { useEffect } from 'react';
+import { useNavigation } from '@react-navigation/core';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View, Image, ImageProps } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -76,7 +77,8 @@ const ScannerIcon = () => {
   );
 };
 
-const TabStack: React.FC = ({ navigation }) => {
+const TabStack: React.FC = () => {
+  const navigation = useNavigation();
   const { total } = useNotifications();
   const { t } = useTranslation();
   const { agent } = useAgent();

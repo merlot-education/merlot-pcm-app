@@ -12,9 +12,7 @@ import ViewMnemonic from '../screens/ViewMnemonic';
 
 const Stack = createStackNavigator<SettingStackParams>();
 
-interface SettingStackProp {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-}
+interface SettingStackProp {}
 
 const SettingStack: React.FC<SettingStackProp> = () => {
   const { setAuthenticated } = React.useContext(MainStackContext);
