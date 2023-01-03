@@ -3,12 +3,12 @@ import React from 'react';
 import ConnectionInvitation from '../screens/ConnectionInvitation';
 import Home from '../screens/Home';
 import ListContacts from '../screens/ListContacts';
-import { Screens, Stacks } from '../types/navigators';
+import { MainStackParams, Screens, Stacks } from '../types/navigators';
 import ScanStack from './ScanStack';
 import defaultStackOptions from './defaultStackOptions';
 import TabStack from './TabStack';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<MainStackParams>();
 
 const MainStack: React.FC = () => {
   return (

@@ -105,7 +105,16 @@ export const credentialRecordFromId = (credentialId: string) => {
   return credential;
 };
 
-export const MainStackContext = React.createContext(null);
+interface MainStackContextValue {
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  deepLinkUrl: string | undefined | null;
+  resetDeepLinkUrl: () => void;
+}
+export const MainStackContext = React.createContext<MainStackContextValue>({
+  setAuthenticated: () => {},
+  deepLinkUrl: null,
+  resetDeepLinkUrl: () => {},
+});
 
 export const getCredDefName = (credentialDefinitionId: string) => {
   const data = credentialDefinitionId.split(':');

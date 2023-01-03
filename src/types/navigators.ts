@@ -36,85 +36,92 @@ export enum Screens {
 }
 
 export type OnboardingStackParams = {
-  Splash: undefined;
-  Onboarding: undefined;
-  Terms: undefined;
-  Initialization: undefined;
-  Registration: { forgotPin: boolean };
-  VerifyOtp: {
+  [Screens.Splash]: undefined;
+  [Screens.Onboarding]: undefined;
+  [Screens.Terms]: undefined;
+  [Screens.Initialization]: undefined;
+  [Screens.Registration]: { forgotPin: boolean };
+  [Screens.VerifyOtp]: {
     email: string;
     forgotPin: boolean;
     otpId: string;
   };
-  CreatePin: {
+  [Screens.CreatePin]: {
     initAgent: (email: string, walletPin: string, seed: string) => void;
     forgotPin: boolean;
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  Biometric: {
+  [Screens.Biometric]: {
     initAgent?: (email: string, walletPin: string, seed: string) => void;
     forgotPin: boolean;
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  ImportWallet: {
+  [Screens.ImportWallet]: {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
     setAgent: (agent: Agent) => void;
     setActive: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  EnterPin: {
+  [Screens.EnterPin]: {
     initAgent: (email: string, walletPin: string, seed: string) => void;
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  CreateWallet: {
+  [Screens.CreateWallet]: {
     initAgent: (email: string, walletPin: string, seed: string) => void;
   };
-  WalletInitialized: {
+  [Screens.WalletInitialized]: {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   };
-  SetupDelay: undefined;
+  [Screens.SetupDelay]: undefined;
 };
 
 export type MainStackParams = {
-  TabStack: undefined;
-  Home: undefined;
-  Connect: undefined;
-  ListContacts: undefined;
+  [Stacks.TabStack]: undefined;
+  [Screens.Home]: undefined;
+  [Screens.Scan]: undefined;
+  [Screens.ListContacts]: undefined;
+  [Screens.ConnectionInvitation]: undefined;
 };
 
 export type AuthenticateStackParams = {
-  'Enter Pin': { setAuthenticated: (auth: boolean) => void };
+  [Screens.EnterPin]: {
+    initAgent: (email: string, walletPin: string, seed: string) => void;
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  };
 };
 
 export type ContactStackParams = {
-  ListContacts: undefined;
+  [Screens.ListContacts]: undefined;
   [Screens.ContactDetails]: { connectionId: string };
 };
 
 export type CredentialStackParams = {
-  Credentials: undefined;
+  [Screens.Credentials]: undefined;
   [Screens.CredentialDetails]: { credentialId: string };
 };
 
 export type HomeStackParams = {
-  Home: undefined;
-  Notifications: undefined;
-  CredentialOffer: { credentialId: string };
-  ProofRequest: { proofId: string };
-  ProofRequestAttributeDetails: { proofId: string; attributeName: string };
+  [Screens.Home]: undefined;
+  [Screens.Notifications]: undefined;
+  [Screens.CredentialOffer]: { credentialId: string };
+  [Screens.ProofRequest]: { proofId: string };
+  [Screens.ProofRequestAttributeDetails]: {
+    proofId: string;
+    attributeName: string;
+  };
 };
 
 export type ScanStackParams = {
-  Scan: undefined;
-  ConnectionInvitation: undefined;
-  ListContacts: undefined;
+  [Screens.Scan]: undefined;
+  [Screens.ConnectionInvitation]: undefined;
+  [Screens.ListContacts]: undefined;
 };
 
 export type SettingStackParams = {
-  Settings: undefined;
-  Language: undefined;
-  ChangePin: undefined;
-  ExportWallet: undefined;
-  ViewMnemonic: undefined;
+  [Screens.Settings]: undefined;
+  [Screens.Language]: undefined;
+  [Screens.ChangePin]: undefined;
+  [Screens.ExportWallet]: undefined;
+  [Screens.ViewMnemonic]: undefined;
 };
 
 export enum TabStacks {

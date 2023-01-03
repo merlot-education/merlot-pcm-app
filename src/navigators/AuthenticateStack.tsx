@@ -6,14 +6,14 @@ import PinEnter from '../screens/PinEnter';
 import defaultStackOptions from './defaultStackOptions';
 
 interface AuthenticateStackProps {
-  setAuthenticated: (auth: boolean) => void;
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+const Stack = createStackNavigator<AuthenticateStackParams>();
 
 const AuthenticateStack: React.FC<AuthenticateStackProps> = ({
   setAuthenticated,
 }) => {
-  const Stack = createStackNavigator<AuthenticateStackParams>();
-
   return (
     <Stack.Navigator
       screenOptions={{
