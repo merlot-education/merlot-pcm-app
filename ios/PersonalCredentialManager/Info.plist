@@ -20,6 +20,19 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>gxfspcm</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>gxfspcm</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -47,6 +60,8 @@
 	<string>$(PRODUCT_NAME) requires access to the Document folder to store the backup files</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires access of face id or touch id for app authentication.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>$(PRODUCT_NAME) requires access to the library to upload your wallet while importing.</string>
 	<key>UIAppFonts</key>

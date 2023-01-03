@@ -104,7 +104,27 @@ In your second terminal, you can now run:
 yarn android
 ```
 
-## Latest Androind version
+## Building local android apk file in debug mode
+
+Create .env file with environment variables
+
+Run command in root folder of app project
+
+```sh
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+
+Go to path `android` and run the command
+
+```sh
+./gradlew assembleDebug
+```
+
+As a result you will get apk file in `./android/app/build/outputs/apk/[production|development]`
+
+
+
+## Latest Android version
 <hr/>
 
 [Android PCM](https://vereign0-my.sharepoint.com/:f:/g/personal/kalin_canov_vereign_com/EiwSfVWCOllDiSC57_DE_xABBVKkiJYx_tANEvbJiI9lGQ?e=3VBnIX)

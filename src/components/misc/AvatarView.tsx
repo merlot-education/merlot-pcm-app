@@ -1,12 +1,24 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import { Title } from '..'
-import { TextTheme } from '../../theme/theme'
-import { hashToRGBA, hashCode } from '../../utils/helpers'
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Title } from '..';
+import { TextTheme } from '../../theme/theme';
+import { hashToRGBA, hashCode } from '../../utils/helpers';
 
 interface AvatarViewProps {
-  name: string
+  name: string;
 }
+
+const AvatarView: React.FC<AvatarViewProps> = ({ name }) => {
+  return (
+    <View style={[styles.avatar, { borderColor: hashToRGBA(hashCode(name)) }]}>
+      <Title style={{ ...TextTheme.headingTwo, fontWeight: 'normal' }}>
+        {name.charAt(0)}
+      </Title>
+    </View>
+  );
+};
+
+export default AvatarView;
 
 const styles = StyleSheet.create({
   avatar: {
@@ -19,16 +31,4 @@ const styles = StyleSheet.create({
     borderRadius: TextTheme.headingTwo.fontSize,
     borderColor: TextTheme.headingTwo.color,
   },
-})
-
-const AvatarView: React.FC<AvatarViewProps> = ({ name }) => {
-  return (
-    <View style={[styles.avatar, { borderColor: hashToRGBA(hashCode(name)) }]}>
-      <Title style={{ ...TextTheme.headingTwo, fontWeight: 'normal' }}>
-        {name.charAt(0)}
-      </Title>
-    </View>
-  )
-}
-
-export default AvatarView
+});

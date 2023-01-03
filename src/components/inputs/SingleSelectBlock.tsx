@@ -1,38 +1,23 @@
-import React, { useState } from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {
   borderRadius,
   ColorPallet,
   SingleSelectBlockTheme,
-} from '../../theme/theme'
-import Text from '../text/Text'
+} from '../../theme/theme';
+import Text from '../text/Text';
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    padding: 20,
-  },
-  row: {
-    borderRadius: borderRadius * 2,
-    backgroundColor: SingleSelectBlockTheme.background,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 12,
-    marginBottom: 8,
-  },
-})
 export interface BlockSelection {
-  value: string
-  id: string
+  value: string;
+  id: string;
 }
 
 interface Props {
-  selection: BlockSelection[]
-  onSelect: (selected: BlockSelection) => void
-  initialSelect?: BlockSelection
+  selection: BlockSelection[];
+  onSelect: (selected: BlockSelection) => void;
+  initialSelect?: BlockSelection;
 }
 
 const SingleSelectBlock: React.FC<Props> = ({
@@ -40,12 +25,12 @@ const SingleSelectBlock: React.FC<Props> = ({
   onSelect,
   initialSelect,
 }) => {
-  const [selected, setSelected] = useState(initialSelect ?? selection[0])
+  const [selected, setSelected] = useState(initialSelect ?? selection[0]);
 
   const handleSelect = (selected: BlockSelection) => {
-    setSelected(selected)
-    onSelect(selected)
-  }
+    setSelected(selected);
+    onSelect(selected);
+  };
 
   return (
     <View style={styles.container} testID="SingleSelectBlock">
@@ -62,7 +47,23 @@ const SingleSelectBlock: React.FC<Props> = ({
         </TouchableOpacity>
       ))}
     </View>
-  )
-}
+  );
+};
 
-export default SingleSelectBlock
+export default SingleSelectBlock;
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    padding: 20,
+  },
+  row: {
+    borderRadius: borderRadius * 2,
+    backgroundColor: SingleSelectBlockTheme.background,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 12,
+    marginBottom: 8,
+  },
+});

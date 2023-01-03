@@ -1,3 +1,3 @@
-import PinEnter from './PinEnter'
+import PinEnter from './PinEnter';
 
-export default PinEnter
+export default PinEnter;

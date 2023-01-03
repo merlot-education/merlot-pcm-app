@@ -1,3 +1,3 @@
-import Biometric from './Biometric'
+import Biometric from './Biometric';
 
-export default Biometric
+export default Biometric;

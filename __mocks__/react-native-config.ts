@@ -1,3 +1,3 @@
-const rnConfigMockedModule = jest.mock('react-native-config')
+const rnConfigMockedModule = jest.mock('react-native-config');
 
-module.exports = rnConfigMockedModule
+module.exports = rnConfigMockedModule;

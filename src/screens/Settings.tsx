@@ -1,16 +1,67 @@
-import { StackScreenProps } from '@react-navigation/stack'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { StyleSheet, View, Alert } from 'react-native'
-import { getVersion, getBuildNumber } from 'react-native-device-info'
-import { borderRadius, ColorPallet, TextTheme } from '../theme/theme'
-import { Screens, SettingStackParams } from '../types/navigators'
-import { SettingListItem, Text } from '../components'
+import React from 'react';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useTranslation } from 'react-i18next';
+import { StyleSheet, View, Alert } from 'react-native';
+import { getVersion, getBuildNumber } from 'react-native-device-info';
+import { borderRadius, ColorPallet, TextTheme } from '../theme/theme';
+import { Screens, SettingStackParams } from '../types/navigators';
+import { SettingListItem, Text } from '../components';
 
 type SettingsProps = {
-  navigation: StackScreenProps<SettingStackParams, Screens.Settings>
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-}
+  navigation: StackScreenProps<SettingStackParams, Screens.Settings>;
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const Settings: React.FC<SettingsProps> = ({
+  navigation,
+  setAuthenticated,
+}) => {
+  const { t } = useTranslation();
+  const logoff = () =>
+    Alert.alert(t<string>('Settings.Logout'), t<string>('Settings.LogoutMsg'), [
+      {
+        text: t<string>('Settings.Yes'),
+        onPress: () => setAuthenticated(false),
+      },
+      { text: t<string>('Settings.No') },
+    ]);
+  return (
+    <View style={styles.container}>
+      <Text style={styles.groupHeader}>
+        {t<string>('Settings.AppPreferences')}
+      </Text>
+      <SettingListItem
+        title={t<string>('Settings.ChangePin')}
+        onPress={() => navigation.navigate(Screens.ChangePin)}
+      />
+      <SettingListItem
+        title={t<string>('Settings.Language')}
+        onPress={() => navigation.navigate(Screens.Language)}
+      />
+      <SettingListItem
+        title={t<string>('Settings.ViewMnemonic')}
+        onPress={() => navigation.navigate(Screens.ViewMnemonic)}
+      />
+      <SettingListItem
+        title={t<string>('Settings.ExportWallet')}
+        onPress={() => navigation.navigate(Screens.ExportWallet)}
+      />
+      <SettingListItem title={t<string>('Settings.Logout')} onPress={logoff} />
+      <Text style={styles.groupHeader}>{t<string>('Settings.AboutApp')}</Text>
+      <View style={styles.rowGroup}>
+        <View style={styles.row}>
+          <Text style={styles.bodyText}>{t<string>('Settings.Version')}</Text>
+          <Text
+            style={styles.bodyText}
+          >{`${getVersion()}.${getBuildNumber()}`}</Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default Settings;
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -36,52 +87,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 12,
   },
-})
-
-const Settings: React.FC<SettingsProps> = ({
-  navigation,
-  setAuthenticated,
-}) => {
-  const { t } = useTranslation()
-  const logoff = () =>
-    Alert.alert(t('Settings.Logout'), t('Settings.LogoutMsg'), [
-      {
-        text: t('Settings.Yes'),
-        onPress: () => setAuthenticated(false),
-      },
-      { text: t('Settings.No') },
-    ])
-  return (
-    <View style={styles.container}>
-      <Text style={styles.groupHeader}>{t('Settings.AppPreferences')}</Text>
-      <SettingListItem
-        title={t('Settings.ChangePin')}
-        onPress={() => navigation.navigate(Screens.ChangePin)}
-      />
-      <SettingListItem
-        title={t('Settings.Language')}
-        onPress={() => navigation.navigate(Screens.Language)}
-      />
-      <SettingListItem
-        title={t('Settings.ViewMnemonic')}
-        onPress={() => navigation.navigate(Screens.ViewMnemonic)}
-      />
-      <SettingListItem
-        title={t('Settings.ExportWallet')}
-        onPress={() => navigation.navigate(Screens.ExportWallet)}
-      />
-      <SettingListItem title={t('Settings.Logout')} onPress={logoff} />
-      <Text style={styles.groupHeader}>{t('Settings.AboutApp')}</Text>
-      <View style={styles.rowGroup}>
-        <View style={styles.row}>
-          <Text style={styles.bodyText}>{t('Settings.Version')}</Text>
-          <Text
-            style={styles.bodyText}
-          >{`${getVersion()}.${getBuildNumber()}`}</Text>
-        </View>
-      </View>
-    </View>
-  )
-}
-
-export default Settings
+});

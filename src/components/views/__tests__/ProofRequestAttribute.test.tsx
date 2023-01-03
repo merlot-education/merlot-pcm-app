@@ -1,7 +1,7 @@
-import React from 'react'
-import { fireEvent, render } from '@testing-library/react-native'
-import SafeAreaScrollView from '../SafeAreaScrollView'
-import ProofRequestAttribute from '../ProofRequestAttribute'
+import React from 'react';
+import { fireEvent, render } from '@testing-library/react-native';
+import SafeAreaScrollView from '../SafeAreaScrollView';
+import ProofRequestAttribute from '../ProofRequestAttribute';
 
 describe('ProofRequestAttribute Component', () => {
   it('should render proof request attribute correctly', () => {
@@ -30,22 +30,22 @@ describe('ProofRequestAttribute Component', () => {
         names: ['kevin', 'kevin1'],
         values: ['kevinvalues', 'kevin1'],
       },
-    ]
-    const onSelectItemMock = jest.fn()
+    ];
+    const onSelectItemMock = jest.fn();
     const { getByTestId } = render(
       <ProofRequestAttribute
         proofRequest={proofRequest}
         onSelectItem={onSelectItemMock}
       />,
-    )
-    const proofRequestAttribute = getByTestId('proofRequestAttribute')
-    fireEvent.press(proofRequestAttribute)
-  })
+    );
+    const proofRequestAttribute = getByTestId('proofRequestAttribute');
+    fireEvent.press(proofRequestAttribute);
+  });
   it('should render safeareaview correctly', () => {
     const { getByTestId } = render(
       <SafeAreaScrollView>safeareaview</SafeAreaScrollView>,
-    )
-    const safeareaview = getByTestId('safeareaview')
-    fireEvent.press(safeareaview)
-  })
-})
+    );
+    const safeareaview = getByTestId('safeareaview');
+    fireEvent.press(safeareaview);
+  });
+});

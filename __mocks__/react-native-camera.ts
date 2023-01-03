@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export class RNCamera extends React.Component {
   static Constants = {
@@ -11,11 +11,11 @@ export class RNCamera extends React.Component {
     Orientation: {},
     FlashMode: {},
     TorchMode: {},
-  }
+  };
 
   render() {
-    return null
+    return null;
   }
 }
 
-export default RNCamera
+export default RNCamera;

@@ -1,143 +1,115 @@
-import type { StackScreenProps } from '@react-navigation/stack'
-
+import type { StackScreenProps } from '@react-navigation/stack';
 import {
   ProofRecord,
   ProofState,
   RequestedAttribute,
   RetrievedCredentials,
-} from '@aries-framework/core'
+} from '@aries-framework/core';
 import {
   useAgent,
   useProofById,
   useConnectionById,
-} from '@aries-framework/react-hooks'
-import React, { useState, useEffect } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
-import { Alert, View, StyleSheet, Text, ScrollView } from 'react-native'
-import { Buffer } from 'buffer'
-import { ItemType } from 'react-native-dropdown-picker'
-import { uuid } from '@aries-framework/core/build/utils/uuid'
-import ProofDeclined from '../../assets/img/proof-declined.svg'
-import ProofPending from '../../assets/img/proof-pending.svg'
-import ProofSuccess from '../../assets/img/proof-success.svg'
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import { HomeStackParams, Screens, Stacks } from '../../types/navigators'
-import { CredentialDisplay, CredentialList } from '../../types/record'
-import { getCredDefName, getSchemaNameFromSchemaId } from '../../utils/helpers'
-import ProofRequestAttribute from '../../components/views/ProofRequestAttribute'
-import Button, { ButtonType } from '../../components/button/Button'
-import FlowDetailModal from '../../components/modals/FlowDetailModal'
-import InfoTextBox from '../../components/text/InfoTextBox'
-import { errorToast } from '../../utils/toast'
-import { getRetrievedCredential } from './ProofRequest.utils'
+} from '@aries-framework/react-hooks';
+import React, { useState, useEffect } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
+import { Alert, View, StyleSheet, Text, ScrollView } from 'react-native';
+import { Buffer } from 'buffer';
+import { ItemType } from 'react-native-dropdown-picker';
+import { uuid } from '@aries-framework/core/build/utils/uuid';
+import ProofDeclined from '../../assets/img/proof-declined.svg';
+import ProofPending from '../../assets/img/proof-pending.svg';
+import ProofSuccess from '../../assets/img/proof-success.svg';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import { HomeStackParams, Screens, Stacks } from '../../types/navigators';
+import { CredentialDisplay, CredentialList } from '../../types/record';
+import { getCredDefName, getSchemaNameFromSchemaId } from '../../utils/helpers';
+import ProofRequestAttribute from '../../components/views/ProofRequestAttribute';
+import Button, { ButtonType } from '../../components/button/Button';
+import FlowDetailModal from '../../components/modals/FlowDetailModal';
+import InfoTextBox from '../../components/text/InfoTextBox';
+import { errorToast } from '../../utils/toast';
+import { getRetrievedCredential } from './ProofRequest.utils';
 
-type ProofRequestProps = StackScreenProps<HomeStackParams, Screens.ProofRequest>
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-  },
-  headerTextContainer: {
-    paddingHorizontal: 25,
-    paddingVertical: 16,
-  },
-  headerText: {
-    ...TextTheme.normal,
-    flexShrink: 1,
-  },
-  footerButton: {
-    paddingTop: 10,
-  },
-  link: {
-    ...TextTheme.normal,
-    minHeight: TextTheme.normal.fontSize,
-    color: ColorPallet.brand.link,
-    paddingVertical: 2,
-  },
-  valueContainer: {
-    minHeight: TextTheme.normal.fontSize,
-    paddingVertical: 4,
-  },
-})
+type ProofRequestProps = StackScreenProps<
+  HomeStackParams,
+  Screens.ProofRequest
+>;
 
 const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   if (!route?.params) {
-    throw new Error(t('ProofRequest.ProofRequestParamsError'))
+    throw new Error(t<string>('ProofRequest.ProofRequestParamsError'));
   }
 
-  const { proofId } = route.params
-  const { agent } = useAgent()
-  const [buttonsVisible, setButtonsVisible] = useState(true)
-  const [pendingModalVisible, setPendingModalVisible] = useState(false)
-  const [successModalVisible, setSuccessModalVisible] = useState(false)
-  const [declinedModalVisible, setDeclinedModalVisible] = useState(false)
+  const { proofId } = route.params;
+  const { agent } = useAgent();
+  const [buttonsVisible, setButtonsVisible] = useState(true);
+  const [pendingModalVisible, setPendingModalVisible] = useState(false);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [declinedModalVisible, setDeclinedModalVisible] = useState(false);
 
-  const [attributeCredentials, setAttributeCredentials] = useState<
-    [string, RequestedAttribute[]][]
-  >([])
+  const [attributeCredentials] = useState<[string, RequestedAttribute[]][]>([]);
 
   const [retrievedCredentials, setRetrievedCredentials] =
-    useState<RetrievedCredentials>()
-  const [isShowError, setIsShowError] = useState(false)
-  const [missingAttributes, setMissingAttributes] = useState<string[]>([])
+    useState<RetrievedCredentials>();
+  const [isShowError, setIsShowError] = useState(false);
+  const [missingAttributes, setMissingAttributes] = useState<string[]>([]);
   const [credentialsDisplay, setCredentialsDisplay] = useState<
     CredentialDisplay[]
-  >([])
-  const proof = useProofById(proofId)
+  >([]);
+  const proof = useProofById(proofId);
   const connection = useConnectionById(
     proof?.connectionId ? proof.connectionId : '',
-  )
+  );
 
   const transformProofObject = async (creds: RetrievedCredentials) => {
     const base64Data =
-      proof?.requestMessage?.requestPresentationAttachments[0].data.base64
+      proof?.requestMessage?.requestPresentationAttachments[0].data.base64;
     const proofRequest = JSON.parse(
       Buffer.from(base64Data!, 'base64').toString(),
-    )
+    );
     const requestedAttributesKeys = Object.keys(
       proofRequest.requested_attributes,
-    )
+    );
     const requestedPredicatesKeys = Object.keys(
       proofRequest.requested_predicates,
-    )
-    const displayObject: CredentialDisplay[] = []
+    );
+    const displayObject: CredentialDisplay[] = [];
 
     requestedAttributesKeys.forEach(key => {
       const names = proofRequest.requested_attributes[key].name
         ? [proofRequest.requested_attributes[key].name]
-        : proofRequest.requested_attributes[key].names
+        : proofRequest.requested_attributes[key].names;
 
       if (creds.requestedAttributes[key].length > 0) {
-        const credentialList: CredentialList[] = []
+        const credentialList: CredentialList[] = [];
         creds.requestedAttributes[key].forEach((cred, index) => {
           const credentialDefinitionId = getCredDefName(
             JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
-          )
+          );
           credentialList.push({
             isSelected: index === 0,
             label: credentialDefinitionId,
             value: JSON.parse(JSON.stringify(cred.credentialInfo)).referent,
-          })
-        })
-        const showNames: string[] = []
-        const showValues: string[] = []
+          });
+        });
+        const showNames: string[] = [];
+        const showValues: string[] = [];
         names.forEach((name: string) => {
-          showNames.push(name)
+          showNames.push(name);
           showValues.push(
             JSON.parse(
               JSON.stringify(creds.requestedAttributes[key][0].credentialInfo),
             ).attrs[name],
-          )
-        })
+          );
+        });
         const object = {
           key,
           names: showNames,
           values: showValues,
           credentials: credentialList,
-        }
-        displayObject.push(object)
+        };
+        displayObject.push(object);
       } else {
         // TODO: handle not matching with proof request
         proofRequest.requested_attributes[key].restrictions.forEach(
@@ -148,74 +120,76 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
                   ...prevState,
-                  `${name} ${t('Global.from')}  ${restriction.schema_name}`,
-                ])
-              })
+                  `${name} ${t<string>('Global.from')}  ${
+                    restriction.schema_name
+                  }`,
+                ]);
+              });
             } else if (
               Object.prototype.hasOwnProperty.call(restriction, 'schema_id')
             ) {
               const schemaName = getSchemaNameFromSchemaId(
                 restriction.schema_id,
-              )
+              );
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
                   ...prevState,
-                  `${name} ${t('Global.from')}  ${schemaName}`,
-                ])
-              })
+                  `${name} ${t<string>('Global.from')}  ${schemaName}`,
+                ]);
+              });
             } else {
               names.forEach((name: string) => {
-                setMissingAttributes(prevState => [...prevState, name])
-              })
+                setMissingAttributes(prevState => [...prevState, name]);
+              });
             }
           },
-        )
-        setIsShowError(true)
+        );
+        setIsShowError(true);
       }
-    })
+    });
 
     requestedPredicatesKeys.forEach(key => {
       const names = proofRequest.requested_predicates[key].name
         ? [proofRequest.requested_predicates[key].name]
-        : proofRequest.requested_predicates[key].names
+        : proofRequest.requested_predicates[key].names;
 
       if (creds.requestedPredicates[key].length > 0) {
-        const credentialList: CredentialList[] = []
+        const credentialList: CredentialList[] = [];
 
         creds.requestedPredicates[key].forEach((cred, index) => {
           const credentialDefinitionId = getCredDefName(
             JSON.parse(JSON.stringify(cred.credentialInfo)).cred_def_id,
-          )
+          );
           credentialList.push({
             isSelected: index === 0,
             label: credentialDefinitionId,
             value: JSON.parse(JSON.stringify(cred.credentialInfo)).referent,
-          })
-        })
+          });
+        });
 
-        const showNames: string[] = []
-        const showValues: string[] = []
+        const showNames: string[] = [];
+        const showValues: string[] = [];
 
         names.forEach((name: string) => {
           showNames.push(
             `${`${name} ${proofRequest.requested_predicates[key].p_type}`} ${
               proofRequest.requested_predicates[key].p_value
             }`,
-          )
+          );
           showValues.push(
             JSON.parse(
               JSON.stringify(creds.requestedPredicates[key][0].credentialInfo),
             ).attrs[name],
-          )
-        })
+          );
+        });
 
         const object = {
           key,
           names: showNames,
           values: showValues,
           credentials: credentialList,
-        }
-        displayObject.push(object)
+        };
+        displayObject.push(object);
       } else {
         proofRequest.requested_predicates[key].restrictions.forEach(
           restriction => {
@@ -227,23 +201,23 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                   ...prevState,
                   `${`${name + proofRequest.requested_predicates[key].p_type} ${
                     proofRequest.requested_predicates[key].p_value
-                  }`} ${t('Global.from')}  ${restriction.schema_name}`,
-                ])
-              })
+                  }`} ${t<string>('Global.from')}  ${restriction.schema_name}`,
+                ]);
+              });
             } else if (
               Object.prototype.hasOwnProperty.call(restriction, 'schema_id')
             ) {
               const schemaName = getSchemaNameFromSchemaId(
                 restriction.schema_id,
-              )
+              );
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
                   ...prevState,
                   `${`${name + proofRequest.requested_predicates[key].p_type} ${
                     proofRequest.requested_predicates[key].p_value
-                  }`} ${t('Global.from')} ${schemaName}`,
-                ])
-              })
+                  }`} ${t<string>('Global.from')} ${schemaName}`,
+                ]);
+              });
             } else {
               names.forEach((name: string) => {
                 setMissingAttributes(prevState => [
@@ -251,81 +225,83 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
                   `${name + proofRequest.requested_predicates[key].p_type} ${
                     proofRequest.requested_predicates[key].p_value
                   }`,
-                ])
-              })
+                ]);
+              });
             }
           },
-        )
-        setIsShowError(true)
+        );
+        setIsShowError(true);
       }
-    })
-    setCredentialsDisplay(displayObject)
-  }
+    });
+    setCredentialsDisplay(displayObject);
+  };
 
   if (!agent) {
-    throw new Error(t('CredentialOffer.FetchAFJError'))
+    throw new Error(t<string>('CredentialOffer.FetchAFJError'));
   }
 
   if (!proof) {
-    throw new Error(t('ProofRequest.FetchProofError'))
+    throw new Error(t<string>('ProofRequest.FetchProofError'));
   }
 
   useEffect(() => {
     const updateRetrievedCredentials = async (proof: ProofRecord) => {
-      const creds = await getRetrievedCredential(agent, proof)
+      const creds = await getRetrievedCredential(agent, proof);
       if (!creds) {
-        throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
+        throw new Error(
+          t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'),
+        );
       }
-      transformProofObject(creds)
-      setRetrievedCredentials(creds)
-    }
+      transformProofObject(creds);
+      setRetrievedCredentials(creds);
+    };
 
     updateRetrievedCredentials(proof).catch(() => {
       errorToast(
-        t('ProofRequest.ProofUpdateErrorTitle'),
-        t('ProofRequest.ProofUpdateErrorMessage'),
-      )
-    })
+        t<string>('ProofRequest.ProofUpdateErrorTitle'),
+        t<string>('ProofRequest.ProofUpdateErrorMessage'),
+      );
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [agent.proofs, proof, t])
+  }, [agent.proofs, proof, t]);
 
   useEffect(() => {
     if (proof.state === ProofState.Done) {
       if (pendingModalVisible) {
-        setPendingModalVisible(false)
+        setPendingModalVisible(false);
       }
-      setSuccessModalVisible(true)
+      setSuccessModalVisible(true);
     }
-  }, [pendingModalVisible, proof])
+  }, [pendingModalVisible, proof]);
 
   useEffect(() => {
     if (proof.state === ProofState.Declined) {
-      setDeclinedModalVisible(true)
+      setDeclinedModalVisible(true);
     }
-  }, [proof])
+  }, [proof]);
 
   const anyUnavailable = (
     attributes: [string, RequestedAttribute[]][] = [],
-  ): boolean => attributes.some(([, values]) => !values?.length)
+  ): boolean => attributes.some(([, values]) => !values?.length);
 
   const anyRevoked = (
     attributes: [string, RequestedAttribute[]][] = [],
   ): boolean =>
-    attributes.some(([, values]) => values?.every(value => value.revoked))
+    attributes.some(([, values]) => values?.every(value => value.revoked));
 
   const handleAcceptPress = async () => {
     try {
-      setButtonsVisible(false)
-      setPendingModalVisible(true)
+      setButtonsVisible(false);
+      setPendingModalVisible(true);
       const updateRetrievedCredentials: RetrievedCredentials = {
         requestedAttributes: {},
         requestedPredicates: {},
-      }
+      };
 
       credentialsDisplay?.map(async (credential: CredentialDisplay) => {
         const isSelectedCredentialId = credential.credentials.find(
           credential => credential.isSelected,
-        )?.value
+        )?.value;
         if (
           Object.prototype.hasOwnProperty.call(
             retrievedCredentials?.requestedAttributes,
@@ -334,11 +310,11 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         ) {
           const selectedCredential = retrievedCredentials?.requestedAttributes[
             credential.key
-          ].filter(item => item.credentialId === isSelectedCredentialId)
+          ].filter(item => item.credentialId === isSelectedCredentialId);
           const object = {
             [credential.key]: selectedCredential,
-          }
-          Object.assign(updateRetrievedCredentials.requestedAttributes, object)
+          };
+          Object.assign(updateRetrievedCredentials.requestedAttributes, object);
         }
 
         if (
@@ -349,63 +325,63 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         ) {
           const selectedCredential = retrievedCredentials?.requestedPredicates[
             credential.key
-          ].filter(item => item.credentialId === isSelectedCredentialId)
+          ].filter(item => item.credentialId === isSelectedCredentialId);
           const object = {
             [credential.key]: selectedCredential,
-          }
-          Object.assign(updateRetrievedCredentials.requestedPredicates, object)
+          };
+          Object.assign(updateRetrievedCredentials.requestedPredicates, object);
         }
-      })
+      });
       const automaticRequestedCreds =
         retrievedCredentials &&
         agent.proofs.autoSelectCredentialsForProofRequest(
           updateRetrievedCredentials,
-        )
+        );
       if (!automaticRequestedCreds) {
-        throw new Error(t('ProofRequest.RequestedCredentialsCouldNotBeFound'))
+        throw new Error(
+          t<string>('ProofRequest.RequestedCredentialsCouldNotBeFound'),
+        );
       }
-      await agent.proofs.acceptRequest(proof.id, automaticRequestedCreds)
+      await agent.proofs.acceptRequest(proof.id, automaticRequestedCreds);
 
-      // eslint-disable-next-line no-restricted-syntax
       for await (const iterator of credentialsDisplay) {
-        const cred = iterator.credentials.find(item => item.isSelected)
-        const attributes = {}
+        const cred = iterator.credentials.find(item => item.isSelected);
+        const attributes = {};
         iterator.names.forEach((name, index) => {
-          attributes[name] = iterator.values[index]
-        })
+          attributes[name] = iterator.values[index];
+        });
         const record = {
           status: 'presented',
           timestamp: new Date().getTime(),
           connectionLabel: connection?.theirLabel ?? 'Connection less proof',
           attributes,
-        }
+        };
 
         // Get old record if exists
         const oldRecords = await agent.genericRecords.findAllByQuery({
           credentialRecordId: cred.value,
-        })
+        });
 
         // If old record exists, update it
         oldRecords[0].content = {
           records: [...oldRecords[0].content.records, record],
-        }
+        };
 
         // Update record
-        await agent.genericRecords.update(oldRecords[0])
+        await agent.genericRecords.update(oldRecords[0]);
       }
 
-      // eslint-disable-next-line no-restricted-syntax
       for await (const iterator of credentialsDisplay) {
-        const cred = iterator.credentials.find(item => item.isSelected)
+        const cred = iterator.credentials.find(item => item.isSelected);
         const tags = {
           connectionId: connection?.id ?? uuid(),
           credentialRecordId: cred?.value,
           type: 'proof',
-        }
-        const attributes = {}
+        };
+        const attributes = {};
         iterator.names.forEach((name, index) => {
-          attributes[name] = iterator.values[index]
-        })
+          attributes[name] = iterator.values[index];
+        });
 
         // Create record object for proof
         const record = {
@@ -414,115 +390,107 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           connectionLabel: connection?.theirLabel ?? 'Connection less proof',
           credentialLabel: cred?.label,
           attributes,
-        }
+        };
 
         // Get old record if exists
         const oldRecords = await agent.genericRecords.findAllByQuery({
           credentialRecordId: cred?.value,
           type: 'proof',
-        })
+        });
 
         // Create record if not exists
         if (oldRecords.length > 0) {
           oldRecords[0].content = {
             records: [...oldRecords[0].content.records, record],
-          }
-          await agent.genericRecords.update(oldRecords[0])
+          };
+          await agent.genericRecords.update(oldRecords[0]);
         } else {
           await agent.genericRecords.save({
             tags,
             content: { records: [record] },
-          })
+          });
         }
       }
 
-      setPendingModalVisible(false)
-      setSuccessModalVisible(true)
+      setPendingModalVisible(false);
+      setSuccessModalVisible(true);
     } catch (e: unknown) {
-      setButtonsVisible(true)
-      setPendingModalVisible(false)
+      setButtonsVisible(true);
+      setPendingModalVisible(false);
       errorToast(
-        t('ProofRequest.ProofAcceptErrorTitle'),
-        t('ProofRequest.ProofAcceptErrorMessage'),
-      )
+        t<string>('ProofRequest.ProofAcceptErrorTitle'),
+        t<string>('ProofRequest.ProofAcceptErrorMessage'),
+      );
     }
-  }
+  };
 
   const handleDeclinePress = async () => {
     Alert.alert(
-      t('ProofRequest.RejectThisProof?'),
-      t('Global.ThisDecisionCannotBeChanged.'),
+      t<string>('ProofRequest.RejectThisProof?'),
+      t<string>('Global.ThisDecisionCannotBeChanged.'),
       [
-        { text: t('Global.Cancel'), style: 'cancel' },
+        { text: t<string>('Global.Cancel'), style: 'cancel' },
         {
-          text: t('Global.Confirm'),
+          text: t<string>('Global.Confirm'),
           style: 'destructive',
           onPress: async () => {
             try {
-              setButtonsVisible(false)
-              await agent.proofs.declineRequest(proof.id)
+              setButtonsVisible(false);
+              await agent.proofs.declineRequest(proof.id);
             } catch (e: unknown) {
               errorToast(
-                t('ProofRequest.ProofRejectErrorTitle'),
-                t('ProofRequest.ProofRejectErrorMessage'),
-              )
+                t<string>('ProofRequest.ProofRejectErrorTitle'),
+                t<string>('ProofRequest.ProofRejectErrorMessage'),
+              );
             }
           },
         },
       ],
-    )
-  }
+    );
+  };
 
   const onCredentialSelect = async (credentialId: string, key: string) => {
-    const updatedCredentialsDisplay = [...credentialsDisplay]
+    const updatedCredentialsDisplay = [...credentialsDisplay];
     const credential = updatedCredentialsDisplay.filter(
       (object: { key: string }) => object.key === key,
-    )[0]
+    )[0];
     if (retrievedCredentials?.requestedAttributes?.[key]) {
       const keyObject = retrievedCredentials?.requestedAttributes?.[key].filter(
         object => object.credentialId === credentialId,
-      )[0]
-      const showValues: string[] = []
+      )[0];
+      const showValues: string[] = [];
       credential?.names.forEach((name: string) => {
         showValues.push(
           JSON.parse(JSON.stringify(keyObject.credentialInfo)).attrs[name],
-        )
-      })
+        );
+      });
       credential.credentials.forEach((item: any) => {
-        const element = item
+        const element = item;
         if (item.value === credentialId) {
-          element.isSelected = true
+          element.isSelected = true;
         } else {
-          element.isSelected = false
+          element.isSelected = false;
         }
-      })
-      credential.values = showValues
+      });
+      credential.values = showValues;
     }
     const index = updatedCredentialsDisplay.findIndex(
       (item: string) => item === key,
-    )
-    updatedCredentialsDisplay[index] = credential
-    setCredentialsDisplay(updatedCredentialsDisplay)
-  }
+    );
+    updatedCredentialsDisplay[index] = credential;
+    setCredentialsDisplay(updatedCredentialsDisplay);
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView>
         {isShowError ? (
           <>
-            <Text
-              style={[
-                TextTheme.headingFour,
-                {
-                  color: ColorPallet.notification.errorText,
-                  marginVertical: 10,
-                },
-              ]}
-            >
-              {t('ProofRequest.MissingInformation.Title')}
+            <Text style={styles.missingInformationTitle}>
+              {t<string>('ProofRequest.MissingInformation.Title')}
             </Text>
             <InfoTextBox>
-              {t(
+              {t<string>(
                 'ProofRequest.MissingInformation.AlertMissingInformation.Title',
               )}
             </InfoTextBox>
@@ -540,7 +508,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           <>
             <Text
               style={TextTheme.normal}
-              accessibilityLabel={t('ProofRequest.Title', {
+              accessibilityLabel={t<string>('ProofRequest.Title', {
                 connection: connection?.theirLabel ?? 'Verifier',
               })}
             >
@@ -574,7 +542,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           ) && !isShowError ? (
             <View style={styles.footerButton}>
               <Button
-                title={t('Global.Share')}
+                title={t<string>('Global.Share')}
                 buttonType={ButtonType.Primary}
                 onPress={handleAcceptPress}
                 disabled={!buttonsVisible}
@@ -583,7 +551,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
           ) : null}
           <View style={styles.footerButton}>
             <Button
-              title={t('Global.Decline')}
+              title={t<string>('Global.Decline')}
               buttonType={
                 anyUnavailable(attributeCredentials) ||
                 anyRevoked(attributeCredentials)
@@ -597,7 +565,7 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         </View>
         {pendingModalVisible && (
           <FlowDetailModal
-            title={t('ProofRequest.SendingTheInformationSecurely')}
+            title={t<string>('ProofRequest.SendingTheInformationSecurely')}
             visible={pendingModalVisible}
             doneHidden
           >
@@ -607,14 +575,14 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
         {successModalVisible && (
           <FlowDetailModal
-            title={t('ProofRequest.InformationSentSuccessfully')}
+            title={t<string>('ProofRequest.InformationSentSuccessfully')}
             visible={successModalVisible}
             onDone={() => {
-              setSuccessModalVisible(false)
-              navigation.pop()
+              setSuccessModalVisible(false);
+              navigation.pop();
               navigation
                 .getParent()
-                ?.navigate(Stacks.TabStack, { screen: Screens.Home })
+                ?.navigate(Stacks.TabStack, { screen: Screens.Home });
             }}
           >
             <ProofSuccess style={{ marginVertical: 20 }} />
@@ -622,14 +590,14 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         )}
         {declinedModalVisible && (
           <FlowDetailModal
-            title={t('ProofRequest.ProofRejected')}
+            title={t<string>('ProofRequest.ProofRejected')}
             visible={declinedModalVisible}
             onDone={() => {
-              setDeclinedModalVisible(false)
-              navigation.pop()
+              setDeclinedModalVisible(false);
+              navigation.pop();
               navigation
                 .getParent()
-                ?.navigate(Stacks.TabStack, { screen: Screens.Home })
+                ?.navigate(Stacks.TabStack, { screen: Screens.Home });
             }}
           >
             <ProofDeclined style={{ marginVertical: 20 }} />
@@ -637,7 +605,40 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
         )}
       </ScrollView>
     </View>
-  )
-}
+  );
+};
 
-export default ProofRequest
+export default ProofRequest;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  headerTextContainer: {
+    paddingHorizontal: 25,
+    paddingVertical: 16,
+  },
+  headerText: {
+    ...TextTheme.normal,
+    flexShrink: 1,
+  },
+  footerButton: {
+    paddingTop: 10,
+  },
+  link: {
+    ...TextTheme.normal,
+    minHeight: TextTheme.normal.fontSize,
+    color: ColorPallet.brand.link,
+    paddingVertical: 2,
+  },
+  valueContainer: {
+    minHeight: TextTheme.normal.fontSize,
+    paddingVertical: 4,
+  },
+  missingInformationTitle: {
+    ...TextTheme.headingFour,
+    color: ColorPallet.notification.errorText,
+    marginVertical: 10,
+  },
+});

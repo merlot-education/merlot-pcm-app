@@ -1,35 +1,16 @@
-import React from 'react'
-import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import Images from '../../assets'
+import React from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Images from '../../assets';
 
-import { ColorPallet, TextTheme } from '../../theme/theme'
+import { ColorPallet, TextTheme } from '../../theme/theme';
 
 interface Props {
-  title: string
-  accessibilityLabel?: string
-  checked: boolean
-  onPress: () => void
+  title: string;
+  accessibilityLabel?: string;
+  checked: boolean;
+  onPress: () => void;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: 10,
-  },
-  text: {
-    flexShrink: 1,
-    ...TextTheme.normal,
-    marginLeft: 10,
-    color: ColorPallet.baseColors.black,
-  },
-  bottomIcon: {
-    width: 60,
-    height: 60,
-  },
-})
 
 const CheckBoxRow: React.FC<Props> = ({
   title,
@@ -37,7 +18,7 @@ const CheckBoxRow: React.FC<Props> = ({
   checked,
   onPress,
 }) => {
-  const accessible = !!(accessibilityLabel && accessibilityLabel !== '')
+  const accessible = !!(accessibilityLabel && accessibilityLabel !== '');
 
   return (
     <View style={styles.container} testID="checkBoxRowView">
@@ -60,7 +41,26 @@ const CheckBoxRow: React.FC<Props> = ({
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
-export default CheckBoxRow
+export default CheckBoxRow;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 10,
+  },
+  text: {
+    flexShrink: 1,
+    ...TextTheme.normal,
+    marginLeft: 10,
+    color: ColorPallet.baseColors.black,
+  },
+  bottomIcon: {
+    width: 60,
+    height: 60,
+  },
+});

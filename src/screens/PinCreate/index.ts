@@ -1,3 +1,3 @@
-import PinCreate from './PinCreate'
+import PinCreate from './PinCreate';
 
-export default PinCreate
+export default PinCreate;

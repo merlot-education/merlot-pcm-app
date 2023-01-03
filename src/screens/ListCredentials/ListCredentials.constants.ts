@@ -1,4 +1,4 @@
-import { CredentialExchangeRecord } from '@aries-framework/core'
+import { CredentialExchangeRecord } from '@aries-framework/core';
 
 const MOCK_CREDENTIALS_LIST: CredentialExchangeRecord[] = [
   {
@@ -123,5 +123,5 @@ const MOCK_CREDENTIALS_LIST: CredentialExchangeRecord[] = [
     state: 'done',
     threadId: '1b93fd9b-147b-47af-97b0-dd94bb5ed70e',
   },
-]
-export default MOCK_CREDENTIALS_LIST
+];
+export default MOCK_CREDENTIALS_LIST;

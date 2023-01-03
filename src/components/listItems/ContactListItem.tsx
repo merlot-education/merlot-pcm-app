@@ -1,34 +1,20 @@
-import type { ConnectionRecord } from '@aries-framework/core'
-
-import React from 'react'
-import { Pressable, StyleSheet } from 'react-native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { useNavigation } from '@react-navigation/core'
-import { borderRadius, ContactTheme } from '../../theme/theme'
-import { dateFormatOptions } from '../../constants'
-import Text from '../text/Text'
-import Title from '../text/Title'
-import { ContactStackParams, Screens } from '../../types/navigators'
+import React from 'react';
+import type { ConnectionRecord } from '@aries-framework/core';
+import { Pressable, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/core';
+import { borderRadius, ContactTheme } from '../../theme/theme';
+import { dateFormatOptions } from '../../constants';
+import Text from '../text/Text';
+import Title from '../text/Title';
+import { ContactStackParams, Screens } from '../../types/navigators';
 
 interface Props {
-  contact: ConnectionRecord
+  contact: ConnectionRecord;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 15,
-    marginHorizontal: 15,
-    padding: 10,
-    borderRadius,
-    backgroundColor: ContactTheme.background,
-  },
-  date: {
-    textAlign: 'right',
-  },
-})
-
 const ContactListItem: React.FC<Props> = ({ contact }) => {
-  const navigation = useNavigation<StackNavigationProp<ContactStackParams>>()
+  const navigation = useNavigation<StackNavigationProp<ContactStackParams>>();
   return (
     <Pressable
       testID="contact-list-item"
@@ -47,7 +33,20 @@ const ContactListItem: React.FC<Props> = ({ contact }) => {
         {contact.createdAt.toLocaleDateString('en-CA', dateFormatOptions)}
       </Text>
     </Pressable>
-  )
-}
+  );
+};
 
-export default ContactListItem
+export default ContactListItem;
+
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 15,
+    marginHorizontal: 15,
+    padding: 10,
+    borderRadius,
+    backgroundColor: ContactTheme.background,
+  },
+  date: {
+    textAlign: 'right',
+  },
+});

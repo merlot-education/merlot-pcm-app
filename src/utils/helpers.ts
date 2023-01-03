@@ -1,29 +1,29 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable no-bitwise */
+import React from 'react';
 import {
   CredentialMetadataKeys,
   CredentialExchangeRecord,
-} from '@aries-framework/core'
-import React from 'react'
+} from '@aries-framework/core';
 import {
   useConnectionById,
   useCredentialById,
-} from '@aries-framework/react-hooks'
+} from '@aries-framework/react-hooks';
 
 export const connectionRecordFromId = (connectionId: string) => {
-  const connection = useConnectionById(connectionId)
-  return connection
-}
+  const connection = useConnectionById(connectionId);
+  return connection;
+};
 
 export function parseSchema(schemaId?: string): {
-  name: string
-  version: string
+  name: string;
+  version: string;
 } {
-  let name = 'Credential'
-  let version = ''
+  let name = 'Credential';
+  let version = '';
   if (schemaId) {
-    const schemaIdRegex = /(.*?):([0-9]):([a-zA-Z .\-_0-9]+):([a-z0-9._-]+)$/
-    const schemaIdParts = schemaId.match(schemaIdRegex)
+    const schemaIdRegex = /(.*?):([0-9]):([a-zA-Z .\-_0-9]+):([a-z0-9._-]+)$/;
+    const schemaIdParts = schemaId.match(schemaIdRegex);
     if (schemaIdParts?.length === 5) {
       name = `${schemaIdParts?.[3].replace(/_|-/g, ' ')}`
         .split(' ')
@@ -31,21 +31,21 @@ export function parseSchema(schemaId?: string): {
           schemaIdPart =>
             schemaIdPart.charAt(0).toUpperCase() + schemaIdPart.substring(1),
         )
-        .join(' ')
-      version = schemaIdParts?.[4]
+        .join(' ');
+      version = schemaIdParts?.[4];
     }
   }
-  return { name, version }
+  return { name, version };
 }
 
 export function parseCredDef(credentialDefinitionId?: string): {
-  credName: string
+  credName: string;
 } {
-  let credName = ''
+  let credName = '';
   if (credentialDefinitionId) {
     const credDefIdRegex =
-      /^([a-zA-Z0-9]{21,22}):3:CL:(([1-9][0-9]*)|([a-zA-Z0-9]{21,22}:2:.+:[0-9.]+)):(.+)?$/
-    const credDefParts = credentialDefinitionId.match(credDefIdRegex)
+      /^([a-zA-Z0-9]{21,22}):3:CL:(([1-9][0-9]*)|([a-zA-Z0-9]{21,22}:2:.+:[0-9.]+)):(.+)?$/;
+    const credDefParts = credentialDefinitionId.match(credDefIdRegex);
 
     if (credDefParts?.length === 6) {
       credName = `${credDefParts?.[5].replace(/_|-/g, ' ')}`
@@ -54,65 +54,65 @@ export function parseCredDef(credentialDefinitionId?: string): {
           credDefIdPart =>
             credDefIdPart.charAt(0).toUpperCase() + credDefIdPart.substring(1),
         )
-        .join(' ')
+        .join(' ');
     }
   }
-  return { credName }
+  return { credName };
 }
 
 export function credentialSchema(
   credential: CredentialExchangeRecord,
 ): string | undefined {
   return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
-    ?.schemaId
+    ?.schemaId;
 }
 
 export function credentialDefinition(
   credential: CredentialExchangeRecord,
 ): string | undefined {
   return credential.metadata.get(CredentialMetadataKeys.IndyCredential)
-    ?.credentialDefinitionId
+    ?.credentialDefinitionId;
 }
 
 export function parsedSchema(credential: CredentialExchangeRecord): {
-  name: string
-  version: string
+  name: string;
+  version: string;
 } {
-  return parseSchema(credentialSchema(credential))
+  return parseSchema(credentialSchema(credential));
 }
 
 export function parsedCredentialDefinition(
   credential: CredentialExchangeRecord,
 ): {
-  credName: string
+  credName: string;
 } {
-  return parseCredDef(credentialDefinition(credential))
+  return parseCredDef(credentialDefinition(credential));
 }
 
 export function hashCode(s: string): number {
   return s
     .split('')
-    .reduce((hash, char) => char.charCodeAt(0) + ((hash << 5) - hash), 0)
+    .reduce((hash, char) => char.charCodeAt(0) + ((hash << 5) - hash), 0);
 }
 
 export function hashToRGBA(i: number) {
-  const colour = (i & 0x00ffffff).toString(16).toUpperCase()
-  return `#${'00000'.substring(0, 6 - colour.length)}${colour}`
+  const colour = (i & 0x00ffffff).toString(16).toUpperCase();
+  return `#${'00000'.substring(0, 6 - colour.length)}${colour}`;
 }
 
 export const credentialRecordFromId = (credentialId: string) => {
-  const credential = useCredentialById(credentialId)
-  return credential
-}
+  const credential = useCredentialById(credentialId);
+  return credential;
+};
 
-export const MainStackContext = React.createContext(null)
+export const MainStackContext = React.createContext(null);
 
 export const getCredDefName = (credentialDefinitionId: string) => {
-  const data = credentialDefinitionId.split(':')
-  return data[data.length - 1]
-}
+  const data = credentialDefinitionId.split(':');
+  return data[data.length - 1];
+};
 
 export const getSchemaNameFromSchemaId = (schemaId: string) => {
-  const data = schemaId.split(':')
-  return data[data.length - 1]
-}
+  const data = schemaId.split(':');
+  return data[data.length - 1];
+};

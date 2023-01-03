@@ -1,3 +1,3 @@
-const rnSplashScreenMock = jest.mock('react-native-splash-screen')
+const rnSplashScreenMock = jest.mock('react-native-splash-screen');
 
-module.exports = rnSplashScreenMock
+module.exports = rnSplashScreenMock;

@@ -1,11 +1,11 @@
-import React from 'react'
-import { FlatList, View } from 'react-native'
-import useNotifications from '../hooks/notifications'
-import { NotificationListItem } from '../components'
-import { NotificationType } from '../components/listItems/NotificationListItem'
+import React from 'react';
+import { FlatList, View } from 'react-native';
+import useNotifications from '../hooks/notifications';
+import { NotificationListItem } from '../components';
+import { NotificationType } from '../components/listItems/NotificationListItem';
 
 const ListNotifications: React.FC = () => {
-  const { notifications } = useNotifications()
+  const { notifications } = useNotifications();
 
   return (
     <FlatList
@@ -32,7 +32,7 @@ const ListNotifications: React.FC = () => {
         </View>
       )}
     />
-  )
-}
+  );
+};
 
-export default ListNotifications
+export default ListNotifications;

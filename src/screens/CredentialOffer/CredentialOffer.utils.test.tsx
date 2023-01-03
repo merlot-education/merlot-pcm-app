@@ -1,15 +1,15 @@
-import * as Utils from './CredentialOffer.utils'
+import * as Utils from './CredentialOffer.utils';
 
 describe('CredentialOffer', () => {
   describe('CredentialOffer.utils', () => {
     describe('acceptcredential', () => {
       it('should we get retrieved credential for proof', () => {
-        jest.spyOn(Utils, 'acceptCredential')
+        jest.spyOn(Utils, 'acceptCredential');
 
-        Utils.acceptCredential('credential')
+        Utils.acceptCredential('credential');
 
-        expect(Utils.acceptCredential).toHaveBeenCalled()
-      })
-    })
-  })
-})
+        expect(Utils.acceptCredential).toHaveBeenCalled();
+      });
+    });
+  });
+});

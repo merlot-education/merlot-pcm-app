@@ -1,14 +1,14 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import ConnectionInvitation from '../screens/ConnectionInvitation'
-import Home from '../screens/Home'
-import ListContacts from '../screens/ListContacts'
-import { Screens, Stacks } from '../types/navigators'
-import ScanStack from './ScanStack'
-import defaultStackOptions from './defaultStackOptions'
-import TabStack from './TabStack'
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import ConnectionInvitation from '../screens/ConnectionInvitation';
+import Home from '../screens/Home';
+import ListContacts from '../screens/ListContacts';
+import { Screens, Stacks } from '../types/navigators';
+import ScanStack from './ScanStack';
+import defaultStackOptions from './defaultStackOptions';
+import TabStack from './TabStack';
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator();
 
 const MainStack: React.FC = () => {
   return (
@@ -30,7 +30,7 @@ const MainStack: React.FC = () => {
         component={ConnectionInvitation}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default MainStack
+export default MainStack;

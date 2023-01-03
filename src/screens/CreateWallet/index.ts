@@ -1,3 +1,3 @@
-import CreateWallet from './CreateWallet'
+import CreateWallet from './CreateWallet';
 
-export default CreateWallet
+export default CreateWallet;

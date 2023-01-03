@@ -1,3 +1,3 @@
-import ChangePin from './ChangePin'
+import ChangePin from './ChangePin';
 
-export default ChangePin
+export default ChangePin;

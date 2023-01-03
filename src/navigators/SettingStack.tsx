@@ -1,27 +1,27 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import ChangePin from '../screens/ChangePin'
-import Settings from '../screens/Settings'
-import ExportWallet from '../screens/ExportWallet'
-import { Screens, SettingStackParams } from '../types/navigators'
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import ChangePin from '../screens/ChangePin';
+import Settings from '../screens/Settings';
+import ExportWallet from '../screens/ExportWallet';
+import { Screens, SettingStackParams } from '../types/navigators';
 
-import defaultStackOptions from './defaultStackOptions'
-import Language from '../screens/Language'
-import { MainStackContext } from '../utils/helpers'
-import ViewMnemonic from '../screens/ViewMnemonic'
+import defaultStackOptions from './defaultStackOptions';
+import Language from '../screens/Language';
+import { MainStackContext } from '../utils/helpers';
+import ViewMnemonic from '../screens/ViewMnemonic';
 
-const Stack = createStackNavigator<SettingStackParams>()
+const Stack = createStackNavigator<SettingStackParams>();
 
 interface SettingStackProp {
-  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
+  setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SettingStack: React.FC<SettingStackProp> = () => {
-  const { value } = React.useContext(MainStackContext)
+  const { setAuthenticated } = React.useContext(MainStackContext);
   return (
     <Stack.Navigator screenOptions={{ ...defaultStackOptions }}>
       <Stack.Screen name={Screens.Settings}>
-        {props => <Settings {...props} setAuthenticated={value} />}
+        {props => <Settings {...props} setAuthenticated={setAuthenticated} />}
       </Stack.Screen>
       <Stack.Screen name={Screens.Language} component={Language} />
       <Stack.Screen
@@ -44,7 +44,7 @@ const SettingStack: React.FC<SettingStackProp> = () => {
         options={{ headerShown: true }}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default SettingStack
+export default SettingStack;

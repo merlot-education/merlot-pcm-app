@@ -1,4 +1,4 @@
-import * as Utils from './ConnectionInvitation.utils'
+import * as Utils from './ConnectionInvitation.utils';
 
 describe('ConnectionInvitation.utils', () => {
   describe('getInvitationFromUrl', () => {
@@ -8,17 +8,17 @@ describe('ConnectionInvitation.utils', () => {
           uri: 'uri',
           autoAcceptConnection: true,
         },
-      }
+      };
 
       // Mocked getInvitationFromUrl
       jest
         .spyOn(Utils, 'getInvitationFromUrl')
-        .mockResolvedValueOnce(getInvitationUrl)
+        .mockResolvedValueOnce(getInvitationUrl);
 
-      const response = await Utils.getInvitationFromUrl('email', 'otpId')
+      const response = await Utils.getInvitationFromUrl('email', 'otpId');
 
-      expect(Utils.getInvitationFromUrl).toHaveBeenCalledWith('email', 'otpId')
-      expect(response).toStrictEqual(getInvitationUrl)
-    })
-  })
-})
+      expect(Utils.getInvitationFromUrl).toHaveBeenCalledWith('email', 'otpId');
+      expect(response).toStrictEqual(getInvitationUrl);
+    });
+  });
+});

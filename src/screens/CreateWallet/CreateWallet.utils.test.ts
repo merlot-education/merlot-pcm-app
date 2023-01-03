@@ -1,34 +1,17 @@
-import * as Utils from './CreateWallet.utils'
+import * as Utils from './CreateWallet.utils';
+import { getMnemonicArrayFromWords } from '../../utils/generic';
 
 describe('CreateWallet.utils', () => {
   describe('storeOnboardingCompleteStage', () => {
     it('should store a value for onboarding complete stage', async () => {
-      jest.spyOn(Utils, 'storeOnboardingCompleteStage')
+      jest.spyOn(Utils, 'storeOnboardingCompleteStage');
 
-      await Utils.storeOnboardingCompleteStage()
+      await Utils.storeOnboardingCompleteStage();
 
-      expect(Utils.storeOnboardingCompleteStage).toHaveBeenCalled()
-    })
-  })
+      expect(Utils.storeOnboardingCompleteStage).toHaveBeenCalled();
+    });
+  });
 
-  describe('saveValueInKeychain', () => {
-    it('should check value is saved in the keychain', async () => {
-      // Mocked function to saveValueInKeychain
-      jest.spyOn(Utils, 'saveValueInKeychain')
-
-      await Utils.saveValueInKeychain(
-        'email',
-        'kevin@gmail.com',
-        'email description',
-      )
-
-      expect(Utils.saveValueInKeychain).toHaveBeenCalledWith(
-        'email',
-        'kevin@gmail.com',
-        'email description',
-      )
-    })
-  })
   describe('getMnemonicFromWords', () => {
     it.each([
       [0, 0],
@@ -38,11 +21,11 @@ describe('CreateWallet.utils', () => {
     ])(
       'should return string values from list of words with provided length of Words',
       (initialValues, finalLength) => {
-        const result = Utils.getMnemonicArrayFromWords(initialValues)
-        expect(result.length).toEqual(finalLength)
+        const result = getMnemonicArrayFromWords(initialValues);
+        expect(result.length).toEqual(finalLength);
       },
-    )
-  })
+    );
+  });
 
   describe('createMD5HashFromString', () => {
     it.each([
@@ -54,9 +37,9 @@ describe('CreateWallet.utils', () => {
     ])(
       'should return a hash value for the given string',
       (initialValue, expectedValue) => {
-        const result = Utils.createMD5HashFromString(initialValue)
-        expect(result).toEqual(expectedValue)
+        const result = Utils.createMD5HashFromString(initialValue);
+        expect(result).toEqual(expectedValue);
       },
-    )
-  })
-})
+    );
+  });
+});

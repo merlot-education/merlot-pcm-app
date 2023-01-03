@@ -1,17 +1,102 @@
-import { StackScreenProps } from '@react-navigation/stack'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { Alert, Image, Text, View, StyleSheet } from 'react-native'
-import Images from '../../assets'
-import { IconButton, InfoCard } from '../../components'
-import Button, { ButtonType } from '../../components/button/Button'
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { StackScreenProps } from '@react-navigation/stack';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { Alert, Image, Text, View, StyleSheet } from 'react-native';
+import Images from '../../assets';
+import { IconButton, InfoCard } from '../../components';
+import Button, { ButtonType } from '../../components/button/Button';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import { OnboardingStackParams, Screens } from '../../types/navigators';
 
 type InitializationProps = StackScreenProps<
   OnboardingStackParams,
-  Screens.CreatePin
->
+  Screens.Initialization
+>;
+
+const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
+  const { t } = useTranslation();
+  const onSubmit = async () => {
+    navigation.navigate(Screens.CreateWallet);
+  };
+  const showSameEmailAlert = () => {
+    Alert.alert(
+      t<string>('PinCreate.EmailConfirmation'),
+      t<string>('PinCreate.CheckEmail'),
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('No button clicked'),
+          style: 'cancel',
+        },
+        { text: t<string>('Global.Next'), onPress: proceedToImport },
+        {
+          text: t<string>('Global.ChangeEmail'),
+          style: 'cancel',
+          onPress: () =>
+            navigation.navigate(Screens.Registration, { forgotPin: false }),
+        },
+      ],
+      {
+        cancelable: true,
+      },
+    );
+  };
+
+  const proceedToImport = () => {
+    navigation.navigate(Screens.ImportWallet);
+  };
+
+  const onImportWallet = () => {
+    showSameEmailAlert();
+  };
+
+  const onBack = () => {
+    navigation.goBack();
+  };
+  return (
+    <View style={[style.container]} testID="Initialization-id">
+      <View style={[style.textContainer]}>
+        <Text style={TextTheme.normal}>
+          {t<string>('Initialization.CompleteInitialization')}
+        </Text>
+      </View>
+      <View style={[style.flexColumnContainer]}>
+        <View style={[style.flexRowContainer]}>
+          <View style={[style.imgContainer]}>
+            <Image source={Images.importIcon} style={style.pinImg} />
+          </View>
+          <View style={[style.btnContainer]}>
+            <Button
+              title="Import Wallet"
+              buttonType={ButtonType.Primary}
+              onPress={onImportWallet}
+            />
+          </View>
+        </View>
+        <View style={[style.flexRowContainer]}>
+          <View style={[style.imgContainer]}>
+            <Image source={Images.initializeIcon} style={style.pinImg} />
+          </View>
+          <View style={[style.btnContainer]}>
+            <Button
+              title="Initialization"
+              buttonType={ButtonType.Primary}
+              onPress={onSubmit}
+            />
+          </View>
+        </View>
+      </View>
+      <View style={style.info}>
+        <InfoCard showBottomIcon={false} showTopIcon>
+          {t<string>('Initialization.InitializationInfo')}
+        </InfoCard>
+      </View>
+      <IconButton isRight={false} isDisabled={false} onPress={onBack} />
+    </View>
+  );
+};
+
+export default Initialization;
 
 const style = StyleSheet.create({
   container: {
@@ -54,89 +139,4 @@ const style = StyleSheet.create({
   imgContainer: {
     flex: 0.2,
   },
-})
-
-const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
-  const { t } = useTranslation()
-  const onSubmit = async () => {
-    navigation.navigate(Screens.CreateWallet)
-  }
-  const showSameEmailAlert = () => {
-    Alert.alert(
-      t('PinCreate.EmailConfirmation'),
-      t('PinCreate.CheckEmail'),
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('No button clicked'),
-          style: 'cancel',
-        },
-        { text: t('Global.Next'), onPress: proceedToImport },
-        {
-          text: t('Global.ChangeEmail'),
-          style: 'cancel',
-          onPress: () =>
-            navigation.navigate(Screens.Registration, { forgotPin: false }),
-        },
-      ],
-      {
-        cancelable: true,
-      },
-    )
-  }
-
-  const proceedToImport = () => {
-    navigation.navigate(Screens.ImportWallet)
-  }
-
-  const onImportWallet = () => {
-    showSameEmailAlert()
-  }
-
-  const onBack = () => {
-    navigation.goBack()
-  }
-  return (
-    <View style={[style.container]} testID="Initialization-id">
-      <View style={[style.textContainer]}>
-        <Text style={TextTheme.normal}>
-          {t('Initialization.CompleteInitialization')}
-        </Text>
-      </View>
-      <View style={[style.flexColumnContainer]}>
-        <View style={[style.flexRowContainer]}>
-          <View style={[style.imgContainer]}>
-            <Image source={Images.importIcon} style={style.pinImg} />
-          </View>
-          <View style={[style.btnContainer]}>
-            <Button
-              title="Import Wallet"
-              buttonType={ButtonType.Primary}
-              onPress={onImportWallet}
-            />
-          </View>
-        </View>
-        <View style={[style.flexRowContainer]}>
-          <View style={[style.imgContainer]}>
-            <Image source={Images.initializeIcon} style={style.pinImg} />
-          </View>
-          <View style={[style.btnContainer]}>
-            <Button
-              title="Initialization"
-              buttonType={ButtonType.Primary}
-              onPress={onSubmit}
-            />
-          </View>
-        </View>
-      </View>
-      <View style={style.info}>
-        <InfoCard showBottomIcon={false} showTopIcon>
-          {t('Initialization.InitializationInfo')}
-        </InfoCard>
-      </View>
-      <IconButton isRight={false} isDisabled={false} onPress={onBack} />
-    </View>
-  )
-}
-
-export default Initialization
+});

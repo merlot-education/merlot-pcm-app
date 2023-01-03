@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 const Images = {
   infoIcon: require('./info-icon.png'),
   termsIcon: require('./terms-icon.png'),
@@ -20,6 +19,6 @@ const Images = {
   secureImage: require('./secure-image.png'),
   scanToConnectImage: require('./scan-to-connect.png'),
   credentialListImage: require('./credentials.png'),
-}
+};
 
-export default Images
+export default Images;

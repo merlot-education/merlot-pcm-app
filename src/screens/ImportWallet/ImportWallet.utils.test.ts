@@ -1,15 +1,15 @@
-import * as Utils from './ImportWallet.utils'
+import * as Utils from './ImportWallet.utils';
 
 describe('ImportWallet.utils', () => {
   describe('storeOnboardingCompleteStage', () => {
     it('should store a value for onboarding complete stage', async () => {
-      jest.spyOn(Utils, 'storeOnboardingCompleteStage')
+      jest.spyOn(Utils, 'storeOnboardingCompleteStage');
 
-      await Utils.storeOnboardingCompleteStage()
+      await Utils.storeOnboardingCompleteStage();
 
-      expect(Utils.storeOnboardingCompleteStage).toHaveBeenCalled()
-    })
-  })
+      expect(Utils.storeOnboardingCompleteStage).toHaveBeenCalled();
+    });
+  });
 
   describe('createMD5HashFromString', () => {
     it.each([
@@ -21,9 +21,9 @@ describe('ImportWallet.utils', () => {
     ])(
       'should return a hash value for the given string',
       (initialValue, expectedValue) => {
-        const result = Utils.createMD5HashFromString(initialValue)
-        expect(result).toEqual(expectedValue)
+        const result = Utils.createMD5HashFromString(initialValue);
+        expect(result).toEqual(expectedValue);
       },
-    )
-  })
-})
+    );
+  });
+});

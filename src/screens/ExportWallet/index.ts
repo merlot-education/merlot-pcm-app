@@ -1,3 +1,3 @@
-import ExportWallet from './ExportWallet'
+import ExportWallet from './ExportWallet';
 
-export default ExportWallet
+export default ExportWallet;

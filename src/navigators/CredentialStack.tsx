@@ -1,12 +1,12 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
-import CredentialDetails from '../screens/CredentialDetails'
-import ListCredentials from '../screens/ListCredentials'
-import { CredentialStackParams, Screens } from '../types/navigators'
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import CredentialDetails from '../screens/CredentialDetails';
+import ListCredentials from '../screens/ListCredentials';
+import { CredentialStackParams, Screens } from '../types/navigators';
 
-import defaultStackOptions from './defaultStackOptions'
+import defaultStackOptions from './defaultStackOptions';
 
-const Stack = createStackNavigator<CredentialStackParams>()
+const Stack = createStackNavigator<CredentialStackParams>();
 
 const CredentialStack: React.FC = () => {
   return (
@@ -17,7 +17,7 @@ const CredentialStack: React.FC = () => {
         component={CredentialDetails}
       />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default CredentialStack
+export default CredentialStack;

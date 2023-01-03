@@ -1,16 +1,16 @@
-import React from 'react'
-import { useNavigation } from '@react-navigation/core'
-import { fireEvent, render } from '@testing-library/react-native'
-import { DidExchangeState } from '@aries-framework/core'
-import { Alert } from 'react-native'
-import { Screens } from '../../../types/navigators'
-import ContactDetails from '../ContactDetails'
-import { useConnectionById } from '../../../../__mocks__/@aries-framework/react-hooks'
-import { getMockConnection } from '../../../utils/testhelpers'
+import React from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { fireEvent, render } from '@testing-library/react-native';
+import { DidExchangeState } from '@aries-framework/core';
+import { Alert } from 'react-native';
+import { Screens } from '../../../types/navigators';
+import ContactDetails from '../ContactDetails';
+import { useConnectionById } from '../../../../__mocks__/@aries-framework/react-hooks';
+import { getMockConnection } from '../../../utils/testhelpers';
 
 describe('ContactDetails', () => {
   jest.mock('react-native', () => {
-    const RN = jest.requireActual('react-native')
+    const RN = jest.requireActual('react-native');
 
     return Object.setPrototypeOf(
       {
@@ -20,8 +20,8 @@ describe('ContactDetails', () => {
         },
       },
       RN,
-    )
-  })
+    );
+  });
 
   it('testing', () => {
     useConnectionById.mockImplementation(() =>
@@ -32,9 +32,9 @@ describe('ContactDetails', () => {
         state: DidExchangeState.Completed,
         createdAt: new Date('2022-04-29T06:36:48.244Z'),
       }),
-    )
+    );
     // Alert.alert = jest.genMockFunction();
-    Alert.alert = jest.fn()
+    Alert.alert = jest.fn();
     const { getByText, getByTestId } = render(
       <ContactDetails
         route={{
@@ -44,17 +44,17 @@ describe('ContactDetails', () => {
         }}
         navigation={useNavigation()}
       />,
-    )
-    const name = getByText('test-label')
-    const didText = getByText('SL2dA5wcdY8NEhkKwYeVNb')
-    const stateText = getByText('completed')
+    );
+    const name = getByText('test-label');
+    const didText = getByText('SL2dA5wcdY8NEhkKwYeVNb');
+    const stateText = getByText('completed');
 
-    expect(name.props.children).toBe('test-label')
-    expect(didText.props.children).toBe('SL2dA5wcdY8NEhkKwYeVNb')
-    expect(stateText.props.children).toBe('completed')
+    expect(name.props.children).toBe('test-label');
+    expect(didText.props.children).toBe('SL2dA5wcdY8NEhkKwYeVNb');
+    expect(stateText.props.children).toBe('completed');
 
-    const contactListItem = getByTestId('delete-contact')
-    fireEvent.press(contactListItem)
-    expect(Alert.alert.mock.calls.length).toBe(1)
-  })
-})
+    const contactListItem = getByTestId('delete-contact');
+    fireEvent.press(contactListItem);
+    expect(Alert.alert.mock.calls.length).toBe(1);
+  });
+});

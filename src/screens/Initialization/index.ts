@@ -1,3 +1,3 @@
-import Initialization from './Initialization'
+import Initialization from './Initialization';
 
-export default Initialization
+export default Initialization;

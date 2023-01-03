@@ -1,19 +1,20 @@
-import { CredentialExchangeRecord } from '@aries-framework/core'
-import { useNavigation } from '@react-navigation/core'
-import { StackNavigationProp } from '@react-navigation/stack'
-import React from 'react'
-import { Pressable } from 'react-native'
-import CredentialCard from '../misc/CredentialCard'
-import { CredentialStackParams, Screens } from '../../types/navigators'
+import { CredentialExchangeRecord } from '@aries-framework/core';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
+import { Pressable } from 'react-native';
+import CredentialCard from '../misc/CredentialCard';
+import { CredentialStackParams, Screens } from '../../types/navigators';
 
 interface CredentialListItemProps {
-  credential: CredentialExchangeRecord
+  credential: CredentialExchangeRecord;
 }
 
 const CredentialListItem: React.FC<CredentialListItemProps> = ({
   credential,
 }) => {
-  const navigation = useNavigation<StackNavigationProp<CredentialStackParams>>()
+  const navigation =
+    useNavigation<StackNavigationProp<CredentialStackParams>>();
 
   return (
     <Pressable
@@ -26,7 +27,7 @@ const CredentialListItem: React.FC<CredentialListItemProps> = ({
     >
       <CredentialCard credential={credential} />
     </Pressable>
-  )
-}
+  );
+};
 
-export default CredentialListItem
+export default CredentialListItem;

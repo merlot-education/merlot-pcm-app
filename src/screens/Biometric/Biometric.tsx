@@ -1,19 +1,61 @@
-import React, { useState } from 'react'
-import { StyleSheet, View, Image } from 'react-native'
-import { useTranslation } from 'react-i18next'
-import { StackScreenProps } from '@react-navigation/stack'
-
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import { InfoCard, ScreenNavigatorButtons } from '../../components'
-import { OnboardingStackParams, Screens } from '../../types/navigators'
+import React, { useState } from 'react';
+import { StyleSheet, View, Image } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { StackScreenProps } from '@react-navigation/stack';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import { InfoCard, ScreenNavigatorButtons } from '../../components';
+import { OnboardingStackParams, Screens } from '../../types/navigators';
 import {
   checkIfSensorAvailable,
   createBiometricKeys,
   showBiometricPrompt,
-} from './Biometric.utils'
-import Images from '../../assets'
+} from './Biometric.utils';
+import Images from '../../assets';
 
-type BiometricProps = StackScreenProps<OnboardingStackParams, Screens.Biometric>
+type BiometricProps = StackScreenProps<
+  OnboardingStackParams,
+  Screens.Biometric
+>;
+
+const Biometric: React.FC<BiometricProps> = ({ navigation }) => {
+  const [error, setError] = useState<string | undefined>('');
+  const { t } = useTranslation();
+
+  const biometricEnable = async () => {
+    const { available } = await checkIfSensorAvailable();
+    if (available) {
+      const { success, error } = await showBiometricPrompt();
+      if (success) {
+        await createBiometricKeys();
+        setError(t<string>('Biometric.BiometricSuccess'));
+        navigation.navigate(Screens.Initialization);
+      } else {
+        setError(error);
+      }
+    } else {
+      setError(t<string>('Biometric.BiometricNotSupport'));
+    }
+  };
+
+  const onBack = async () => {
+    navigation.navigate(Screens.CreatePin);
+  };
+
+  return (
+    <View style={[style.container]}>
+      <Image source={Images.biometricIcon} style={style.biometricIconImg} />
+      <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+        {t<string>('Biometric.BiometricInfo')}
+      </InfoCard>
+      <ScreenNavigatorButtons
+        onLeftPress={onBack}
+        onRightPress={biometricEnable}
+      />
+    </View>
+  );
+};
+
+export default Biometric;
 
 const style = StyleSheet.create({
   container: {
@@ -35,44 +77,4 @@ const style = StyleSheet.create({
     width: '40%',
     alignSelf: 'center',
   },
-})
-
-const Biometric: React.FC<BiometricProps> = ({ navigation }) => {
-  const [error, setError] = useState('')
-  const { t } = useTranslation()
-
-  const biometricEnable = async () => {
-    const { available } = await checkIfSensorAvailable()
-    if (available) {
-      const { success, error } = await showBiometricPrompt()
-      if (success) {
-        await createBiometricKeys()
-        setError(t('Biometric.BiometricSuccess'))
-        navigation.navigate(Screens.Initialization)
-      } else {
-        setError(error)
-      }
-    } else {
-      setError(t('Biometric.BiometricNotSupport'))
-    }
-  }
-
-  const onBack = async () => {
-    navigation.navigate(Screens.CreatePin)
-  }
-
-  return (
-    <View style={[style.container]}>
-      <Image source={Images.biometricIcon} style={style.biometricIconImg} />
-      <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-        {t('Biometric.BiometricInfo')}
-      </InfoCard>
-      <ScreenNavigatorButtons
-        onLeftPress={onBack}
-        onRightPress={biometricEnable}
-      />
-    </View>
-  )
-}
-
-export default Biometric
+});

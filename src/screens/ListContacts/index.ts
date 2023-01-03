@@ -1,3 +1,3 @@
-import ListContacts from './ListContacts'
+import ListContacts from './ListContacts';
 
-export default ListContacts
+export default ListContacts;

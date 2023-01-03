@@ -1,21 +1,22 @@
-import { StackScreenProps } from '@react-navigation/stack'
-import React, { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Alert, BackHandler, StyleSheet, View } from 'react-native'
-import CircularProgress from 'react-native-circular-progress-indicator'
-import { ColorPallet } from '../../theme/theme'
+import { StackScreenProps } from '@react-navigation/stack';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { Alert, BackHandler, StyleSheet, View } from 'react-native';
+import CircularProgress from 'react-native-circular-progress-indicator';
+import { ColorPallet } from '../../theme/theme';
 
-import { OnboardingStackParams, Screens } from '../../types/navigators'
+import { OnboardingStackParams, Screens } from '../../types/navigators';
 
 type SetupDelayProps = StackScreenProps<
   OnboardingStackParams,
   Screens.SetupDelay
->
+>;
 
 const SetupDelay: React.FC<SetupDelayProps> = ({ navigation }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const backAction = () => {
+    // TODO move to translations
     Alert.alert('PCM', 'Are you sure you want to exit?', [
       {
         text: 'NO',
@@ -23,16 +24,16 @@ const SetupDelay: React.FC<SetupDelayProps> = ({ navigation }) => {
         style: 'cancel',
       },
       { text: 'YES', onPress: () => BackHandler.exitApp() },
-    ])
-    return true
-  }
+    ]);
+    return true;
+  };
 
   useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backAction)
+    BackHandler.addEventListener('hardwareBackPress', backAction);
     return () => {
-      BackHandler.removeEventListener('hardwareBackPress', backAction)
-    }
-  }, [])
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -41,7 +42,7 @@ const SetupDelay: React.FC<SetupDelayProps> = ({ navigation }) => {
         radius={120}
         maxValue={40}
         initialValue={40}
-        title={t('Registration.SecondCounter')}
+        title={t<string>('Registration.SecondCounter')}
         progressValueFontSize={40}
         titleFontSize={16}
         progressValueColor={ColorPallet.brand.primary}
@@ -55,10 +56,10 @@ const SetupDelay: React.FC<SetupDelayProps> = ({ navigation }) => {
         }
       />
     </View>
-  )
-}
+  );
+};
 
-export default SetupDelay
+export default SetupDelay;
 
 const styles = StyleSheet.create({
   container: {
@@ -71,4 +72,4 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
   },
-})
+});

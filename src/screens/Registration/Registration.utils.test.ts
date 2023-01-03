@@ -1,4 +1,5 @@
-import * as Utils from './Registration.utils'
+import * as Utils from './Registration.utils';
+import { getMnemonicArrayFromWords } from '../../utils/generic';
 
 describe('Registration.utils', () => {
   describe('getMnemonicFromWords', () => {
@@ -10,11 +11,11 @@ describe('Registration.utils', () => {
     ])(
       'should return string values from list of words with provided length of Words',
       (initialValues, finalLength) => {
-        const result = Utils.getMnemonicArrayFromWords(initialValues)
-        expect(result.length).toEqual(finalLength)
+        const result = getMnemonicArrayFromWords(initialValues);
+        expect(result.length).toEqual(finalLength);
       },
-    )
-  })
+    );
+  });
 
   describe('validateEmail', () => {
     it.each([
@@ -29,30 +30,30 @@ describe('Registration.utils', () => {
     ])(
       'should check if given string is a valid email',
       (initialValue, expectedValue) => {
-        const result = Utils.validateEmail(initialValue)
-        expect(result).toEqual(expectedValue)
+        const result = Utils.validateEmail(initialValue);
+        expect(result).toEqual(expectedValue);
       },
-    )
-  })
+    );
+  });
 
   describe('saveValueInKeychain', () => {
     it('should check value is saved in the keychain', async () => {
       // Mocked function to saveValueInKeychain
-      jest.spyOn(Utils, 'saveValueInKeychain')
+      jest.spyOn(Utils, 'saveValueInKeychain');
 
       await Utils.saveValueInKeychain(
         'email',
         'kevin@gmail.com',
         'email description',
-      )
+      );
 
       expect(Utils.saveValueInKeychain).toHaveBeenCalledWith(
         'email',
         'kevin@gmail.com',
         'email description',
-      )
-    })
-  })
+      );
+    });
+  });
 
   describe('registerUser', () => {
     it('should return user response after register api call', async () => {
@@ -62,17 +63,17 @@ describe('Registration.utils', () => {
         },
         statusCode: 200,
         message: 'Success',
-      }
+      };
 
       // Mocked api call to register user
       jest
         .spyOn(Utils, 'registerUser')
-        .mockResolvedValueOnce(registerUserResponse)
+        .mockResolvedValueOnce(registerUserResponse);
 
-      const response = await Utils.registerUser('email', 'otpId')
+      const response = await Utils.registerUser('email', 'otpId');
 
-      expect(Utils.registerUser).toHaveBeenCalledWith('email', 'otpId')
-      expect(response).toStrictEqual(registerUserResponse)
-    })
-  })
-})
+      expect(Utils.registerUser).toHaveBeenCalledWith('email', 'otpId');
+      expect(response).toStrictEqual(registerUserResponse);
+    });
+  });
+});

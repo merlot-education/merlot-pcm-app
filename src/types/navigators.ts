@@ -1,5 +1,5 @@
-import { Agent } from '@aries-framework/core'
-import { NavigatorScreenParams } from '@react-navigation/core'
+import { Agent } from '@aries-framework/core';
+import { NavigatorScreenParams } from '@react-navigation/core';
 
 export enum Screens {
   Onboarding = 'Onboarding',
@@ -36,86 +36,86 @@ export enum Screens {
 }
 
 export type OnboardingStackParams = {
-  Splash: undefined
-  Onboarding: undefined
-  Terms: undefined
-  Initialization: undefined
-  Registration: { forgotPin: boolean }
+  Splash: undefined;
+  Onboarding: undefined;
+  Terms: undefined;
+  Initialization: undefined;
+  Registration: { forgotPin: boolean };
   VerifyOtp: {
-    email: string
-    forgotPin: boolean
-    otpId: string
-  }
+    email: string;
+    forgotPin: boolean;
+    otpId: string;
+  };
   CreatePin: {
-    initAgent: (email: string, walletPin: string, seed: string) => void
-    forgotPin: boolean
-    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
-  }
+    initAgent: (email: string, walletPin: string, seed: string) => void;
+    forgotPin: boolean;
+    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  };
   Biometric: {
-    initAgent?: (email: string, walletPin: string, seed: string) => void
-    forgotPin: boolean
-    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>
-  }
+    initAgent?: (email: string, walletPin: string, seed: string) => void;
+    forgotPin: boolean;
+    setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
+  };
   ImportWallet: {
-    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-    setAgent: (agent: Agent) => void
-    setActive: React.Dispatch<React.SetStateAction<boolean>>
-  }
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+    setAgent: (agent: Agent) => void;
+    setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  };
   EnterPin: {
-    initAgent: (email: string, walletPin: string, seed: string) => void
-    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  }
+    initAgent: (email: string, walletPin: string, seed: string) => void;
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  };
   CreateWallet: {
-    initAgent: (email: string, walletPin: string, seed: string) => void
-  }
+    initAgent: (email: string, walletPin: string, seed: string) => void;
+  };
   WalletInitialized: {
-    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>
-  }
-  SetupDelay: undefined
-}
+    setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  };
+  SetupDelay: undefined;
+};
 
 export type MainStackParams = {
-  TabStack: undefined
-  Home: undefined
-  Connect: undefined
-  ListContacts: undefined
-}
+  TabStack: undefined;
+  Home: undefined;
+  Connect: undefined;
+  ListContacts: undefined;
+};
 
 export type AuthenticateStackParams = {
-  'Enter Pin': { setAuthenticated: (auth: boolean) => void }
-}
+  'Enter Pin': { setAuthenticated: (auth: boolean) => void };
+};
 
 export type ContactStackParams = {
-  ListContacts: undefined
-  [Screens.ContactDetails]: { connectionId: string }
-}
+  ListContacts: undefined;
+  [Screens.ContactDetails]: { connectionId: string };
+};
 
 export type CredentialStackParams = {
-  Credentials: undefined
-  [Screens.CredentialDetails]: { credentialId: string }
-}
+  Credentials: undefined;
+  [Screens.CredentialDetails]: { credentialId: string };
+};
 
 export type HomeStackParams = {
-  Home: undefined
-  Notifications: undefined
-  CredentialOffer: { credentialId: string }
-  ProofRequest: { proofId: string }
-  ProofRequestAttributeDetails: { proofId: string; attributeName: string }
-}
+  Home: undefined;
+  Notifications: undefined;
+  CredentialOffer: { credentialId: string };
+  ProofRequest: { proofId: string };
+  ProofRequestAttributeDetails: { proofId: string; attributeName: string };
+};
 
 export type ScanStackParams = {
-  Scan: undefined
-  ConnectionInvitation: undefined
-  ListContacts: undefined
-}
+  Scan: undefined;
+  ConnectionInvitation: undefined;
+  ListContacts: undefined;
+};
 
 export type SettingStackParams = {
-  Settings: undefined
-  Language: undefined
-  ChangePin: undefined
-  ExportWallet: undefined
-  ViewMnemonic: undefined
-}
+  Settings: undefined;
+  Language: undefined;
+  ChangePin: undefined;
+  ExportWallet: undefined;
+  ViewMnemonic: undefined;
+};
 
 export enum TabStacks {
   HomeStack = 'Tab Home Stack',
@@ -126,12 +126,12 @@ export enum TabStacks {
 }
 
 export type TabStackParams = {
-  [TabStacks.HomeStack]: NavigatorScreenParams<HomeStackParams>
-  [TabStacks.ConnectionStack]: NavigatorScreenParams<ContactStackParams>
-  [TabStacks.ScanStack]: NavigatorScreenParams<ScanStackParams>
-  [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>
-  [TabStacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>
-}
+  [TabStacks.HomeStack]: NavigatorScreenParams<HomeStackParams>;
+  [TabStacks.ConnectionStack]: NavigatorScreenParams<ContactStackParams>;
+  [TabStacks.ScanStack]: NavigatorScreenParams<ScanStackParams>;
+  [TabStacks.CredentialStack]: NavigatorScreenParams<CredentialStackParams>;
+  [TabStacks.SettingsStack]: NavigatorScreenParams<SettingStackParams>;
+};
 
 export enum Stacks {
   TabStack = 'Tab Stack',

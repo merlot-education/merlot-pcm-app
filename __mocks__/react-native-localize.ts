@@ -55,6 +55,6 @@
 const findBestAvailableLanguage = () => ({
   languageTag: 'en-US',
   isRTL: false,
-})
+});
 
-export default { findBestAvailableLanguage }
+export default { findBestAvailableLanguage };

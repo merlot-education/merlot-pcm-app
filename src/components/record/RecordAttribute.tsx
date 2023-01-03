@@ -1,18 +1,55 @@
-import { CredentialPreviewAttributeOptions } from '@aries-framework/core'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { StyleSheet, Text, View } from 'react-native'
-import { ColorPallet, TextTheme } from '../../theme/theme'
+import { CredentialPreviewAttributeOptions } from '@aries-framework/core';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { ColorPallet, TextTheme } from '../../theme/theme';
 
 interface RecordAttributeProps {
-  attribute: CredentialPreviewAttributeOptions
+  attribute: CredentialPreviewAttributeOptions;
   attributeLabel?: (
     attribute: CredentialPreviewAttributeOptions,
-  ) => React.ReactElement | null
+  ) => React.ReactElement | null;
   attributeValue?: (
     attribute: CredentialPreviewAttributeOptions,
-  ) => React.ReactElement | null
+  ) => React.ReactElement | null;
 }
+
+const RecordAttribute: React.FC<RecordAttributeProps> = ({
+  attribute,
+  attributeLabel = null,
+  attributeValue = null,
+}) => {
+  const startCase = (str: string) =>
+    str
+      .split(' ')
+      .map(w => w[0].toUpperCase() + w.substring(1).toLowerCase())
+      .join(' ');
+
+  return (
+    <View style={styles.container}>
+      {attributeLabel ? (
+        attributeLabel(attribute)
+      ) : (
+        <Text style={TextTheme.label} testID="AttributeName">
+          {startCase(attribute.name)}
+        </Text>
+      )}
+      <View style={styles.valueContainer}>
+        {attributeValue ? (
+          attributeValue(attribute)
+        ) : (
+          <View style={styles.valueText}>
+            <Text style={styles.text} testID="AttributeValue">
+              {attribute.value}
+            </Text>
+          </View>
+        )}
+      </View>
+      <View style={styles.border} />
+    </View>
+  );
+};
+
+export default RecordAttribute;
 
 const styles = StyleSheet.create({
   container: {
@@ -42,43 +79,4 @@ const styles = StyleSheet.create({
     minHeight: TextTheme.normal.fontSize,
     paddingVertical: 4,
   },
-})
-
-const RecordAttribute: React.FC<RecordAttributeProps> = ({
-  attribute,
-  attributeLabel = null,
-  attributeValue = null,
-}) => {
-  const { t } = useTranslation()
-  const startCase = (str: string) =>
-    str
-      .split(' ')
-      .map(w => w[0].toUpperCase() + w.substring(1).toLowerCase())
-      .join(' ')
-
-  return (
-    <View style={styles.container}>
-      {attributeLabel ? (
-        attributeLabel(attribute)
-      ) : (
-        <Text style={TextTheme.label} testID="AttributeName">
-          {startCase(attribute.name)}
-        </Text>
-      )}
-      <View style={styles.valueContainer}>
-        {attributeValue ? (
-          attributeValue(attribute)
-        ) : (
-          <View style={styles.valueText}>
-            <Text style={styles.text} testID="AttributeValue">
-              {attribute.value}
-            </Text>
-          </View>
-        )}
-      </View>
-      <View style={styles.border} />
-    </View>
-  )
-}
-
-export default RecordAttribute
+});

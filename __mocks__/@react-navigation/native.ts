@@ -1,3 +1,3 @@
-const useFocusEffect = jest.fn()
+const useFocusEffect = jest.fn();
 
-export default { useFocusEffect }
+export default { useFocusEffect };

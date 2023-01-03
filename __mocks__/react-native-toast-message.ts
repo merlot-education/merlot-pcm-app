@@ -1,3 +1,3 @@
-const rnToastMessageModule = jest.mock('react-native-toast-message')
+const rnToastMessageModule = jest.mock('react-native-toast-message');
 
-module.exports = rnToastMessageModule
+module.exports = rnToastMessageModule;

@@ -1,19 +1,19 @@
-import { APIResponse } from '../api.types'
+import { APIResponse } from '../api.types';
 
 export interface RegisterUserRequest {
-  email: string
-  otpId: string
+  email: string;
+  otpId: string;
 }
 
 export interface RegisterUserResponse extends APIResponse {
-  data: { otpId: string }
+  data: { otpId: string };
 }
 
 export interface VerifyOtpRequest {
-  otpId: string
-  otp: number
+  otpId: string;
+  otp: number;
 }
 
 export interface VerifyOtpResponse extends APIResponse {
-  data: boolean
+  data: boolean;
 }

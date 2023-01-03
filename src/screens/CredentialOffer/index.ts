@@ -1,3 +1,3 @@
-import CredentialOffer from './CredentialOffer'
+import CredentialOffer from './CredentialOffer';
 
-export default CredentialOffer
+export default CredentialOffer;

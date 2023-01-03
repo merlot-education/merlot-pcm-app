@@ -1,14 +1,14 @@
-import { createStackNavigator } from '@react-navigation/stack'
-import React from 'react'
+import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
 
-import ListContacts from '../screens/ListContacts'
-import { ContactStackParams, Screens } from '../types/navigators'
-import ContactDetails from '../screens/ContactDetails'
+import ListContacts from '../screens/ListContacts';
+import { ContactStackParams, Screens } from '../types/navigators';
+import ContactDetails from '../screens/ContactDetails';
 
-import defaultStackOptions from './defaultStackOptions'
-import { ColorPallet } from '../theme/theme'
+import defaultStackOptions from './defaultStackOptions';
+import { ColorPallet } from '../theme/theme';
 
-const Stack = createStackNavigator<ContactStackParams>()
+const Stack = createStackNavigator<ContactStackParams>();
 
 const ContactStack: React.FC = () => {
   return (
@@ -26,7 +26,7 @@ const ContactStack: React.FC = () => {
       />
       <Stack.Screen name={Screens.ContactDetails} component={ContactDetails} />
     </Stack.Navigator>
-  )
-}
+  );
+};
 
-export default ContactStack
+export default ContactStack;

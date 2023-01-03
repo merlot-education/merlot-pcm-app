@@ -1,10 +1,10 @@
-import { AxiosInstance } from 'axios'
+import { AxiosInstance } from 'axios';
 import {
   RegisterUserRequest,
   VerifyOtpRequest,
   RegisterUserResponse,
   VerifyOtpResponse,
-} from './auth.types'
+} from './auth.types';
 
 const auth = (instance: AxiosInstance) => {
   return {
@@ -12,12 +12,12 @@ const auth = (instance: AxiosInstance) => {
       body: RegisterUserRequest,
       config = {},
     ): Promise<RegisterUserResponse> {
-      return instance.post('v1/sendOtp', body, config)
+      return instance.post('v1/sendOtp', body, config);
     },
     verifyOtp(body: VerifyOtpRequest, config = {}): Promise<VerifyOtpResponse> {
-      return instance.post('v1/verifyOtp', body, config)
+      return instance.post('v1/verifyOtp', body, config);
     },
-  }
-}
+  };
+};
 
-export default auth
+export default auth;

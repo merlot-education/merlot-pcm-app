@@ -1,48 +1,23 @@
-import { useNavigation } from '@react-navigation/core'
-import { StackNavigationProp } from '@react-navigation/stack'
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import React, { useEffect, useState, ReactNode } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useTranslation } from 'react-i18next';
+import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import Button, { ButtonType } from '../button/Button'
-import { ColorPallet, TextTheme } from '../../theme/theme'
-import { HomeStackParams, Screens } from '../../types/navigators'
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: ColorPallet.grayscale.white,
-  },
-  childContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 25,
-  },
-  buttonContainer: {
-    marginBottom: 35,
-    marginHorizontal: 20,
-  },
-  iconContainer: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-  },
-  iconButton: {
-    padding: 20,
-    paddingVertical: 28,
-  },
-})
+import Button, { ButtonType } from '../button/Button';
+import { ColorPallet, TextTheme } from '../../theme/theme';
+import { HomeStackParams, Screens } from '../../types/navigators';
 
 interface NotificationModalProps {
-  title: string
-  doneTitle?: string
-  onDone?: () => void
-  onHome?: () => void
-  visible?: boolean
-  doneHidden?: boolean
-  homeHidden?: boolean
+  title: string;
+  doneTitle?: string;
+  onDone?: () => void;
+  onHome?: () => void;
+  visible?: boolean;
+  doneHidden?: boolean;
+  homeHidden?: boolean;
+  children?: ReactNode;
 }
 
 const NotificationModal: React.FC<NotificationModalProps> = ({
@@ -55,24 +30,24 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
   homeHidden = false,
   children,
 }) => {
-  const { t } = useTranslation()
-  const navigation = useNavigation<StackNavigationProp<HomeStackParams>>()
-  const [modalVisible, setModalVisible] = useState<boolean>(true)
+  const { t } = useTranslation();
+  const navigation = useNavigation<StackNavigationProp<HomeStackParams>>();
+  const [modalVisible, setModalVisible] = useState<boolean>(true);
 
   useEffect(() => {
     if (visible !== undefined) {
-      setModalVisible(visible)
+      setModalVisible(visible);
     }
-  }, [visible])
+  }, [visible]);
 
   const close = () => {
-    setModalVisible(false)
-  }
+    setModalVisible(false);
+  };
 
   const closeHome = () => {
-    close()
-    navigation.navigate(Screens.Home)
-  }
+    close();
+    navigation.navigate(Screens.Home);
+  };
 
   return (
     <Modal testID="notificationModal" visible={modalVisible} transparent>
@@ -107,14 +82,40 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
           <View style={styles.buttonContainer}>
             <Button
               buttonType={ButtonType.Primary}
-              title={doneTitle || t('Global.Done')}
+              title={doneTitle || t<string>('Global.Done')}
               onPress={onDone || close}
             />
           </View>
         )}
       </View>
     </Modal>
-  )
-}
+  );
+};
 
-export default NotificationModal
+export default NotificationModal;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: ColorPallet.grayscale.white,
+  },
+  childContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 25,
+  },
+  buttonContainer: {
+    marginBottom: 35,
+    marginHorizontal: 20,
+  },
+  iconContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  iconButton: {
+    padding: 20,
+    paddingVertical: 28,
+  },
+});

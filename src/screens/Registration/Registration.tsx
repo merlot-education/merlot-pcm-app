@@ -1,29 +1,123 @@
-import React, { useCallback, useState } from 'react'
-import { BackHandler, StyleSheet, View, Image, Keyboard } from 'react-native'
-import { useTranslation } from 'react-i18next'
-import { StackScreenProps } from '@react-navigation/stack'
-import { useFocusEffect, useNavigation } from '@react-navigation/core'
-import { ColorPallet, TextTheme } from '../../theme/theme'
+import React, { useCallback, useState } from 'react';
+import { BackHandler, StyleSheet, View, Image, Keyboard } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { StackScreenProps } from '@react-navigation/stack';
+import { useFocusEffect, useNavigation } from '@react-navigation/core';
+import { ColorPallet, TextTheme } from '../../theme/theme';
 import {
   TextInput,
   Loader,
   InfoCard,
   ScreenNavigatorButtons,
-} from '../../components'
-import { OnboardingStackParams, Screens } from '../../types/navigators'
-import { KeychainStorageKeys } from '../../constants'
+} from '../../components';
+import { OnboardingStackParams, Screens } from '../../types/navigators';
+import { KeychainStorageKeys } from '../../constants';
 import {
   registerUser,
   restoreTermsCompleteStage,
-  saveValueInKeychain,
   validateEmail,
-} from './Registration.utils'
-import Images from '../../assets'
+} from './Registration.utils';
+import { saveValueInKeychain } from '../../utils/generic';
+import Images from '../../assets';
 
 type RegistrationProps = StackScreenProps<
   OnboardingStackParams,
   Screens.Registration
->
+>;
+
+const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const nav = useNavigation();
+  const { t } = useTranslation();
+
+  const confirmEntry = async (email: string) => {
+    if (email.length > 0) {
+      if (validateEmail(email)) {
+        await saveValueInKeychain(
+          KeychainStorageKeys.Email,
+          email,
+          t<string>('Registration.UserAuthenticationEmail'),
+        );
+        try {
+          setLoading(true);
+          const {
+            data: { otpId },
+            message,
+          } = await registerUser(email, '');
+          setLoading(false);
+          setError(message);
+          navigation.navigate(Screens.VerifyOtp, { email, otpId });
+        } catch (error: any) {
+          setLoading(false);
+          setError(error.message);
+        }
+      } else {
+        setError(t<string>('Registration.ValidEmail'));
+      }
+    } else {
+      setError(t<string>('Registration.EnterEmail'));
+    }
+  };
+
+  const onBack = async () => {
+    nav.navigate(Screens.Terms);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = async () => {
+        await restoreTermsCompleteStage();
+        nav.navigate(Screens.Terms);
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, [nav]),
+  );
+
+  return (
+    <View style={style.container}>
+      <Loader loading={loading} />
+      <View style={style.innerContainer}>
+        <TextInput
+          label={t<string>('Global.Email')}
+          placeholder={t<string>('Global.Email')}
+          placeholderTextColor={ColorPallet.brand.primary}
+          accessible
+          accessibilityLabel={t<string>('Global.Email')}
+          autoFocus
+          value={email}
+          onChangeText={setEmail}
+          keyboardType="email-address"
+          autoCapitalize="none"
+          returnKeyType="done"
+        />
+        <View style={style.imgContainer}>
+          <Image source={Images.emailIcon} style={style.emailImg} />
+        </View>
+      </View>
+      <View style={style.bottomContainer}>
+        <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
+          {t<string>('Registration.EmailInfo')}
+        </InfoCard>
+        <ScreenNavigatorButtons
+          onLeftPress={onBack}
+          onRightPress={() => {
+            Keyboard.dismiss();
+            confirmEntry(email);
+          }}
+        />
+      </View>
+    </View>
+  );
+};
+
+export default Registration;
 
 const style = StyleSheet.create({
   container: {
@@ -79,98 +173,4 @@ const style = StyleSheet.create({
     flex: 0.5,
     justifyContent: 'space-between',
   },
-})
-
-const Registration: React.FC<RegistrationProps> = ({ navigation }) => {
-  const [email, setEmail] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const nav = useNavigation()
-  const { t } = useTranslation()
-
-  const confirmEntry = async (email: string) => {
-    if (email.length > 0) {
-      if (validateEmail(email)) {
-        await saveValueInKeychain(
-          KeychainStorageKeys.Email,
-          email,
-          t('Registration.UserAuthenticationEmail'),
-        )
-        try {
-          setLoading(true)
-          const {
-            data: { otpId },
-            message,
-          } = await registerUser(email, '')
-          setLoading(false)
-          setError(message)
-          navigation.navigate(Screens.VerifyOtp, { email, otpId })
-        } catch (error) {
-          setLoading(false)
-          setError(error.message)
-        }
-      } else {
-        setError(t('Registration.ValidEmail'))
-      }
-    } else {
-      setError(t('Registration.EnterEmail'))
-    }
-  }
-
-  const onBack = async () => {
-    nav.navigate(Screens.Terms)
-  }
-
-  useFocusEffect(
-    useCallback(() => {
-      const onBackPress = async () => {
-        await restoreTermsCompleteStage()
-        nav.navigate(Screens.Terms)
-        return true
-      }
-
-      BackHandler.addEventListener('hardwareBackPress', onBackPress)
-
-      return () =>
-        BackHandler.removeEventListener('hardwareBackPress', onBackPress)
-    }, [nav]),
-  )
-
-  return (
-    <View style={style.container}>
-      <Loader loading={loading} />
-      <View style={style.innerContainer}>
-        <TextInput
-          label={t('Global.Email')}
-          placeholder={t('Global.Email')}
-          placeholderTextColor={ColorPallet.brand.primary}
-          accessible
-          accessibilityLabel={t('Global.Email')}
-          autoFocus
-          value={email}
-          onChangeText={setEmail}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          returnKeyType="done"
-        />
-        <View style={style.imgContainer}>
-          <Image source={Images.emailIcon} style={style.emailImg} />
-        </View>
-      </View>
-      <View style={style.bottomContainer}>
-        <InfoCard showBottomIcon={false} showTopIcon errorMsg={error}>
-          {t('Registration.EmailInfo')}
-        </InfoCard>
-        <ScreenNavigatorButtons
-          onLeftPress={onBack}
-          onRightPress={() => {
-            Keyboard.dismiss()
-            confirmEntry(email)
-          }}
-        />
-      </View>
-    </View>
-  )
-}
-
-export default Registration
+});
