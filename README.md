@@ -123,6 +123,9 @@ Go to path `android` and run the command
 As a result you will get apk file in `./android/app/build/outputs/apk/[production|development]`
 
 
+## Useful commends
+
+`./gradlew signingReport` - In order to find out what's wrong with apk signing you can use gradle's signingReport command.
 
 ## Latest Android version
 <hr/>

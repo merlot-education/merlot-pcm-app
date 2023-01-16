@@ -551,8 +551,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
-				DEVELOPMENT_TEAM = 8UD6K7Y37V;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = P2KF5SHM9P;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -570,7 +570,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.pcm;
 				PRODUCT_NAME = PersonalCredentialManager;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -587,8 +587,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18;
-				DEVELOPMENT_TEAM = 8UD6K7Y37V;
+				CURRENT_PROJECT_VERSION = 19;
+				DEVELOPMENT_TEAM = P2KF5SHM9P;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -606,7 +606,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.difs.pcm;
+				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.pcm;
 				PRODUCT_NAME = PersonalCredentialManager;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
