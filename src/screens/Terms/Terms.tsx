@@ -21,7 +21,7 @@ const Terms: React.FC = () => {
 
   const onSubmitPressed = async () => {
     await storeTermsCompleteStage();
-    nav.navigate(Screens.Registration, { forgotPin: false });
+    nav.navigate(Screens.CreatePin);
   };
 
   const onBack = async () => {

@@ -141,8 +141,8 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
       });
     } else {
       setLoading(true);
-      const emailEntry = (await getValueKeychain({
-        service: KeychainStorageKeys.Email,
+      const guidEntry = (await getValueKeychain({
+        service: KeychainStorageKeys.GUID,
       })) as UserCredentials;
       const keychainEntry = (await getValueKeychain({
         service: KeychainStorageKeys.Passcode,
@@ -164,16 +164,16 @@ const ImportWallet: React.FC<ImportWalletProps> = ({ navigation, route }) => {
       };
 
       const walletConfig: WalletConfig = {
-        id: emailEntry.password,
+        id: guidEntry.password,
         key: keychainEntry.password,
       };
 
-      const rawValue = emailEntry.password + mnemonic.replace(/ /g, '');
+      const rawValue = guidEntry.password + mnemonic.replace(/ /g, '');
       const seedHash = createMD5HashFromString(rawValue);
 
       const newAgent = new Agent(
         {
-          label: emailEntry.password, // added email as label
+          label: guidEntry.password, // added guid as label
           mediatorConnectionsInvite: Config.MEDIATOR_URL,
           walletConfig,
           mediatorPickupStrategy: MediatorPickupStrategy.Implicit,

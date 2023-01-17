@@ -22,7 +22,7 @@ const Splash: React.FC<SplashProps> = ({ navigation }) => {
         navigation.navigate(Screens.Terms);
         break;
       case 'termsComplete':
-        navigation.navigate(Screens.Registration, { forgotPin: false });
+        navigation.navigate(Screens.CreatePin);
         break;
       default:
         navigation.navigate(Screens.Onboarding);

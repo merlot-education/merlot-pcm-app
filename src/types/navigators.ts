@@ -4,8 +4,6 @@ import { NavigatorScreenParams } from '@react-navigation/core';
 export enum Screens {
   Onboarding = 'Onboarding',
   Terms = 'Terms',
-  Registration = 'Registration',
-  VerifyOtp = 'VerifyOtp',
   CreatePin = 'CreatePin',
   Splash = 'Splash',
   EnterPin = 'EnterPin',
@@ -40,20 +38,12 @@ export type OnboardingStackParams = {
   [Screens.Onboarding]: undefined;
   [Screens.Terms]: undefined;
   [Screens.Initialization]: undefined;
-  [Screens.Registration]: { forgotPin: boolean };
-  [Screens.VerifyOtp]: {
-    email: string;
-    forgotPin: boolean;
-    otpId: string;
-  };
   [Screens.CreatePin]: {
-    initAgent: (email: string, walletPin: string, seed: string) => void;
-    forgotPin: boolean;
+    initAgent: (guid: string, walletPin: string, seed: string) => void;
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   };
   [Screens.Biometric]: {
-    initAgent?: (email: string, walletPin: string, seed: string) => void;
-    forgotPin: boolean;
+    initAgent?: (guid: string, walletPin: string, seed: string) => void;
     setAuthenticated?: React.Dispatch<React.SetStateAction<boolean>>;
   };
   [Screens.ImportWallet]: {
@@ -62,11 +52,11 @@ export type OnboardingStackParams = {
     setActive: React.Dispatch<React.SetStateAction<boolean>>;
   };
   [Screens.EnterPin]: {
-    initAgent: (email: string, walletPin: string, seed: string) => void;
+    initAgent: (guid: string, walletPin: string, seed: string) => void;
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   };
   [Screens.CreateWallet]: {
-    initAgent: (email: string, walletPin: string, seed: string) => void;
+    initAgent: (guid: string, walletPin: string, seed: string) => void;
   };
   [Screens.WalletInitialized]: {
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
@@ -84,7 +74,7 @@ export type MainStackParams = {
 
 export type AuthenticateStackParams = {
   [Screens.EnterPin]: {
-    initAgent: (email: string, walletPin: string, seed: string) => void;
+    initAgent: (guid: string, walletPin: string, seed: string) => void;
     setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
   };
 };

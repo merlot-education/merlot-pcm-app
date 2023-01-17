@@ -1,7 +1,7 @@
 import { StackScreenProps } from '@react-navigation/stack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Image, Text, View, StyleSheet } from 'react-native';
+import { Image, Text, View, StyleSheet } from 'react-native';
 import Images from '../../assets';
 import { IconButton, InfoCard } from '../../components';
 import Button, { ButtonType } from '../../components/button/Button';
@@ -18,36 +18,9 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
   const onSubmit = async () => {
     navigation.navigate(Screens.CreateWallet);
   };
-  const showSameEmailAlert = () => {
-    Alert.alert(
-      t<string>('PinCreate.EmailConfirmation'),
-      t<string>('PinCreate.CheckEmail'),
-      [
-        {
-          text: 'Cancel',
-          onPress: () => console.log('No button clicked'),
-          style: 'cancel',
-        },
-        { text: t<string>('Global.Next'), onPress: proceedToImport },
-        {
-          text: t<string>('Global.ChangeEmail'),
-          style: 'cancel',
-          onPress: () =>
-            navigation.navigate(Screens.Registration, { forgotPin: false }),
-        },
-      ],
-      {
-        cancelable: true,
-      },
-    );
-  };
-
-  const proceedToImport = () => {
-    navigation.navigate(Screens.ImportWallet);
-  };
 
   const onImportWallet = () => {
-    showSameEmailAlert();
+    navigation.navigate(Screens.ImportWallet);
   };
 
   const onBack = () => {

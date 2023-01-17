@@ -21,7 +21,6 @@ import {
   removeOnboardingCompleteStage,
   createMD5HashFromString,
   showBiometricPrompt,
-  registerUser,
 } from './PinEnter.utils';
 import { getValueFromKeychain } from '../../utils/generic';
 import { warningToast, errorToast, successToast } from '../../utils/toast';
@@ -50,9 +49,9 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
   );
 
   const startAgent = useCallback(async () => {
-    const [email, passphrase, passcode] = (await Promise.all([
+    const [guid, passphrase, passcode] = (await Promise.all([
       new Promise(resolve => {
-        resolve(getValueFromKeychain(KeychainStorageKeys.Email));
+        resolve(getValueFromKeychain(KeychainStorageKeys.GUID));
       }),
       new Promise(resolve => {
         resolve(getValueFromKeychain(KeychainStorageKeys.Passphrase));
@@ -61,10 +60,10 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         resolve(getValueFromKeychain(KeychainStorageKeys.Passcode));
       }),
     ])) as UserCredentials[];
-    if (email && passphrase) {
-      const rawValue = email + passphrase.password.replace(/ /g, '');
+    if (guid && passphrase) {
+      const rawValue = passphrase.password.replace(/ /g, '');
       const seedHash = createMD5HashFromString(rawValue);
-      await initAgent(email.password, passcode.password, seedHash);
+      await initAgent(guid.password, passcode.password, seedHash);
     }
   }, [initAgent]);
 
@@ -105,34 +104,9 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
       setLoginAttemtsFailed(loginAttemtsFailed + 1);
       if (loginAttemtsFailed === 5) {
         Alert.alert(t<string>('Registration.RegisterAgain'));
-        navigation.navigate(Screens.EnterPin, { forgotPin: false });
+        navigation.navigate(Screens.EnterPin);
         await removeOnboardingCompleteStage();
       }
-    }
-  };
-
-  const forgotPin = async () => {
-    const [email] = (await Promise.all([
-      new Promise(resolve => {
-        resolve(getValueFromKeychain(KeychainStorageKeys.Email));
-      }),
-    ])) as UserCredentials[];
-    try {
-      setLoading(true);
-      const {
-        data: { otpId },
-        message,
-      } = await registerUser(email.password, '');
-      setLoading(false);
-      successToast(message);
-      navigation.navigate(Screens.VerifyOtp, {
-        email: email.password,
-        forgotPin: true,
-        otpId,
-      });
-    } catch (error: any) {
-      setLoading(false);
-      errorToast(error.message);
     }
   };
 
@@ -157,9 +131,6 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
           }
         }}
       />
-      <Text style={[style.bodyText, style.verticalSpacer]} onPress={forgotPin}>
-        {t<string>('Global.ForgotPin')}
-      </Text>
       <Button
         title={t<string>('Global.Submit')}
         buttonType={ButtonType.Primary}
