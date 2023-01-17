@@ -132,7 +132,7 @@ const TabStack: React.FC = () => {
             tabBarLabel: () => (
               <TabBarLabel label={t<string>('TabStack.Home')} />
             ),
-            tabBarBadge: total,
+            tabBarBadge: total > 0 ? total : undefined,
             tabBarBadgeStyle: {
               backgroundColor: ColorPallet.semantic.error,
             },
