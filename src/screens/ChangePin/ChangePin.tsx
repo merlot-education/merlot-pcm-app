@@ -25,9 +25,9 @@ const ChangePin: React.FC<ChangePinProps> = () => {
   const passcodeCreate = async (passcode: string) => {
     try {
       setLoading(true);
-      const [email, oldPasscode] = await Promise.all([
+      const [guid, oldPasscode] = await Promise.all([
         new Promise(resolve => {
-          resolve(getValueFromKeychain(KeychainStorageKeys.Email));
+          resolve(getValueFromKeychain(KeychainStorageKeys.GUID));
         }),
         new Promise(resolve => {
           resolve(getValueFromKeychain(KeychainStorageKeys.Passcode));
@@ -45,7 +45,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
       setLoading(true);
       await agent?.shutdown();
       await agent?.wallet.rotateKey({
-        id: (email as UserCredentials).password,
+        id: (guid as UserCredentials).password,
         key: (oldPasscode as UserCredentials).password,
         rekey: passcode,
       });

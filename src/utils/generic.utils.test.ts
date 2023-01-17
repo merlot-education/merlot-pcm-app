@@ -7,15 +7,15 @@ describe('ChangePin.utils', () => {
       jest.spyOn(Utils, 'saveValueInKeychain');
 
       await Utils.saveValueInKeychain(
-        'email',
+        'guid',
         'kevin@gmail.com',
-        'email description',
+        'guid description',
       );
 
       expect(Utils.saveValueInKeychain).toHaveBeenCalledWith(
-        'email',
+        'guid',
         'kevin@gmail.com',
-        'email description',
+        'guid description',
       );
     });
   });

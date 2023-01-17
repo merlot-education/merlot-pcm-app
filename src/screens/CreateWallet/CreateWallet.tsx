@@ -48,15 +48,15 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
     Clipboard.setString(mnemonicText);
   };
   const onBack = async () => {
-    navigation.navigate(Screens.Registration);
+    navigation.navigate(Screens.Terms);
   };
 
-  const startAgent = async (email: string, pin: string) => {
+  const startAgent = async (guid: string, pin: string) => {
     try {
-      const rawValue = email + mnemonicText.replace(/ /g, '');
+      const rawValue = mnemonicText.replace(/ /g, '');
       const seedHash = createMD5HashFromString(rawValue);
 
-      await initAgent(email, pin, seedHash);
+      await initAgent(guid, pin, seedHash);
       await storeOnboardingCompleteStage();
       successToast(t<string>('PinCreate.WalletCreated'));
 
@@ -69,13 +69,13 @@ const CreateWallet: React.FC<CreateWalletProps> = ({ navigation, route }) => {
 
   const createWallet = async () => {
     setLoading(true);
-    const email = (await getValueKeychain({
-      service: 'email',
+    const guid = (await getValueKeychain({
+      service: KeychainStorageKeys.GUID,
     })) as UserCredentials;
     const pinCode = (await getValueKeychain({
-      service: 'passcode',
+      service: KeychainStorageKeys.Passcode,
     })) as UserCredentials;
-    await startAgent(email.password, pinCode.password);
+    await startAgent(guid.password, pinCode.password);
     setLoading(false);
   };
 

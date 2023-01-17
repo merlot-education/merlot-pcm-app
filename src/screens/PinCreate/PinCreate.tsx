@@ -33,7 +33,7 @@ type PinCreateProps = StackScreenProps<
 >;
 
 const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
-  const { initAgent, forgotPin } = route.params;
+  const { initAgent } = route.params;
   const [pin, setPin] = useState('');
   const [pinTwo, setPinTwo] = useState('');
   const [biometricSensorAvailable, setBiometricSensorAvailable] =
@@ -54,68 +54,15 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
     checkBiometricIfPresent();
   }, [checkBiometricIfPresent]);
 
-  const startAgentForgotPin = useCallback(async () => {
-    const [email, passphrase, passcode] = (await Promise.all([
-      new Promise(resolve => {
-        resolve(getValueFromKeychain(KeychainStorageKeys.Email));
-      }),
-      new Promise(resolve => {
-        resolve(getValueFromKeychain(KeychainStorageKeys.Passphrase));
-      }),
-      new Promise(resolve => {
-        resolve(getValueFromKeychain(KeychainStorageKeys.Passcode));
-      }),
-    ])) as UserCredentials[];
-    if (email && passphrase) {
-      const rawValue = email + passphrase.password.replace(/ /g, '');
-      const seedHash = createMD5HashFromString(rawValue);
-      await initAgent(email.password, passcode.password, seedHash);
-      setLoading(false);
-    }
-  }, [initAgent]);
-
-  const forgotPinEffect = useCallback(async () => {
-    if (forgotPin) {
-      await startAgentForgotPin();
-    }
-  }, [forgotPin, startAgentForgotPin]);
-
-  useEffect(() => {
-    forgotPinEffect();
-  }, [forgotPinEffect]);
-
   const passcodeCreate = async (passcode: string) => {
     try {
-      const [email, oldPasscode] = (await Promise.all([
-        new Promise(resolve => {
-          resolve(getValueFromKeychain(KeychainStorageKeys.Email));
-        }),
-        new Promise(resolve => {
-          resolve(getValueFromKeychain(KeychainStorageKeys.Passcode));
-        }),
-        new Promise(resolve => {
-          resolve(
-            saveValueInKeychain(
-              KeychainStorageKeys.Passcode,
-              passcode,
-              t<string>('PinCreate.UserAuthenticationPin'),
-            ),
-          );
-        }),
-      ])) as UserCredentials[];
+      await saveValueInKeychain(
+        KeychainStorageKeys.Passcode,
+        passcode,
+        t<string>('PinCreate.UserAuthenticationPin'),
+      );
 
-      if (forgotPin) {
-        setLoading(true);
-        await agent?.shutdown();
-        await agent?.wallet.rotateKey({
-          id: email.password,
-          key: oldPasscode.password,
-          rekey: passcode,
-        });
-        await agent?.initialize();
-        setLoading(false);
-        navigation.navigate(Screens.EnterPin);
-      } else if (biometricSensorAvailable) {
+      if (biometricSensorAvailable) {
         navigation.navigate(Screens.Biometric);
       } else {
         navigation.navigate(Screens.Initialization);
@@ -136,25 +83,20 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
       {
         text: 'YES',
         onPress: () =>
-          navigation.navigate(Screens.Registration, { forgotPin: false }),
+          navigation.navigate(Screens.Terms),
       },
     ]);
-    return true;
-  }, [navigation]);
-
-  const backActionForgotPassword = useCallback(() => {
-    navigation.navigate(Screens.EnterPin);
     return true;
   }, [navigation]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      forgotPin ? backActionForgotPassword : backAction,
+      backAction,
     );
 
     return () => backHandler.remove();
-  }, [backAction, backActionForgotPassword, forgotPin]);
+  }, [backAction]);
 
   const confirmEntry = async (pin: string, reEnterPin: string) => {
     if (pin.length < 6) {
@@ -169,11 +111,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
   };
 
   const onBack = () => {
-    if (forgotPin) {
-      backActionForgotPassword();
-    } else {
-      backAction();
-    }
+    backAction();
   };
 
   return (

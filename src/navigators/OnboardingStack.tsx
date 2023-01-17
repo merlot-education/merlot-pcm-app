@@ -4,11 +4,9 @@ import { Agent } from '@aries-framework/core';
 import PinCreate from '../screens/PinCreate';
 import Biometric from '../screens/Biometric';
 import PinEnter from '../screens/PinEnter';
-import Registration from '../screens/Registration';
 import Splash from '../screens/Splash';
 import Terms from '../screens/Terms';
 import Onboarding from '../screens/Onboarding';
-import VerifyOtp from '../screens/VerifyOtp';
 import { ColorPallet } from '../theme/theme';
 
 import { OnboardingStackParams, Screens } from '../types/navigators';
@@ -24,7 +22,7 @@ const Stack = createStackNavigator<OnboardingStackParams>();
 
 type OnboardingStackProps = {
   setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
-  initAgent: (email: string, walletPin: string, seed: string) => void;
+  initAgent: (guid: string, walletPin: string, seed: string) => void;
   setAgent: (agent: Agent) => void;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -65,28 +63,6 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
           rightLeft: () => false,
         })}
         component={Terms}
-      />
-      <Stack.Screen
-        name={Screens.Registration}
-        component={Registration}
-        options={() => ({
-          title: 'Registration',
-          headerTintColor: ColorPallet.baseColors.white,
-          headerShown: true,
-          headerLeft: () => false,
-          rightLeft: () => false,
-        })}
-      />
-      <Stack.Screen
-        name={Screens.VerifyOtp}
-        component={VerifyOtp}
-        options={() => ({
-          title: 'OTP Verify',
-          headerTintColor: ColorPallet.baseColors.white,
-          headerShown: true,
-          headerLeft: () => false,
-          rightLeft: () => false,
-        })}
       />
       <Stack.Screen
         name={Screens.CreatePin}

@@ -53,11 +53,6 @@ const style = StyleSheet.create({
     alignSelf: 'center',
     margin: 20,
   },
-  emailImg: {
-    height: 95,
-    width: 95,
-    alignSelf: 'center',
-  },
   subcontainer: {
     alignItems: 'center',
     flex: 1,

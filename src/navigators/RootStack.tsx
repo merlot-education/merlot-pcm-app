@@ -11,6 +11,7 @@ import {
 } from '@aries-framework/core';
 import { Linking } from 'react-native';
 import Config from 'react-native-config';
+import uuid from 'react-native-uuid';
 import { agentDependencies } from '@aries-framework/react-native';
 import UserInactivity from 'react-native-user-inactivity';
 import Toast from 'react-native-toast-message';
@@ -21,6 +22,8 @@ import MainStack from './MainStack';
 import OnboardingStack from './OnboardingStack';
 import { MainStackContext } from '../utils/helpers';
 import { ToastType } from '../components/toast/BaseToast';
+import { getValueFromKeychain, saveValueInKeychain } from "../utils/generic";
+import { KeychainStorageKeys } from "../constants";
 
 interface Props {
   setAgent: (agent: Agent) => void;
@@ -28,17 +31,34 @@ interface Props {
 
 const RootStack: React.FC<Props> = ({ setAgent }) => {
   const { t } = useTranslation();
+  const [uuidInitialized, setUuidInitialized] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
   const [deepLinkUrl, setDeepLinkUrl] = useState<string | null>();
   const [active, setActive] = useState(true);
   const { agent } = useAgent();
-  const initAgent = async (email: string, walletPin: string, seed: string) => {
+
+  useEffect(() => {
+    (async () => {
+      const guid = await getValueFromKeychain(KeychainStorageKeys.GUID)
+      if (!guid) {
+        const guid = uuid.v4() as string;
+
+        await saveValueInKeychain(
+          KeychainStorageKeys.GUID,
+          guid,
+          'GUID',
+        );
+      }
+      setUuidInitialized(true);
+    })();
+  }, [])
+  const initAgent = async (guid: string, walletPin: string, seed: string) => {
     const newAgent = new Agent(
       {
-        label: email, // added email as label
+        label: guid, // added guid as label
         mediatorConnectionsInvite: Config.MEDIATOR_URL,
         mediatorPickupStrategy: MediatorPickupStrategy.Implicit,
-        walletConfig: { id: email, key: walletPin },
+        walletConfig: { id: guid, key: walletPin },
         autoAcceptConnections: true,
         publicDidSeed: seed,
         autoAcceptCredentials: AutoAcceptCredential.ContentApproved,
@@ -101,7 +121,7 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
     [setAuthenticated, deepLinkUrl, setDeepLinkUrl],
   );
 
-  return authenticated ? (
+  return authenticated && uuidInitialized ? (
     <UserInactivity
       isActive={active}
       timeForInactivity={300000}
