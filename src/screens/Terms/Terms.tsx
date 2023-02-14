@@ -1,23 +1,18 @@
-import React, { useCallback, useState } from 'react';
-import { BackHandler, StyleSheet, View, ScrollView } from 'react-native';
+import React, { useCallback } from 'react';
+import { BackHandler, StyleSheet, View } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/core';
-import { useTranslation } from 'react-i18next';
-import CheckBoxRow from '../../components/checkbox/CheckBoxRow';
-import InfoTextBox from '../../components/text/InfoTextBox';
-import { ColorPallet, TextTheme } from '../../theme/theme';
 import { Screens } from '../../types/navigators';
 import {
   storeTermsCompleteStage,
   restoreAppIntroCompleteStage,
 } from './Terms.utils';
-import { InfoCard, ScreenNavigatorButtons } from '../../components';
+import { ScreenNavigatorButtons } from '../../components';
+import LegalAndPrivacyLinks from '../../components/LegalAndPrivacyLinks';
+import { ColorPallet } from '../../theme/theme';
 
 const Terms: React.FC = () => {
-  const [checked, setChecked] = useState(false);
   const nav = useNavigation();
   let backCount = 0;
-
-  const { t } = useTranslation();
 
   const onSubmitPressed = async () => {
     await storeTermsCompleteStage();
@@ -31,7 +26,6 @@ const Terms: React.FC = () => {
   useFocusEffect(
     useCallback(() => {
       const onBackPress = async () => {
-        // eslint-disable-next-line no-plusplus
         backCount++;
         if (backCount === 1) {
           await restoreAppIntroCompleteStage();
@@ -51,25 +45,11 @@ const Terms: React.FC = () => {
   );
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <InfoTextBox showIcon>{t<string>('Terms.AcceptTerms')}</InfoTextBox>
-        <View style={styles.verticalSpacer}>
-          <InfoCard showBottomIcon>
-            {t<string>('Terms.TermsAndConditions')}
-          </InfoCard>
-        </View>
-      </ScrollView>
+      <LegalAndPrivacyLinks />
       <View style={styles.bottom}>
-        <CheckBoxRow
-          title={t<string>('Terms.Attestation')}
-          accessibilityLabel="I Agree"
-          checked={checked}
-          onPress={() => setChecked(!checked)}
-        />
         <ScreenNavigatorButtons
           onLeftPress={onBack}
           onRightPress={onSubmitPressed}
-          isRightDisabled={!checked}
         />
       </View>
     </View>
@@ -79,24 +59,10 @@ const Terms: React.FC = () => {
 export default Terms;
 
 const styles = StyleSheet.create({
-  scrollView: {
-    height: 200,
-  },
   container: {
     backgroundColor: ColorPallet.grayscale.white,
     margin: 20,
     flex: 1,
-  },
-  bodyText: {
-    ...TextTheme.normal,
-    flexShrink: 1,
-  },
-  verticalSpacer: {
-    marginVertical: 20,
-    height: 420,
-  },
-  topSpacer: {
-    paddingTop: 10,
   },
   bottom: {
     position: 'absolute',

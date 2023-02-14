@@ -7,6 +7,7 @@ import { Screens, SettingStackParams } from '../types/navigators';
 
 import defaultStackOptions from './defaultStackOptions';
 import Language from '../screens/Language';
+import LegalAndPrivacy from '../screens/LegalAndPrivacy';
 import { MainStackContext } from '../utils/helpers';
 import ViewMnemonic from '../screens/ViewMnemonic';
 
@@ -39,7 +40,17 @@ const SettingStack: React.FC<SettingStackProp> = () => {
       <Stack.Screen
         name={Screens.ChangePin}
         component={ChangePin}
-        options={{ headerShown: true }}
+        options={{
+          headerShown: true,
+          title: 'Change Pin',
+        }}
+      />
+      <Stack.Screen
+        name={Screens.LegalAndPrivacy}
+        component={LegalAndPrivacy}
+        options={{
+          title: 'Legal & Privacy',
+        }}
       />
     </Stack.Navigator>
   );

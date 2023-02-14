@@ -25,6 +25,7 @@ export enum Screens {
   ProofRequestAttributeDetails = 'ProofRequestAttributeDetails',
   ExportWallet = 'ExportWallet',
   ImportWallet = 'ImportWallet',
+  LegalAndPrivacy = 'LegalAndPrivacy',
   ContactDetails = 'ConnectionDetails',
   ViewMnemonic = 'ViewMnemonic',
   CreateWallet = 'CreateWallet',
@@ -112,6 +113,7 @@ export type SettingStackParams = {
   [Screens.ChangePin]: undefined;
   [Screens.ExportWallet]: undefined;
   [Screens.ViewMnemonic]: undefined;
+  [Screens.LegalAndPrivacy]: undefined;
 };
 
 export enum TabStacks {

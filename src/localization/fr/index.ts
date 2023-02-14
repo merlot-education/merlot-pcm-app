@@ -51,9 +51,8 @@ const translation = {
     'WalletInitialized':'Portefeuille initialisé avec succès.',
   },
   'Terms': {
-    'AcceptTerms': "Veuillez lire et accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
-    'TermsAndConditions': "Les présentes conditions générales définissent les droits et obligations de tous les utilisateurs concernant l'utilisation du service. Votre accès au service et son utilisation sont conditionnés par votre acceptation et votre respect des présentes conditions générales. Ces conditions générales s'appliquent à tous les visiteurs, utilisateurs et autres personnes qui accèdent ou utilisent le service.",
-    'Attestation': "J'ai lu, compris et accepté les termes et conditions.",
+    'AcceptTerms': 'This software is licensed as open source software under the Apache License Version 2.0 and is governed by a firm commitment to your privacy and personal data, as explained in detail in our Privacy Policy.',
+    'AcceptTermsContinue': 'Please only continue, in case you have noted and accepted the indicated documents.',
   },
   'PinCreate': {
     'UserAuthenticationPin': "NIP d'authentification de l'utilisateur",
@@ -65,6 +64,7 @@ const translation = {
     'NewPinMatchwithOld': "La nouvelle broche est identique à l'ancienne broche",
     '6DigitPin': 'Broche à 6 chiffres',
     'ReenterPin': 'Entrez à nouveau le nouveau code PIN',
+    'ReenterNewPin': 'Re-Enter the New PIN',
     'Create': 'Créer',
     'ValidOldPin': 'Veuillez saisir un ancien code PIN valide',
     'WalletCreated': 'Le portefeuille est créé avec succès',
@@ -98,6 +98,7 @@ const translation = {
     'Credential': "informations d'identification",
     'Credentials': "informations d'identification",
     'InYourWallet': 'dans votre portefeuille',
+    'CredentialCountUndefinedError':'Credential count cannot be undefined',
   },
   'PinEnter': {
     'IncorrectPin': 'Broche incorrecte',
@@ -114,6 +115,7 @@ const translation = {
     'EnterMnemonic': 'Entrez le mnémonique',
     'ValidMnemonic': 'Mnémonique valide',
     'InvalidMnemonic': 'Mnémonique invalide',
+    'LegalAndPrivacy': 'Legal & Privacy',
     'Yes': 'Oui',
     'No': 'Non',
     'ExportWallet': "Portefeuille d'exportation",
@@ -151,8 +153,6 @@ const translation = {
     'CreatedAt': 'Créé à:',
     'Version': 'Version',
     'Issued': 'Publié',
-    'PrivacyPolicy': 'Politique de confidentialité',
-    'TermsAndConditions': 'Termes et conditions',
     'RemoveFromWallet': 'Retirer du portefeuille',
   },
   'CredentialOffer': {
