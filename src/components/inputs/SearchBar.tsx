@@ -33,6 +33,7 @@ const SearchBar: React.FC<Props> = ({
           placeholder="Search"
           value={searchPhrase}
           onChangeText={setSearchPhrase}
+          placeholderTextColor={ColorPallet.grayscale.mediumGrey}
           onFocus={() => {
             setClicked(true);
           }}
@@ -91,6 +92,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     alignSelf: 'center',
     width: '90%',
+    color: ColorPallet.baseColors.black,
   },
   buttonStyle: {
     alignSelf: 'center',
