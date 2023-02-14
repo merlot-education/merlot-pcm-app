@@ -114,6 +114,7 @@ const translation = {
     'ValidMnemonic': 'Valid Mnemonic',
     'InvalidMnemonic': 'Invalid Mnemonic',
     'MnemonicMsg': 'Mnemonic can not be blank',
+    'LegalAndPrivacy': 'Legal & Privacy',
     'Yes': 'Yes',
     'No': 'No',
     'ExportWallet': 'Export Wallet',

@@ -46,6 +46,10 @@ const Settings: React.FC<SettingsProps> = ({
         title={t<string>('Settings.ExportWallet')}
         onPress={() => navigation.navigate(Screens.ExportWallet)}
       />
+      <SettingListItem
+        title={t<string>('Settings.LegalAndPrivacy')}
+        onPress={() => navigation.navigate(Screens.LegalAndPrivacy)}
+      />
       <SettingListItem title={t<string>('Settings.Logout')} onPress={logoff} />
       <Text style={styles.groupHeader}>{t<string>('Settings.AboutApp')}</Text>
       <View style={styles.rowGroup}>

@@ -42,10 +42,6 @@ const translation = {
     'French': 'Französisch',
     'German': 'Deutsch',
   },
-  'Terms': {
-    'AcceptTerms': 'This software is licensed as open source software under the Apache License Version 2.0 and is governed by a firm commitment to your privacy and personal data, as explained in detail in our Privacy Policy.',
-    'AcceptTermsContinue': 'Please only continue, in case you have noted and accepted the indicated documents.',
-  },
   'Registration':{
     'RegisterAgain': 'Bitte registrieren Sie sich erneut',
     'MnemonicMsg': 'Dieser individuelle Merksatz  ist die einzige Möglichkeit, Ihr Wallet zu exportieren und auf einem neuen Gerät zu importieren. Bitte bewahren Sie ihn daher an einem sicheren und geheimen Ort auf. Der Merksatz  ist für Sie auch später noch unter dem Menüpunkt «Einstellungen» zu finden.',
@@ -53,6 +49,10 @@ const translation = {
     'Mnemonic': 'Merksatz',
     'SecondCounter': 'Verbleibende Sekunden',
     'WalletInitialized':'Wallet erfolgreich initialisiert.',
+  },
+  'Terms': {
+    'AcceptTerms': 'This software is licensed as open source software under the Apache License Version 2.0 and is governed by a firm commitment to your privacy and personal data, as explained in detail in our Privacy Policy.',
+    'AcceptTermsContinue': 'Please only continue, in case you have noted and accepted the indicated documents.',
   },
   'PinCreate': {
     'UserAuthenticationPin': 'PIN',
@@ -98,6 +98,7 @@ const translation = {
     'Credential': 'Zugangsdaten',
     'Credentials': 'Zugangsdaten',
     'InYourWallet': 'in Ihrem Wallet',
+    'CredentialCountUndefinedError':'Credential count cannot be undefined',
   },
   'PinEnter': {
     'IncorrectPin': 'Falsche PIN',
@@ -177,6 +178,12 @@ const translation = {
     'Credentials': 'Credentials',
     'Settings': 'Einstellungen',
   },
+  'Toasts':{
+    'Success': 'Erfolg',
+    'Error': 'Fehler',
+    'Info': 'Information',
+    'Warning': 'Warnung',
+  },
   'ProofRequest': {
     'Title': '<b>{{connection}}</b> bittet Sie um einen Nachweis :',
     'OfferDelay': 'Verzögerung',
@@ -212,12 +219,6 @@ const translation = {
     },
     'ProofRequestParamsError':'Die Nachweisanforderungen wurde nicht korrekt konfiguriert',
     'FetchProofError':'Nachweis von AFJ konnte nicht abgerufen werden',
-  },
-  'Toasts':{
-    'Success': 'Erfolg',
-    'Error': 'Fehler',
-    'Info': 'Information',
-    'Warning': 'Warnung',
   },
   'Record': {
     'Hide': 'Ausblenden',

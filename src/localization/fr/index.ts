@@ -64,6 +64,7 @@ const translation = {
     'NewPinMatchwithOld': "La nouvelle broche est identique à l'ancienne broche",
     '6DigitPin': 'Broche à 6 chiffres',
     'ReenterPin': 'Entrez à nouveau le nouveau code PIN',
+    'ReenterNewPin': 'Re-Enter the New PIN',
     'Create': 'Créer',
     'ValidOldPin': 'Veuillez saisir un ancien code PIN valide',
     'WalletCreated': 'Le portefeuille est créé avec succès',
@@ -97,6 +98,7 @@ const translation = {
     'Credential': "informations d'identification",
     'Credentials': "informations d'identification",
     'InYourWallet': 'dans votre portefeuille',
+    'CredentialCountUndefinedError':'Credential count cannot be undefined',
   },
   'PinEnter': {
     'IncorrectPin': 'Broche incorrecte',
@@ -113,6 +115,7 @@ const translation = {
     'EnterMnemonic': 'Entrez le mnémonique',
     'ValidMnemonic': 'Mnémonique valide',
     'InvalidMnemonic': 'Mnémonique invalide',
+    'LegalAndPrivacy': 'Legal & Privacy',
     'Yes': 'Oui',
     'No': 'Non',
     'ExportWallet': "Portefeuille d'exportation",
