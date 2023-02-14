@@ -56,7 +56,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.Terms}
         options={() => ({
-          title: 'Terms & Conditions',
+          title: 'Legal & Privacy',
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,

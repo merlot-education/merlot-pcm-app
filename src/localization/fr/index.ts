@@ -51,9 +51,8 @@ const translation = {
     'WalletInitialized':'Portefeuille initialisé avec succès.',
   },
   'Terms': {
-    'AcceptTerms': "Veuillez lire et accepter les termes et conditions ci-dessous avant d'utiliser cette application.",
-    'TermsAndConditions': "Les présentes conditions générales définissent les droits et obligations de tous les utilisateurs concernant l'utilisation du service. Votre accès au service et son utilisation sont conditionnés par votre acceptation et votre respect des présentes conditions générales. Ces conditions générales s'appliquent à tous les visiteurs, utilisateurs et autres personnes qui accèdent ou utilisent le service.",
-    'Attestation': "J'ai lu, compris et accepté les termes et conditions.",
+    'AcceptTerms': 'This software is licensed as open source software under the Apache License Version 2.0 and is governed by a firm commitment to your privacy and personal data, as explained in detail in our Privacy Policy.',
+    'AcceptTermsContinue': 'Please only continue, in case you have noted and accepted the indicated documents.',
   },
   'PinCreate': {
     'UserAuthenticationPin': "NIP d'authentification de l'utilisateur",
@@ -151,8 +150,6 @@ const translation = {
     'CreatedAt': 'Créé à:',
     'Version': 'Version',
     'Issued': 'Publié',
-    'PrivacyPolicy': 'Politique de confidentialité',
-    'TermsAndConditions': 'Termes et conditions',
     'RemoveFromWallet': 'Retirer du portefeuille',
   },
   'CredentialOffer': {

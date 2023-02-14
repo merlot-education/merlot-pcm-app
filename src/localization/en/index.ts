@@ -50,9 +50,8 @@ const translation = {
     'WalletInitialized':'Wallet initialized successfully.',
   },
   'Terms': {
-    'AcceptTerms': 'Please read and agree to the terms and conditions below before using this application.',
-    'TermsAndConditions': 'These Terms and Conditions set out the rights and obligations of all users regarding the use of the Service. Your access to and use of the Service is conditioned on Your acceptance of and compliance with these Terms and Conditions. These Terms and Conditions apply to all visitors, users and others who access or use the Service.',
-    'Attestation': 'I, have read, understand and accept the terms and conditions.',
+    'AcceptTerms': 'This software is licensed as open source software under the Apache License Version 2.0 and is governed by a firm commitment to your privacy and personal data, as explained in detail in our Privacy Policy.',
+    'AcceptTermsContinue': 'Please only continue, in case you have noted and accepted the indicated documents.',
   },
   'PinCreate': {
     'UserAuthenticationPin': 'User authentication pin',
@@ -152,8 +151,6 @@ const translation = {
     'CreatedAt': 'Created At:',
     'Version': 'Version',
     'Issued': 'Issued',
-    'PrivacyPolicy': 'Privacy policy',
-    'TermsAndConditions': 'Terms and conditions',
     'RemoveFromWallet': 'Remove from wallet',
   },
   'CredentialOffer': {
