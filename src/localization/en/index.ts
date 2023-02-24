@@ -119,6 +119,9 @@ const translation = {
     'No': 'No',
     'ExportWallet': 'Export Wallet',
     'ViewMnemonic': 'View Mnemonic',
+    'RemoveDataTitle': 'Delete account',
+    'RemoveDataButton': 'Remove All Data',
+    'RemoveDataMsg': 'You are going to remove the wallet from your phone. The added connections and credentials will be removed from the app. Are you sure to continue?',
   },
   'ExportWallet':{
     'WalletExportedPath': 'Wallet Exported to the path:',

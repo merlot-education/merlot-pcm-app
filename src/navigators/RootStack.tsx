@@ -39,19 +39,15 @@ const RootStack: React.FC<Props> = ({ setAgent }) => {
 
   useEffect(() => {
     (async () => {
-      const guid = await getValueFromKeychain(KeychainStorageKeys.GUID)
+      const guid = await getValueFromKeychain(KeychainStorageKeys.GUID);
       if (!guid) {
         const guid = uuid.v4() as string;
 
-        await saveValueInKeychain(
-          KeychainStorageKeys.GUID,
-          guid,
-          'GUID',
-        );
+        await saveValueInKeychain(KeychainStorageKeys.GUID, guid, 'GUID');
       }
       setUuidInitialized(true);
     })();
-  }, [])
+  }, [authenticated]);
   const initAgent = async (guid: string, walletPin: string, seed: string) => {
     const newAgent = new Agent(
       {
