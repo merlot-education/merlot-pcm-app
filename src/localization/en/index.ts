@@ -50,7 +50,7 @@ const translation = {
     'WalletInitialized':'Wallet initialized successfully.',
   },
   'Terms': {
-    'AcceptTerms': 'This software is licensed as open source software under the Apache License Version 2.0 and is governed by a firm commitment to your privacy and personal data, as explained in detail in our Privacy Policy.',
+    'AcceptTerms': 'This software is licensed as open source software under the <apachelink>Apache License Version 2.0</apachelink> and is governed by a firm commitment to your privacy and personal data, as explained in detail in our <privacylink>Privacy Policy</privacylink>.',
     'AcceptTermsContinue': 'Please only continue, in case you have noted and accepted the indicated documents.',
   },
   'PinCreate': {

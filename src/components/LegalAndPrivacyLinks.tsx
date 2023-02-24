@@ -1,31 +1,47 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { StyleSheet, View, Text } from 'react-native';
+import { Trans, useTranslation } from 'react-i18next';
+import { StyleSheet, View, Text, Linking } from 'react-native';
 import { ColorPallet, TextTheme } from '../theme/theme';
-import OpenURLButton from './links/OpenUrlButton';
 
 const LegalAndPrivacyLinks = () => {
   const { t } = useTranslation();
+  const openLink = (url: string) => {
+    Linking.canOpenURL(url).then(supported => {
+      if (supported) {
+        Linking.openURL(url);
+      } else {
+        console.log("Don't know how to open URI: " + url);
+      }
+    });
+  };
   return (
     <View>
       <View style={styles.acceptTerms}>
-        <Text style={styles.termsText}>{t<string>('Terms.AcceptTerms')}</Text>
+        <Text style={styles.termsText}>
+          <Trans
+            i18nKey="Terms.AcceptTerms"
+            components={{
+              apachelink: (
+                <Text
+                  onPress={() => openLink('https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app/-/blob/main/LICENSE')}
+                  style={styles.linkText}
+                />
+              ),
+              privacylink: (
+                <Text
+                  onPress={() => openLink('https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app/-/blob/main/GDPR.md')}
+                  style={styles.linkText}
+                />
+              ),
+            }}
+          />
+        </Text>
       </View>
       <View style={styles.acceptTermsContinue}>
         <Text style={styles.termsText}>
           {t<string>('Terms.AcceptTermsContinue')}
         </Text>
       </View>
-      <OpenURLButton url="https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app/-/blob/main/GDPR.md">
-        <View style={styles.link}>
-          <Text style={styles.linkText}>Privacy Policy</Text>
-        </View>
-      </OpenURLButton>
-      <OpenURLButton url="https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app/-/blob/main/LICENSE">
-        <View style={styles.link}>
-          <Text style={styles.linkText}>Apache License Version 2.0</Text>
-        </View>
-      </OpenURLButton>
     </View>
   );
 };
@@ -45,6 +61,7 @@ const styles = StyleSheet.create({
   termsText: {
     ...TextTheme.normal,
     fontWeight: 'bold',
+    textAlign: 'justify',
   },
   link: {
     marginVertical: 14,
