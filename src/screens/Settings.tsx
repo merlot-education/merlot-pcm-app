@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet, View, Alert } from 'react-native';
+import {StyleSheet, View, Alert, TouchableOpacity, ScrollView} from 'react-native';
 import { getVersion, getBuildNumber } from 'react-native-device-info';
 import { borderRadius, ColorPallet, TextTheme } from '../theme/theme';
 import { Screens, SettingStackParams } from '../types/navigators';
-import { SettingListItem, Text } from '../components';
+import {Loader, SettingListItem, Text} from '../components';
+import Keychain from "react-native-keychain";
+import {Agent} from "@aries-framework/core";
+import {useAgent} from "@aries-framework/react-hooks";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 type SettingsProps = {
   navigation: StackScreenProps<SettingStackParams, Screens.Settings>;
@@ -17,6 +21,9 @@ const Settings: React.FC<SettingsProps> = ({
   setAuthenticated,
 }) => {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(false);
+  const { agent: agentUndefined } = useAgent();
+  const agent = agentUndefined as Agent;
   const logoff = () =>
     Alert.alert(t<string>('Settings.Logout'), t<string>('Settings.LogoutMsg'), [
       {
@@ -25,8 +32,40 @@ const Settings: React.FC<SettingsProps> = ({
       },
       { text: t<string>('Settings.No') },
     ]);
+
+  const clearData = async () => {
+    try {
+      setLoading(true);
+      await agent.wallet.delete();
+      await agent.shutdown();
+      await AsyncStorage.clear();
+      const services = await Keychain.getAllGenericPasswordServices();
+      for (let i = 0; i < services.length; i++) {
+        await Keychain.resetGenericPassword({
+          service: services[i],
+        });
+      }
+      setAuthenticated(false);
+    } catch (e: any) {
+      Alert.alert(e.message);
+    }
+    setLoading(false);
+  };
+
+  const removeAllData = () => {
+    Alert.alert(t<string>('Settings.RemoveDataButton'), t<string>('Settings.RemoveDataMsg'), [
+        {
+          text: t<string>('Settings.Yes'),
+          onPress: clearData,
+        },
+        { text: t<string>('Settings.No') },
+      ]
+    );
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <Loader loading={loading} />
       <Text style={styles.groupHeader}>
         {t<string>('Settings.AppPreferences')}
       </Text>
@@ -60,7 +99,13 @@ const Settings: React.FC<SettingsProps> = ({
           >{`${getVersion()}.${getBuildNumber()}`}</Text>
         </View>
       </View>
-    </View>
+      <Text style={styles.removeDataTitle}>{t<string>('Settings.RemoveDataTitle')}</Text>
+      <TouchableOpacity style={styles.deleteBtn} onPress={removeAllData}>
+        <Text style={styles.deleteBtnText}>
+          {t<string>('Settings.RemoveDataButton')}
+        </Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
@@ -90,5 +135,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 12,
+  },
+  removeDataTitle: {
+    ...TextTheme.normal,
+    marginBottom: 16,
+    marginTop: 64,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  deleteBtn: {
+    borderRadius: borderRadius,
+    backgroundColor: ColorPallet.semantic.error,
+    marginBottom: 60,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 12,
+    paddingBottom: 12,
+  },
+  deleteBtnText: {
+    ...TextTheme.normal,
+    flexShrink: 1,
+    color: ColorPallet.baseColors.white,
+    fontWeight: 'bold',
   },
 });
