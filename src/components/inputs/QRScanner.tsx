@@ -15,15 +15,15 @@ import {
   Pressable,
   Keyboard,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Camera, useCameraDevices } from 'react-native-vision-camera';
-import { useScanBarcodes, BarcodeFormat } from 'vision-camera-code-scanner';
-import AntDesign from 'react-native-vector-icons/AntDesign';
-import QRScannerClose from '../misc/QRScannerClose';
-import QRScannerTorch from '../misc/QRScannerTorch';
+// import Icon from 'react-native-vector-icons/MaterialIcons';
+// import { Camera, useCameraDevices } from 'react-native-vision-camera';
+// import { useScanBarcodes, BarcodeFormat } from 'vision-camera-code-scanner';
+// import AntDesign from 'react-native-vector-icons/AntDesign';
+// import QRScannerClose from '../misc/QRScannerClose';
+// import QRScannerTorch from '../misc/QRScannerTorch';
 import QrCodeScanError from '../../types/error';
 import { ColorPallet } from '../../theme/theme';
-import useKeyboard from '../../utils/keyboard';
+// import useKeyboard from '../../utils/keyboard';
 
 interface Props {
   handleCodeScan: (data: string) => Promise<void>;
@@ -58,152 +58,152 @@ const QRScanner: React.FC<Props> = ({
   onChangeText,
   textInputSubmit,
 }) => {
-  const navigation = useNavigation();
-  const [cameraActive, setCameraActive] = useState(true);
-  const [torchActive, setTorchActive] = useState(false);
-  const [invalidQrCodes] = useState(() => new Set<string>());
-
-  const { keyboardHeight, isKeyBoardOpen } = useKeyboard();
-
-  const { width, height } = useWindowDimensions();
-  const portraitMode = height > width;
-  const { t } = useTranslation();
-
-  const [hasPermission, setHasPermission] = React.useState(false);
-  const devices = useCameraDevices();
-  const device = devices.back;
-
-  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
-    checkInverted: true,
-  });
-
-  React.useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      setHasPermission(status === 'authorized');
-    })();
-  }, []);
-
-  useEffect(() => {
-    if (barcodes.length === 0 || !barcodes[0].rawValue) {
-      return;
-    }
-
-    const data = barcodes[0].rawValue;
-
-    if (invalidQrCodes.has(data)) {
-      return;
-    }
-    if (error?.data === data) {
-      invalidQrCodes.add(error.data);
-      if (enableCameraOnError) {
-        setCameraActive(true);
-      }
-    }
-    if (cameraActive) {
-      Vibration.vibrate();
-      handleCodeScan(data);
-      setCameraActive(false);
-    }
-  }, [
-    invalidQrCodes,
-    barcodes,
-    enableCameraOnError,
-    cameraActive,
-    error,
-    handleCodeScan,
-  ]);
-
-  if (!hasPermission || device == null) {
-    return null;
-  }
-
-  return (
-    <Pressable
-      onPress={() => Keyboard.dismiss()}
-      style={styles.container}
-      testID="QRScannerTest"
-    >
-      <Camera
-        style={styles.container}
-        device={device}
-        isActive={true}
-        frameProcessor={frameProcessor}
-        frameProcessorFps={5}
-        torch={torchActive ? 'on' : 'off'}
-        audio={false}
-        // TODO
-        // androidCameraPermissionOptions={{
-        //   title: t<string>('QRScanner.PermissionToUseCamera'),
-        //   message: t<string>('QRScanner.PermissionMessage'),
-        //   buttonPositive: t<string>('Global.Okay'),
-        //   buttonNegative: t<string>('Global.Cancel'),
-        // }}
-      />
-      <CameraViewContainer portrait={portraitMode}>
-        <View style={styles.actionsView}>
-          <QRScannerTorch
-            active={torchActive}
-            onPress={() => setTorchActive(!torchActive)}
-          />
-          <QRScannerClose onPress={() => navigation.goBack()} />
-        </View>
-        <View style={styles.scanTextView}>
-          <Text style={styles.scanText}>
-            {t<string>('QRScanner.ScanMessage')}
-          </Text>
-          <Text style={styles.scanText}>
-            {t<string>('QRScanner.VerifyMessage')}
-          </Text>
-        </View>
-        {error && (
-          <View style={styles.errorContainer}>
-            <Icon style={styles.icon} name="cancel" size={30} />
-            <Text>{error.message}</Text>
-          </View>
-        )}
-        <View style={styles.viewFinderContainer}>
-          <View style={styles.viewFinder} />
-        </View>
-      </CameraViewContainer>
-      <View
-        style={[
-          styles.bottomView,
-          {
-            marginTop:
-              Platform.OS === 'ios' && isKeyBoardOpen
-                ? -keyboardHeight - 80
-                : -80,
-          },
-        ]}
-      >
-        <KeyboardAvoidingView
-          behavior="padding"
-          keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
-          enabled={Platform.OS === 'ios'}
-          style={styles.rowTextInputView}
-        >
-          <TextInput
-            style={styles.textInputStyle}
-            placeholder="url"
-            value={url}
-            onChangeText={onChangeText}
-            placeholderTextColor={ColorPallet.baseColors.black}
-          />
-          <TouchableOpacity
-            onPress={textInputSubmit}
-            style={styles.submitIconStyle}
-          >
-            <AntDesign
-              name="right"
-              color={ColorPallet.baseColors.black}
-              size={Platform.OS === 'ios' ? height / 30 : height / 28}
-            />
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
-      </View>
-    </Pressable>
-  );
+  // const navigation = useNavigation();
+  // const [cameraActive, setCameraActive] = useState(true);
+  // const [torchActive, setTorchActive] = useState(false);
+  // const [invalidQrCodes] = useState(() => new Set<string>());
+  //
+  // const { keyboardHeight, isKeyBoardOpen } = useKeyboard();
+  //
+  // const { width, height } = useWindowDimensions();
+  // const portraitMode = height > width;
+  // const { t } = useTranslation();
+  //
+  // const [hasPermission, setHasPermission] = React.useState(false);
+  // const devices = useCameraDevices();
+  // const device = devices.back;
+  //
+  // const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+  //   checkInverted: true,
+  // });
+  //
+  // React.useEffect(() => {
+  //   (async () => {
+  //     const status = await Camera.requestCameraPermission();
+  //     setHasPermission(status === 'authorized');
+  //   })();
+  // }, []);
+  //
+  // useEffect(() => {
+  //   if (barcodes.length === 0 || !barcodes[0].rawValue) {
+  //     return;
+  //   }
+  //
+  //   const data = barcodes[0].rawValue;
+  //
+  //   if (invalidQrCodes.has(data)) {
+  //     return;
+  //   }
+  //   if (error?.data === data) {
+  //     invalidQrCodes.add(error.data);
+  //     if (enableCameraOnError) {
+  //       setCameraActive(true);
+  //     }
+  //   }
+  //   if (cameraActive) {
+  //     Vibration.vibrate();
+  //     handleCodeScan(data);
+  //     setCameraActive(false);
+  //   }
+  // }, [
+  //   invalidQrCodes,
+  //   barcodes,
+  //   enableCameraOnError,
+  //   cameraActive,
+  //   error,
+  //   handleCodeScan,
+  // ]);
+  //
+  // if (!hasPermission || device == null) {
+  //   return null;
+  // }
+  //
+  // return (
+  //   <Pressable
+  //     onPress={() => Keyboard.dismiss()}
+  //     style={styles.container}
+  //     testID="QRScannerTest"
+  //   >
+  //     <Camera
+  //       style={styles.container}
+  //       device={device}
+  //       isActive={true}
+  //       frameProcessor={frameProcessor}
+  //       frameProcessorFps={5}
+  //       torch={torchActive ? 'on' : 'off'}
+  //       audio={false}
+  //       // TODO
+  //       // androidCameraPermissionOptions={{
+  //       //   title: t<string>('QRScanner.PermissionToUseCamera'),
+  //       //   message: t<string>('QRScanner.PermissionMessage'),
+  //       //   buttonPositive: t<string>('Global.Okay'),
+  //       //   buttonNegative: t<string>('Global.Cancel'),
+  //       // }}
+  //     />
+  //     <CameraViewContainer portrait={portraitMode}>
+  //       <View style={styles.actionsView}>
+  //         <QRScannerTorch
+  //           active={torchActive}
+  //           onPress={() => setTorchActive(!torchActive)}
+  //         />
+  //         <QRScannerClose onPress={() => navigation.goBack()} />
+  //       </View>
+  //       <View style={styles.scanTextView}>
+  //         <Text style={styles.scanText}>
+  //           {t<string>('QRScanner.ScanMessage')}
+  //         </Text>
+  //         <Text style={styles.scanText}>
+  //           {t<string>('QRScanner.VerifyMessage')}
+  //         </Text>
+  //       </View>
+  //       {error && (
+  //         <View style={styles.errorContainer}>
+  //           <Icon style={styles.icon} name="cancel" size={30} />
+  //           <Text>{error.message}</Text>
+  //         </View>
+  //       )}
+  //       <View style={styles.viewFinderContainer}>
+  //         <View style={styles.viewFinder} />
+  //       </View>
+  //     </CameraViewContainer>
+  //     <View
+  //       style={[
+  //         styles.bottomView,
+  //         {
+  //           marginTop:
+  //             Platform.OS === 'ios' && isKeyBoardOpen
+  //               ? -keyboardHeight - 80
+  //               : -80,
+  //         },
+  //       ]}
+  //     >
+  //       <KeyboardAvoidingView
+  //         behavior="padding"
+  //         keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+  //         enabled={Platform.OS === 'ios'}
+  //         style={styles.rowTextInputView}
+  //       >
+  //         <TextInput
+  //           style={styles.textInputStyle}
+  //           placeholder="url"
+  //           value={url}
+  //           onChangeText={onChangeText}
+  //           placeholderTextColor={ColorPallet.baseColors.black}
+  //         />
+  //         <TouchableOpacity
+  //           onPress={textInputSubmit}
+  //           style={styles.submitIconStyle}
+  //         >
+  //           <AntDesign
+  //             name="right"
+  //             color={ColorPallet.baseColors.black}
+  //             size={Platform.OS === 'ios' ? height / 30 : height / 28}
+  //           />
+  //         </TouchableOpacity>
+  //       </KeyboardAvoidingView>
+  //     </View>
+  //   </Pressable>
+  // );
 };
 
 export default QRScanner;

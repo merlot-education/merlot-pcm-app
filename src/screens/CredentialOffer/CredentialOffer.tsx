@@ -144,8 +144,8 @@ const CredentialOffer: React.FC<CredentialOfferProps> = ({
 
   const handleDeclinePress = async () => {
     Alert.alert(
-      t<string>('CredentialOffer.RejectThisCredential?'),
-      t<string>('Global.ThisDecisionCannotBeChanged.'),
+      t<string>('CredentialOffer.RejectThisCredential'),
+      t<string>('Global.ThisDecisionCannotBeChanged'),
       [
         { text: t<string>('Global.Cancel'), style: 'cancel' },
         {
