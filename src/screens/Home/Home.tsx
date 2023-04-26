@@ -30,7 +30,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     ...useCredentialByState(CredentialState.Done),
   ];
   const emptyListComponent = () => (
-    <View style={{ marginHorizontal: offset, width: width - 2 * offset }}>
+    <View style={{ marginTop: 24, marginHorizontal: offset, width: width - 2 * offset }}>
       <InfoTextBox showIcon>
         <Text style={TextTheme.normal}>{t<string>('Home.NoNewUpdates')}</Text>
       </InfoTextBox>
@@ -88,10 +88,12 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
   return (
     <View>
       <View style={styles.rowContainer}>
-        <Text style={[TextTheme.headingFour, styles.header]}>
-          {t<string>('Home.Notifications')}
-          {notifications.length ? ` (${notifications.length})` : ''}
-        </Text>
+        {notifications.length > 0 && (
+          <Text style={[TextTheme.headingFour, styles.header]}>
+            {t<string>('Home.Notifications')}
+            {notifications.length ? ` (${notifications.length})` : ''}
+          </Text>
+        )}
         {notifications?.length > 1 ? (
           <TouchableOpacity
             style={styles.linkContainer}
@@ -169,7 +171,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 35,
-    marginHorizontal: 60,
+    marginHorizontal: 20,
   },
   header: {
     marginTop: offset,

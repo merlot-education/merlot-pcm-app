@@ -122,7 +122,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
           <View style={{ width: '70%' }}>
             <TextInput
               label={t<string>('Global.EnterPin')}
-              placeholder={t<string>('Global.6DigitPin')}
+              placeholder={t<string>('Global.SixDigitPin')}
               placeholderTextColor={ColorPallet.baseColors.lightGrey}
               accessible
               accessibilityLabel={t<string>('Global.EnterPin')}
@@ -138,7 +138,7 @@ const PinCreate: React.FC<PinCreateProps> = ({ navigation, route }) => {
               label={t<string>('PinCreate.ReenterPin')}
               accessible
               accessibilityLabel={t<string>('PinCreate.ReenterPin')}
-              placeholder={t<string>('Global.6DigitPin')}
+              placeholder={t<string>('Global.SixDigitPin')}
               placeholderTextColor={ColorPallet.baseColors.lightGrey}
               maxLength={6}
               secureTextEntry

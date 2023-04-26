@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* PersonalCredentialManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* PersonalCredentialManagerTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-PersonalCredentialManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-PersonalCredentialManager.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		187EB63322A7D47D73A8922F /* Pods_PersonalCredentialManager_PersonalCredentialManagerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A7F946000EAD9A5E633A0B /* Pods_PersonalCredentialManager_PersonalCredentialManagerTests.framework */; };
 		45C868E35EB249A298F128C4 /* TitilliumWeb-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 34AF55BBFD0A4B44AB7DBE8B /* TitilliumWeb-Regular.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */; };
+		4BBAC69AF6BEA057D2317C70 /* Pods_PersonalCredentialManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFB060D60804F98D0E0A4CB /* Pods_PersonalCredentialManager.framework */; };
 		7BA9C4503A9B4E6D8132A42C /* antoutline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1035D30535C64F25B3B6EF5A /* antoutline.ttf */; };
 		7D1BB02F91E54B0297C6C67D /* TitilliumWeb-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF7CF2CD60574ADD8E0AFAD9 /* TitilliumWeb-SemiBold.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -45,9 +45,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PersonalCredentialManager/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PersonalCredentialManager/main.m; sourceTree = "<group>"; };
 		186C1DA476994FEBB2A0FB48 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C10BC92F9394E6486AF27F0 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		22925182963E43AABAFC6DE1 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		24A7F946000EAD9A5E633A0B /* Pods_PersonalCredentialManager_PersonalCredentialManagerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PersonalCredentialManager_PersonalCredentialManagerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34AF55BBFD0A4B44AB7DBE8B /* TitilliumWeb-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "TitilliumWeb-Regular.ttf"; path = "../src/assets/fonts/TitilliumWeb-Regular.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-PersonalCredentialManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager.debug.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager/Pods-PersonalCredentialManager.debug.xcconfig"; sourceTree = "<group>"; };
 		3CF1B5970F764466AA5B532C /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
@@ -55,11 +55,11 @@
 		56C06A0D868D49B28D5EE2DB /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-PersonalCredentialManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager.release.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager/Pods-PersonalCredentialManager.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager-PersonalCredentialManagerTests/Pods-PersonalCredentialManager-PersonalCredentialManagerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-PersonalCredentialManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PersonalCredentialManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PersonalCredentialManager/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig"; path = "Target Support Files/Pods-PersonalCredentialManager-PersonalCredentialManagerTests/Pods-PersonalCredentialManager-PersonalCredentialManagerTests.release.xcconfig"; sourceTree = "<group>"; };
 		A20DE76CC5794D40B00346D9 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		A78E245B6B044A8193B781D6 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		ACFB060D60804F98D0E0A4CB /* Pods_PersonalCredentialManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PersonalCredentialManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B472E6D57FD947A8A95A3D9A /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		B490EA60295A4303AC328F11 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		B511E1FF35794D8384EEB91B /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -79,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a in Frameworks */,
+				187EB63322A7D47D73A8922F /* Pods_PersonalCredentialManager_PersonalCredentialManagerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE5B187A27BB9E9700E39BA4 /* Indy.framework in Frameworks */,
-				0C80B921A6F3F58F76C31292 /* libPods-PersonalCredentialManager.a in Frameworks */,
+				4BBAC69AF6BEA057D2317C70 /* Pods_PersonalCredentialManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,8 +130,8 @@
 			children = (
 				FE5B187927BB9E9700E39BA4 /* Indy.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-PersonalCredentialManager.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-PersonalCredentialManager-PersonalCredentialManagerTests.a */,
+				ACFB060D60804F98D0E0A4CB /* Pods_PersonalCredentialManager.framework */,
+				24A7F946000EAD9A5E633A0B /* Pods_PersonalCredentialManager_PersonalCredentialManagerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -551,7 +551,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = P2KF5SHM9P;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -588,7 +588,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 25;
 				DEVELOPMENT_TEAM = P2KF5SHM9P;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

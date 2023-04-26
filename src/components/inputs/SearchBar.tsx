@@ -1,6 +1,7 @@
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { StyleSheet, View, Keyboard, Button, TextInput } from 'react-native';
+import { useTranslation } from "react-i18next";
 import { ColorPallet } from '../../theme/theme';
 
 interface Props {
@@ -16,6 +17,7 @@ const SearchBar: React.FC<Props> = ({
   setSearchPhrase,
   setClicked,
 }) => {
+  const { t } = useTranslation();
   return (
     <View style={styles.container}>
       <View style={clicked ? styles.searchBarClicked : styles.searchBar}>
@@ -30,7 +32,7 @@ const SearchBar: React.FC<Props> = ({
         <TextInput
           style={styles.input}
           returnKeyType="done"
-          placeholder="Search"
+          placeholder={t<string>('SearchBar.placeholder')}
           value={searchPhrase}
           onChangeText={setSearchPhrase}
           placeholderTextColor={ColorPallet.grayscale.mediumGrey}

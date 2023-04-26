@@ -79,7 +79,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
     } else if (passcode.password !== oldPin) {
       warningToast(t<string>('PinCreate.ValidOldPin'));
     } else if (newPin === oldPin) {
-      warningToast(t<string>('PinCreate.NewPinMatchwithOld'));
+      warningToast(t<string>('PinCreate.NewPinMatchWithOld'));
     } else {
       passcodeCreate(newPin);
     }
@@ -91,7 +91,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
 
       <TextInput
         label={t<string>('Global.OldPin')}
-        placeholder={t<string>('Global.6DigitPin')}
+        placeholder={t<string>('Global.SixDigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         accessible
         accessibilityLabel={t<string>('Global.OldPin')}
@@ -107,7 +107,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         label={t<string>('Global.EnterNewPin')}
         accessible
         accessibilityLabel={t<string>('Global.EnterNewPin')}
-        placeholder={t<string>('Global.6DigitPin')}
+        placeholder={t<string>('Global.SixDigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry
@@ -122,7 +122,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         label={t<string>('PinCreate.ReenterNewPin')}
         accessible
         accessibilityLabel={t<string>('PinCreate.ReenterNewPin')}
-        placeholder={t<string>('Global.6DigitPin')}
+        placeholder={t<string>('Global.SixDigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         secureTextEntry
@@ -137,7 +137,7 @@ const ChangePin: React.FC<ChangePinProps> = () => {
         }}
       />
       <Button
-        title="Change PIN"
+        title={t<string>('PinCreate.ChangePin')}
         buttonType={ButtonType.Primary}
         onPress={() => {
           Keyboard.dismiss();
