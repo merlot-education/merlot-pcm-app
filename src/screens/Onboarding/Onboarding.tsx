@@ -23,30 +23,30 @@ interface ISlide {
   image: ImageSourcePropType;
 }
 
-const slides: ISlide[] = [
-  {
-    key: 1,
-    title: 'Credentials List',
-    text: 'Get the list of issued credentials',
-    image: Images.credentialListImage,
-  },
-  {
-    key: 2,
-    title: 'Scan to connect',
-    text: 'Scan QR to connect to organizations',
-    image: Images.scanToConnectImage,
-  },
-  {
-    key: 3,
-    title: 'Secure Storage',
-    text: 'Store your credentials securely in wallet',
-    image: Images.secureImage,
-  },
-];
-
 const Onboarding: React.FC = () => {
   const navigation = useNavigation();
   const { t } = useTranslation();
+
+  const slides: ISlide[] = [
+    {
+      key: 1,
+      title: t<string>('Onboarding.Slide1Title'),
+      text: t<string>('Onboarding.Slide1Text'),
+      image: Images.credentialListImage,
+    },
+    {
+      key: 2,
+      title: t<string>('Onboarding.Slide2Title'),
+      text: t<string>('Onboarding.Slide2Text'),
+      image: Images.scanToConnectImage,
+    },
+    {
+      key: 3,
+      title: t<string>('Onboarding.Slide3Title'),
+      text: t<string>('Onboarding.Slide3Text'),
+      image: Images.secureImage,
+    },
+  ];
 
   const renderItem = ({ item }: { item: ISlide }) => {
     return (

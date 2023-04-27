@@ -18,9 +18,12 @@ const SearchBar: React.FC<Props> = ({
   setClicked,
 }) => {
   const { t } = useTranslation();
+
+  const showCancel = clicked && searchPhrase.length > 0;
+
   return (
     <View style={styles.container}>
-      <View style={clicked ? styles.searchBarClicked : styles.searchBar}>
+      <View style={showCancel ? styles.searchBarClicked : styles.searchBar}>
         {/* search Icon */}
         <Icon
           name="search"
@@ -42,10 +45,10 @@ const SearchBar: React.FC<Props> = ({
         />
       </View>
       {/* cancel button, depending on whether the search bar is clicked or not */}
-      {clicked && (
+      {showCancel && (
         <View style={styles.buttonStyle}>
           <Button
-            title="Cancel"
+            title={t<string>('Global.Cancel')}
             color={ColorPallet.brand.secondary}
             onPress={() => {
               Keyboard.dismiss();

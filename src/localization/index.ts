@@ -56,7 +56,7 @@ if (
 }
 i18n.use(initReactI18next).init({
   debug: true,
-  lng: translationToUse,
+  lng: 'de',
   fallbackLng: defaultLanguage,
   resources,
 });

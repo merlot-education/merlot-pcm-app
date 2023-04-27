@@ -85,6 +85,8 @@ const translation = {
   Initialization:{
     CompleteInitialization:"Terminer l'initialisation",
     InitializationInfo:"Initialiser le nouveau portefeuille ou importer l'ancien portefeuille",
+    ImportWalletBtn: 'Import Wallet',
+    InitializationBtn: 'Initialization',
   },
   Mnemonic:{
     MnemonicTitle:'Ci-dessous le mnémonique pour les futures références',
@@ -237,12 +239,20 @@ const translation = {
     NotBlankURL: 'Veuillez entrer lURL',
     InvalidQrCode:'QrCode invalide',
   },
+  Onboarding: {
+    Slide1Title: 'Credentials List',
+    Slide1Text: 'Get the list of issued credentials',
+    Slide2Title: 'Scan to connect',
+    Slide2Text: 'Scan QR to connect to organizations',
+    Slide3Title: 'Secure Storage',
+    Slide3Text: 'Store your credentials securely in wallet',
+  },
   ScreenTitles: {
     Onboarding: 'App Introduction',
     LegalAndPrivacy: 'Legal & Privacy',
     CreatePin: 'PIN setup',
     Biometric: 'Biometric',
-    Initialization: 'Intialize Wallet',
+    Initialization: 'Initialize Wallet',
     SetupDelay: 'Initializing Wallet',
     WalletInitialized: 'Wallet Initialized',
     EnterPin: 'Login',
