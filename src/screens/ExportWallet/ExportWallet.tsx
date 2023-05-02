@@ -159,7 +159,7 @@ const ExportWallet = () => {
     <View style={style.container}>
       <Loader loading={loading} />
       <TextInput
-        label={t<string>('Settings.EnterMnemonic')}
+        label=""
         placeholder={t<string>('Settings.EnterMnemonic')}
         placeholderTextColor={ColorPallet.brand.primary}
         accessible

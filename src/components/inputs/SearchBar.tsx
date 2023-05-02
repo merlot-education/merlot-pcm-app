@@ -1,6 +1,7 @@
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import React from 'react';
 import { StyleSheet, View, Keyboard, Button, TextInput } from 'react-native';
+import { useTranslation } from "react-i18next";
 import { ColorPallet } from '../../theme/theme';
 
 interface Props {
@@ -16,9 +17,13 @@ const SearchBar: React.FC<Props> = ({
   setSearchPhrase,
   setClicked,
 }) => {
+  const { t } = useTranslation();
+
+  const showCancel = clicked && searchPhrase.length > 0;
+
   return (
     <View style={styles.container}>
-      <View style={clicked ? styles.searchBarClicked : styles.searchBar}>
+      <View style={showCancel ? styles.searchBarClicked : styles.searchBar}>
         {/* search Icon */}
         <Icon
           name="search"
@@ -30,7 +35,7 @@ const SearchBar: React.FC<Props> = ({
         <TextInput
           style={styles.input}
           returnKeyType="done"
-          placeholder="Search"
+          placeholder={t<string>('SearchBar.placeholder')}
           value={searchPhrase}
           onChangeText={setSearchPhrase}
           placeholderTextColor={ColorPallet.grayscale.mediumGrey}
@@ -40,10 +45,10 @@ const SearchBar: React.FC<Props> = ({
         />
       </View>
       {/* cancel button, depending on whether the search bar is clicked or not */}
-      {clicked && (
+      {showCancel && (
         <View style={styles.buttonStyle}>
           <Button
-            title="Cancel"
+            title={t<string>('Global.Cancel')}
             color={ColorPallet.brand.secondary}
             onPress={() => {
               Keyboard.dismiss();

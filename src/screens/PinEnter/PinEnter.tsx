@@ -77,9 +77,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         setLoading(false);
         setAuthenticated(true);
       } else if (error) {
-        warningToast(error);
-      } else {
-        warningToast(t<string>('Biometric.BiometricCancle'));
+        warningToast(t<string>('Biometric.BiometricCancel'));
       }
     }
   }, [setAuthenticated, startAgent, t]);
@@ -117,7 +115,7 @@ const PinEnter: React.FC<PinEnterProps> = ({ navigation, route }) => {
         label={t<string>('Global.EnterPin')}
         accessible
         accessibilityLabel={t<string>('Global.EnterPin')}
-        placeholder={t<string>('Global.6DigitPin')}
+        placeholder={t<string>('Global.SixDigitPin')}
         placeholderTextColor={ColorPallet.baseColors.lightGrey}
         maxLength={6}
         keyboardType="numeric"

@@ -27,10 +27,10 @@ const Settings: React.FC<SettingsProps> = ({
   const logoff = () =>
     Alert.alert(t<string>('Settings.Logout'), t<string>('Settings.LogoutMsg'), [
       {
-        text: t<string>('Settings.Yes'),
+        text: t<string>('Global.Yes'),
         onPress: () => setAuthenticated(false),
       },
-      { text: t<string>('Settings.No') },
+      { text: t<string>('Global.No') },
     ]);
 
   const clearData = async () => {
@@ -55,10 +55,10 @@ const Settings: React.FC<SettingsProps> = ({
   const removeAllData = () => {
     Alert.alert(t<string>('Settings.RemoveDataButton'), t<string>('Settings.RemoveDataMsg'), [
         {
-          text: t<string>('Settings.Yes'),
+          text: t<string>('Global.Yes'),
           onPress: clearData,
         },
-        { text: t<string>('Settings.No') },
+        { text: t<string>('Global.No') },
       ]
     );
   };

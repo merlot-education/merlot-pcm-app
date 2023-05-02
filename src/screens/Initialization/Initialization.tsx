@@ -40,7 +40,7 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
           </View>
           <View style={[style.btnContainer]}>
             <Button
-              title="Import Wallet"
+              title={t<string>('Initialization.ImportWalletBtn')}
               buttonType={ButtonType.Primary}
               onPress={onImportWallet}
             />
@@ -52,7 +52,7 @@ const Initialization: React.FC<InitializationProps> = ({ navigation }) => {
           </View>
           <View style={[style.btnContainer]}>
             <Button
-              title="Initialization"
+              title={t<string>('Initialization.InitializationBtn')}
               buttonType={ButtonType.Primary}
               onPress={onSubmit}
             />

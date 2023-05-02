@@ -426,8 +426,8 @@ const ProofRequest: React.FC<ProofRequestProps> = ({ navigation, route }) => {
 
   const handleDeclinePress = async () => {
     Alert.alert(
-      t<string>('ProofRequest.RejectThisProof?'),
-      t<string>('Global.ThisDecisionCannotBeChanged.'),
+      t<string>('ProofRequest.RejectThisProof'),
+      t<string>('Global.ThisDecisionCannotBeChanged'),
       [
         { text: t<string>('Global.Cancel'), style: 'cancel' },
         {

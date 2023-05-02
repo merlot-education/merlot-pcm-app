@@ -1,6 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import { Agent } from '@aries-framework/core';
+import { useTranslation } from 'react-i18next';
 import PinCreate from '../screens/PinCreate';
 import Biometric from '../screens/Biometric';
 import PinEnter from '../screens/PinEnter';
@@ -33,6 +34,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
   setAgent,
   setActive,
 }) => {
+  const { t } = useTranslation();
   return (
     <Stack.Navigator
       initialRouteName={Screens.Splash}
@@ -45,7 +47,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.Onboarding}
         options={() => ({
-          title: 'App Introduction',
+          title: t<string>('ScreenTitles.Onboarding'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -56,7 +58,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
       <Stack.Screen
         name={Screens.Terms}
         options={() => ({
-          title: 'Legal & Privacy',
+          title: t<string>('ScreenTitles.LegalAndPrivacy'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -69,7 +71,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={PinCreate}
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
-          title: 'PIN Setup',
+          title: t<string>('ScreenTitles.CreatePin'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -81,7 +83,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={Biometric}
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
-          title: 'Biometric',
+          title: t<string>('ScreenTitles.Biometric'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -92,7 +94,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.Initialization}
         component={Initialization}
         options={() => ({
-          title: 'Intialize wallet',
+          title: t<string>('ScreenTitles.Initialization'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -104,7 +106,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={CreateWallet}
         initialParams={{ initAgent }}
         options={() => ({
-          title: 'Intialize wallet',
+          title: t<string>('ScreenTitles.Initialization'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -116,7 +118,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={WalletInitialized}
         initialParams={{ setAuthenticated }}
         options={() => ({
-          title: 'Registration ',
+          title: t<string>('ScreenTitles.WalletInitialized'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -128,7 +130,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={ImportWallet}
         initialParams={{ setAuthenticated, setAgent, setActive }}
         options={() => ({
-          title: 'Import Wallet',
+          title: t<string>('ScreenTitles.ImportWallet'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
         })}
@@ -138,7 +140,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         component={PinEnter}
         initialParams={{ initAgent, setAuthenticated }}
         options={() => ({
-          title: 'Login',
+          title: t<string>('ScreenTitles.EnterPin'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
@@ -149,7 +151,7 @@ const OnboardingStack: React.FC<OnboardingStackProps> = ({
         name={Screens.SetupDelay}
         component={SetupDelay}
         options={() => ({
-          title: 'Initializing Wallet',
+          title: t<string>('ScreenTitles.SetupDelay'),
           headerTintColor: ColorPallet.baseColors.white,
           headerShown: true,
           headerLeft: () => false,
