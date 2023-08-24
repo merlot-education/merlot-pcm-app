@@ -23,13 +23,13 @@ const LegalAndPrivacyLinks = () => {
             components={{
               apachelink: (
                 <Text
-                  onPress={() => openLink('https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app/-/blob/main/LICENSE')}
+                  onPress={() => openLink('https://gitlab.eclipse.org/eclipse/xfsc/pcm/app/-/blob/main/LICENSE')}
                   style={styles.linkText}
                 />
               ),
               privacylink: (
                 <Text
-                  onPress={() => openLink('https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app/-/blob/main/GDPR.md')}
+                  onPress={() => openLink('https://gitlab.eclipse.org/eclipse/xfsc/pcm/app/-/blob/main/GDPR.md')}
                   style={styles.linkText}
                 />
               ),

@@ -21,7 +21,7 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
    - (iOS) Install [Cocoa Pods](https://cocoapods.org/)
 2. Clone the PCM repo and install its dependencies:
    ```sh
-   git clone https://gitlab.com/gaia-x/data-infrastructure-federation-services/pcm/app.git
+   git clone https://gitlab.eclipse.org/eclipse/xfsc/pcm/app.git
    yarn install
    ```
 3. (iOS) iOS specific install:
@@ -37,7 +37,6 @@ iOS targets iOS 10.0+.PCM can only be run on physical devices as of right now.
 ## Configure
 
 In the root directory add an `.env.development` file containing:
-NOTIFICATION_URL=http:www.example.com/notification_manager
 MEDIATOR_URL=https://www.example.com/mediator
 
 

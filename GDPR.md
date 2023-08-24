@@ -5,7 +5,7 @@
 We, the eco – Association of the Internet Industry, Lichtstrasse 43h, 50825 Cologne, Germany (hereinafter
 referred to as “eco”), take the protection of your personal data very seriously, and we strictly comply with the
 regulations of the data protection statutes. The following declaration provides you with an overview of how
-we ensure this protection. In particular, we would like to explain to you – as a user of our GXFS Personal
+we ensure this protection. In particular, we would like to explain to you – as a user of our XFSC Personal
 Credential Manger – which types of data we gather, why we collect these types of data, how we use this
 data, and how you at any and all times can determine how your personal data is treated.
 Under the General Data Protection Regulation (GDPR), you have various rights which you can assert in
@@ -15,16 +15,16 @@ time. The contact details can be found below.
 
 ## II. Overview and Summary
 
-The “GXFS Personal Credential Manager”, (hereinafter: “GXFS PCM”) is provided to you free of charge and
-under the open source license Apache 2.0. Simply put, this GXFS PCM will enabled you with the capability
+The “XFSC Personal Credential Manager”, (hereinafter: “XFSC PCM”) is provided to you free of charge and
+under the open source license Apache 2.0. Simply put, this XFSC PCM will enabled you with the capability
 to receive and send “Verifiable Credentials” (hereinafter “VCs”). What exactly is contained and required by
 such VCs is defined by the company, institution or other individual that is sending you an individual VC
 (hereinafter “Issuer”).
 
-The GXFS PCM is provided to you following a strong privacy by design concept. Consequently, your user
+The XFSC PCM is provided to you following a strong privacy by design concept. Consequently, your user
 data is stored on your user device in an encrypted form and is share exclusively with individual Issuers, you
 yourself decide to interact with.
-In case you choose to use the GXFS PCM, all communication data will be encrypted locally on your device
+In case you choose to use the XFSC PCM, all communication data will be encrypted locally on your device
 and send with the help of an SSI Mediator. This SSI Mediator will erase your fully encrypted communication
 data as soon as it has been safely transferred.
 
@@ -59,7 +59,7 @@ the data, until the defined Expiration Date is due.
 ### 2. Your DID
 A unique “Decentralised Identifier” (hereinafter. “DID”) will be assigned to you, which from a user
 perspective you may think of as your SSI equivalent of an IP address. Your DID will remain in place, as long
-as you choose to use your individual GXFS PCM.
+as you choose to use your individual XFSC PCM.
 
 ### 3. SSI Mediator - Communication Layer
 In case you choose to reply to requests as issued by individual Issuers (like eco), the provided data will be
