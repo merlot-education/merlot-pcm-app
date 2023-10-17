@@ -122,6 +122,24 @@ Go to path `android` and run the command
 As a result you will get apk file in `./android/app/build/outputs/apk/[production|development]`
 
 
+## How to prepare next application android release
+
+Put correct password for android upload key in the file `android/gradle.properties` for `MYAPP_UPLOAD_STORE_PASSWORD` and `MYAPP_UPLOAD_KEY_PASSWORD`
+
+Run command in root folder of app project
+
+```sh
+npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+```
+
+Go to path `android` and run the command
+
+```sh
+./gradlew bundleRelease
+```
+
+After that you will find `app-release.aab` file in `./android/app/build/outputs/bundle/release` folder
+
 ## Useful commends
 
 `./gradlew signingReport` - In order to find out what's wrong with apk signing you can use gradle's signingReport command.
