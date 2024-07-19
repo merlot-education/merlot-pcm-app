@@ -559,7 +559,7 @@
 					"$(PROJECT_DIR)/Pods/Frameworks",
 				);
 				INFOPLIST_FILE = PersonalCredentialManager/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "XFSC PCM";
+				INFOPLIST_KEY_CFBundleDisplayName = "MERLOT PCM";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -572,7 +572,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.pcm;
-				PRODUCT_NAME = "XFSC PCM";
+				PRODUCT_NAME = "MERLOT PCM";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -596,7 +596,7 @@
 					"$(PROJECT_DIR)/Pods/Frameworks",
 				);
 				INFOPLIST_FILE = PersonalCredentialManager/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "XFSC PCM";
+				INFOPLIST_KEY_CFBundleDisplayName = "MERLOT PCM";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -609,7 +609,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = eu.gaiax.pcm;
-				PRODUCT_NAME = "XFSC PCM";
+				PRODUCT_NAME = "MERLOT PCM";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
